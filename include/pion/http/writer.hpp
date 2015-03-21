@@ -1,0 +1,383 @@
+// ---------------------------------------------------------------------
+// pion:  a Boost C++ framework for building lightweight HTTP interfaces
+// ---------------------------------------------------------------------
+// Copyright (C) 2007-2014 Splunk Inc.  (https://github.com/splunk/pion)
+//
+// Distributed under the Boost Software License, Version 1.0.
+// See http://www.boost.org/LICENSE_1_0.txt
+//
+
+#ifndef __PION_HTTP_WRITER_HEADER__
+#define __PION_HTTP_WRITER_HEADER__
+
+#include <vector>
+#include <list>
+#include <string>
+#include <memory>
+#include <functional>
+#include "asio.hpp"
+#include <pion/noncopyable.hpp>
+#include <pion/config.hpp>
+#include <pion/logger.hpp>
+#include <pion/tcp/connection.hpp>
+#include <pion/http/message.hpp>
+
+
+namespace pion {    // begin namespace pion
+namespace http {    // begin namespace http
+
+
+///
+/// writer: used to asynchronously send HTTP messages
+/// 
+class PION_API writer :
+    private pion::noncopyable
+{
+protected:
+    
+    /// function called after the HTTP message has been sent
+    typedef std::function<void(const asio::error_code&)> finished_handler_t;
+
+    /// data type for a function that handles write operations
+    typedef std::function<void(const asio::error_code&,std::size_t)> write_handler_t;
+    
+    
+    /**
+     * protected constructor: only derived classes may create objects
+     * 
+     * @param tcp_conn TCP connection used to send the message
+     * @param handler function called after the request has been sent
+     */
+    writer(tcp::connection_ptr& tcp_conn, finished_handler_t handler)
+        : m_logger(PION_GET_LOGGER("pion.http.writer")),
+        m_tcp_conn(tcp_conn), m_content_length(0), m_stream_is_empty(true), 
+        m_client_supports_chunks(true), m_sending_chunks(false),
+        m_sent_headers(false), m_finished(handler)
+    {}
+    
+    /**
+     * called after the message is sent
+     * 
+     * @param write_error error status from the last write operation
+     * @param bytes_written number of bytes sent by the last write operation
+     */
+    virtual void handle_write(const asio::error_code& write_error,
+                              std::size_t bytes_written) = 0;
+
+    
+    /**
+     * initializes a vector of write buffers with the HTTP message information
+     *
+     * @param write_buffers vector of write buffers to initialize
+     */
+    virtual void prepare_buffers_for_send(http::message::write_buffers_t& write_buffers) = 0;
+                                      
+    /// returns a function bound to writer::handle_write()
+    virtual write_handler_t bind_to_write_handler(void) = 0;
+    
+    /// called after we have finished sending the HTTP message
+    inline void finished_writing(const asio::error_code& ec) {
+        if (m_finished) m_finished(ec);
+    }
+    
+    
+public:
+
+    /// default destructor
+    virtual ~writer() {}
+
+    /// clears out all of the memory buffers used to cache payload content data
+    inline void clear(void) {
+        m_content_buffers.clear();
+        m_binary_cache.clear();
+        m_text_cache.clear();
+        m_content_stream.str("");
+        m_stream_is_empty = true;
+        m_content_length = 0;
+    }
+
+    /**
+     * write text (non-binary) payload content
+     *
+     * @param data the data to append to the payload content
+     */
+    template <typename T>
+    inline void write(const T& data) {
+        m_content_stream << data;
+        if (m_stream_is_empty) m_stream_is_empty = false;
+    }
+
+    inline void write(std::ostream& (*iomanip)(std::ostream&)) {
+        m_content_stream << iomanip;
+        if (m_stream_is_empty) m_stream_is_empty = false;
+    }
+
+    /**
+     * write binary payload content
+     *
+     * @param data points to the binary data to append to the payload content
+     * @param length the length, in bytes, of the binary data
+     */
+    inline void write(const void *data, size_t length) {
+        if (length != 0) {
+            flush_content_stream();
+            m_content_buffers.push_back(m_binary_cache.add(data, length));
+            m_content_length += length;
+        }
+    }
+    
+    /**
+     * write text (non-binary) payload content; the data written is not
+     * copied, and therefore must persist until the message has finished
+     * sending
+     *
+     * @param data the data to append to the payload content
+     */
+    inline void write_no_copy(const std::string& data) {
+        if (! data.empty()) {
+            flush_content_stream();
+            m_content_buffers.push_back(asio::buffer(data));
+            m_content_length += data.size();
+        }
+    }
+    
+    /**
+     * write binary payload content;  the data written is not copied, and
+     * therefore must persist until the message has finished sending
+     *
+     * @param data points to the binary data to append to the payload content
+     * @param length the length, in bytes, of the binary data
+     */
+    inline void write_no_copy(void *data, size_t length) {
+        if (length > 0) {
+            flush_content_stream();
+            m_content_buffers.push_back(asio::buffer(data, length));
+            m_content_length += length;
+        }
+    }
+
+    
+    /**
+     * Sends all data buffered as a single HTTP message (without chunking).
+     * Following a call to this function, it is not thread safe to use your
+     * reference to the writer object.
+     */
+    inline void send(void) {
+        send_more_data(false, bind_to_write_handler());
+    }
+    
+    /**
+     * Sends all data buffered as a single HTTP message (without chunking).
+     * Following a call to this function, it is not thread safe to use your
+     * reference to the writer object until the send_handler has been called.
+     *
+     * @param send_handler function that is called after the message has been
+     *                     sent to the client.  Your callback function must end
+     *                     the connection by calling connection::finish().
+     */
+    template <typename SendHandler>
+    inline void send(SendHandler send_handler) {
+        send_more_data(false, send_handler);
+    }
+    
+    /**
+     * Sends all data buffered as a single HTTP chunk.  Following a call to this
+     * function, it is not thread safe to use your reference to the writer
+     * object until the send_handler has been called.
+     * 
+     * @param send_handler function that is called after the chunk has been sent
+     *                     to the client.  Your callback function must end by
+     *                     calling one of send_chunk() or send_final_chunk().  Also,
+     *                     be sure to clear() the writer before writing data to it.
+     */
+    template <typename SendHandler>
+    inline void send_chunk(SendHandler send_handler) {
+        m_sending_chunks = true;
+        if (!supports_chunked_messages()) {
+            // sending data in chunks, but the client does not support chunking;
+            // make sure that the connection will be closed when we are all done
+            m_tcp_conn->set_lifecycle(tcp::connection::LIFECYCLE_CLOSE);
+        }
+        // send more data
+        send_more_data(false, send_handler);
+    }
+
+    /**
+     * Sends all data buffered (if any) and also sends the final HTTP chunk.
+     * This function (either overloaded version) must be called following any 
+     * calls to send_chunk().
+     * Following a call to this function, it is not thread safe to use your
+     * reference to the writer object until the send_handler has been called.
+     *
+     * @param send_handler function that is called after the message has been
+     *                     sent to the client.  Your callback function must end
+     *                     the connection by calling connection::finish().
+     */ 
+    template <typename SendHandler>
+    inline void send_final_chunk(SendHandler send_handler) {
+        m_sending_chunks = true;
+        send_more_data(true, send_handler);
+    }
+    
+    /**
+     * Sends all data buffered (if any) and also sends the final HTTP chunk.
+     * This function (either overloaded version) must be called following any 
+     * calls to send_chunk().
+     * Following a call to this function, it is not thread safe to use your
+     * reference to the writer object.
+     */ 
+    inline void send_final_chunk(void) {
+        m_sending_chunks = true;
+        send_more_data(true, bind_to_write_handler());
+    }
+    
+    
+    /// returns a shared pointer to the TCP connection
+    inline tcp::connection_ptr& get_connection(void) { return m_tcp_conn; }
+
+    /// returns the length of the payload content (in bytes)
+    inline size_t get_content_length(void) const { return m_content_length; }
+
+    /// sets whether or not the client supports chunked messages
+    inline void supports_chunked_messages(bool b) { m_client_supports_chunks = b; }
+    
+    /// returns true if the client supports chunked messages
+    inline bool supports_chunked_messages() const { return m_client_supports_chunks; }
+
+    /// returns true if we are sending a chunked message to the client
+    inline bool sending_chunked_message() const { return m_sending_chunks; }
+    
+    /// sets the logger to be used
+    inline void set_logger(logger log_ptr) { m_logger = log_ptr; }
+    
+    /// returns the logger currently in use
+    inline logger get_logger(void) { return m_logger; }
+
+    
+private:
+
+    /**
+     * sends all of the buffered data to the client
+     *
+     * @param send_final_chunk true if the final 0-byte chunk should be included
+     * @param send_handler function called after the data has been sent
+     */
+    template <typename SendHandler>
+    inline void send_more_data(const bool send_final_chunk, SendHandler send_handler)
+    {
+        // make sure that we did not lose the TCP connection
+        if (m_tcp_conn->is_open()) {
+            // make sure that the content-length is up-to-date
+            flush_content_stream();
+            // prepare the write buffers to be sent
+            http::message::write_buffers_t write_buffers;
+            prepare_write_buffers(write_buffers, send_final_chunk);
+            // send data in the write buffers
+            m_tcp_conn->async_write(write_buffers, send_handler);
+        } else {
+            finished_writing(asio::error::connection_reset);
+        }
+    }
+    
+    /**
+     * prepares write_buffers for next send operation
+     *
+     * @param write_buffers buffers to which data will be appended
+     * @param send_final_chunk true if the final 0-byte chunk should be included
+     */
+    void prepare_write_buffers(http::message::write_buffers_t &write_buffers,
+                               const bool send_final_chunk);
+    
+    /// flushes any text data in the content stream after caching it in the text_cache_t
+    inline void flush_content_stream(void) {
+        if (! m_stream_is_empty) {
+            std::string string_to_add(m_content_stream.str());
+            if (! string_to_add.empty()) {
+                m_content_stream.str("");
+                m_content_length += string_to_add.size();
+                m_text_cache.push_back(string_to_add);
+                m_content_buffers.push_back(asio::buffer(m_text_cache.back()));
+            }
+            m_stream_is_empty = true;
+        }
+    }
+    
+    
+    /// used to cache binary data included within the payload content
+    class binary_cache_t : public std::vector<std::pair<const char *, size_t> > {
+    public:
+        ~binary_cache_t() {
+            for (iterator i=begin(); i!=end(); ++i) {
+                delete[] i->first;
+            }
+        }
+        inline asio::const_buffer add(const void *ptr, const size_t size) {
+            char *data_ptr = new char[size];
+            memcpy(data_ptr, ptr, size);
+            push_back( std::make_pair(data_ptr, size) );
+            return asio::buffer(data_ptr, size);
+        }
+    };
+    
+    /// used to cache text (non-binary) data included within the payload content
+    typedef std::list<std::string>          text_cache_t;
+
+    
+    /// primary logging interface used by this class
+    logger                                  m_logger;
+
+    /// The HTTP connection that we are writing the message to
+    tcp::connection_ptr                     m_tcp_conn;
+    
+    /// I/O write buffers that wrap the payload content to be written
+    http::message::write_buffers_t          m_content_buffers;
+    
+    /// caches binary data included within the payload content
+    binary_cache_t                          m_binary_cache;
+
+    /// caches text (non-binary) data included within the payload content
+    text_cache_t                            m_text_cache;
+    
+    /// incrementally creates strings of text data for the text_cache_t
+    std::ostringstream                      m_content_stream;
+    
+    /// The length (in bytes) of the response content to be sent (Content-Length)
+    size_t                                  m_content_length;
+
+    /// true if the content_stream is empty (avoids unnecessary string copies)
+    bool                                    m_stream_is_empty;
+    
+    /// true if the HTTP client supports chunked transfer encodings
+    bool                                    m_client_supports_chunks;
+    
+    /// true if data is being sent to the client using multiple chunks
+    bool                                    m_sending_chunks;
+    
+    /// true if the HTTP message headers have already been sent
+    bool                                    m_sent_headers;
+
+    /// function called after the HTTP message has been sent
+    finished_handler_t                      m_finished;
+};
+
+
+/// data type for a writer pointer
+typedef std::shared_ptr<writer>   writer_ptr;
+
+
+/// override operator<< for convenience
+template <typename T>
+inline const writer_ptr& operator<<(const writer_ptr& writer, const T& data) {
+    writer->write(data);
+    return writer;
+}
+
+inline const writer_ptr& operator<<(const writer_ptr& writer, std::ostream& (*iomanip)(std::ostream&)) {
+    writer->write(iomanip);
+    return writer;
+}
+
+}   // end namespace http
+}   // end namespace pion
+
+#endif
