@@ -119,6 +119,7 @@ public:
 {
 #ifndef PION_HAVE_SSL
         (void) ssl_flag;
+        (void) m_ssl_context;
 #endif            
         save_read_pos(NULL, NULL);
     }
@@ -329,6 +330,8 @@ public:
 #ifdef PION_HAVE_SSL
         m_ssl_socket.async_handshake(asio::ssl::stream_base::client, handler);
         m_ssl_flag = true;
+#else
+        (void) handler;
 #endif
     }
 
@@ -344,6 +347,8 @@ public:
 #ifdef PION_HAVE_SSL
         m_ssl_socket.async_handshake(asio::ssl::stream_base::server, handler);
         m_ssl_flag = true;
+#else
+        (void) handler;
 #endif
     }
     
