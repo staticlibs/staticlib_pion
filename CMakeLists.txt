@@ -19,6 +19,13 @@ set ( ${PROJECT_NAME}_INCLUDES
 set ( ${PROJECT_NAME}_DEFINITIONS
         -DASIO_STANDALONE
         -DASIO_HAS_STD_CHRONO )
+if ( STATICLIB_TOOLCHAIN MATCHES "windows_[^_]+_msvc" )    
+    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS}
+            -D_CRT_SECURE_NO_WARNINGS
+            -D_WIN32_WINNT=0x0501 
+            -DPION_CMAKE_BUILD
+            -DPION_STATIC_LINKING )
+endif ( )
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE ${${PROJECT_NAME}_INCLUDES} )
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_DEFINITIONS} )
 
