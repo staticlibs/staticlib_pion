@@ -34,18 +34,6 @@
 #define PION_HAVE_UNORDERED_MAP 1
 
 // -----------------------------------------------------------------------
-// Logging Options
-//
-// At most one of the logging options below should be defined.  If none of 
-// them are defined, std::cout and std::cerr will be used for logging.
-
-/* To disable logging, include PION_DISABLE_LOGGING in Preprocessor Definitions, 
-   or uncomment the following line. */
-#ifndef PION_USE_LOG4CPLUS
-#define PION_DISABLE_LOGGING 1
-#endif // PION_USE_LOG4CPLUS
-
-// -----------------------------------------------------------------------
 
 #if defined(_WIN32) || defined(_WINDOWS)
     #define PION_WIN32  1

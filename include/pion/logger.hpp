@@ -13,130 +13,18 @@
 #include <pion/config.hpp>
 
 
-#if defined(PION_USE_LOG4CXX)
-
-    // unfortunately, the current version of log4cxx has many problems that
-    // produce very annoying warnings
-
-    // log4cxx headers
-    #include <log4cxx/logger.h>
-    #include <log4cxx/logmanager.h>
-#ifdef _MSC_VER
-    #pragma warning(push)
-    #pragma warning(disable: 4231) // nonstandard extension used : 'extern' before template explicit instantiation
-#endif
-    #include <log4cxx/basicconfigurator.h>
-    #include <log4cxx/propertyconfigurator.h>
-#ifdef _MSC_VER
-    #pragma warning(pop)
-#endif
-
-    #if defined _MSC_VER
-        #if defined _DEBUG
-            #pragma comment(lib, "log4cxxd")
-        #else
-            #pragma comment(lib, "log4cxx")
-        #endif
-        #pragma comment(lib, "odbc32")
-    #endif
-
-    namespace pion {
-        typedef log4cxx::LoggerPtr  logger;
-        typedef log4cxx::AppenderSkeleton   log_appender;
-        typedef log_appender *   log_appender_ptr;
-    }
-
-    #define PION_HAS_LOG_APPENDER   1
-    #define PION_LOG_CONFIG_BASIC   log4cxx::BasicConfigurator::configure();
-    #define PION_LOG_CONFIG(FILE)   log4cxx::PropertyConfigurator::configure(FILE);
-    #define PION_GET_LOGGER(NAME)   log4cxx::Logger::get_logger(NAME)
-    #define PION_SHUTDOWN_LOGGER    log4cxx::LogManager::shutdown();
-
-    #define PION_LOG_SETLEVEL_DEBUG(LOG)    LOG->setLevel(log4cxx::Level::toLevel(log4cxx::Level::DEBUG_INT));
-    #define PION_LOG_SETLEVEL_INFO(LOG)     LOG->setLevel(log4cxx::Level::toLevel(log4cxx::Level::INFO_INT));
-    #define PION_LOG_SETLEVEL_WARN(LOG)     LOG->setLevel(log4cxx::Level::toLevel(log4cxx::Level::WARN_INT));
-    #define PION_LOG_SETLEVEL_ERROR(LOG)    LOG->setLevel(log4cxx::Level::toLevel(log4cxx::Level::ERROR_INT));
-    #define PION_LOG_SETLEVEL_FATAL(LOG)    LOG->setLevel(log4cxx::Level::toLevel(log4cxx::Level::FATAL_INT));
-    #define PION_LOG_SETLEVEL_UP(LOG)       LOG->setLevel(LOG->getLevel()->toInt()+1);
-    #define PION_LOG_SETLEVEL_DOWN(LOG)     LOG->setLevel(LOG->getLevel()->toInt()-1);
-
-    #define PION_LOG_DEBUG  LOG4CXX_DEBUG
-    #define PION_LOG_INFO   LOG4CXX_INFO
-    #define PION_LOG_WARN   LOG4CXX_WARN
-    #define PION_LOG_ERROR  LOG4CXX_ERROR
-    #define PION_LOG_FATAL  LOG4CXX_FATAL
-
-#elif defined(PION_USE_LOG4CPLUS)
-
+#if defined(PION_USE_LOG4CPLUS)
 
     // log4cplus headers
     #include <log4cplus/logger.h>
-    #include <log4cplus/configurator.h>
-    #include <log4cplus/appender.h>
-    #include <log4cplus/spi/loggingevent.h>
-    #include <log4cplus/loglevel.h>
     #include <log4cplus/loggingmacros.h>
-
-    #include <boost/circular_buffer.hpp>
-    #include <boost/thread/mutex.hpp>
-
-    #if defined(_MSC_VER) && !defined(PION_CMAKE_BUILD)
-        #if defined _DEBUG
-            #if defined PION_STATIC_LINKING
-                #pragma comment(lib, "log4cplusSD")
-            #else
-                #pragma comment(lib, "log4cplusD")
-            #endif
-        #else
-            #if defined PION_STATIC_LINKING
-                #pragma comment(lib, "log4cplusS")
-            #else
-                #pragma comment(lib, "log4cplus")
-            #endif
-        #endif
-    #endif
 
     namespace pion {
         typedef log4cplus::Logger   logger;
         typedef log4cplus::Appender log_appender;
         typedef log4cplus::SharedAppenderPtr    log_appender_ptr;
-
-        ///
-        /// circular_buffer_appender: caches log events in a circular buffer
-        ///
-        class circular_buffer_appender : public log4cplus::Appender
-        {
-        public:
-            typedef boost::circular_buffer<log4cplus::spi::InternalLoggingEvent> LogEventBuffer;
-
-            // default constructor and destructor
-            circular_buffer_appender(void) : m_log_events(1000) {};
-            virtual ~circular_buffer_appender() { destructorImpl(); }
-
-            /// returns an iterator to the log events in the buffer
-            const LogEventBuffer& getLogIterator() const {
-                return m_log_events;
-            }
-
-        public:
-            // member functions inherited from the Appender interface class
-            virtual void close() {}
-        protected:
-            virtual void append(const log4cplus::spi::InternalLoggingEvent& event) {
-                boost::mutex::scoped_lock log_lock(m_log_mutex);
-                m_log_events.push_back(*event.clone());
-            }
-
-        private:
-            /// circular buffer for log events
-            LogEventBuffer  m_log_events;
-
-            /// mutex to make class thread-safe
-            boost::mutex    m_log_mutex;
-        };
     }
 
-    #define PION_HAS_LOG_APPENDER   1
     #define PION_LOG_CONFIG_BASIC   log4cplus::BasicConfigurator::doConfigure();
     #define PION_LOG_CONFIG(FILE)   log4cplus::PropertyConfigurator::doConfigure(FILE);
     #define PION_GET_LOGGER(NAME)   log4cplus::Logger::getInstance(NAME)
@@ -157,41 +45,6 @@
     #define PION_LOG_FATAL  LOG4CPLUS_FATAL
 
 
-#elif defined(PION_USE_LOG4CPP)
-
-
-    // log4cpp headers
-    #include <log4cpp/Category.hh>
-    #include <log4cpp/BasicLayout.hh>
-    #include <log4cpp/OstreamAppender.hh>
-    #include <log4cpp/AppenderSkeleton.hh>
-
-    namespace pion {
-        typedef log4cpp::Category*  logger;
-        typedef log4cpp::AppenderSkeleton   log_appender;
-        typedef log_appender *   log_appender_ptr;
-    }
-
-    #define PION_HAS_LOG_APPENDER   1
-    #define PION_LOG_CONFIG_BASIC   { log4cpp::OstreamAppender *app = new log4cpp::OstreamAppender("cout", &std::cout); app->setLayout(new log4cpp::BasicLayout()); log4cpp::Category::getRoot().setAppender(app); }
-    #define PION_LOG_CONFIG(FILE)   { log4cpp::PropertyConfigurator::configure(FILE); }
-    #define PION_GET_LOGGER(NAME)   (&log4cpp::Category::getInstance(NAME))
-    #define PION_SHUTDOWN_LOGGER    log4cpp::Category::shutdown();
-
-    #define PION_LOG_SETLEVEL_DEBUG(LOG)    { LOG->setPriority(log4cpp::Priority::DEBUG); }
-    #define PION_LOG_SETLEVEL_INFO(LOG)     { LOG->setPriority(log4cpp::Priority::INFO); }
-    #define PION_LOG_SETLEVEL_WARN(LOG)     { LOG->setPriority(log4cpp::Priority::WARN); }
-    #define PION_LOG_SETLEVEL_ERROR(LOG)    { LOG->setPriority(log4cpp::Priority::ERROR); }
-    #define PION_LOG_SETLEVEL_FATAL(LOG)    { LOG->setPriority(log4cpp::Priority::FATAL); }
-    #define PION_LOG_SETLEVEL_UP(LOG)       { LOG->setPriority(LOG.getPriority()+1); }
-    #define PION_LOG_SETLEVEL_DOWN(LOG)     { LOG->setPriority(LOG.getPriority()-1); }
-
-    #define PION_LOG_DEBUG(LOG, MSG)    if (LOG->getPriority()>=log4cpp::Priority::DEBUG) { LOG->debugStream() << MSG; }
-    #define PION_LOG_INFO(LOG, MSG)     if (LOG->getPriority()>=log4cpp::Priority::INFO) { LOG->infoStream() << MSG; }
-    #define PION_LOG_WARN(LOG, MSG)     if (LOG->getPriority()>=log4cpp::Priority::WARN) { LOG->warnStream() << MSG; }
-    #define PION_LOG_ERROR(LOG, MSG)    if (LOG->getPriority()>=log4cpp::Priority::ERROR) { LOG->errorStream() << MSG; }
-    #define PION_LOG_FATAL(LOG, MSG)    if (LOG->getPriority()>=log4cpp::Priority::FATAL) { LOG->fatalStream() << MSG; }
-
 #elif defined(PION_DISABLE_LOGGING)
 
     // Logging is disabled -> add do-nothing stubs for logging
@@ -205,7 +58,6 @@
         typedef log_appender *   log_appender_ptr;
     }
 
-    #undef PION_HAS_LOG_APPENDER
     #define PION_LOG_CONFIG_BASIC   {}
     #define PION_LOG_CONFIG(FILE)   {}
     #define PION_GET_LOGGER(NAME)   0
@@ -252,7 +104,6 @@
         typedef log_appender *   log_appender_ptr;
     }
 
-    #undef PION_HAS_LOG_APPENDER
     #define PION_LOG_CONFIG_BASIC   {}
     #define PION_LOG_CONFIG(FILE)   {}
     #define PION_GET_LOGGER(NAME)   pion::logger(NAME)

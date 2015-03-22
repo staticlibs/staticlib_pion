@@ -144,8 +144,9 @@ protected:
      * @param bytes_written number of bytes sent by the last write operation
      */
     virtual void handle_write(const asio::error_code& write_error,
-                             std::size_t /* bytes_written */)
+                             std::size_t bytes_written )
     {
+        (void) bytes_written;
         logger log_ptr(get_logger());
         if (!write_error) {
             // response sent OK
