@@ -72,7 +72,7 @@ std::size_t message::receive(tcp::connection& tcp_conn,
     // incrementally read and parse bytes from the connection
     bool force_connection_closed = false;
     pion::tribool parse_result;
-    while (true) {
+    for (;;) {
         // parse bytes available in the read buffer
         parse_result = http_parser.parse(*this, ec);
         if (! pion::indeterminate(parse_result)) break;

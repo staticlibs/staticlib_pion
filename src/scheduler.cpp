@@ -104,6 +104,7 @@ void scheduler::process_service_work(asio::io_service& service) {
         try {
             service.run();
         } catch (std::exception& e) {
+            (void) e;
             PION_LOG_ERROR(m_logger, e.what());
         } catch (...) {
             PION_LOG_ERROR(m_logger, "caught unrecognized exception");

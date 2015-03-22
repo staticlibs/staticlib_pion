@@ -28,7 +28,7 @@ server::server(scheduler& sched, const unsigned int tcp_port)
 #else
     m_ssl_context(0),
 #endif
-    m_endpoint(asio::ip::tcp::v4(), tcp_port), m_ssl_flag(false), m_is_listening(false)
+    m_endpoint(asio::ip::tcp::v4(), static_cast<unsigned short>(tcp_port)), m_ssl_flag(false), m_is_listening(false)
 {}
     
 server::server(scheduler& sched, const asio::ip::tcp::endpoint& endpoint)
@@ -52,7 +52,7 @@ server::server(const unsigned int tcp_port)
 #else
     m_ssl_context(0),
 #endif
-    m_endpoint(asio::ip::tcp::v4(), tcp_port), m_ssl_flag(false), m_is_listening(false)
+    m_endpoint(asio::ip::tcp::v4(), static_cast<unsigned short>(tcp_port)), m_ssl_flag(false), m_is_listening(false)
 {}
 
 server::server(const asio::ip::tcp::endpoint& endpoint)
@@ -94,6 +94,7 @@ void server::start(void)
             }
             m_tcp_acceptor.listen();
         } catch (std::exception& e) {
+            (void) e;
             PION_LOG_ERROR(m_logger, "Unable to bind to port " << get_port() << ": " << e.what());
             throw;
         }

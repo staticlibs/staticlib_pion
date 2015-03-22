@@ -18,6 +18,7 @@
 #include <cstdint>
 #include <climits>
 #include <cerrno>
+#include <cctype>
 
 namespace pion {        // begin namespace pion
 
@@ -191,9 +192,16 @@ std::string algorithm::xml_encode(const std::string& str)
                 result += *(++ptr);
             } else {
                 // insert replacement char
+#ifdef _MSC_VER
+    #pragma warning( push )
+    #pragma warning( disable: 4309 )
+#endif // _MSC_VER                
                 result += 0xef;
                 result += 0xbf;
                 result += 0xbd;
+#ifdef _MSC_VER
+    #pragma warning( pop )
+#endif // _MSC_VER                
             }
         } else if (*ptr >= 0xE0 && *ptr <= 0xEF) {
             // three-byte sequence
@@ -204,9 +212,16 @@ std::string algorithm::xml_encode(const std::string& str)
                 result += *(++ptr);
             } else {
                 // insert replacement char
+#ifdef _MSC_VER
+    #pragma warning( push )
+    #pragma warning( disable: 4309 )
+#endif // _MSC_VER                
                 result += 0xef;
                 result += 0xbf;
                 result += 0xbd;
+#ifdef _MSC_VER
+    #pragma warning( pop )
+#endif // _MSC_VER                
             }
         } else if (*ptr >= 0xF0 && *ptr <= 0xF4) {
             // four-byte sequence
@@ -219,15 +234,29 @@ std::string algorithm::xml_encode(const std::string& str)
                 result += *(++ptr);
             } else {
                 // insert replacement char
+#ifdef _MSC_VER
+    #pragma warning( push )
+    #pragma warning( disable: 4309 )
+#endif // _MSC_VER                
                 result += 0xef;
                 result += 0xbf;
                 result += 0xbd;
+#ifdef _MSC_VER
+    #pragma warning( pop )
+#endif // _MSC_VER                
             }
         } else {
             // insert replacement char
+#ifdef _MSC_VER
+    #pragma warning( push )
+    #pragma warning( disable: 4309 )
+#endif // _MSC_VER                
             result += 0xef;
             result += 0xbf;
             result += 0xbd;
+#ifdef _MSC_VER
+    #pragma warning( pop )
+#endif // _MSC_VER                
         }
         ++ptr;
     }

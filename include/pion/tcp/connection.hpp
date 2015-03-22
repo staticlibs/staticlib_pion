@@ -278,7 +278,7 @@ public:
     inline asio::error_code connect(const asio::ip::address& remote_addr,
                                              const unsigned int remote_port)
     {
-        asio::ip::tcp::endpoint tcp_endpoint(remote_addr, remote_port);
+        asio::ip::tcp::endpoint tcp_endpoint(remote_addr, static_cast<unsigned short>(remote_port));
         return connect(tcp_endpoint);
     }
     
