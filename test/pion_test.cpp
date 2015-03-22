@@ -28,21 +28,11 @@ const uint16_t TCP_PORT = 8080;
 void helloService(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
     auto finfun = std::bind(&pion::tcp::connection::finish, tcp_conn);
     auto writer = pion::http::response_writer::create(tcp_conn, *http_request_ptr, finfun);
-    auto msg = std::string{"<html><body>Hello World!</body></html>\n"};
-    writer->write_no_copy(msg);
+    writer << "Hello World!\n";
     writer->send();
 }
 
 } // namespace
-
-//#ifdef STATICLIB_WINDOWS
-//namespace boost {
-//// http://lists.boost.org/Archives/boost/2007/11/130440.php
-//    void tss_cleanup_implemented() {
-//        // todo: investigate me
-//    }
-//}
-//#endif // STATICLIB_WINDOWS
 
 int main() {
     // logging
