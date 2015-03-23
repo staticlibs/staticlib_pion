@@ -18,6 +18,8 @@
 namespace pion {    // begin namespace pion
 namespace http {    // begin namespace http
 
+// forward declaration
+class request_reader;
 
 ///
 /// request: container for HTTP request information
@@ -152,12 +154,10 @@ public:
         memcpy(ptr, value, size);
     }
     
-    /// sets the user record for HTTP request after authentication
-//    inline void set_user(user_ptr user) { m_user_record = user; }
-    
-    /// get the user record for HTTP request after authentication
-//    inline user_ptr get_user() const { return m_user_record; }
-
+    // internal method
+    inline void set_request_reader(request_reader* rr) { m_request_reader = rr; }
+    // internal method
+    inline request_reader* get_request_reader() { return m_request_reader; }
 
 protected:
 
@@ -206,9 +206,10 @@ private:
     
     /// HTTP query parameters parsed from the request line and post content
     ihash_multimap                  m_query_params;
+    
+    /// Non-owning pointer to request_reader to be used during parsing
+    request_reader*                 m_request_reader;
 
-    /// pointer to user record if this request had been authenticated 
-//    user_ptr                        m_user_record;
 };
 
 

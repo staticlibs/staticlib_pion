@@ -28,17 +28,14 @@ const unsigned int          server::MAX_REDIRECTS = 10;
 void server::handle_connection(tcp::connection_ptr& tcp_conn)
 {
     request_reader_ptr my_reader_ptr;
-    auto this_ptr = this;
-    my_reader_ptr = request_reader::create(tcp_conn, [this_ptr]
-            (http::request_ptr http_request_ptr, tcp::connection_ptr tcp_conn, const asio::error_code & ec) {
-        this_ptr->handle_request(http_request_ptr, tcp_conn, ec);
-    });
+    my_reader_ptr = request_reader::create(tcp_conn, std::bind(&server::handle_request, this,
+            std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     my_reader_ptr->set_max_content_length(m_max_content_length);
     my_reader_ptr->receive();
 }
 
-void server::handle_request(http::request_ptr& http_request_ptr,
-    tcp::connection_ptr& tcp_conn, const asio::error_code& ec)
+void server::handle_request(http::request_ptr http_request_ptr,
+    tcp::connection_ptr tcp_conn, const asio::error_code& ec)
 {
     if (ec || ! http_request_ptr->is_valid()) {
         tcp_conn->set_lifecycle(tcp::connection::LIFECYCLE_CLOSE); // make sure it will get closed
@@ -82,20 +79,6 @@ void server::handle_request(http::request_ptr& http_request_ptr,
         it = m_redirects.find(resource_requested);
     }
 
-    // if authentication activated, check current request
-//    if (m_auth_ptr) {
-//        // try to verify authentication
-//        if (! m_auth_ptr->handle_request(http_request_ptr, tcp_conn)) {
-//            // the HTTP 401 message has already been sent by the authentication object
-//            PION_LOG_DEBUG(m_logger, "Authentication required for HTTP resource: "
-//                << resource_requested);
-//            if (http_request_ptr->get_resource() != http_request_ptr->get_original_resource()) {
-//                PION_LOG_DEBUG(m_logger, "Original resource requested was: " << http_request_ptr->get_original_resource());
-//            }
-//            return;
-//        }
-//    }
-    
     // search for a handler matching the resource requested
     request_handler_t request_handler;
     if (find_request_handler(resource_requested, request_handler)) {

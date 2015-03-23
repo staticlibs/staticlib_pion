@@ -77,8 +77,13 @@ pion::tribool parser::parse(http::message& http_msg,
 
             // parsing chunked payload content
             case PARSE_CHUNKS:
-                rc = parse_chunks(http_msg.get_chunk_cache(), ec);
-                total_bytes_parsed += m_bytes_last_read;
+                try { // payload_handler may throw
+                    rc = parse_chunks(http_msg.get_chunk_cache(), ec);
+                    total_bytes_parsed += m_bytes_last_read;
+                } catch(const std::exception& e) {
+                    PION_LOG_WARN(m_logger, "Chunks parsing failed: " << e.what());
+                    rc = false;
+                }
                 // check if we have finished parsing all chunks
                 if (rc == true && !m_payload_handler) {
                     http_msg.concatenate_chunks();
@@ -91,14 +96,24 @@ pion::tribool parser::parse(http::message& http_msg,
 
             // parsing regular payload content with a known length
             case PARSE_CONTENT:
-                rc = consume_content(http_msg, ec);
-                total_bytes_parsed += m_bytes_last_read;
+                try { // payload_handler may throw
+                    rc = consume_content(http_msg, ec);
+                    total_bytes_parsed += m_bytes_last_read;
+                } catch (const std::exception& e) {
+                    PION_LOG_WARN(m_logger, "Content parsing failed: " << e.what());
+                    rc = false;
+                }
                 break;
 
             // parsing payload content with no length (until EOF)
             case PARSE_CONTENT_NO_LENGTH:
-                consume_content_as_next_chunk(http_msg.get_chunk_cache());
-                total_bytes_parsed += m_bytes_last_read;
+                try { // payload_handler may throw
+                    consume_content_as_next_chunk(http_msg.get_chunk_cache());
+                    total_bytes_parsed += m_bytes_last_read;
+                } catch (const std::exception& e) {
+                    PION_LOG_WARN(m_logger, "Content (without length) parsing failed: " << e.what());
+                    rc = false;
+                }
                 break;
 
             // finished parsing the HTTP message
@@ -118,120 +133,6 @@ pion::tribool parser::parse(http::message& http_msg,
 
     // update bytes last read (aggregate individual operations for caller)
     m_bytes_last_read = total_bytes_parsed;
-
-    return rc;
-}
-
-pion::tribool parser::parse_missing_data(http::message& http_msg,
-    std::size_t len, asio::error_code& ec)
-{
-    static const char MISSING_DATA_CHAR = 'X';
-    pion::tribool rc = pion::indeterminate;
-
-    http_msg.set_missing_packets(true);
-
-    switch (m_message_parse_state) {
-
-        // cannot recover from missing data while parsing HTTP headers
-        case PARSE_START:
-        case PARSE_HEADERS:
-        case PARSE_FOOTERS:
-            set_error(ec, ERROR_MISSING_HEADER_DATA);
-            rc = false;
-            break;
-
-        // parsing chunked payload content
-        case PARSE_CHUNKS:
-            // parsing chunk data -> we can only recover if data fits into current chunk
-            if (m_chunked_content_parse_state == PARSE_CHUNK
-                && m_bytes_read_in_current_chunk < m_size_of_current_chunk
-                && (m_size_of_current_chunk - m_bytes_read_in_current_chunk) >= len)
-            {
-                // use dummy content for missing data
-                if (m_payload_handler) {
-                    for (std::size_t n = 0; n < len; ++n)
-                        m_payload_handler(&MISSING_DATA_CHAR, 1);
-                } else {
-                    for (std::size_t n = 0; n < len && http_msg.get_chunk_cache().size() < m_max_content_length; ++n) 
-                        http_msg.get_chunk_cache().push_back(MISSING_DATA_CHAR);
-                }
-
-                m_bytes_read_in_current_chunk += len;
-                m_bytes_last_read = len;
-                m_bytes_total_read += len;
-                m_bytes_content_read += len;
-
-                if (m_bytes_read_in_current_chunk == m_size_of_current_chunk) {
-                    m_chunked_content_parse_state = PARSE_EXPECTING_CR_AFTER_CHUNK;
-                }
-            } else {
-                // cannot recover from missing data
-                set_error(ec, ERROR_MISSING_CHUNK_DATA);
-                rc = false;
-            }
-            break;
-
-        // parsing regular payload content with a known length
-        case PARSE_CONTENT:
-            // parsing content (with length) -> we can only recover if data fits into content
-            if (m_bytes_content_remaining == 0) {
-                // we have all of the remaining payload content
-                rc = true;
-            } else if (m_bytes_content_remaining < len) {
-                // cannot recover from missing data
-                set_error(ec, ERROR_MISSING_TOO_MUCH_CONTENT);
-                rc = false;
-            } else {
-
-                // make sure content buffer is not already full
-                if (m_payload_handler) {
-                    for (std::size_t n = 0; n < len; ++n)
-                        m_payload_handler(&MISSING_DATA_CHAR, 1);
-                } else if ( (m_bytes_content_read+len) <= m_max_content_length) {
-                    // use dummy content for missing data
-                    for (std::size_t n = 0; n < len; ++n)
-                        http_msg.get_content()[m_bytes_content_read++] = MISSING_DATA_CHAR;
-                } else {
-                    m_bytes_content_read += len;
-                }
-
-                m_bytes_content_remaining -= len;
-                m_bytes_total_read += len;
-                m_bytes_last_read = len;
-
-                if (m_bytes_content_remaining == 0)
-                    rc = true;
-            }
-            break;
-
-        // parsing payload content with no length (until EOF)
-        case PARSE_CONTENT_NO_LENGTH:
-            // use dummy content for missing data
-            if (m_payload_handler) {
-                for (std::size_t n = 0; n < len; ++n)
-                    m_payload_handler(&MISSING_DATA_CHAR, 1);
-            } else {
-                for (std::size_t n = 0; n < len && http_msg.get_chunk_cache().size() < m_max_content_length; ++n) 
-                    http_msg.get_chunk_cache().push_back(MISSING_DATA_CHAR);
-            }
-            m_bytes_last_read = len;
-            m_bytes_total_read += len;
-            m_bytes_content_read += len;
-            break;
-
-        // finished parsing the HTTP message
-        case PARSE_END:
-            rc = true;
-            break;
-    }
-
-    // check if we've finished parsing the HTTP message
-    if (rc == true) {
-        m_message_parse_state = PARSE_END;
-        finish(http_msg);
-    } else if(rc == false) {
-        compute_msg_status(http_msg, false);
-    }
 
     return rc;
 }
@@ -822,7 +723,7 @@ pion::tribool parser::finish_header_parsing(http::message& http_msg,
         }
     }
 
-    finished_parsing_headers(ec);
+    finished_parsing_headers(ec, rc);
     
     return rc;
 }

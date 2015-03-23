@@ -179,12 +179,10 @@ void server::listen(void)
     
     if (m_is_listening) {
         // create a new TCP connection object
-        auto this_ptr = this;
         tcp::connection_ptr new_connection(connection::create(get_io_service(),
                                                               m_ssl_context, m_ssl_flag,
-                                                              [this_ptr](tcp::connection_ptr tcp_conn) {
-                                                                  this_ptr->finish_connection(tcp_conn);
-                                                              }));
+                                                              std::bind(&tcp::server::finish_connection, 
+                                                              this, std::placeholders::_1)));
         
         // prune connections that finished uncleanly
         prune_connections();
@@ -248,7 +246,7 @@ void server::handle_ssl_handshake(tcp::connection_ptr& tcp_conn,
     }
 }
 
-void server::finish_connection(tcp::connection_ptr& tcp_conn)
+void server::finish_connection(tcp::connection_ptr tcp_conn)
 {
     std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
     if (m_is_listening && tcp_conn->get_keep_alive()) {

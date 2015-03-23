@@ -47,25 +47,6 @@ public:
 
     /// default destructor
     virtual ~server() { if (is_listening()) stop(); }
-
-    /**
-     * creates a new server object
-     * 
-     * @param number_of_threads number of threads to use for requests processing
-     * @param port TCP port
-     * @param ip_address IPv4-address to use, ANY address by default
-     */
-    explicit server(uint32_t number_of_threads, uint16_t port, 
-            asio::ip::address_v4 ip_address = asio::ip::address_v4::any())
-        : tcp::server(asio::ip::tcp::endpoint(ip_address, port)),
-        m_bad_request_handler(server::handle_bad_request),
-        m_not_found_handler(server::handle_not_found_request),
-        m_server_error_handler(server::handle_server_error),
-        m_max_content_length(http::parser::DEFAULT_CONTENT_MAX)
-    {
-        get_active_scheduler().set_num_threads(number_of_threads);
-        set_logger(PION_GET_LOGGER("pion.http.server"));
-    }
     
     /**
      * creates a new server object
@@ -256,8 +237,8 @@ protected:
      * @param tcp_conn TCP connection containing a new request
      * @param ec error_code contains additional information for parsing errors
      */
-    virtual void handle_request(http::request_ptr& http_request_ptr,
-                                tcp::connection_ptr& tcp_conn, const asio::error_code& ec);
+    virtual void handle_request(http::request_ptr http_request_ptr,
+                                tcp::connection_ptr tcp_conn, const asio::error_code& ec);
 
     /**
      * searches for the appropriate request handler to use for a given resource
@@ -269,7 +250,7 @@ protected:
                                       request_handler_t& request_handler) const;
 
 
-private:
+//protected:
 
     /// maximum number of redirections
     static const unsigned int   MAX_REDIRECTS;
@@ -297,10 +278,7 @@ private:
     error_handler_t             m_server_error_handler;
 
     /// mutex used to protect access to the resources
-    mutable std::mutex        m_resource_mutex;
-
-    /// pointer to authentication handler object
-//    http::auth_ptr              m_auth_ptr;
+    mutable std::mutex          m_resource_mutex;
 
     /// maximum length for HTTP request payload content
     std::size_t                 m_max_content_length;

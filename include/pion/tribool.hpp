@@ -7,8 +7,8 @@
 
 
 // For more information, see http://www.pion.org
-#ifndef PION_TRIBOOL_HPP
-#define PION_TRIBOOL_HPP
+#ifndef __PION_TRIBOOL_HPP__
+#define __PION_TRIBOOL_HPP__
 
 #if defined(_MSC_VER)
 #  pragma once
@@ -451,5 +451,5 @@ Name(pion::logic::tribool x,                                           \
        pion::logic::detail::indeterminate_t())                         \
 { return x.value == pion::logic::tribool::indeterminate_value; }
 
-#endif // PION_TRIBOOL_HPP
+#endif // __PION_TRIBOOL_HPP__
 

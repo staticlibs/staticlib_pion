@@ -150,21 +150,6 @@ public:
     pion::tribool parse(http::message& http_msg, asio::error_code& ec);
 
     /**
-     * attempts to continue parsing despite having missed data (length is known but content is not)
-     *
-     * @param http_msg the HTTP message object to populate from parsing
-     * @param len the length in bytes of the missing data
-     * @param ec error_code contains additional information for parsing errors
-     *
-     * @return pion::tribool result of parsing:
-     *                        false = message has an error,
-     *                        true = finished parsing HTTP message,
-     *                        indeterminate = not yet finished parsing HTTP message
-     */
-    pion::tribool parse_missing_data(http::message& http_msg, std::size_t len,
-        asio::error_code& ec);
-
-    /**
      * finishes parsing an HTTP response message
      *
      * @param http_msg the HTTP message object to finish
@@ -436,7 +421,7 @@ public:
 protected:
 
     /// Called after we have finished parsing the HTTP message headers
-    virtual void finished_parsing_headers(const asio::error_code& /* ec */) {}
+    virtual void finished_parsing_headers(const asio::error_code& /* ec */, pion::tribool& /* rc */) {}
     
     /**
      * parses an HTTP message up to the end of the headers using bytes 

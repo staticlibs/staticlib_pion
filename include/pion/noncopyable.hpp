@@ -6,8 +6,8 @@
 
 //  See http://www.boost.org/libs/utility for documentation.
 
-#ifndef PION_NONCOPYABLE_HPP
-#define PION_NONCOPYABLE_HPP
+#ifndef __PION_NONCOPYABLE_HPP__
+#define __PION_NONCOPYABLE_HPP__
 
 namespace pion {
 
@@ -33,4 +33,4 @@ typedef noncopyable_::noncopyable noncopyable;
 
 } // namespace
 
-#endif  // PION_NONCOPYABLE_HPP
+#endif  // __PION_NONCOPYABLE_HPP__

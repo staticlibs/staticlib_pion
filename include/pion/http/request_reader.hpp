@@ -36,7 +36,10 @@ public:
     typedef std::function<void(http::request_ptr, tcp::connection_ptr,
         const asio::error_code&)>   finished_handler_t;
 
-    
+    /// function called after the HTTP message has been parsed
+    typedef std::function<void(http::request_ptr, tcp::connection_ptr,
+            const asio::error_code&, pion::tribool& rc)> headers_parsing_finished_handler_t;
+
     // default destructor
     virtual ~request_reader() {}
     
@@ -54,7 +57,7 @@ public:
     }
     
     /// sets a function to be called after HTTP headers have been parsed
-    inline void set_headers_parsed_callback(finished_handler_t& h) { m_parsed_headers = h; }
+    inline void set_headers_parsed_callback(headers_parsing_finished_handler_t& h) { m_parsed_headers = h; }
     
     
 protected:
@@ -70,6 +73,7 @@ protected:
         m_finished(handler)
     {
         m_http_msg->set_remote_ip(tcp_conn->get_remote_ip());
+        m_http_msg->set_request_reader(this);
         set_logger(PION_GET_LOGGER("pion.http.request_reader"));
     }
         
@@ -83,9 +87,9 @@ protected:
     }
 
     /// Called after we have finished parsing the HTTP message headers
-    virtual void finished_parsing_headers(const asio::error_code& ec) {
+    virtual void finished_parsing_headers(const asio::error_code& ec, pion::tribool& rc) {
         // call the finished headers handler with the HTTP message
-        if (m_parsed_headers) m_parsed_headers(m_http_msg, get_connection(), ec);
+        if (m_parsed_headers) m_parsed_headers(m_http_msg, get_connection(), ec, rc);
     }
     
     /// Called after we have finished reading/parsing the HTTP message
@@ -104,7 +108,7 @@ protected:
     finished_handler_t             m_finished;
 
     /// function called after the HTTP message headers have been parsed
-    finished_handler_t             m_parsed_headers;
+    headers_parsing_finished_handler_t m_parsed_headers;
 };
 
 

@@ -191,7 +191,7 @@ private:
     /// finished handling a connection.  If the keep_alive flag is true,
     /// it will call handle_connection(); otherwise, it will close the
     /// connection and remove it from the server's management pool
-    void finish_connection(tcp::connection_ptr& tcp_conn);
+    void finish_connection(tcp::connection_ptr tcp_conn);
     
     /// prunes orphaned connections that did not close cleanly
     /// and returns the remaining number of connections in the pool
