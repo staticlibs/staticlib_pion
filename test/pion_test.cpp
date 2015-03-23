@@ -50,8 +50,7 @@ int main() {
     PION_LOG_SETLEVEL_DEBUG(PION_GET_LOGGER("pion"))
 #endif // PION_USE_LOG4CPLUS    
     // pion
-    asio::ip::tcp::endpoint cfg_endpoint(asio::ip::tcp::v4(), TCP_PORT);
-    pion::http::server web_server(cfg_endpoint);
+    pion::http::server web_server(2, TCP_PORT);
     web_server.add_resource("/", helloService);
     web_server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});

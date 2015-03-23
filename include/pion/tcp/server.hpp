@@ -155,6 +155,7 @@ protected:
     /// returns an async I/O service used to schedule work
     inline asio::io_service& get_io_service(void) { return m_active_scheduler.get_io_service(); }
     
+    scheduler& get_active_scheduler() { return m_active_scheduler; }
     
     /// primary logging interface used by this class
     logger                  m_logger;

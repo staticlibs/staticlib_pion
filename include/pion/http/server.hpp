@@ -16,6 +16,7 @@
 #include <functional>
 #include <memory>
 #include <mutex>
+#include <cstdint>
 #include <pion/config.hpp>
 #include <pion/tcp/server.hpp>
 #include <pion/tcp/connection.hpp>
@@ -47,6 +48,25 @@ public:
     /// default destructor
     virtual ~server() { if (is_listening()) stop(); }
 
+    /**
+     * creates a new server object
+     * 
+     * @param number_of_threads number of threads to use for requests processing
+     * @param port TCP port
+     * @param ip_address IPv4-address to use, ANY address by default
+     */
+    explicit server(uint32_t number_of_threads, uint16_t port, 
+            asio::ip::address_v4 ip_address = asio::ip::address_v4::any())
+        : tcp::server(asio::ip::tcp::endpoint(ip_address, port)),
+        m_bad_request_handler(server::handle_bad_request),
+        m_not_found_handler(server::handle_not_found_request),
+        m_server_error_handler(server::handle_server_error),
+        m_max_content_length(http::parser::DEFAULT_CONTENT_MAX)
+    {
+        get_active_scheduler().set_num_threads(number_of_threads);
+        set_logger(PION_GET_LOGGER("pion.http.server"));
+    }
+    
     /**
      * creates a new server object
      * 
