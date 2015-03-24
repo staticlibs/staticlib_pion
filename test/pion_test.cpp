@@ -28,7 +28,7 @@
 
 namespace { // anonymous
 
-const uint16_t SECONDS_TO_RUN = 10000;
+const uint16_t SECONDS_TO_RUN = 10;
 const uint16_t TCP_PORT = 8080;
 
 void helloService(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
@@ -58,6 +58,45 @@ public:
     }
 };
 
+class FileSender : public std::enable_shared_from_this<FileSender> {
+    pion::http::writer_ptr writer;
+    std::ifstream stream;
+    std::array<char, 8192> buf;
+    std::mutex mutex;
+    
+public:
+    FileSender(const std::string& filename, pion::http::writer_ptr writer) : 
+    writer(writer),
+    stream(filename, std::ios::in | std::ios::binary) {
+        stream.exceptions(std::ifstream::badbit);
+    }
+    
+    void send() {
+        asio::error_code ec{};
+        handle_write(ec, 0);
+    }
+    
+    void handle_write(const asio::error_code& ec, std::size_t /* bytes_written */) {
+        std::unique_lock<std::mutex> lock{mutex, std::try_to_lock};
+        if (!ec) {
+            stream.read(buf.data(), buf.size());
+            writer->clear();
+            writer->write_no_copy(buf.data(), stream.gcount());
+            if (stream) {
+                writer->send_chunk(std::bind(&FileSender::handle_write, shared_from_this(), 
+                        std::placeholders::_1, std::placeholders::_2));
+            } else {
+                writer->send_final_chunk();
+            }
+        } else {
+            // make sure it will get closed
+            writer->get_connection()->set_lifecycle(pion::tcp::connection::LIFECYCLE_CLOSE);
+            // log error
+        }
+    }
+    
+};
+
 void file_upload_resource(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
     auto ph = http_request_ptr->get_payload_handler<FileWriter>();
     if (ph) {
@@ -67,8 +106,8 @@ void file_upload_resource(pion::http::request_ptr& http_request_ptr, pion::tcp::
     }
     auto finfun = std::bind(&pion::tcp::connection::finish, tcp_conn);
     auto writer = pion::http::response_writer::create(tcp_conn, *http_request_ptr, finfun);
-    writer << "UPLOADED\n";
-    writer->send();
+    auto fs = std::make_shared<FileSender>("uploaded.dat", writer);
+    fs->send();
 }
 
 void file_upload_payload_handler_creator(pion::http::request_ptr& http_request_ptr) {
@@ -95,6 +134,7 @@ int main() {
     web_server.add_resource("/fu1", file_upload_resource);
     web_server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});
+    web_server.stop(true);
     
     return 0;
 }
