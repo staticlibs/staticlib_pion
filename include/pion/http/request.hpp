@@ -10,16 +10,16 @@
 #ifndef __PION_HTTP_REQUEST_HEADER__
 #define __PION_HTTP_REQUEST_HEADER__
 
-#include <memory>
+#include <string>
+#include <functional>
+
 #include <pion/config.hpp>
+#include <pion/http/parser.hpp>
 #include <pion/http/message.hpp>
 
 
 namespace pion {    // begin namespace pion
 namespace http {    // begin namespace http
-
-// forward declaration
-class request_reader;
 
 ///
 /// request: container for HTTP request information
@@ -153,11 +153,27 @@ public:
         char *ptr = create_content_buffer();
         memcpy(ptr, value, size);
     }
+
+    // Should be called from payload_handler_creator
+    // to stick payload handler to this request
+    inline void set_payload_handler(parser::payload_handler_t ph) { 
+        m_payload_handler = std::move(ph);
+        // this should be done only once during request processing
+        // and we won't restrict request_reader lifecycle after 
+        // payload is processed, so we drop the pointer to it
+        if (m_request_reader) {
+            // request will always outlive reader
+            m_request_reader->set_payload_handler(m_payload_handler);
+            m_request_reader = NULL;
+        }
+    }
+    
+    // access to the payload handler object
+    template<typename T>
+    T* get_payload_handler() { return m_payload_handler.target<T>(); }
     
     // internal method
-    inline void set_request_reader(request_reader* rr) { m_request_reader = rr; }
-    // internal method
-    inline request_reader* get_request_reader() { return m_request_reader; }
+    inline void set_request_reader(parser* rr) { m_request_reader = rr; }
 
 protected:
 
@@ -206,10 +222,13 @@ private:
     
     /// HTTP query parameters parsed from the request line and post content
     ihash_multimap                  m_query_params;
+
+    /// Payload handler used with this request
+    parser::payload_handler_t       m_payload_handler;
     
     /// Non-owning pointer to request_reader to be used during parsing
-    request_reader*                 m_request_reader;
-
+    parser*                         m_request_reader;
+    
 };
 
 

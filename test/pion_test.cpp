@@ -38,34 +38,42 @@ void helloService(pion::http::request_ptr& http_request_ptr, pion::tcp::connecti
     writer->send();
 }
 
-
-class FileUploadResource {
-    std::ofstream stream;
-    std::mutex write_mutex;
+class FileWriter {
+    std::shared_ptr<std::ofstream> stream;
     
-public:  
+public:
     
-    FileUploadResource() : stream("uploaded.dat", std::ios::out | std::ios::binary) { 
-        stream.exceptions(std::ofstream::failbit | std::ofstream::badbit);
+    FileWriter(const std::string& filename) {
+        stream = std::unique_ptr<std::ofstream>{new std::ofstream{filename, std::ios::out | std::ios::binary}};
+        stream->exceptions(std::ofstream::failbit | std::ofstream::badbit);
     }
     
-    FileUploadResource& operator()(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
-        stream.close();
-        auto finfun = std::bind(&pion::tcp::connection::finish, tcp_conn);
-        auto writer = pion::http::response_writer::create(tcp_conn, *http_request_ptr, finfun);
-        writer << "UPLOADED\n";
-        writer->send();
-
-        return *this;
+    void operator()(const char* s, std::size_t n) {
+        stream->write(s, n);
     }
     
-    FileUploadResource& operator()(const char* s, std::size_t n) {
-//        throw std::runtime_error("AAAA");
-        std::unique_lock<std::mutex> lock{write_mutex, std::try_to_lock};
-        stream.write(s, n);
-        return *this;
+    void close() {
+        std::cout << "I am closed" << std::endl;
+        stream->close();
     }
 };
+
+void file_upload_resource(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
+    auto ph = http_request_ptr->get_payload_handler<FileWriter>();
+    if (ph) {
+        ph->close();
+    } else {
+        std::cout << "No payload handler found in main handler" << std::endl;
+    }
+    auto finfun = std::bind(&pion::tcp::connection::finish, tcp_conn);
+    auto writer = pion::http::response_writer::create(tcp_conn, *http_request_ptr, finfun);
+    writer << "UPLOADED\n";
+    writer->send();
+}
+
+void file_upload_payload_handler_creator(pion::http::request_ptr& http_request_ptr) {
+    http_request_ptr->set_payload_handler(FileWriter{"uploaded.dat"});
+}
 
 } // namespace
 
@@ -82,13 +90,11 @@ int main() {
     // pion
     pion::http::streaming_server web_server(2, TCP_PORT);
     web_server.add_resource("/", helloService);
-    FileUploadResource fr{};
-    web_server.add_resource("/fu", std::ref(fr));
-    web_server.add_payload_handler("/fu", std::ref(fr));
-    web_server.add_resource("/fu1", std::ref(fr));
+    web_server.add_resource("/fu", file_upload_resource);
+    web_server.add_payload_handler("/fu", file_upload_payload_handler_creator);
+    web_server.add_resource("/fu1", file_upload_resource);
     web_server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});
     
     return 0;
 }
-

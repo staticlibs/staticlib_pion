@@ -23,9 +23,12 @@ namespace pion { // begin namespace pion
 namespace http { // begin namespace http
 
 class streaming_server : public server {
-    // typedefs are bad, and "_t" are prohibited, but lets be consistent
+    // typedefs are bad, and "_t" are prohibited, but lets be consistent with pion
+    /// type of function that is used to create payload handlers
+    typedef std::function<void(http::request_ptr&)> payload_handler_creator_t;
+    
     /// data type for a map of resources to request handlers
-    typedef std::map<std::string, parser::payload_handler_t> payloads_map_t;
+    typedef std::map<std::string, payload_handler_creator_t> payloads_map_t;
     payloads_map_t m_payloads;
     
 public:
@@ -40,7 +43,6 @@ public:
             asio::ip::address_v4 ip_address = asio::ip::address_v4::any())
     : server(asio::ip::tcp::endpoint(ip_address, port)) {
         get_active_scheduler().set_num_threads(number_of_threads);
-        set_logger(PION_GET_LOGGER("pion.http.server"));
     }
 
     /**
@@ -49,7 +51,7 @@ public:
      * @param resource the resource name or uri-stem to bind to the handler
      * @param payload_handler function used to handle payload for the request
      */
-    void add_payload_handler(const std::string& resource, parser::payload_handler_t payload_handler);
+    void add_payload_handler(const std::string& resource, payload_handler_creator_t payload_handler);
 
     /**
      * removes a payload_handler from the HTTP server
@@ -65,7 +67,7 @@ public:
      * @param payload_handler function that can handle payload for this resource
      */
     bool find_payload_handler(const std::string& resource,
-            parser::payload_handler_t& payload_handler) const;
+            payload_handler_creator_t& payload_handler_creator) const;
 
 protected:
     /**

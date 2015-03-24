@@ -46,10 +46,9 @@ void streaming_server::handle_request_after_headers_parsed(http::request_ptr htt
     }
 
     // search for a handler matching the resource requested
-    parser::payload_handler_t payload_handler;
-    if (find_payload_handler(resource_requested, payload_handler)) {
-        http_request_ptr->get_request_reader()->set_payload_handler(payload_handler);
-        http_request_ptr->set_request_reader(NULL);
+    payload_handler_creator_t creator;
+    if (find_payload_handler(resource_requested, creator)) {
+        creator(http_request_ptr);
     } else { // ignore request body as no payload_handler found
         PION_LOG_INFO(m_logger, "No payload handlers found for resource: " << resource_requested);
         rc = true;
@@ -57,7 +56,7 @@ void streaming_server::handle_request_after_headers_parsed(http::request_ptr htt
 }
 
 void streaming_server::add_payload_handler(const std::string& resource,
-        parser::payload_handler_t payload_handler) {
+        payload_handler_creator_t payload_handler) {
     std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
     const std::string clean_resource(strip_trailing_slash(resource));
     m_payloads.insert(std::make_pair(clean_resource, payload_handler));
@@ -72,7 +71,7 @@ void streaming_server::remove_payload_handler(const std::string& resource) {
 }
 
 bool streaming_server::find_payload_handler(const std::string& resource,
-        parser::payload_handler_t& payload_handler) const {
+        payload_handler_creator_t& payload_handler) const {
     // first make sure that HTTP resources are registered
     std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
     if (m_payloads.empty())
