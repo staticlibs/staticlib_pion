@@ -28,13 +28,20 @@
 
 namespace { // anonymous
 
-const uint16_t SECONDS_TO_RUN = 10;
+const uint16_t SECONDS_TO_RUN = 1;
 const uint16_t TCP_PORT = 8080;
 
-void helloService(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
+void hello_service(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
     auto finfun = std::bind(&pion::tcp::connection::finish, tcp_conn);
     auto writer = pion::http::response_writer::create(tcp_conn, *http_request_ptr, finfun);
     writer << "Hello World!\n";
+    writer->send();
+}
+
+void hello_service_post(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
+    auto finfun = std::bind(&pion::tcp::connection::finish, tcp_conn);
+    auto writer = pion::http::response_writer::create(tcp_conn, *http_request_ptr, finfun);
+    writer << "Hello POST!\n";
     writer->send();
 }
 
@@ -128,7 +135,8 @@ int main() {
 #endif // PION_USE_LOG4CPLUS    
     // pion
     pion::http::streaming_server web_server(2, TCP_PORT);
-    web_server.add_resource("/", helloService);
+    web_server.add_method_specific_resource("GET", "/hello", hello_service);
+    web_server.add_method_specific_resource("POST", "/hello", hello_service_post);
     web_server.add_resource("/fu", file_upload_resource);
     web_server.add_payload_handler("/fu", file_upload_payload_handler_creator);
     web_server.add_resource("/fu1", file_upload_resource);
