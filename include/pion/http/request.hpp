@@ -154,7 +154,7 @@ public:
         memcpy(ptr, value, size);
     }
 
-    // Should be called from payload_handler_creator
+    // Should be called on results from payload_handler_creator
     // to stick payload handler to this request
     inline void set_payload_handler(parser::payload_handler_t ph) { 
         m_payload_handler = std::move(ph);

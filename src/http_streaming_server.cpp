@@ -128,7 +128,8 @@ void streaming_server::handle_request_after_headers_parsed(http::request_ptr htt
     // search for a handler matching the resource requested
     payload_handler_creator_type creator;
     if (find_payload_handler(resource_requested, creator)) {
-        creator(http_request_ptr);
+        auto ha = creator(http_request_ptr);
+        http_request_ptr->set_payload_handler(std::move(ha));
     } else { // ignore request body as no payload_handler found
         PION_LOG_INFO(m_logger, "No payload handlers found for resource: " << resource_requested);
         rc = true;

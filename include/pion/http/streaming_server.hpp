@@ -26,7 +26,7 @@ class streaming_server : public server {
        
 protected:
     /// type of function that is used to create payload handlers
-    typedef std::function<void(http::request_ptr&)> payload_handler_creator_type;
+    typedef std::function<parser::payload_handler_t(http::request_ptr&)> payload_handler_creator_type;
 
     /// data type for a map of resources to request handlers
     typedef std::map<std::string, payload_handler_creator_type> payloads_map_type;    

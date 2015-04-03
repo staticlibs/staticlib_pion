@@ -117,8 +117,9 @@ void file_upload_resource(pion::http::request_ptr& http_request_ptr, pion::tcp::
     fs->send();
 }
 
-void file_upload_payload_handler_creator(pion::http::request_ptr& http_request_ptr) {
-    http_request_ptr->set_payload_handler(FileWriter{"uploaded.dat"});
+FileWriter file_upload_payload_handler_creator(pion::http::request_ptr& http_request_ptr) {
+    (void) http_request_ptr;
+    return FileWriter{"uploaded.dat"};
 }
 
 } // namespace
