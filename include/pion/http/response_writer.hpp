@@ -40,23 +40,6 @@ public:
      * creates new response_writer objects
      * 
      * @param tcp_conn TCP connection used to send the response
-     * @param http_response pointer to the response that will be sent
-     * @param handler function called after the response has been sent
-     * 
-     * @return std::shared_ptr<response_writer> shared pointer to
-     *         the new writer object that was created
-     */
-    static inline std::shared_ptr<response_writer> create(tcp::connection_ptr& tcp_conn,
-                                                               http::response_ptr& http_response_ptr,
-                                                               finished_handler_t handler = finished_handler_t())
-    {
-        return std::shared_ptr<response_writer>(new response_writer(tcp_conn, http_response_ptr, handler));
-    }
-
-    /**
-     * creates new response_writer objects
-     * 
-     * @param tcp_conn TCP connection used to send the response
      * @param http_request the request we are responding to
      * @param handler function called after the request has been sent
      * 
@@ -69,7 +52,7 @@ public:
     {
         return std::shared_ptr<response_writer>(new response_writer(tcp_conn, http_request, handler));
     }
-    
+
     /// returns a non-const reference to the response that will be sent
     inline http::response& get_response(void) { return *m_http_response; }
     
