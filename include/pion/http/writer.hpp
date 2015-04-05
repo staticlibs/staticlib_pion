@@ -156,6 +156,21 @@ public:
         }
     }
 
+    /**
+     * write binary payload content using r-value string
+     *
+     * @param data points to the binary data to append to the payload content
+     * @param length the length, in bytes, of the binary data
+     */
+    inline void write_move(std::string&& data) {
+        if (!data.empty()) {
+            m_moved_cache.emplace_back(std::move(data));
+            std::string& dataref = m_moved_cache.back();
+            flush_content_stream();            
+            m_content_buffers.emplace_back(dataref.c_str(), dataref.length());
+            m_content_length += dataref.length();
+        }
+    }    
     
     /**
      * Sends all data buffered as a single HTTP message (without chunking).
@@ -337,6 +352,9 @@ private:
 
     /// caches text (non-binary) data included within the payload content
     text_cache_t                            m_text_cache;
+
+    /// caches strings moved into writer and included within the payload content
+    std::vector<std::string>                m_moved_cache;    
     
     /// incrementally creates strings of text data for the text_cache_t
     std::ostringstream                      m_content_stream;
