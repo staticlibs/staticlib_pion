@@ -138,9 +138,9 @@ int main() {
     pion::http::streaming_server web_server(2, TCP_PORT);
     web_server.add_method_specific_resource("GET", "/hello", hello_service);
     web_server.add_method_specific_resource("POST", "/hello", hello_service_post);
-    web_server.add_resource("/fu", file_upload_resource);
-    web_server.add_payload_handler("/fu", file_upload_payload_handler_creator);
-    web_server.add_resource("/fu1", file_upload_resource);
+    web_server.add_method_specific_resource("POST", "/fu", file_upload_resource);
+    web_server.add_method_specific_payload_handler("POST", "/fu", file_upload_payload_handler_creator);
+    web_server.add_method_specific_resource("POST", "/fu1", file_upload_resource);
     web_server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});
     web_server.stop(true);

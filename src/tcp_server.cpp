@@ -19,6 +19,17 @@ namespace tcp {     // begin namespace tcp
     
 // tcp::server member functions
 
+server::~server() PION_NOEXCEPT {
+    if (m_is_listening) {
+        try {
+            stop(false);
+        } catch (const std::exception& e) {
+            (void) e;
+//            PION_LOG_WARN("Exception thrown in tcp::server destructor: " << e.message());
+        }
+    }
+}
+
 server::server(scheduler& sched, const unsigned int tcp_port)
     : m_logger(PION_GET_LOGGER("pion.tcp.server")),
     m_active_scheduler(sched),

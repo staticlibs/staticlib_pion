@@ -45,8 +45,7 @@ public:
         const std::string&)> error_handler_t;
 
 
-    /// default destructor
-    virtual ~server() { if (is_listening()) stop(); }
+    virtual ~server() PION_NOEXCEPT;
     
     /**
      * creates a new server object

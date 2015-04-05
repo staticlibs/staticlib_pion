@@ -35,7 +35,7 @@ class PION_API server :
 public:
 
     /// default destructor
-    virtual ~server() { if (m_is_listening) stop(false); }
+    virtual ~server() PION_NOEXCEPT;
     
     /// starts listening for new connections
     void start(void);

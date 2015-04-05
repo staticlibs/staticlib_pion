@@ -25,6 +25,17 @@ const unsigned int          server::MAX_REDIRECTS = 10;
 
 // server member functions
 
+server::~server() PION_NOEXCEPT {
+    if (is_listening()) {
+        try {
+            stop(false);
+        } catch (const std::exception& e) {
+            (void) e;
+//            PION_LOG_WARN("Exception thrown in http::server destructor: " << e.message());
+        }
+    }
+}
+
 void server::handle_connection(tcp::connection_ptr& tcp_conn)
 {
     request_reader_ptr my_reader_ptr;

@@ -127,7 +127,7 @@ void streaming_server::handle_request_after_headers_parsed(http::request_ptr htt
 
     // search for a handler matching the resource requested
     payload_handler_creator_type creator;
-    if (find_payload_handler(resource_requested, creator)) {
+    if (find_method_specific_payload_handler(http_request_ptr->get_method(), resource_requested, creator)) {
         auto ha = creator(http_request_ptr);
         http_request_ptr->set_payload_handler(std::move(ha));
     } else { // ignore request body as no payload_handler found
@@ -195,46 +195,15 @@ bool streaming_server::find_request_handler_internal(const resource_map_t& map, 
     return false;
 }
 
-bool streaming_server::find_method_specific_request_handler(const std::string& method,
-        const std::string& resource, request_handler_t& request_handler) const {
-    if (types::REQUEST_METHOD_GET == method) {
-        return find_request_handler_internal(m_get_resources, resource, request_handler);
-    } else if (types::REQUEST_METHOD_POST == method) {
-        return find_request_handler_internal(m_post_resources, resource, request_handler);
-    } else if (types::REQUEST_METHOD_PUT == method) {
-        return find_request_handler_internal(m_put_resources, resource, request_handler);
-    } else if (types::REQUEST_METHOD_DELETE == method) {
-        return find_request_handler_internal(m_delete_resources, resource, request_handler);
-    } else {
-        throw std::runtime_error("Invalid method: [" + method + "]");
-    }
-}
-
-void streaming_server::add_payload_handler(const std::string& resource,
-        payload_handler_creator_type payload_handler) {
-    std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
-    const std::string clean_resource(strip_trailing_slash(resource));
-    m_payloads.insert(std::make_pair(clean_resource, payload_handler));
-    PION_LOG_INFO(m_logger, "Added payload handler for HTTP resource: " << clean_resource);
-}
-
-void streaming_server::remove_payload_handler(const std::string& resource) {
-    std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
-    const std::string clean_resource(strip_trailing_slash(resource));
-    m_payloads.erase(clean_resource);
-    PION_LOG_INFO(m_logger, "Removed payload handler for HTTP resource: " << clean_resource);
-}
-
-bool streaming_server::find_payload_handler(const std::string& resource,
+bool streaming_server::find_payload_handler_internal(const payloads_map_type& map, const std::string& resource,
         payload_handler_creator_type& payload_handler) const {
     // first make sure that HTTP resources are registered
     std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
-    if (m_payloads.empty())
-        return false;
+    if (map.empty()) return false;
 
     // iterate through each resource entry that may match the resource
-    payloads_map_type::const_iterator i = m_payloads.upper_bound(resource);
-    while (i != m_payloads.begin()) {
+    payloads_map_type::const_iterator i = map.upper_bound(resource);
+    while (i != map.begin()) {
         --i;
         // check for a match if the first part of the strings match
         if (i->first.empty() || resource.compare(0, i->first.size(), i->first) == 0) {
@@ -248,6 +217,58 @@ bool streaming_server::find_payload_handler(const std::string& resource,
     }
 
     return false;
+}
+
+bool streaming_server::find_method_specific_request_handler(const std::string& method,
+        const std::string& resource, request_handler_t& request_handler) const {
+    if (types::REQUEST_METHOD_GET == method) {
+        return find_request_handler_internal(m_get_resources, resource, request_handler);
+    } else if (types::REQUEST_METHOD_POST == method) {
+        return find_request_handler_internal(m_post_resources, resource, request_handler);
+    } else if (types::REQUEST_METHOD_PUT == method) {
+        return find_request_handler_internal(m_put_resources, resource, request_handler);
+    } else if (types::REQUEST_METHOD_DELETE == method) {
+        return find_request_handler_internal(m_delete_resources, resource, request_handler);
+    } else return false;
+}
+
+void streaming_server::add_method_specific_payload_handler(const std::string& method,
+        const std::string& resource, payload_handler_creator_type payload_handler) {
+    std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
+    const std::string clean_resource(strip_trailing_slash(resource));
+    if (types::REQUEST_METHOD_POST == method) {
+        m_post_payloads.insert(std::make_pair(clean_resource, payload_handler));
+    } else if (types::REQUEST_METHOD_PUT == method) {
+        m_put_payloads.insert(std::make_pair(clean_resource, payload_handler));
+    } else {
+        throw std::runtime_error("Invalid payload method: [" + method + "]");
+    }    
+    PION_LOG_INFO(m_logger, "Added payload handler for HTTP resource: " << clean_resource
+            << ", method: " << method);
+}
+
+void streaming_server::remove_method_specific_payload_handler(const std::string& method, 
+        const std::string& resource) {
+    std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
+    const std::string clean_resource(strip_trailing_slash(resource));
+    if (types::REQUEST_METHOD_POST == method) {
+        m_post_payloads.erase(clean_resource);
+    } else if (types::REQUEST_METHOD_PUT == method) {
+        m_put_payloads.erase(clean_resource);
+    } else {
+        throw std::runtime_error("Invalid payload method: [" + method + "]");
+    }    
+    PION_LOG_INFO(m_logger, "Removed payload handler for HTTP resource: " << clean_resource
+            << ", method: " << method);
+}
+
+bool streaming_server::find_method_specific_payload_handler(const std::string& method,
+        const std::string& resource, payload_handler_creator_type& payload_handler) const {
+    if (types::REQUEST_METHOD_POST == method) {
+        return find_payload_handler_internal(m_post_payloads, resource, payload_handler);
+    } else if (types::REQUEST_METHOD_PUT == method) {
+        return find_payload_handler_internal(m_put_payloads, resource, payload_handler);
+    } else return false;
 }
 
 } // end namespace http

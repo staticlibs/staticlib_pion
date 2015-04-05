@@ -65,17 +65,20 @@ public:
     /**
      * adds a new payload_handler to the HTTP server
      *
+     * @param method HTTP method name
      * @param resource the resource name or uri-stem to bind to the handler
      * @param payload_handler function used to handle payload for the request
      */
-    void add_payload_handler(const std::string& resource, payload_handler_creator_type payload_handler);
+    void add_method_specific_payload_handler(const std::string& method, const std::string& resource, 
+            payload_handler_creator_type payload_handler);
 
     /**
      * removes a payload_handler from the HTTP server
      *
+     * @param method HTTP method name
      * @param resource the resource name or uri-stem to remove
      */
-    void remove_payload_handler(const std::string& resource);
+    void remove_method_specific_payload_handler(const std::string& method, const std::string& resource);
 
 protected:
 
@@ -86,7 +89,8 @@ protected:
     resource_map_t m_delete_resources;
 
     // map of resources to request handlers
-    payloads_map_type m_payloads;
+    payloads_map_type m_post_payloads;
+    payloads_map_type m_put_payloads;
     
     /**
      * searches for the appropriate request handler to use for a given resource
@@ -104,8 +108,8 @@ protected:
      * @param resource the name of the resource to search for
      * @param payload_handler function that can handle payload for this resource
      */
-    virtual bool find_payload_handler(const std::string& resource,
-            payload_handler_creator_type& payload_handler_creator) const;
+    virtual bool find_method_specific_payload_handler(const std::string& method, 
+            const std::string& resource, payload_handler_creator_type& payload_handler_creator) const;
     
     /**
      * handles a new TCP connection
@@ -139,6 +143,9 @@ private:
 
     bool find_request_handler_internal(const resource_map_t& map , const std::string& resource, 
             request_handler_t& request_handler) const;
+
+    bool find_payload_handler_internal(const payloads_map_type& map, const std::string& resource,
+            payload_handler_creator_type& payload_handler) const;
 
 };    
 
