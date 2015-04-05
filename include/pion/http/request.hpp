@@ -168,9 +168,14 @@ public:
         }
     }
     
-    // access to the payload handler object
+    // access to the wrapped payload handler object
     template<typename T>
     T* get_payload_handler() { return m_payload_handler.target<T>(); }
+    
+    // access to the payload handler wrapper
+    parser::payload_handler_t& get_payload_handler_wrapper() {
+        return m_payload_handler;
+    }
     
     // internal method
     inline void set_request_reader(parser* rr) { m_request_reader = rr; }
