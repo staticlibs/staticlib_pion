@@ -236,10 +236,14 @@ void streaming_server::add_method_specific_payload_handler(const std::string& me
         const std::string& resource, payload_handler_creator_type payload_handler) {
     std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
     const std::string clean_resource(strip_trailing_slash(resource));
-    if (types::REQUEST_METHOD_POST == method) {
+    if (types::REQUEST_METHOD_GET == method) {
+        m_get_payloads.insert(std::make_pair(clean_resource, payload_handler));
+    } else if (types::REQUEST_METHOD_POST == method) {
         m_post_payloads.insert(std::make_pair(clean_resource, payload_handler));
     } else if (types::REQUEST_METHOD_PUT == method) {
         m_put_payloads.insert(std::make_pair(clean_resource, payload_handler));
+    } else if (types::REQUEST_METHOD_DELETE == method) {
+        m_delete_payloads.insert(std::make_pair(clean_resource, payload_handler));        
     } else {
         throw std::runtime_error("Invalid payload method: [" + method + "]");
     }    
@@ -251,10 +255,14 @@ void streaming_server::remove_method_specific_payload_handler(const std::string&
         const std::string& resource) {
     std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
     const std::string clean_resource(strip_trailing_slash(resource));
-    if (types::REQUEST_METHOD_POST == method) {
+    if (types::REQUEST_METHOD_GET == method) {
+        m_get_payloads.erase(clean_resource);
+    } else if (types::REQUEST_METHOD_POST == method) {
         m_post_payloads.erase(clean_resource);
     } else if (types::REQUEST_METHOD_PUT == method) {
         m_put_payloads.erase(clean_resource);
+    } else if (types::REQUEST_METHOD_DELETE == method) {
+        m_delete_payloads.erase(clean_resource);
     } else {
         throw std::runtime_error("Invalid payload method: [" + method + "]");
     }    
@@ -265,9 +273,13 @@ void streaming_server::remove_method_specific_payload_handler(const std::string&
 bool streaming_server::find_method_specific_payload_handler(const std::string& method,
         const std::string& resource, payload_handler_creator_type& payload_handler) const {
     if (types::REQUEST_METHOD_POST == method) {
+        return find_payload_handler_internal(m_get_payloads, resource, payload_handler);
+    } else if (types::REQUEST_METHOD_POST == method) {
         return find_payload_handler_internal(m_post_payloads, resource, payload_handler);
     } else if (types::REQUEST_METHOD_PUT == method) {
         return find_payload_handler_internal(m_put_payloads, resource, payload_handler);
+    } else if (types::REQUEST_METHOD_DELETE == method) {
+        return find_payload_handler_internal(m_delete_payloads, resource, payload_handler);
     } else return false;
 }
 

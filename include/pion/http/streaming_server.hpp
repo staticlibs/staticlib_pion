@@ -89,8 +89,13 @@ protected:
     resource_map_t m_delete_resources;
 
     // map of resources to request handlers
+    // GET payload won't happen, but lets be consistent here
+    // to simplify clients implementation and to make sure that
+    // pion's form-data parsing won't be triggered
+    payloads_map_type m_get_payloads;
     payloads_map_type m_post_payloads;
     payloads_map_type m_put_payloads;
+    payloads_map_type m_delete_payloads;
     
     /**
      * searches for the appropriate request handler to use for a given resource
