@@ -272,7 +272,7 @@ void streaming_server::remove_method_specific_payload_handler(const std::string&
 
 bool streaming_server::find_method_specific_payload_handler(const std::string& method,
         const std::string& resource, payload_handler_creator_type& payload_handler) const {
-    if (types::REQUEST_METHOD_POST == method) {
+    if (types::REQUEST_METHOD_GET == method) {
         return find_payload_handler_internal(m_get_payloads, resource, payload_handler);
     } else if (types::REQUEST_METHOD_POST == method) {
         return find_payload_handler_internal(m_post_payloads, resource, payload_handler);
