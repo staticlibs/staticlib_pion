@@ -214,7 +214,7 @@ protected:
     
     /// appends HTTP headers for any cookies defined by the http::message
     virtual void append_cookie_headers(void) {
-        for (ihash_multimap::const_iterator i = get_cookies().begin(); i != get_cookies().end(); ++i) {
+        for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator i = get_cookies().begin(); i != get_cookies().end(); ++i) {
             set_cookie(i->first, i->second);
         }
     }

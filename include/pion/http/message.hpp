@@ -10,6 +10,8 @@
 #ifndef __PION_HTTP_MESSAGE_HEADER__
 #define __PION_HTTP_MESSAGE_HEADER__
 
+#include <string>
+#include <unordered_map>
 #include <iosfwd>
 #include <vector>
 #include <cstring>
@@ -204,7 +206,7 @@ public:
     }
 
     /// returns a reference to the HTTP headers
-    inline ihash_multimap& get_headers(void) {
+    inline std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& get_headers(void) {
         return m_headers;
     }
 
@@ -220,7 +222,7 @@ public:
     }
     
     /// returns the cookie parameters
-    inline ihash_multimap& get_cookies(void) {
+    inline std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& get_cookies(void) {
         return m_cookie_params;
     }
 
@@ -301,7 +303,7 @@ public:
 
     /// sets the length of the payload content using the Content-Length header
     inline void update_content_length_using_header(void) {
-        ihash_multimap::const_iterator i = m_headers.find(HEADER_CONTENT_LENGTH);
+        std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator i = m_headers.find(HEADER_CONTENT_LENGTH);
         if (i == m_headers.end()) {
             m_content_length = 0;
         } else {
@@ -314,7 +316,7 @@ public:
     /// sets the transfer coding using the Transfer-Encoding header
     inline void update_transfer_encoding_using_header(void) {
         m_is_chunked = false;
-        ihash_multimap::const_iterator i = m_headers.find(HEADER_TRANSFER_ENCODING);
+        std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator i = m_headers.find(HEADER_TRANSFER_ENCODING);
         if (i != m_headers.end()) {
             // From RFC 2616, sec 3.6: All transfer-coding values are case-insensitive.
             m_is_chunked = std::regex_match(i->second, REGEX_ICASE_CHUNKED);
@@ -573,7 +575,7 @@ protected:
      */
     inline void append_headers(write_buffers_t& write_buffers) {
         // add HTTP headers
-        for (ihash_multimap::const_iterator i = m_headers.begin(); i != m_headers.end(); ++i) {
+        for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator i = m_headers.begin(); i != m_headers.end(); ++i) {
             write_buffers.push_back(asio::buffer(i->first));
             write_buffers.push_back(asio::buffer(HEADER_NAME_VALUE_DELIMITER));
             write_buffers.push_back(asio::buffer(i->second));
@@ -703,10 +705,10 @@ private:
     chunk_cache_t                   m_chunk_cache;
 
     /// HTTP message headers
-    ihash_multimap                  m_headers;
+    std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to> m_headers;
 
     /// HTTP cookie parameters parsed from the headers
-    ihash_multimap                  m_cookie_params;
+    std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to> m_cookie_params;
 
     /// message data integrity status
     data_status_t                   m_status;

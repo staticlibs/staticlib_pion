@@ -7,6 +7,8 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
+#include <string>
+#include <unordered_map>
 #include <cstdlib>
 #include <cstring>
 #include <regex>
@@ -607,9 +609,9 @@ void parser::update_message_with_header_data(http::message& http_msg) const
         }
 
         // parse "Cookie" headers in request
-        std::pair<ihash_multimap::const_iterator, ihash_multimap::const_iterator>
+        std::pair<std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator, std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator>
         cookie_pair = http_request.get_headers().equal_range(http::types::HEADER_COOKIE);
-        for (ihash_multimap::const_iterator cookie_iterator = cookie_pair.first;
+        for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator cookie_iterator = cookie_pair.first;
              cookie_iterator != http_request.get_headers().end()
              && cookie_iterator != cookie_pair.second; ++cookie_iterator)
         {
@@ -627,9 +629,9 @@ void parser::update_message_with_header_data(http::message& http_msg) const
         http_response.set_status_message(m_status_message);
 
         // parse "Set-Cookie" headers in response
-        std::pair<ihash_multimap::const_iterator, ihash_multimap::const_iterator>
+        std::pair<std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator, std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator>
         cookie_pair = http_response.get_headers().equal_range(http::types::HEADER_SET_COOKIE);
-        for (ihash_multimap::const_iterator cookie_iterator = cookie_pair.first;
+        for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator cookie_iterator = cookie_pair.first;
              cookie_iterator != http_response.get_headers().end()
              && cookie_iterator != cookie_pair.second; ++cookie_iterator)
         {
@@ -796,7 +798,7 @@ bool parser::parse_uri(const std::string& uri, std::string& proto,
     return true;
 }
 
-bool parser::parse_url_encoded(ihash_multimap& dict,
+bool parser::parse_url_encoded(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
                                const char *ptr, const size_t len)
 {
     // sanity check
@@ -877,7 +879,7 @@ bool parser::parse_url_encoded(ihash_multimap& dict,
     return true;
 }
 
-bool parser::parse_multipart_form_data(ihash_multimap& dict,
+bool parser::parse_multipart_form_data(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
                                        const std::string& content_type,
                                        const char *ptr, const size_t len)
 {
@@ -1042,7 +1044,7 @@ bool parser::parse_multipart_form_data(ihash_multimap& dict,
     return found_parameter;
 }
 
-bool parser::parse_cookie_header(ihash_multimap& dict,
+bool parser::parse_cookie_header(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
                                    const char *ptr, const size_t len,
                                    bool set_cookie_header)
 {

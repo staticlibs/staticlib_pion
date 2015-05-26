@@ -75,7 +75,7 @@ public:
     }
 
     /// returns the query parameters
-    inline ihash_multimap& get_queries(void) {
+    inline std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& get_queries(void) {
         return m_query_params;
     }
     
@@ -201,7 +201,7 @@ protected:
     
     /// appends HTTP headers for any cookies defined by the http::message
     virtual void append_cookie_headers(void) {
-        for (ihash_multimap::const_iterator i = get_cookies().begin(); i != get_cookies().end(); ++i) {
+        for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator i = get_cookies().begin(); i != get_cookies().end(); ++i) {
             std::string cookie_header;
             cookie_header = i->first;
             cookie_header += COOKIE_NAME_VALUE_DELIMITER;
@@ -226,7 +226,7 @@ private:
     std::string                     m_query_string;
     
     /// HTTP query parameters parsed from the request line and post content
-    ihash_multimap                  m_query_params;
+    std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>                  m_query_params;
 
     /// Payload handler used with this request
     parser::payload_handler_t       m_payload_handler;

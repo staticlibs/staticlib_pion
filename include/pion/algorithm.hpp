@@ -30,15 +30,16 @@
 #include <functional>
 #include <cstdint>
 #include <sstream>
-#include <pion/config.hpp>
+
+#include "pion/config.hpp"
 
 namespace pion { // begin namespace pion
 
 /**
- * Contains a number of common algorithms
+ * Contains some common algorithms
  * 
  */
-struct PION_API algorithm {
+namespace algorithm { // begin namespace algorithm
     
     /**
      * Called repeatedly to incrementally create a hash value from several variables.
@@ -53,16 +54,6 @@ struct PION_API algorithm {
         std::hash<T> hasher;
         seed ^= hasher(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
     }
-
-    /**
-     * Case insensitive byte-to-byte string comparison, does not support Unicode
-     * 
-     * @param str1 first string
-     * @param str2 seconds string
-     * @return true if strings equal ignoring case, false otherwise
-     */
-    // http://stackoverflow.com/a/27813
-    static bool iequals(const std::string& str1, const std::string& str2);
     
     /**
      * Implementation of C++11 "std::to_string" function for the compilers
@@ -77,6 +68,16 @@ struct PION_API algorithm {
         ss << t;
         return ss.str();
     }
+
+    /**
+     * Case insensitive byte-to-byte string comparison, does not support Unicode
+     * 
+     * @param str1 first string
+     * @param str2 seconds string
+     * @return true if strings equal ignoring case, false otherwise
+     */
+    // http://stackoverflow.com/a/27813
+    bool iequals(const std::string& str1, const std::string& str2);
     
     /**
      * Parse "size_t" integer from specified string
@@ -85,7 +86,7 @@ struct PION_API algorithm {
      * @return parsed value
      * @throws std::runtime_error on parse error
      */
-    static size_t parse_sizet(const std::string& str);
+    size_t parse_sizet(const std::string& str);
 
     /**
      * Parse "uint16_t" integer from specified string
@@ -94,7 +95,7 @@ struct PION_API algorithm {
      * @return parsed value
      * @throws std::runtime_error on parse error
      */
-    static uint16_t parse_uint16(const std::string& str);
+    uint16_t parse_uint16(const std::string& str);
     
     /**
      * Trims specified string from left and from right using "std::isspace"
@@ -103,7 +104,7 @@ struct PION_API algorithm {
      * @param s string to trim
      * @return trimmed string
      */
-    static std::string trim(const std::string& s);
+    std::string trim(const std::string& s);
     
     /**
      * Unescapes specified URL-encoded string (a%20value+with%20spaces)
@@ -111,7 +112,7 @@ struct PION_API algorithm {
      * @param str URL-encoded string
      * @return unescaped (plain) string
      */
-    static std::string url_decode(const std::string& str);
+    std::string url_decode(const std::string& str);
 
     /**
      * Encodes specified string so that it is safe for URLs (with%20spaces)
@@ -119,7 +120,7 @@ struct PION_API algorithm {
      * @param str string to encode
      * @return escaped string
      */
-    static std::string url_encode(const std::string& str);
+    std::string url_encode(const std::string& str);
 
     /**
      * Escapes specified string so it is safe to use inside XML/HTML (2 &gt; 1)
@@ -127,10 +128,48 @@ struct PION_API algorithm {
      * @param str string to escape
      * @return escaped string
      */
-    static std::string xml_encode(const std::string& str);
+    std::string xml_encode(const std::string& str);
     
-};
+
+    /**
+     * Case insensitive string equality predicate
+     */
+    // http://www.boost.org/doc/libs/1_50_0/doc/html/unordered/hash_equality.html
+    struct iequal_to : std::binary_function<std::string, std::string, bool> {
+        /**
+         * Case insensitive byte-to-byte string comparison, does not support Unicode
+         * 
+         * @param x first string
+         * @param y seconds string
+         * @return true if strings equal ignoring case, false otherwise
+         */
+        bool operator()(std::string const& x, std::string const& y) const {
+            return pion::algorithm::iequals(x, y);
+        }
+    };
+
+    /**
+     * Case insensitive hash generic function
+     */
+    // http://www.boost.org/doc/libs/1_50_0/doc/html/unordered/hash_equality.html
+    struct ihash : std::unary_function<std::string, std::size_t> {
+        /**
+         * Computes hash over specified string
+         * 
+         * @param x string to compute hash on
+         * @return hash value
+         */
+        std::size_t operator()(std::string const& x) const {
+            std::size_t seed = 0;
+            std::locale locale;
+            for (std::string::const_iterator it = x.begin(); it != x.end(); ++it) {
+                pion::algorithm::hash_combine(seed, std::toupper(*it, locale));
+            }
+            return seed;
+        }
+    };
     
+} // end namespace algorithm
 } // end namespace pion
 
 #endif

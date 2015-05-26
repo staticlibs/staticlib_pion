@@ -7,6 +7,8 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
+#include <string>
+#include <unordered_map>
 #include <mutex>
 #include <pion/http/types.hpp>
 #include <pion/algorithm.hpp>
@@ -110,10 +112,10 @@ std::string types::get_date_string(const time_t t)
     return std::string(time_buf);
 }
 
-std::string types::make_query_string(const ihash_multimap& query_params)
+std::string types::make_query_string(const std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& query_params)
 {
     std::string query_string;
-    for (ihash_multimap::const_iterator i = query_params.begin(); i != query_params.end(); ++i) {
+    for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator i = query_params.begin(); i != query_params.end(); ++i) {
         if (i != query_params.begin())
             query_string += '&';
         query_string += algorithm::url_encode(i->first);

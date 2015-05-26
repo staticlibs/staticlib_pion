@@ -23,12 +23,7 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include <cmath>
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
-#include <pion/algorithm.hpp>
-#include <cassert>
+
 #include <algorithm>
 #include <stdexcept>
 #include <cstdint>
@@ -36,10 +31,13 @@
 #include <cerrno>
 #include <cctype>
 
-namespace pion {        // begin namespace pion
+#include "pion/algorithm.hpp"
+
+namespace pion { // begin namespace pion
+namespace algorithm { // begin namespace algorithm
 
 // http://stackoverflow.com/a/27813
-bool algorithm::iequals(const std::string& str1, const std::string& str2) {
+bool iequals(const std::string& str1, const std::string& str2) {
     if (str1.size() != str2.size()) {
         return false;
     }
@@ -51,7 +49,7 @@ bool algorithm::iequals(const std::string& str1, const std::string& str2) {
     return true;
 }
 
-size_t algorithm::parse_sizet(const std::string& str) {
+size_t parse_sizet(const std::string& str) {
     auto cstr = str.c_str();
     char* endptr;
     errno = 0;
@@ -62,7 +60,7 @@ size_t algorithm::parse_sizet(const std::string& str) {
     return static_cast<size_t> (l);
 }
 
-uint16_t algorithm::parse_uint16(const std::string& str) {
+uint16_t parse_uint16(const std::string& str) {
     auto cstr = str.c_str();
     char* endptr;
     errno = 0;
@@ -77,7 +75,7 @@ uint16_t algorithm::parse_uint16(const std::string& str) {
 }
 
 // http://stackoverflow.com/a/17976541
-std::string algorithm::trim(const std::string& s) {
+std::string trim(const std::string& s) {
     auto wsfront = std::find_if_not(s.begin(), s.end(), [](int c) {
         return std::isspace(c);
     });
@@ -86,8 +84,7 @@ std::string algorithm::trim(const std::string& s) {
     }).base());
 }
 
-std::string algorithm::url_decode(const std::string& str)
-{
+std::string url_decode(const std::string& str) {
     char decode_buf[3];
     std::string result;
     result.reserve(str.size());
@@ -129,8 +126,7 @@ std::string algorithm::url_decode(const std::string& str)
     return result;
 }
     
-std::string algorithm::url_encode(const std::string& str)
-{
+std::string url_encode(const std::string& str) {
     char encode_buf[4];
     std::string result;
     encode_buf[0] = '%';
@@ -163,8 +159,7 @@ std::string algorithm::url_encode(const std::string& str)
     return result;
 }
 
-std::string algorithm::xml_encode(const std::string& str)
-{
+std::string xml_encode(const std::string& str) {
     std::string result;
     result.reserve(str.size() + 20);    // Assume ~5 characters converted (length increases)
     const unsigned char *ptr = reinterpret_cast<const unsigned char*>(str.c_str());
@@ -275,4 +270,5 @@ std::string algorithm::xml_encode(const std::string& str)
     return result;
 }
     
-}   // end namespace pion
+} // end namespace algorithm
+} // end namespace pion

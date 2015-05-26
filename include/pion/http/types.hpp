@@ -11,13 +11,12 @@
 #define __PION_HTTP_TYPES_HEADER__
 
 #include <string>
-#include <pion/config.hpp>
-#include <pion/hash_map.hpp>
 
+#include "pion/config.hpp"
+#include "pion/algorithm.hpp"
 
 namespace pion {    // begin namespace pion
 namespace http {    // begin namespace http
-
 
 ///
 /// types: common data types used by HTTP
@@ -105,7 +104,7 @@ struct PION_API types
     static std::string get_date_string(const time_t t);
 
     /// builds an HTTP query string from a collection of query parameters
-    static std::string make_query_string(const ihash_multimap& query_params);
+    static std::string make_query_string(const std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& query_params);
     
     /**
      * creates a "Set-Cookie" header

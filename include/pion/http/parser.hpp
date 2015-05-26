@@ -304,7 +304,7 @@ public:
      * 
      * @return bool true if successful
      */
-    static bool parse_url_encoded(ihash_multimap& dict,
+    static bool parse_url_encoded(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
                                 const char *ptr, const std::size_t len);
 
     /**
@@ -318,7 +318,7 @@ public:
      *
      * @return bool true if successful
      */
-    static bool parse_multipart_form_data(ihash_multimap& dict,
+    static bool parse_multipart_form_data(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
                                           const std::string& content_type,
                                           const char *ptr, const std::size_t len);
     
@@ -333,7 +333,7 @@ public:
      * 
      * @return bool true if successful
      */
-    static bool parse_cookie_header(ihash_multimap& dict,
+    static bool parse_cookie_header(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
                                   const char *ptr, const std::size_t len,
                                   bool set_cookie_header);
 
@@ -347,7 +347,7 @@ public:
      * 
      * @return bool true if successful
      */
-    static inline bool parse_cookie_header(ihash_multimap& dict,
+    static inline bool parse_cookie_header(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
         const std::string& cookie_header, bool set_cookie_header)
     {
         return parse_cookie_header(dict, cookie_header.c_str(), cookie_header.size(), set_cookie_header);
@@ -362,7 +362,7 @@ public:
      * 
      * @return bool true if successful
      */
-    static inline bool parse_url_encoded(ihash_multimap& dict,
+    static inline bool parse_url_encoded(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
         const std::string& query)
     {
         return parse_url_encoded(dict, query.c_str(), query.size());
@@ -378,7 +378,7 @@ public:
      *
      * @return bool true if successful
      */
-    static inline bool parse_multipart_form_data(ihash_multimap& dict,
+    static inline bool parse_multipart_form_data(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
                                                  const std::string& content_type,
                                                  const std::string& form_data)
     {
