@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // ---------------------------------------------------------------------
 // pion:  a Boost C++ framework for building lightweight HTTP interfaces
 // ---------------------------------------------------------------------
@@ -13,125 +29,48 @@
 #include <string>
 #include <locale>
 #include <functional>
+#include <unordered_map>
 #include <pion/config.hpp>
 #include <pion/algorithm.hpp>
 
-#if defined(PION_HAVE_UNORDERED_MAP)
-    #include <unordered_map>
-#elif defined(PION_HAVE_TR1_UNORDERED_MAP)
-    #include <tr1/unordered_map>
-#elif defined(PION_HAVE_EXT_HASH_MAP)
-    #include <ext/hash_map>
-#elif defined(PION_HAVE_HASH_MAP)
-    #include <hash_map>
-#endif
+namespace pion { // begin namespace pion
 
+/**
+ * Contains internal structs for ihash_multimap
+ */
+namespace hash_map { // begin namespace hash_map
 
-namespace pion {    // begin namespace pion
-
-#if defined(PION_HAVE_UNORDERED_MAP)
-    #define PION_HASH_MAP std::unordered_map
-    #define PION_HASH_MULTIMAP std::unordered_multimap
-    #define PION_HASH_STRING std::hash<std::string>
-    #define PION_HASH(TYPE) std::hash<TYPE>
-#elif defined(PION_HAVE_TR1_UNORDERED_MAP)
-    #define PION_HASH_MAP std::tr1::unordered_map
-    #define PION_HASH_MULTIMAP std::tr1::unordered_multimap
-    #define PION_HASH_STRING std::hash<std::string>
-    #define PION_HASH(TYPE) std::hash<TYPE>
-#elif defined(PION_HAVE_EXT_HASH_MAP)
-    #if __GNUC__ >= 3
-        #define PION_HASH_MAP __gnu_cxx::hash_map
-        #define PION_HASH_MULTIMAP __gnu_cxx::hash_multimap
-    #else
-        #define PION_HASH_MAP hash_map
-        #define PION_HASH_MULTIMAP hash_multimap
-    #endif
-    #define PION_HASH_STRING std::hash<std::string>
-    #define PION_HASH(TYPE) std::hash<TYPE>
-#elif defined(PION_HAVE_HASH_MAP)
-    #ifdef _MSC_VER
-        #define PION_HASH_MAP stdext::hash_map
-        #define PION_HASH_MULTIMAP stdext::hash_multimap
-        #define PION_HASH_STRING stdext::hash_compare<std::string, std::less<std::string> >
-        #define PION_HASH(TYPE) stdext::hash_compare<TYPE, std::less<TYPE> >
-    #else
-        #define PION_HASH_MAP hash_map
-        #define PION_HASH_MULTIMAP hash_multimap
-        #define PION_HASH_STRING std::hash<std::string>
-        #define PION_HASH(TYPE) std::hash<TYPE>
-    #endif
-#endif
-    
-    /// case insensitive string equality predicate
-    /// copied from boost.unordered hash_equality documentation
-    /// http://www.boost.org/doc/libs/1_50_0/doc/html/unordered/hash_equality.html
-    struct iequal_to
-        : std::binary_function<std::string, std::string, bool>
-    {
-        bool operator()(std::string const& x,
-                        std::string const& y) const
-        {
+    /**
+     * Case insensitive string equality predicate
+     */
+    // http://www.boost.org/doc/libs/1_50_0/doc/html/unordered/hash_equality.html
+    struct iequal_to : std::binary_function<std::string, std::string, bool> {
+        bool operator()(std::string const& x, std::string const& y) const {
             return pion::algorithm::iequals(x, y);
         }
     };
     
-    /// case insensitive hash generic function
-    /// copied from boost.unordered hash_equality documentation
-    /// http://www.boost.org/doc/libs/1_50_0/doc/html/unordered/hash_equality.html
-    struct ihash
-        : std::unary_function<std::string, std::size_t>
-    {
-        std::size_t operator()(std::string const& x) const
-        {
+    /**
+     * Case insensitive hash generic function
+     */
+    // http://www.boost.org/doc/libs/1_50_0/doc/html/unordered/hash_equality.html
+    struct ihash : std::unary_function<std::string, std::size_t> {
+        std::size_t operator()(std::string const& x) const {
             std::size_t seed = 0;
             std::locale locale;
-            
-            for(std::string::const_iterator it = x.begin();
-                it != x.end(); ++it)
-            {
+            for(std::string::const_iterator it = x.begin(); it != x.end(); ++it) {
                 pion::algorithm::hash_combine(seed, std::toupper(*it, locale));
             }
-            
             return seed;
         }
     };
+} // end namespace hash_map    
     
-#if defined(_MSC_VER) && !defined(PION_HAVE_UNORDERED_MAP)
-    /// Case-insensitive "less than" predicate
-    template<class _Ty> struct is_iless : public std::binary_function<_Ty, _Ty, bool>
-    {
-        /// Constructor
-        is_iless( const std::locale& Loc=std::locale() ) : m_Loc( Loc ) {}
+    /**
+     * Data type for case-insensitive dictionary of strings
+     */
+    typedef std::unordered_multimap<std::string, std::string, hash_map::ihash, hash_map::iequal_to> ihash_multimap;
 
-        /// returns true if Arg1 is less than Arg2
-        bool operator()( const _Ty& Arg1, const _Ty& Arg2 ) const
-        {
-            return _Ty(boost::algorithm::to_upper_copy(Arg1, m_Loc)) < _Ty(boost::algorithm::to_upper_copy(Arg2, m_Loc));
-        }
-
-        private:
-            std::locale m_Loc;
-    };
-
-    /// case insensitive extension of stdext::hash_compare for std::string
-    struct ihash_windows : public stdext::hash_compare<std::string, is_iless<std::string> > {
-        // makes operator() with two arguments visible, otherwise it would be hidden by the operator() defined here
-        using stdext::hash_compare<std::string, is_iless<std::string> >::operator();
-        
-        inline size_t operator()(const std::string& str) const {
-            return ihash()(str);
-        }
-    };
-
-    /// data type for case-insensitive dictionary of strings
-    typedef PION_HASH_MULTIMAP<std::string, std::string, ihash_windows >    ihash_multimap;
-#else
-    /// data type for case-insensitive dictionary of strings
-    typedef PION_HASH_MULTIMAP<std::string, std::string, ihash, iequal_to >    ihash_multimap;
-#endif
-
-
-}   // end namespace pion
+} // end namespace pion
 
 #endif

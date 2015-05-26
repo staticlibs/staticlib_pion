@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // ---------------------------------------------------------------------
 // pion:  a Boost C++ framework for building lightweight HTTP interfaces
 // ---------------------------------------------------------------------
@@ -21,19 +37,6 @@
 #ifndef PION_VERSION
 #define PION_VERSION "5.0.7"
 #endif // PION_VERSION
-
-/* Define to 1 if C library supports malloc_trim() */
-//#cmakedefine PION_HAVE_MALLOC_TRIM ${PION_HAVE_MALLOC_TRIM}
-
-// -----------------------------------------------------------------------
-// hash_map support
-//
-// At least one of the following options should be defined.
-
-/* Define to 1 if you have the <unordered_map> header file. */
-#define PION_HAVE_UNORDERED_MAP 1
-
-// -----------------------------------------------------------------------
 
 #if defined(_WIN32) || defined(_WINDOWS)
     #define PION_WIN32  1
