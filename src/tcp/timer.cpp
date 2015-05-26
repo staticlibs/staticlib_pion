@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // ---------------------------------------------------------------------
 // pion:  a Boost C++ framework for building lightweight HTTP interfaces
 // ---------------------------------------------------------------------
@@ -7,24 +23,21 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include <pion/tcp/timer.hpp>
+
 #include <functional>
 
+#include "pion/tcp/timer.hpp"
 
-namespace pion {    // begin namespace pion
-namespace tcp {     // begin namespace tcp
-
+namespace pion {
+namespace tcp {
 
 // timer member functions
 
 timer::timer(tcp::connection_ptr& conn_ptr)
     : m_conn_ptr(conn_ptr), m_timer(conn_ptr->get_io_service()),
-    m_timer_active(false), m_was_cancelled(false)
-{
-}
+    m_timer_active(false), m_was_cancelled(false) { }
 
-void timer::start(const uint32_t seconds)
-{
+void timer::start(const uint32_t seconds) {
     std::unique_lock<std::mutex> timer_lock(m_mutex, std::try_to_lock);
     m_timer_active = true;
     m_timer.expires_from_now(std::chrono::seconds(seconds));
@@ -32,22 +45,19 @@ void timer::start(const uint32_t seconds)
         shared_from_this(), std::placeholders::_1));
 }
 
-void timer::cancel(void)
-{
+void timer::cancel(void) {
     std::unique_lock<std::mutex> timer_lock(m_mutex, std::try_to_lock);
     m_was_cancelled = true;
     if (m_timer_active)
         m_timer.cancel();
 }
 
-void timer::timer_callback(const asio::error_code& /* ec */)
-{
+void timer::timer_callback(const asio::error_code& /* ec */) {
     std::unique_lock<std::mutex> timer_lock(m_mutex, std::try_to_lock);
     m_timer_active = false;
     if (! m_was_cancelled)
         m_conn_ptr->cancel();
 }
 
-
-}   // end namespace tcp
-}   // end namespace pion
+} // end namespace tcp
+} // end namespace pion

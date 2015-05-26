@@ -426,4 +426,4 @@ protected:
     
 } // end namespace pion
 
-#endif
+#endif // __PION_SCHEDULER_HEADER__

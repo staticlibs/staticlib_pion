@@ -163,4 +163,4 @@ namespace algorithm {
 } // end namespace algorithm
 } // end namespace pion
 
-#endif
+#endif // __PION_ALGORITHM_HEADER__

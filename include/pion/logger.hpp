@@ -31,8 +31,8 @@
 #if defined(PION_USE_LOG4CPLUS)
 
     // log4cplus headers
-    #include <log4cplus/logger.h>
-    #include <log4cplus/loggingmacros.h>
+    #include "log4cplus/logger.h"
+    #include "log4cplus/loggingmacros.h"
 
     namespace pion {
         /**
@@ -185,4 +185,4 @@
 
 #endif
 
-#endif
+#endif // __PION_LOGGER_HEADER__

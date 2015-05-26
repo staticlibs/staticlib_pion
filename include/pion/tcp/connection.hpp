@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // ---------------------------------------------------------------------
 // pion:  a Boost C++ framework for building lightweight HTTP interfaces
 // ---------------------------------------------------------------------
@@ -10,6 +26,11 @@
 #ifndef __PION_TCP_CONNECTION_HEADER__
 #define __PION_TCP_CONNECTION_HEADER__
 
+#include <string>
+#include <memory>
+#include <array>
+#include <functional>
+
 #include "asio.hpp"
 #ifdef PION_HAVE_SSL
     #ifdef PION_XCODE
@@ -19,51 +40,59 @@
     #include "asio/ssl.hpp"
 #endif
 
-#include <pion/noncopyable.hpp>
-#include <memory>
-#include <array>
-#include <functional>
-#include <pion/config.hpp>
-#include <pion/algorithm.hpp>
-#include <string>
+#include "pion/noncopyable.hpp"
+#include "pion/config.hpp"
+#include "pion/algorithm.hpp"
 
+namespace pion {
+namespace tcp {
 
-namespace pion {    // begin namespace pion
-namespace tcp {     // begin namespace tcp
-
-
-///
-/// connection: represents a single tcp connection
-/// 
-class connection :
-    public std::enable_shared_from_this<connection>,
-    private pion::noncopyable
-{
+/**
+ * Represents a single tcp connection
+ */
+class connection : public std::enable_shared_from_this<connection>, private pion::noncopyable {    
+    
 public:
 
-    /// data type for the connection's lifecycle state
+    /**
+     * Data type for the connection's lifecycle state
+     */
     enum lifecycle_type {
-        LIFECYCLE_CLOSE, LIFECYCLE_KEEPALIVE, LIFECYCLE_PIPELINED
+        LIFECYCLE_CLOSE, 
+        LIFECYCLE_KEEPALIVE, 
+        LIFECYCLE_PIPELINED
     };
     
-    /// size of the read buffer
+    /**
+     * Size of the read buffer
+     */
     enum { READ_BUFFER_SIZE = 8192 };
     
-    /// data type for a function that handles TCP connection objects
-    typedef std::function<void(std::shared_ptr<connection>)>   connection_handler;
+    /**
+     * Data type for a function that handles TCP connection objects
+     */
+    typedef std::function<void(std::shared_ptr<connection>)> connection_handler;
     
-    /// data type for an I/O read buffer
-    typedef std::array<char, READ_BUFFER_SIZE>    read_buffer_type;
+    /**
+     * Data type for an I/O read buffer
+     */
+    typedef std::array<char, READ_BUFFER_SIZE> read_buffer_type;
     
-    /// data type for a socket connection
-    typedef asio::ip::tcp::socket            socket_type;
+    /**
+     * Data type for a socket connection
+     */
+    typedef asio::ip::tcp::socket socket_type;
 
 #ifdef PION_HAVE_SSL
-    /// data type for an SSL socket connection
-    typedef asio::ssl::stream<asio::ip::tcp::socket>  ssl_socket_type;
+    /**
+     * Data type for an SSL socket connection
+     */
+    typedef asio::ssl::stream<asio::ip::tcp::socket> ssl_socket_type;
 
-    /// data type for SSL configuration context
-    typedef asio::ssl::context                               ssl_context_type;
+    /**
+     * Data type for SSL configuration context
+     */
+    typedef asio::ssl::context ssl_context_type;
 #else
     class ssl_socket_type {
     public:
@@ -76,9 +105,47 @@ public:
     private:
         socket_type  m_socket;
     };
-    typedef int     ssl_context_type;
-#endif
+    typedef int ssl_context_type;
+#endif    
+    
+private:
 
+    /**
+     * Context object for the SSL connection socket
+     */
+    ssl_context_type m_ssl_context;
+
+    /**
+     * SSL connection socket
+     */
+    ssl_socket_type m_ssl_socket;
+
+    /**
+     * True if the connection is encrypted using SSL
+     */
+    bool m_ssl_flag;
+
+    /**
+     * Buffer used for reading data from the TCP connection
+     */
+    read_buffer_type m_read_buffer;
+
+    /**
+     * Saved read position bookmark
+     */
+    std::pair<const char*, const char*> m_read_position;
+
+    /**
+     * Lifecycle state for the connection
+     */
+    lifecycle_type m_lifecycle;
+
+    /**
+     * Function called when a server has finished handling the connection
+     */
+    connection_handler m_finished_handler;        
+
+public:
     
     /**
      * creates new shared connection objects
@@ -89,40 +156,15 @@ public:
      * @param finished_handler function called when a server has finished
      *                         handling the connection
      */
-    static inline std::shared_ptr<connection> create(asio::io_service& io_service,
-                                                          ssl_context_type& ssl_context,
-                                                          const bool ssl_flag,
-                                                          connection_handler finished_handler)
-    {
-        return std::shared_ptr<connection>(new connection(io_service, ssl_context,
-                                                                  ssl_flag, finished_handler));
-    }
-    
+    static std::shared_ptr<connection> create(asio::io_service& io_service,
+            ssl_context_type& ssl_context, const bool ssl_flag, connection_handler finished_handler);
     /**
      * creates a new connection object
      *
      * @param io_service asio service associated with the connection
      * @param ssl_flag if true then the connection will be encrypted using SSL 
      */
-    explicit connection(asio::io_service& io_service, const bool ssl_flag = false)
-        :
-#ifdef PION_HAVE_SSL
-        m_ssl_context(asio::ssl::context::sslv23),
-        m_ssl_socket(io_service, m_ssl_context),
-        m_ssl_flag(ssl_flag),
-#else
-        m_ssl_context(0),
-        m_ssl_socket(io_service),
-        m_ssl_flag(false),
-#endif
-        m_lifecycle(LIFECYCLE_CLOSE)
-{
-#ifndef PION_HAVE_SSL
-        (void) ssl_flag;
-        (void) m_ssl_context;
-#endif            
-        save_read_pos(NULL, NULL);
-    }
+    explicit connection(asio::io_service& io_service, const bool ssl_flag = false);
     
     /**
      * creates a new connection object for SSL
@@ -130,66 +172,32 @@ public:
      * @param io_service asio service associated with the connection
      * @param ssl_context asio ssl context associated with the connection
      */
-    connection(asio::io_service& io_service, ssl_context_type& ssl_context)
-        :
-#ifdef PION_HAVE_SSL
-        m_ssl_context(asio::ssl::context::sslv23),
-        m_ssl_socket(io_service, ssl_context), m_ssl_flag(true),
-#else
-        m_ssl_context(0),
-        m_ssl_socket(io_service), m_ssl_flag(false), 
-#endif
-        m_lifecycle(LIFECYCLE_CLOSE)
-{
-#ifndef PION_HAVE_SSL
-        (void) ssl_context;
-#endif            
-        save_read_pos(NULL, NULL);
-    }
-    
-    /// returns true if the connection is currently open
-    inline bool is_open(void) const {
-        return const_cast<ssl_socket_type&>(m_ssl_socket).lowest_layer().is_open();
-    }
-    
-    /// closes the tcp socket and cancels any pending asynchronous operations
-    inline void close(void) {
-        if (is_open()) {
-            try {
+    connection(asio::io_service& io_service, ssl_context_type& ssl_context);
 
-                // shutting down SSL will wait forever for a response from the remote end,
-                // which causes it to hang indefinitely if the other end died unexpectedly
-                // if (get_ssl_flag()) m_ssl_socket.shutdown();
-
-                // windows seems to require this otherwise it doesn't
-                // recognize that connections have been closed
-                m_ssl_socket.next_layer().shutdown(asio::ip::tcp::socket::shutdown_both);
-                
-            } catch (...) {}    // ignore exceptions
-            
-            // close the underlying socket (ignore errors)
-            asio::error_code ec;
-            m_ssl_socket.next_layer().close(ec);
-        }
-    }
-
-    /// cancels any asynchronous operations pending on the socket.
-    /// there is no good way to do this on windows until vista or later (0x0600)
-    /// see http://www.boost.org/doc/libs/1_53_0/doc/html/boost_asio/reference/basic_stream_socket/cancel/overload2.html
-    /// note that the asio docs are misleading because close() is not thread-safe,
-    /// and the suggested #define statements cause WAY too much trouble and heartache
-    inline void cancel(void) {
-#if !defined(_MSC_VER) || (_WIN32_WINNT >= 0x0600)
-        asio::error_code ec;
-        m_ssl_socket.next_layer().cancel(ec);
-#endif
-    }
-    
-    /// virtual destructor
-    virtual ~connection() { close(); }
+    /**
+     * Virtual destructor
+     */
+    virtual ~connection();
     
     /**
-     * asynchronously accepts a new tcp connection
+     * Returns true if the connection is currently open
+     * 
+     * @return true if the connection is currently open
+     */
+    bool is_open() const;
+    
+    /**
+     * Closes the tcp socket and cancels any pending asynchronous operations
+     */
+    void close();
+
+    /**
+     * Cancels any asynchronous operations pending on the socket.
+     */
+    void cancel();
+        
+    /**
+     * Asynchronously accepts a new tcp connection
      *
      * @param tcp_acceptor object used to accept new connections
      * @param handler called after a new connection has been accepted
@@ -197,142 +205,8 @@ public:
      * @see asio::basic_socket_acceptor::async_accept()
      */
     template <typename AcceptHandler>
-    inline void async_accept(asio::ip::tcp::acceptor& tcp_acceptor,
-                             AcceptHandler handler)
-    {
+    void async_accept(asio::ip::tcp::acceptor& tcp_acceptor, AcceptHandler handler) {
         tcp_acceptor.async_accept(m_ssl_socket.lowest_layer(), handler);
-    }
-
-    /**
-     * accepts a new tcp connection (blocks until established)
-     *
-     * @param tcp_acceptor object used to accept new connections
-     * @return asio::error_code contains error code if the connection fails
-     *
-     * @see asio::basic_socket_acceptor::accept()
-     */
-    inline asio::error_code accept(asio::ip::tcp::acceptor& tcp_acceptor)
-    {
-        asio::error_code ec;
-        tcp_acceptor.accept(m_ssl_socket.lowest_layer(), ec);
-        return ec;
-    }
-    
-    /**
-     * asynchronously connects to a remote endpoint
-     *
-     * @param tcp_endpoint remote endpoint to connect to
-     * @param handler called after a new connection has been established
-     *
-     * @see asio::basic_socket_acceptor::async_connect()
-     */
-    template <typename ConnectHandler>
-    inline void async_connect(const asio::ip::tcp::endpoint& tcp_endpoint,
-                              ConnectHandler handler)
-    {
-        m_ssl_socket.lowest_layer().async_connect(tcp_endpoint, handler);
-    }
-
-    /**
-     * asynchronously connects to a (IPv4) remote endpoint
-     *
-     * @param remote_addr remote IP address (v4) to connect to
-     * @param remote_port remote port number to connect to
-     * @param handler called after a new connection has been established
-     *
-     * @see asio::basic_socket_acceptor::async_connect()
-     */
-    template <typename ConnectHandler>
-    inline void async_connect(const asio::ip::address& remote_addr,
-                              const unsigned int remote_port,
-                              ConnectHandler handler)
-    {
-        asio::ip::tcp::endpoint tcp_endpoint(remote_addr, remote_port);
-        async_connect(tcp_endpoint, handler);
-    }
-    
-    /**
-     * connects to a remote endpoint (blocks until established)
-     *
-     * @param tcp_endpoint remote endpoint to connect to
-     * @return asio::error_code contains error code if the connection fails
-     *
-     * @see asio::basic_socket_acceptor::connect()
-     */
-    inline asio::error_code connect(asio::ip::tcp::endpoint& tcp_endpoint)
-    {
-        asio::error_code ec;
-        m_ssl_socket.lowest_layer().connect(tcp_endpoint, ec);
-        return ec;
-    }
-
-    /**
-     * connects to a (IPv4) remote endpoint (blocks until established)
-     *
-     * @param remote_addr remote IP address (v4) to connect to
-     * @param remote_port remote port number to connect to
-     * @return asio::error_code contains error code if the connection fails
-     *
-     * @see asio::basic_socket_acceptor::connect()
-     */
-    inline asio::error_code connect(const asio::ip::address& remote_addr,
-                                             const unsigned int remote_port)
-    {
-        asio::ip::tcp::endpoint tcp_endpoint(remote_addr, static_cast<unsigned short>(remote_port));
-        return connect(tcp_endpoint);
-    }
-    
-    /**
-     * connects to a remote endpoint with hostname lookup
-     *
-     * @param remote_server hostname of the remote server to connect to
-     * @param remote_port remote port number to connect to
-     * @return asio::error_code contains error code if the connection fails
-     *
-     * @see asio::basic_socket_acceptor::connect()
-     */
-    inline asio::error_code connect(const std::string& remote_server,
-                                             const unsigned int remote_port)
-    {
-        // query a list of matching endpoints
-        asio::error_code ec;
-        asio::ip::tcp::resolver resolver(m_ssl_socket.lowest_layer().get_io_service());
-        asio::ip::tcp::resolver::query query(remote_server,
-            pion::algorithm::to_string(remote_port),
-            asio::ip::tcp::resolver::query::numeric_service);
-        asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query, ec);
-        if (ec)
-            return ec;
-
-        // try each one until we are successful
-        ec = asio::error::host_not_found;
-        asio::ip::tcp::resolver::iterator end;
-        while (ec && endpoint_iterator != end) {
-            asio::ip::tcp::endpoint ep(endpoint_iterator->endpoint());
-            ++endpoint_iterator;
-            ec = connect(ep);
-            if (ec)
-                close();
-        }
-
-        return ec;
-    }
-    
-    /**
-     * asynchronously performs client-side SSL handshake for a new connection
-     *
-     * @param handler called after the ssl handshake has completed
-     *
-     * @see asio::ssl::stream::async_handshake()
-     */
-    template <typename SSLHandshakeHandler>
-    inline void async_handshake_client(SSLHandshakeHandler handler) {
-#ifdef PION_HAVE_SSL
-        m_ssl_socket.async_handshake(asio::ssl::stream_base::client, handler);
-        m_ssl_flag = true;
-#else
-        (void) handler;
-#endif
     }
 
     /**
@@ -350,38 +224,6 @@ public:
 #else
         (void) handler;
 #endif
-    }
-    
-    /**
-     * performs client-side SSL handshake for a new connection (blocks until finished)
-     *
-     * @return asio::error_code contains error code if the connection fails
-     *
-     * @see asio::ssl::stream::handshake()
-     */
-    inline asio::error_code handshake_client(void) {
-        asio::error_code ec;
-#ifdef PION_HAVE_SSL
-        m_ssl_socket.handshake(asio::ssl::stream_base::client, ec);
-        m_ssl_flag = true;
-#endif
-        return ec;
-    }
-
-    /**
-     * performs server-side SSL handshake for a new connection (blocks until finished)
-     *
-     * @return asio::error_code contains error code if the connection fails
-     *
-     * @see asio::ssl::stream::handshake()
-     */
-    inline asio::error_code handshake_server(void) {
-        asio::error_code ec;
-#ifdef PION_HAVE_SSL
-        m_ssl_socket.handshake(asio::ssl::stream_base::server, ec);
-        m_ssl_flag = true;
-#endif
-        return ec;
     }
     
     /**
@@ -715,43 +557,15 @@ protected:
         (void) ssl_flag;
 #endif            
         save_read_pos(NULL, NULL);
-    }
-    
-
-private:
-
-    /// data type for a read position bookmark
-    typedef std::pair<const char*, const char*>     read_pos_type;
-
-    
-    /// context object for the SSL connection socket
-    ssl_context_type        m_ssl_context;
-
-    /// SSL connection socket
-    ssl_socket_type         m_ssl_socket;
-
-    /// true if the connection is encrypted using SSL
-    bool                    m_ssl_flag;
-
-    /// buffer used for reading data from the TCP connection
-    read_buffer_type        m_read_buffer;
-    
-    /// saved read position bookmark
-    read_pos_type           m_read_position;
-    
-    /// lifecycle state for the connection
-    lifecycle_type          m_lifecycle;
-
-    /// function called when a server has finished handling the connection
-    connection_handler      m_finished_handler;
+    }   
 };
 
+/**
+ * Data type for a connection pointer
+ */
+typedef std::shared_ptr<connection> connection_ptr;
 
-/// data type for a connection pointer
-typedef std::shared_ptr<connection>    connection_ptr;
+} // end namespace tcp
+} // end namespace pion
 
-
-}   // end namespace tcp
-}   // end namespace pion
-
-#endif
+#endif // __PION_TCP_CONNECTION_HEADER__
