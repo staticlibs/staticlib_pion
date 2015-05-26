@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // ---------------------------------------------------------------------
 // pion:  a Boost C++ framework for building lightweight HTTP interfaces
 // ---------------------------------------------------------------------
@@ -10,8 +26,7 @@
 #ifndef __PION_LOGGER_HEADER__
 #define __PION_LOGGER_HEADER__
 
-#include <pion/config.hpp>
-
+#include "pion/config.hpp"
 
 #if defined(PION_USE_LOG4CPLUS)
 
@@ -20,9 +35,10 @@
     #include <log4cplus/loggingmacros.h>
 
     namespace pion {
-        typedef log4cplus::Logger   logger;
-        typedef log4cplus::Appender log_appender;
-        typedef log4cplus::SharedAppenderPtr    log_appender_ptr;
+        /**
+         * Log4cplus logger, log4cplus must be initialized explicitely before using
+         */
+        typedef log4cplus::Logger logger;
     }
 
     #define PION_LOG_CONFIG_BASIC   log4cplus::BasicConfigurator::doConfigure();
@@ -49,13 +65,22 @@
 
     // Logging is disabled -> add do-nothing stubs for logging
     namespace pion {
+        /**
+         * No-op logger implementation
+         */
         struct PION_API logger {
-            logger(int /* glog */) {}
-            operator bool() const { return false; }
-            static void shutdown() {}
+            /**
+             * Constructor
+             */
+            logger(int /* glog */);
+            
+            /**
+             * Overloaded bool operator, always returns false
+             * 
+             * @return always returns false
+             */
+            operator bool() const;
         };
-        typedef int     log_appender;
-        typedef log_appender *   log_appender_ptr;
     }
 
     #define PION_LOG_CONFIG_BASIC   {}
@@ -87,21 +112,56 @@
     #include <ctime>
 
     namespace pion {
+        /**
+         * STDOUT logger implementation
+         */
         struct PION_API logger {
+            
+            /**
+             * Supported log levels
+             */
             enum log_priority_type {
-                LOG_LEVEL_DEBUG, LOG_LEVEL_INFO, LOG_LEVEL_WARN,
-                LOG_LEVEL_ERROR, LOG_LEVEL_FATAL
+                LOG_LEVEL_DEBUG, 
+                LOG_LEVEL_INFO, 
+                LOG_LEVEL_WARN,
+                LOG_LEVEL_ERROR, 
+                LOG_LEVEL_FATAL
             };
-            ~logger() {}
-            logger(void) : m_name("pion") {}
-            logger(const std::string& name) : m_name(name) {}
-            logger(const logger& p) : m_name(p.m_name) {}
-            static void shutdown() {}
-            std::string                 m_name;
-            static log_priority_type     m_priority;
+
+            /**
+             * Logger name
+             */
+            std::string m_name;
+            
+            /**
+             * Global priority for all loggers
+             */
+            static log_priority_type m_priority;
+            
+            /**
+             * Destructor
+             */
+            ~logger();
+            
+            /**
+             * Constructor, returns logger with name "pion"
+             */
+            logger();
+            
+            /**
+             * Constructor, return logger with specified name
+             * 
+             * @param name logger name
+             */
+            logger(const std::string& name);
+            
+            /**
+             * Copy constructor
+             * 
+             * @param p logger instance
+             */
+            logger(const logger& p);            
         };
-        typedef int     log_appender;
-        typedef log_appender *   log_appender_ptr;
     }
 
     #define PION_LOG_CONFIG_BASIC   {}

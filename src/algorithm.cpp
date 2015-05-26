@@ -23,9 +23,9 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-
 #include <algorithm>
 #include <stdexcept>
+#include <locale>
 #include <cstdint>
 #include <climits>
 #include <cerrno>
@@ -33,8 +33,8 @@
 
 #include "pion/algorithm.hpp"
 
-namespace pion { // begin namespace pion
-namespace algorithm { // begin namespace algorithm
+namespace pion {
+namespace algorithm {
 
 // http://stackoverflow.com/a/27813
 bool iequals(const std::string& str1, const std::string& str2) {
@@ -268,6 +268,19 @@ std::string xml_encode(const std::string& str) {
     }
     
     return result;
+}
+
+bool iequal_to::operator()(std::string const& x, std::string const& y) const {
+    return pion::algorithm::iequals(x, y);
+}
+
+std::size_t ihash::operator()(std::string const& x) const {
+    std::size_t seed = 0;
+    std::locale locale;
+    for (std::string::const_iterator it = x.begin(); it != x.end(); ++it) {
+        pion::algorithm::hash_combine(seed, std::toupper(*it, locale));
+    }
+    return seed;
 }
     
 } // end namespace algorithm

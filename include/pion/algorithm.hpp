@@ -33,13 +33,13 @@
 
 #include "pion/config.hpp"
 
-namespace pion { // begin namespace pion
+namespace pion {
 
 /**
  * Contains some common algorithms
  * 
  */
-namespace algorithm { // begin namespace algorithm
+namespace algorithm {
     
     /**
      * Called repeatedly to incrementally create a hash value from several variables.
@@ -143,9 +143,7 @@ namespace algorithm { // begin namespace algorithm
          * @param y seconds string
          * @return true if strings equal ignoring case, false otherwise
          */
-        bool operator()(std::string const& x, std::string const& y) const {
-            return pion::algorithm::iequals(x, y);
-        }
+        bool operator()(std::string const& x, std::string const& y) const;
     };
 
     /**
@@ -159,14 +157,7 @@ namespace algorithm { // begin namespace algorithm
          * @param x string to compute hash on
          * @return hash value
          */
-        std::size_t operator()(std::string const& x) const {
-            std::size_t seed = 0;
-            std::locale locale;
-            for (std::string::const_iterator it = x.begin(); it != x.end(); ++it) {
-                pion::algorithm::hash_combine(seed, std::toupper(*it, locale));
-            }
-            return seed;
-        }
+        std::size_t operator()(std::string const& x) const;
     };
     
 } // end namespace algorithm
