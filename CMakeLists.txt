@@ -36,6 +36,7 @@ set ( ${PROJECT_NAME}_INCLUDES
 set ( ${PROJECT_NAME}_DEFINITIONS
         -DASIO_STANDALONE
         -DASIO_HAS_STD_CHRONO )
+set ( ${PROJECT_NAME}_OPTIONS "" )
 if ( STATICLIB_TOOLCHAIN MATCHES "windows_[^_]+_msvc" )    
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS}
             -D_CRT_SECURE_NO_WARNINGS
@@ -56,11 +57,15 @@ if ( STATICLIB_PION_USE_OPENSSL )
     set ( ${PROJECT_NAME}_INCLUDES ${${PROJECT_NAME}_INCLUDES} ${external_openssl_INCLUDES} )
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DPION_HAVE_SSL )
 endif ( )
+if ( STATICLIB_TOOLCHAIN MATCHES "[^_]+_[^_]+_clang" )    
+    set ( ${PROJECT_NAME}_OPTIONS ${${PROJECT_NAME}_OPTIONS} -Wno-unused-local-typedef )
+endif ( )
 # build library
 file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
 add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} )
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE ${${PROJECT_NAME}_INCLUDES} )
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_DEFINITIONS} )
+target_compile_options ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_OPTIONS} )
 # force building openssl first
 if ( STATICLIB_PION_USE_OPENSSL )
     add_dependencies ( ${PROJECT_NAME} external_openssl )
@@ -82,6 +87,9 @@ if ( "${STATICLIB_ROOT_SOURCE_DIR}" STREQUAL "${PROJECT_SOURCE_DIR}" )
         target_link_libraries ( pion_test external_openssl external_openssl_ssl )
     endif ( )
     target_compile_definitions ( pion_test PRIVATE ${${PROJECT_NAME}_DEFINITIONS} )
+    if ( STATICLIB_TOOLCHAIN MATCHES "[^_]+_[^_]+_clang" )    
+        target_compile_options ( pion_test PRIVATE -Wno-unused-local-typedef )
+    endif ( )
     if ( DEFINED CMAKE_MEMORYCHECK_COMMAND )
         add_test ( pion_test 
                 ${CMAKE_MEMORYCHECK_COMMAND} ${CMAKE_MEMORYCHECK_COMMAND_OPTIONS} 
