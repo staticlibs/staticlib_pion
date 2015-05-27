@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // ---------------------------------------------------------------------
 // pion:  a Boost C++ framework for building lightweight HTTP interfaces
 // ---------------------------------------------------------------------
@@ -7,15 +23,23 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include "asio.hpp"
+#include <set>
+#include <memory>
 #include <functional>
 #include <mutex>
-#include <pion/tcp/server.hpp>
+#include <condition_variable>
 
+#include "asio.hpp"
 
-namespace pion {    // begin namespace pion
-namespace tcp {     // begin namespace tcp
+#include "pion/config.hpp"
+#include "pion/noncopyable.hpp"
+#include "pion/logger.hpp"
+#include "pion/scheduler.hpp"
+#include "pion/tcp/connection.hpp"
+#include "pion/tcp/server.hpp"
 
+namespace pion {
+namespace tcp {
     
 // tcp::server member functions
 
@@ -30,56 +54,59 @@ server::~server() PION_NOEXCEPT {
     }
 }
 
-server::server(scheduler& sched, const unsigned int tcp_port)
-    : m_logger(PION_GET_LOGGER("pion.tcp.server")),
-    m_active_scheduler(sched),
-    m_tcp_acceptor(m_active_scheduler.get_io_service()),
+server::server(scheduler& sched, const unsigned int tcp_port) : 
+m_logger(PION_GET_LOGGER("pion.tcp.server")),
+m_active_scheduler(sched),
+m_tcp_acceptor(m_active_scheduler.get_io_service()),
 #ifdef PION_HAVE_SSL
-    m_ssl_context(asio::ssl::context::sslv23),
+m_ssl_context(asio::ssl::context::sslv23),
 #else
-    m_ssl_context(0),
+m_ssl_context(0),
 #endif
-    m_endpoint(asio::ip::tcp::v4(), static_cast<unsigned short>(tcp_port)), m_ssl_flag(false), m_is_listening(false)
-{}
+m_endpoint(asio::ip::tcp::v4(), static_cast<unsigned short>(tcp_port)), 
+m_ssl_flag(false), 
+m_is_listening(false) { }
     
-server::server(scheduler& sched, const asio::ip::tcp::endpoint& endpoint)
-    : m_logger(PION_GET_LOGGER("pion.tcp.server")),
-    m_active_scheduler(sched),
-    m_tcp_acceptor(m_active_scheduler.get_io_service()),
+server::server(scheduler& sched, const asio::ip::tcp::endpoint& endpoint) : 
+m_logger(PION_GET_LOGGER("pion.tcp.server")),
+m_active_scheduler(sched),
+m_tcp_acceptor(m_active_scheduler.get_io_service()),
 #ifdef PION_HAVE_SSL
-    m_ssl_context(asio::ssl::context::sslv23),
+m_ssl_context(asio::ssl::context::sslv23),
 #else
-    m_ssl_context(0),
+m_ssl_context(0),
 #endif
-    m_endpoint(endpoint), m_ssl_flag(false), m_is_listening(false)
-{}
+m_endpoint(endpoint), 
+m_ssl_flag(false), m_is_listening(false) { }
 
-server::server(const unsigned int tcp_port)
-    : m_logger(PION_GET_LOGGER("pion.tcp.server")),
-    m_default_scheduler(), m_active_scheduler(m_default_scheduler),
-    m_tcp_acceptor(m_active_scheduler.get_io_service()),
+server::server(const unsigned int tcp_port) : 
+m_logger(PION_GET_LOGGER("pion.tcp.server")),
+m_default_scheduler(), 
+m_active_scheduler(m_default_scheduler),
+m_tcp_acceptor(m_active_scheduler.get_io_service()),
 #ifdef PION_HAVE_SSL
-    m_ssl_context(asio::ssl::context::sslv23),
+m_ssl_context(asio::ssl::context::sslv23),
 #else
-    m_ssl_context(0),
+m_ssl_context(0),
 #endif
-    m_endpoint(asio::ip::tcp::v4(), static_cast<unsigned short>(tcp_port)), m_ssl_flag(false), m_is_listening(false)
-{}
+m_endpoint(asio::ip::tcp::v4(), static_cast<unsigned short>(tcp_port)), 
+m_ssl_flag(false), m_is_listening(false) { }
 
-server::server(const asio::ip::tcp::endpoint& endpoint)
-    : m_logger(PION_GET_LOGGER("pion.tcp.server")),
-    m_default_scheduler(), m_active_scheduler(m_default_scheduler),
-    m_tcp_acceptor(m_active_scheduler.get_io_service()),
+server::server(const asio::ip::tcp::endpoint& endpoint) : 
+m_logger(PION_GET_LOGGER("pion.tcp.server")),
+m_default_scheduler(),
+m_active_scheduler(m_default_scheduler),
+m_tcp_acceptor(m_active_scheduler.get_io_service()),
 #ifdef PION_HAVE_SSL
-    m_ssl_context(asio::ssl::context::sslv23),
+m_ssl_context(asio::ssl::context::sslv23),
 #else
-    m_ssl_context(0),
+m_ssl_context(0),
 #endif
-    m_endpoint(endpoint), m_ssl_flag(false), m_is_listening(false)
-{}
+m_endpoint(endpoint), 
+m_ssl_flag(false),
+m_is_listening(false) { }
     
-void server::start(void)
-{
+void server::start() {
     // lock mutex for thread safety
     std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
 
@@ -121,8 +148,7 @@ void server::start(void)
     }
 }
 
-void server::stop(bool wait_until_finished)
-{
+void server::stop(bool wait_until_finished) {
     // lock mutex for thread safety
     std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
 
@@ -159,8 +185,7 @@ void server::stop(bool wait_until_finished)
     }
 }
 
-void server::join(void)
-{
+void server::join(void) {
     std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
     while (m_is_listening) {
         // sleep until server_has_stopped condition is signaled
@@ -168,8 +193,7 @@ void server::join(void)
     }
 }
 
-void server::set_ssl_key_file(const std::string& pem_key_file)
-{
+void server::set_ssl_key_file(const std::string& pem_key_file) {
     // configure server for SSL
     set_ssl_flag(true);
 #ifdef PION_HAVE_SSL
@@ -183,8 +207,7 @@ void server::set_ssl_key_file(const std::string& pem_key_file)
 #endif
 }
 
-void server::listen(void)
-{
+void server::listen() {
     // lock mutex for thread safety
     std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
     
@@ -209,9 +232,7 @@ void server::listen(void)
     }
 }
 
-void server::handle_accept(tcp::connection_ptr& tcp_conn,
-                             const asio::error_code& accept_error)
-{
+void server::handle_accept(tcp::connection_ptr& tcp_conn, const asio::error_code& accept_error) {
     if (accept_error) {
         // an error occured while trying to a accept a new connection
         // this happens when the server is being shut down
@@ -243,8 +264,7 @@ void server::handle_accept(tcp::connection_ptr& tcp_conn,
 }
 
 void server::handle_ssl_handshake(tcp::connection_ptr& tcp_conn,
-                                   const asio::error_code& handshake_error)
-{
+                                   const asio::error_code& handshake_error) {
     if (handshake_error) {
         // an error occured while trying to establish the SSL connection
         PION_LOG_WARN(m_logger, "SSL handshake failed on port " << get_port()
@@ -257,8 +277,7 @@ void server::handle_ssl_handshake(tcp::connection_ptr& tcp_conn,
     }
 }
 
-void server::finish_connection(tcp::connection_ptr tcp_conn)
-{
+void server::finish_connection(tcp::connection_ptr tcp_conn) {
     std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
     if (m_is_listening && tcp_conn->get_keep_alive()) {
         
@@ -269,7 +288,7 @@ void server::finish_connection(tcp::connection_ptr tcp_conn)
         PION_LOG_DEBUG(m_logger, "Closing connection on port " << get_port());
         
         // remove the connection from the server's management pool
-        ConnectionPool::iterator conn_itr = m_conn_pool.find(tcp_conn);
+        std::set<tcp::connection_ptr>::iterator conn_itr = m_conn_pool.find(tcp_conn);
         if (conn_itr != m_conn_pool.end())
             m_conn_pool.erase(conn_itr);
 
@@ -279,14 +298,13 @@ void server::finish_connection(tcp::connection_ptr tcp_conn)
     }
 }
 
-std::size_t server::prune_connections(void)
-{
+std::size_t server::prune_connections() {
     // assumes that a server lock has already been acquired
-    ConnectionPool::iterator conn_itr = m_conn_pool.begin();
+    std::set<tcp::connection_ptr>::iterator conn_itr = m_conn_pool.begin();
     while (conn_itr != m_conn_pool.end()) {
         if (conn_itr->unique()) {
             PION_LOG_WARN(m_logger, "Closing orphaned connection on port " << get_port());
-            ConnectionPool::iterator erase_itr = conn_itr;
+            std::set<tcp::connection_ptr>::iterator erase_itr = conn_itr;
             ++conn_itr;
             (*erase_itr)->close();
             m_conn_pool.erase(erase_itr);
@@ -299,11 +317,84 @@ std::size_t server::prune_connections(void)
     return m_conn_pool.size();
 }
 
-std::size_t server::get_connections(void) const
-{
+std::size_t server::get_connections() const {
     std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
     return (m_is_listening ? (m_conn_pool.size() - 1) : m_conn_pool.size());
 }
 
-}   // end namespace tcp
-}   // end namespace pion
+unsigned int server::get_port() const {
+    return m_endpoint.port();
+}
+
+void server::set_port(unsigned int p) {
+    m_endpoint.port(static_cast<unsigned short> (p));
+}
+
+asio::ip::address server::get_address() const {
+    return m_endpoint.address();
+}
+
+void server::set_address(const asio::ip::address& addr) {
+    m_endpoint.address(addr);
+}
+
+const asio::ip::tcp::endpoint& server::get_endpoint() const {
+    return m_endpoint;
+}
+
+void server::set_endpoint(const asio::ip::tcp::endpoint& ep) {
+    m_endpoint = ep;
+}
+
+bool server::get_ssl_flag() const {
+    return m_ssl_flag;
+}
+
+void server::set_ssl_flag(bool b) {
+    m_ssl_flag = b;
+}
+
+connection::ssl_context_type& server::get_ssl_context_type() {
+    return m_ssl_context;
+}
+
+bool server::is_listening() const {
+    return m_is_listening;
+}
+
+void server::set_logger(logger log_ptr) {
+    m_logger = log_ptr;
+}
+
+logger server::get_logger() {
+    return m_logger;
+}
+
+asio::ip::tcp::acceptor& server::get_acceptor() {
+    return m_tcp_acceptor;
+}
+
+const asio::ip::tcp::acceptor& server::get_acceptor() const {
+    return m_tcp_acceptor;
+}
+
+void server::handle_connection(tcp::connection_ptr& tcp_conn) {
+    tcp_conn->set_lifecycle(connection::LIFECYCLE_CLOSE); // make sure it will get closed
+    tcp_conn->finish();
+}
+
+void server::before_starting() { }
+
+void server::after_stopping() { }
+
+asio::io_service& server::get_io_service() {
+    return m_active_scheduler.get_io_service();
+}
+
+scheduler& server::get_active_scheduler() {
+    return m_active_scheduler;
+}        
+
+
+} // end namespace tcp
+} // end namespace pion

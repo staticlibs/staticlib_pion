@@ -78,6 +78,24 @@ m_lifecycle(LIFECYCLE_CLOSE) {
     save_read_pos(NULL, NULL);
 }
 
+connection::connection(asio::io_service& io_service, ssl_context_type& ssl_context,
+        const bool ssl_flag, connection_handler finished_handler) :
+#ifdef PION_HAVE_SSL
+m_ssl_context(asio::ssl::context::sslv23),
+m_ssl_socket(io_service, ssl_context), m_ssl_flag(ssl_flag),
+#else
+m_ssl_context(0),
+m_ssl_socket(io_service), m_ssl_flag(false),
+#endif
+m_lifecycle(LIFECYCLE_CLOSE),
+m_finished_handler(finished_handler) {
+#ifndef PION_HAVE_SSL
+    (void) ssl_context;
+    (void) ssl_flag;
+#endif            
+    save_read_pos(NULL, NULL);
+}   
+
 connection::~connection() {
     close();
 }
@@ -115,6 +133,93 @@ void connection::cancel() {
     m_ssl_socket.next_layer().cancel(ec);
 #endif
 }
+
+std::size_t connection::read_some(asio::error_code& ec) {
+#ifdef PION_HAVE_SSL
+    if (get_ssl_flag())
+        return m_ssl_socket.read_some(asio::buffer(m_read_buffer), ec);
+    else
+#endif      
+        return m_ssl_socket.next_layer().read_some(asio::buffer(m_read_buffer), ec);
+}
+
+void connection::finish() {
+    if (m_finished_handler) m_finished_handler(shared_from_this());
+}
+
+bool connection::get_ssl_flag() const {
+    return m_ssl_flag;
+}
+
+void connection::set_lifecycle(lifecycle_type t) {
+    m_lifecycle = t;
+}
+
+connection::lifecycle_type connection::get_lifecycle() const {
+    return m_lifecycle;
+}
+
+bool connection::get_keep_alive() const {
+    return m_lifecycle != LIFECYCLE_CLOSE;
+}
+
+bool connection::get_pipelined() const {
+    return m_lifecycle == LIFECYCLE_PIPELINED;
+}
+
+connection::read_buffer_type& connection::get_read_buffer() {
+    return m_read_buffer;
+}
+
+void connection::save_read_pos(const char *read_ptr, const char *read_end_ptr) {
+    m_read_position.first = read_ptr;
+    m_read_position.second = read_end_ptr;
+}
+
+void connection::load_read_pos(const char *&read_ptr, const char *&read_end_ptr) const {
+    read_ptr = m_read_position.first;
+    read_end_ptr = m_read_position.second;
+}
+
+asio::ip::tcp::endpoint connection::get_remote_endpoint() const {
+    asio::ip::tcp::endpoint remote_endpoint;
+    try {
+        // const_cast is required since lowest_layer() is only defined non-const in asio
+        remote_endpoint = const_cast<ssl_socket_type&> (m_ssl_socket).lowest_layer().remote_endpoint();
+    } catch (asio::system_error& /* e */) {
+        // do nothing
+    }
+    return remote_endpoint;
+}
+
+asio::ip::address connection::get_remote_ip() const {
+    return get_remote_endpoint().address();
+}
+
+unsigned short connection::get_remote_port() const {
+    return get_remote_endpoint().port();
+}
+
+asio::io_service& connection::get_io_service() {
+    return m_ssl_socket.lowest_layer().get_io_service();
+}
+
+connection::socket_type& connection::get_socket() {
+    return m_ssl_socket.next_layer();
+}
+
+connection::ssl_socket_type& connection::get_ssl_socket() {
+    return m_ssl_socket;
+}
+
+const connection::socket_type& connection::get_socket() const {
+    return const_cast<ssl_socket_type&> (m_ssl_socket).next_layer();
+}
+
+const connection::ssl_socket_type& connection::get_ssl_socket() const {
+    return m_ssl_socket;
+}
+
 
 } // end namespace tcp
 } // end namespace pion
