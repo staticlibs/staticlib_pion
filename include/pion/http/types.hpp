@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // ---------------------------------------------------------------------
 // pion:  a Boost C++ framework for building lightweight HTTP interfaces
 // ---------------------------------------------------------------------
@@ -15,16 +31,17 @@
 #include "pion/config.hpp"
 #include "pion/algorithm.hpp"
 
-namespace pion {    // begin namespace pion
-namespace http {    // begin namespace http
+namespace pion {
+namespace http {
 
-///
-/// types: common data types used by HTTP
-/// 
-struct PION_API types
-{
-    /// virtual destructor
-    virtual ~types() {}
+/**
+ * Common data types used by HTTP
+ */
+struct PION_API types {
+    /**
+     * Virtual destructor
+     */
+    virtual ~types();
     
     // generic strings used by HTTP
     static const std::string    STRING_EMPTY;
@@ -98,16 +115,26 @@ struct PION_API types
     static const unsigned int   RESPONSE_CODE_SERVER_ERROR;
     static const unsigned int   RESPONSE_CODE_NOT_IMPLEMENTED;
     static const unsigned int   RESPONSE_CODE_CONTINUE;
-    
 
-    /// converts time_t format into an HTTP-date string
+    /**
+     * Converts time_t format into an HTTP-date string
+     * 
+     * @param t time
+     * @return HTTP-date string
+     */
     static std::string get_date_string(const time_t t);
 
-    /// builds an HTTP query string from a collection of query parameters
-    static std::string make_query_string(const std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& query_params);
+    /**
+     * Builds an HTTP query string from a collection of query parameters
+     * 
+     * @param query_params query parameters
+     * @return query string
+     */
+    static std::string make_query_string(const std::unordered_multimap<std::string, std::string, 
+            algorithm::ihash, algorithm::iequal_to>& query_params);
     
     /**
-     * creates a "Set-Cookie" header
+     * Creates a "Set-Cookie" header
      *
      * @param name the name of the cookie
      * @param value the value of the cookie
@@ -117,15 +144,11 @@ struct PION_API types
      *
      * @return the new "Set-Cookie" header
      */
-    static std::string make_set_cookie_header(const std::string& name,
-                                              const std::string& value,
-                                              const std::string& path,
-                                              const bool has_max_age = false,
-                                              const unsigned long max_age = 0);     
+    static std::string make_set_cookie_header(const std::string& name, const std::string& value,
+            const std::string& path, const bool has_max_age = false, const unsigned long max_age = 0);     
 };
 
-
-}   // end namespace http
-}   // end namespace pion
+} // end namespace http
+} // end namespace pion
 
 #endif

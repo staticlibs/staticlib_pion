@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // ---------------------------------------------------------------------
 // pion:  a Boost C++ framework for building lightweight HTTP interfaces
 // ---------------------------------------------------------------------
@@ -8,25 +24,39 @@
 //
 
 #include <cstdint>
+
 #include "asio.hpp"
-#include <pion/tribool.hpp>
-#include <pion/http/reader.hpp>
-#include <pion/http/request.hpp>
+
+#include "pion/tribool.hpp"
+#include "pion/http/request.hpp"
+#include "pion/http/reader.hpp"
 
 
-namespace pion {    // begin namespace pion
-namespace http {    // begin namespace http
-
+namespace pion {
+namespace http {
 
 // reader static members
     
-const uint32_t       reader::DEFAULT_READ_TIMEOUT = 10;
+const uint32_t reader::DEFAULT_READ_TIMEOUT = 10;
 
+reader::~reader() { }
+
+tcp::connection_ptr& reader::get_connection() {
+    return m_tcp_conn;
+}
+
+void reader::set_timeout(uint32_t seconds) {
+    m_read_timeout = seconds;
+}
+
+reader::reader(const bool is_request, tcp::connection_ptr& tcp_conn) : 
+http::parser(is_request), 
+m_tcp_conn(tcp_conn),
+m_read_timeout(DEFAULT_READ_TIMEOUT) { }  
 
 // reader member functions
 
-void reader::receive(void)
-{
+void reader::receive() {
     if (m_tcp_conn->get_pipelined()) {
         // there are pipelined messages available in the connection's read buffer
         m_tcp_conn->set_lifecycle(tcp::connection::LIFECYCLE_CLOSE);   // default to close the connection
@@ -39,9 +69,7 @@ void reader::receive(void)
     }
 }
 
-void reader::consume_bytes(const asio::error_code& read_error,
-                              std::size_t bytes_read)
-{
+void reader::consume_bytes(const asio::error_code& read_error, std::size_t bytes_read) {
     // cancel read timer if operation didn't time-out
     if (m_timer_ptr) {
         m_timer_ptr->cancel();
@@ -64,8 +92,7 @@ void reader::consume_bytes(const asio::error_code& read_error,
 }
 
 
-void reader::consume_bytes(void)
-{
+void reader::consume_bytes() {
     // parse the bytes read from the last operation
     //
     // note that pion::tribool may have one of THREE states:
@@ -121,8 +148,7 @@ void reader::consume_bytes(void)
     }
 }
 
-void reader::read_bytes_with_timeout(void)
-{
+void reader::read_bytes_with_timeout() {
     if (m_read_timeout > 0) {
         m_timer_ptr.reset(new tcp::timer(m_tcp_conn));
         m_timer_ptr->start(m_read_timeout);
@@ -132,8 +158,7 @@ void reader::read_bytes_with_timeout(void)
     read_bytes();
 }
 
-void reader::handle_read_error(const asio::error_code& read_error)
-{
+void reader::handle_read_error(const asio::error_code& read_error) {
     // close the connection, forcing the client to establish a new one
     m_tcp_conn->set_lifecycle(tcp::connection::LIFECYCLE_CLOSE);   // make sure it will get closed
 
@@ -160,5 +185,5 @@ void reader::handle_read_error(const asio::error_code& read_error)
     finished_reading(read_error);
 }
 
-}   // end namespace http
-}   // end namespace pion
+} // end namespace http
+} // end namespace pion

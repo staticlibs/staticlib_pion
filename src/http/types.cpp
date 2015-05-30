@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // ---------------------------------------------------------------------
 // pion:  a Boost C++ framework for building lightweight HTTP interfaces
 // ---------------------------------------------------------------------
@@ -10,15 +26,14 @@
 #include <string>
 #include <unordered_map>
 #include <mutex>
-#include <pion/http/types.hpp>
-#include <pion/algorithm.hpp>
 #include <cstdio>
 #include <ctime>
 
+#include "pion/algorithm.hpp"
+#include "pion/http/types.hpp"
 
-namespace pion {    // begin namespace pion
-namespace http {    // begin namespace http
-
+namespace pion {
+namespace http {
 
 // generic strings used by HTTP
 const std::string   types::STRING_EMPTY;
@@ -93,6 +108,7 @@ const unsigned int  types::RESPONSE_CODE_SERVER_ERROR = 500;
 const unsigned int  types::RESPONSE_CODE_NOT_IMPLEMENTED = 501;
 const unsigned int  types::RESPONSE_CODE_CONTINUE = 100;
 
+types::~types() { };
 
 // static member functions
 
@@ -112,12 +128,15 @@ std::string types::get_date_string(const time_t t)
     return std::string(time_buf);
 }
 
-std::string types::make_query_string(const std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& query_params)
-{
+std::string types::make_query_string(const std::unordered_multimap<std::string, std::string,
+        algorithm::ihash, algorithm::iequal_to>& query_params) {
     std::string query_string;
-    for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator i = query_params.begin(); i != query_params.end(); ++i) {
-        if (i != query_params.begin())
+    for (std::unordered_multimap<std::string, std::string, 
+            algorithm::ihash, algorithm::iequal_to>::const_iterator i = query_params.begin(); 
+            i != query_params.end(); ++i) {
+        if (i != query_params.begin()) {
             query_string += '&';
+        }
         query_string += algorithm::url_encode(i->first);
         query_string += '=';
         query_string += algorithm::url_encode(i->second);
@@ -125,12 +144,8 @@ std::string types::make_query_string(const std::unordered_multimap<std::string, 
     return query_string;
 }
 
-std::string types::make_set_cookie_header(const std::string& name,
-                                              const std::string& value,
-                                              const std::string& path,
-                                              const bool has_max_age,
-                                              const unsigned long max_age)
-{
+std::string types::make_set_cookie_header(const std::string& name, const std::string& value,
+        const std::string& path, const bool has_max_age, const unsigned long max_age) {
     // note: according to RFC6265, attributes should not be quoted
     std::string set_cookie_header(name);
     set_cookie_header += "=\"";
@@ -146,7 +161,6 @@ std::string types::make_set_cookie_header(const std::string& name,
     }
     return set_cookie_header;
 }
-
     
-}   // end namespace http
-}   // end namespace pion
+} // end namespace http
+} // end namespace pion
