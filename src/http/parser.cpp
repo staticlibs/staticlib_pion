@@ -60,9 +60,137 @@ std::once_flag            parser::m_instance_flag{};
 
 // parser member functions
 
-pion::tribool parser::parse(http::message& http_msg,
-    asio::error_code& ec)
-{
+parser::parser(const bool is_request, std::size_t max_content_length) :
+m_logger(PION_GET_LOGGER("pion.http.parser")),
+m_is_request(is_request),
+m_read_ptr(NULL),
+m_read_end_ptr(NULL),
+m_message_parse_state(PARSE_START),
+m_headers_parse_state(is_request ? PARSE_METHOD_START : PARSE_HTTP_VERSION_H),
+m_chunked_content_parse_state(PARSE_CHUNK_SIZE_START),
+m_status_code(0),
+m_bytes_content_remaining(0),
+m_bytes_content_read(0),
+m_bytes_last_read(0),
+m_bytes_total_read(0),
+m_max_content_length(max_content_length),
+m_parse_headers_only(false),
+m_save_raw_headers(false) { }
+
+parser::~parser() { }
+
+void parser::set_read_buffer(const char *ptr, size_t len) {
+    m_read_ptr = ptr;
+    m_read_end_ptr = ptr + len;
+}
+
+void parser::load_read_pos(const char *&read_ptr, const char *&read_end_ptr) const {
+    read_ptr = m_read_ptr;
+    read_end_ptr = m_read_end_ptr;
+}
+
+bool parser::check_premature_eof(http::message& http_msg) {
+    if (m_message_parse_state != PARSE_CONTENT_NO_LENGTH) {
+        return true;
+    }
+    m_message_parse_state = PARSE_END;
+    http_msg.concatenate_chunks();
+    finish(http_msg);
+    return false;
+}
+
+void parser::parse_headers_only(bool b) {
+    m_parse_headers_only = b;
+}
+
+void parser::skip_header_parsing(http::message& http_msg) {
+    asio::error_code ec;
+    finish_header_parsing(http_msg, ec);
+}
+
+void parser::reset() {
+    m_message_parse_state = PARSE_START;
+    m_headers_parse_state = (m_is_request ? PARSE_METHOD_START : PARSE_HTTP_VERSION_H);
+    m_chunked_content_parse_state = PARSE_CHUNK_SIZE_START;
+    m_status_code = 0;
+    m_status_message.erase();
+    m_method.erase();
+    m_resource.erase();
+    m_query_string.erase();
+    m_raw_headers.erase();
+    m_bytes_content_read = m_bytes_last_read = m_bytes_total_read = 0;
+}
+
+bool parser::eof() const {
+    return m_read_ptr == NULL || m_read_ptr >= m_read_end_ptr;
+}
+
+std::size_t parser::bytes_available() const {
+    return (eof() ? 0 : (std::size_t)(m_read_end_ptr - m_read_ptr));
+}
+
+std::size_t parser::gcount() const {
+    return m_bytes_last_read;
+}
+
+std::size_t parser::get_total_bytes_read() const {
+    return m_bytes_total_read;
+}
+
+std::size_t parser::get_content_bytes_read() const {
+    return m_bytes_content_read;
+}
+
+std::size_t parser::get_max_content_length() const {
+    return m_max_content_length;
+}
+
+const std::string& parser::get_raw_headers() const {
+    return m_raw_headers;
+}
+
+bool parser::get_save_raw_headers() const {
+    return m_save_raw_headers;
+}
+
+bool parser::get_parse_headers_only() {
+    return m_parse_headers_only;
+}
+
+bool parser::is_parsing_request() const {
+    return m_is_request;
+}
+
+bool parser::is_parsing_response() const {
+    return !m_is_request;
+}
+
+void parser::set_payload_handler(payload_handler_t& h) {
+    m_payload_handler = h;
+}
+
+void parser::set_max_content_length(std::size_t n) {
+    m_max_content_length = n;
+}
+
+void parser::reset_max_content_length() {
+    m_max_content_length = DEFAULT_CONTENT_MAX;
+}
+
+void parser::set_save_raw_headers(bool b) {
+    m_save_raw_headers = b;
+}
+
+void parser::set_logger(logger log_ptr) {
+    m_logger = log_ptr;
+}
+
+logger parser::get_logger(void) {
+    return m_logger;
+}
+
+
+pion::tribool parser::parse(http::message& http_msg, asio::error_code& ec) {
     assert(! eof() );
 
     pion::tribool rc = pion::indeterminate;
@@ -1173,9 +1301,24 @@ bool parser::parse_cookie_header(std::unordered_multimap<std::string, std::strin
     return true;
 }
 
-pion::tribool parser::parse_chunks(http::message::chunk_cache_t& chunks,
-    asio::error_code& ec)
-{
+bool parser::parse_cookie_header(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
+        const std::string& cookie_header, bool set_cookie_header) {
+    return parse_cookie_header(dict, cookie_header.c_str(), cookie_header.size(), set_cookie_header);
+}
+
+bool parser::parse_url_encoded(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
+        const std::string& query) {
+    return parse_url_encoded(dict, query.c_str(), query.size());
+}
+
+bool parser::parse_multipart_form_data(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
+        const std::string& content_type, const std::string& form_data) {
+    return parse_multipart_form_data(dict, content_type, form_data.c_str(), form_data.size());
+}
+
+
+
+pion::tribool parser::parse_chunks(http::message::chunk_cache_t& chunks, asio::error_code& ec) {
     //
     // note that pion::tribool may have one of THREE states:
     //
@@ -1525,6 +1668,17 @@ bool parser::parse_forwarded_for(const std::string& header, std::string& public_
 
     // no matches found
     return false;
+}
+
+parser::error_category_t& parser::get_error_category() {
+    std::call_once(m_instance_flag, parser::create_error_category);
+    return *m_error_category_ptr;
+}
+
+void parser::finished_parsing_headers(const asio::error_code& /* ec */, pion::tribool& /* rc */) { }
+
+void parser::set_error(asio::error_code& ec, error_value_t ev) {
+    ec = asio::error_code(static_cast<int> (ev), get_error_category());
 }
 
 const char* parser::error_category_t::name() const PION_NOEXCEPT {
