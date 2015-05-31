@@ -94,17 +94,24 @@ public:
      */
     typedef asio::ssl::context ssl_context_type;
 #else
+    /**
+     * Proxy data type for an SSL-like socket connection in non-SSL environment
+     */
     class ssl_socket_type {
-    public:
-        ssl_socket_type(asio::io_service& io_service) : m_socket(io_service) {}
-        inline socket_type& next_layer(void) { return m_socket; }
-        inline const socket_type& next_layer(void) const { return m_socket; }
-        inline socket_type::lowest_layer_type& lowest_layer(void) { return m_socket.lowest_layer(); }
-        inline const socket_type::lowest_layer_type& lowest_layer(void) const { return m_socket.lowest_layer(); }
-        inline void shutdown(void) {}
     private:
-        socket_type  m_socket;
+        socket_type m_socket;
+    public:
+        ssl_socket_type(asio::io_service& io_service);
+        socket_type& next_layer();
+        const socket_type& next_layer() const;
+        socket_type::lowest_layer_type& lowest_layer();
+        const socket_type::lowest_layer_type& lowest_layer() const;
+        void shutdown();
     };
+    
+    /**
+     * Dummy data type for SSL configuration context in non-SSL environment
+     */
     typedef int ssl_context_type;
 #endif    
     

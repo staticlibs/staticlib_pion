@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // ---------------------------------------------------------------------
 // pion:  a Boost C++ framework for building lightweight HTTP interfaces
 // ---------------------------------------------------------------------
@@ -11,40 +27,44 @@
 #define __PION_HTTP_PARSER_HEADER__
 
 #include <string>
-#include <pion/noncopyable.hpp>
 #include <functional>
-#include <pion/tribool.hpp>
 #include <mutex>
 #include <cstdint>
-#include <pion/config.hpp>
-#include <pion/algorithm.hpp>
-#include <pion/logger.hpp>
-#include <pion/http/message.hpp>
 
-namespace pion {    // begin namespace pion
-namespace http {    // begin namespace http
+#include "pion/tribool.hpp"
+#include "pion/noncopyable.hpp"
+#include "pion/config.hpp"
+#include "pion/algorithm.hpp"
+#include "pion/logger.hpp"
+#include "pion/http/message.hpp"
 
+namespace pion {
+namespace http {
 
 // forward declarations used for finishing HTTP messages
 class request;
 class response;
 
-///
-/// parser: parses HTTP messages
-///
-class PION_API parser :
-    private pion::noncopyable
-{
-
+/**
+ * Parses HTTP messages
+ */
+class PION_API parser : private pion::noncopyable {
 public:
 
-    /// maximum length for HTTP payload content
-    static const std::size_t        DEFAULT_CONTENT_MAX;
+    /**
+     * Maximum length for HTTP payload content (for non-streaming server)
+     */
+    static const std::size_t DEFAULT_CONTENT_MAX;
 
-    /// callback type used to consume payload content
-    typedef std::function<void(const char *, std::size_t)>   payload_handler_t;
+    /**
+     * Callback type used to consume payload content
+     */
+    typedef std::function<void(const char *, std::size_t)> payload_handler_t;
     
-    /// class-specific error code values
+    
+    /**
+     * Class-specific error code values
+     */
     enum error_value_t {
         ERROR_METHOD_CHAR = 1,
         ERROR_METHOD_SIZE,
@@ -66,54 +86,178 @@ public:
         ERROR_MISSING_TOO_MUCH_CONTENT,
     };
     
-    /// class-specific error category
-    class error_category_t
-        : public asio::error_category
-    {
+    /**
+     * Class-specific error category
+     */
+    class error_category_t : public asio::error_category {
     public:
-        const char *name() const PION_NOEXCEPT { return "parser"; }
-        std::string message(int ev) const {
-            switch (ev) {
-            case ERROR_METHOD_CHAR:
-                return "invalid method character";
-            case ERROR_METHOD_SIZE:
-                return "method exceeds maximum size";
-            case ERROR_URI_CHAR:
-                return "invalid URI character";
-            case ERROR_URI_SIZE:
-                return "method exceeds maximum size";
-            case ERROR_QUERY_CHAR:
-                return "invalid query string character";
-            case ERROR_QUERY_SIZE:
-                return "query string exceeds maximum size";
-            case ERROR_VERSION_EMPTY:
-                return "HTTP version undefined";
-            case ERROR_VERSION_CHAR:
-                return "invalid version character";
-            case ERROR_STATUS_EMPTY:
-                return "HTTP status undefined";
-            case ERROR_STATUS_CHAR:
-                return "invalid status character";
-            case ERROR_HEADER_CHAR:
-                return "invalid header character";
-            case ERROR_HEADER_NAME_SIZE:
-                return "header name exceeds maximum size";
-            case ERROR_HEADER_VALUE_SIZE:
-                return "header value exceeds maximum size";
-            case ERROR_INVALID_CONTENT_LENGTH:
-                return "invalid Content-Length header";
-            case ERROR_CHUNK_CHAR:
-                return "invalid chunk character";
-            case ERROR_MISSING_HEADER_DATA:
-                return "missing header data";
-            case ERROR_MISSING_CHUNK_DATA:
-                return "missing chunk data";
-            case ERROR_MISSING_TOO_MUCH_CONTENT:
-                return "missing too much content";
-            }
-            return "parser error";
-        }
+        /**
+         * Returns error category name
+         * 
+         * @return error category name
+         */
+        const char *name() const PION_NOEXCEPT;
+        
+        /**
+         * Returns error message for specified code
+         * 
+         * @param ev error code
+         * @return error message
+         */
+        std::string message(int ev) const;
     };
+
+protected:
+    /// maximum length for response status message
+    static const uint32_t STATUS_MESSAGE_MAX;
+
+    /// maximum length for the request method
+    static const uint32_t METHOD_MAX;
+
+    /// maximum length for the resource requested
+    static const uint32_t RESOURCE_MAX;
+
+    /// maximum length for the query string
+    static const uint32_t QUERY_STRING_MAX;
+
+    /// maximum length for an HTTP header name
+    static const uint32_t HEADER_NAME_MAX;
+
+    /// maximum length for an HTTP header value
+    static const uint32_t HEADER_VALUE_MAX;
+
+    /// maximum length for the name of a query string variable
+    static const uint32_t QUERY_NAME_MAX;
+
+    /// maximum length for the value of a query string variable
+    static const uint32_t QUERY_VALUE_MAX;
+
+    /// maximum length for the name of a cookie name
+    static const uint32_t COOKIE_NAME_MAX;
+
+    /// maximum length for the value of a cookie; also used for path and domain
+    static const uint32_t COOKIE_VALUE_MAX;
+
+
+    /// primary logging interface used by this class
+    mutable logger m_logger;
+
+    /// true if the message is an HTTP request; false if it is an HTTP response
+    const bool m_is_request;
+
+    /// points to the next character to be consumed in the read_buffer
+    const char * m_read_ptr;
+
+    /// points to the end of the read_buffer (last byte + 1)
+    const char * m_read_end_ptr;    
+    
+private:
+    /// state used to keep track of where we are in parsing the HTTP message
+    enum message_parse_state_t {
+        PARSE_START, PARSE_HEADERS, PARSE_FOOTERS, PARSE_CONTENT,
+        PARSE_CONTENT_NO_LENGTH, PARSE_CHUNKS, PARSE_END
+    };
+
+    /// state used to keep track of where we are in parsing the HTTP headers
+    /// (only used if message_parse_state_t == PARSE_HEADERS)
+    enum header_parse_state_t {
+        PARSE_METHOD_START, PARSE_METHOD, PARSE_URI_STEM, PARSE_URI_QUERY,
+        PARSE_HTTP_VERSION_H, PARSE_HTTP_VERSION_T_1, PARSE_HTTP_VERSION_T_2,
+        PARSE_HTTP_VERSION_P, PARSE_HTTP_VERSION_SLASH,
+        PARSE_HTTP_VERSION_MAJOR_START, PARSE_HTTP_VERSION_MAJOR,
+        PARSE_HTTP_VERSION_MINOR_START, PARSE_HTTP_VERSION_MINOR,
+        PARSE_STATUS_CODE_START, PARSE_STATUS_CODE, PARSE_STATUS_MESSAGE,
+        PARSE_EXPECTING_NEWLINE, PARSE_EXPECTING_CR,
+        PARSE_HEADER_WHITESPACE, PARSE_HEADER_START, PARSE_HEADER_NAME,
+        PARSE_SPACE_BEFORE_HEADER_VALUE, PARSE_HEADER_VALUE,
+        PARSE_EXPECTING_FINAL_NEWLINE, PARSE_EXPECTING_FINAL_CR
+    };
+
+    /// state used to keep track of where we are in parsing chunked content
+    /// (only used if message_parse_state_t == PARSE_CHUNKS)
+    enum chunk_parse_state_t {
+        PARSE_CHUNK_SIZE_START, PARSE_CHUNK_SIZE,
+        PARSE_EXPECTING_IGNORED_TEXT_AFTER_CHUNK_SIZE,
+        PARSE_EXPECTING_CR_AFTER_CHUNK_SIZE,
+        PARSE_EXPECTING_LF_AFTER_CHUNK_SIZE, PARSE_CHUNK,
+        PARSE_EXPECTING_CR_AFTER_CHUNK, PARSE_EXPECTING_LF_AFTER_CHUNK,
+        PARSE_EXPECTING_FINAL_CR_OR_FOOTERS_AFTER_LAST_CHUNK,
+        PARSE_EXPECTING_FINAL_LF_AFTER_LAST_CHUNK
+    };
+    
+    /// the current state of parsing HTTP headers
+    message_parse_state_t m_message_parse_state;
+
+    /// the current state of parsing HTTP headers
+    header_parse_state_t m_headers_parse_state;
+
+    /// the current state of parsing chunked content
+    chunk_parse_state_t m_chunked_content_parse_state;
+
+    /// if defined, this function is used to consume payload content
+    payload_handler_t m_payload_handler;
+
+    /// Used for parsing the HTTP response status code
+    uint16_t m_status_code;
+
+    /// Used for parsing the HTTP response status message
+    std::string m_status_message;
+
+    /// Used for parsing the request method
+    std::string m_method;
+
+    /// Used for parsing the name of resource requested
+    std::string m_resource;
+
+    /// Used for parsing the query string portion of a URI
+    std::string m_query_string;
+
+    /// Used to store the raw contents of HTTP headers when m_save_raw_headers is true
+    std::string m_raw_headers;
+
+    /// Used for parsing the name of HTTP headers
+    std::string m_header_name;
+
+    /// Used for parsing the value of HTTP headers
+    std::string m_header_value;
+
+    /// Used for parsing the chunk size
+    std::string m_chunk_size_str;
+
+    /// number of bytes in the chunk currently being parsed
+    std::size_t m_size_of_current_chunk;
+
+    /// number of bytes read so far in the chunk currently being parsed
+    std::size_t m_bytes_read_in_current_chunk;
+
+    /// number of payload content bytes that have not yet been read
+    std::size_t m_bytes_content_remaining;
+
+    /// number of bytes read so far into the message's payload content
+    std::size_t m_bytes_content_read;
+
+    /// number of bytes read during last parse operation
+    std::size_t m_bytes_last_read;
+
+    /// total number of bytes read while parsing the HTTP message
+    std::size_t m_bytes_total_read;
+
+    /// maximum length for HTTP payload content
+    std::size_t m_max_content_length;
+
+    /// if true, then only HTTP headers will be parsed (no content parsing)
+    bool m_parse_headers_only;
+
+    /// if true, the raw contents of HTTP headers are stored into m_raw_headers
+    bool m_save_raw_headers;
+
+    /// points to a single and unique instance of the parser error_category_t
+    static error_category_t * m_error_category_ptr;
+
+    /// used to ensure thread safety of the parser error_category_t
+    static std::once_flag m_instance_flag;    
+    
+public:    
 
     /**
      * creates new parser objects
@@ -510,158 +654,6 @@ protected:
     inline static bool is_hex_digit(int c);
     inline static bool is_cookie_attribute(const std::string& name, bool set_cookie_header);
 
-
-    /// maximum length for response status message
-    static const uint32_t        STATUS_MESSAGE_MAX;
-
-    /// maximum length for the request method
-    static const uint32_t        METHOD_MAX;
-
-    /// maximum length for the resource requested
-    static const uint32_t        RESOURCE_MAX;
-
-    /// maximum length for the query string
-    static const uint32_t        QUERY_STRING_MAX;
-
-    /// maximum length for an HTTP header name
-    static const uint32_t        HEADER_NAME_MAX;
-
-    /// maximum length for an HTTP header value
-    static const uint32_t        HEADER_VALUE_MAX;
-
-    /// maximum length for the name of a query string variable
-    static const uint32_t        QUERY_NAME_MAX;
-
-    /// maximum length for the value of a query string variable
-    static const uint32_t        QUERY_VALUE_MAX;
-
-    /// maximum length for the name of a cookie name
-    static const uint32_t        COOKIE_NAME_MAX;
-
-    /// maximum length for the value of a cookie; also used for path and domain
-    static const uint32_t        COOKIE_VALUE_MAX;
-
-
-    /// primary logging interface used by this class
-    mutable logger                      m_logger;
-
-    /// true if the message is an HTTP request; false if it is an HTTP response
-    const bool                          m_is_request;
-
-    /// points to the next character to be consumed in the read_buffer
-    const char *                        m_read_ptr;
-
-    /// points to the end of the read_buffer (last byte + 1)
-    const char *                        m_read_end_ptr;
-
-
-private:
-
-    /// state used to keep track of where we are in parsing the HTTP message
-    enum message_parse_state_t {
-        PARSE_START, PARSE_HEADERS, PARSE_FOOTERS, PARSE_CONTENT,
-        PARSE_CONTENT_NO_LENGTH, PARSE_CHUNKS, PARSE_END
-    };
-
-    /// state used to keep track of where we are in parsing the HTTP headers
-    /// (only used if message_parse_state_t == PARSE_HEADERS)
-    enum header_parse_state_t {
-        PARSE_METHOD_START, PARSE_METHOD, PARSE_URI_STEM, PARSE_URI_QUERY,
-        PARSE_HTTP_VERSION_H, PARSE_HTTP_VERSION_T_1, PARSE_HTTP_VERSION_T_2,
-        PARSE_HTTP_VERSION_P, PARSE_HTTP_VERSION_SLASH,
-        PARSE_HTTP_VERSION_MAJOR_START, PARSE_HTTP_VERSION_MAJOR,
-        PARSE_HTTP_VERSION_MINOR_START, PARSE_HTTP_VERSION_MINOR,
-        PARSE_STATUS_CODE_START, PARSE_STATUS_CODE, PARSE_STATUS_MESSAGE,
-        PARSE_EXPECTING_NEWLINE, PARSE_EXPECTING_CR,
-        PARSE_HEADER_WHITESPACE, PARSE_HEADER_START, PARSE_HEADER_NAME,
-        PARSE_SPACE_BEFORE_HEADER_VALUE, PARSE_HEADER_VALUE,
-        PARSE_EXPECTING_FINAL_NEWLINE, PARSE_EXPECTING_FINAL_CR
-    };
-
-    /// state used to keep track of where we are in parsing chunked content
-    /// (only used if message_parse_state_t == PARSE_CHUNKS)
-    enum chunk_parse_state_t {
-        PARSE_CHUNK_SIZE_START, PARSE_CHUNK_SIZE,
-        PARSE_EXPECTING_IGNORED_TEXT_AFTER_CHUNK_SIZE,
-        PARSE_EXPECTING_CR_AFTER_CHUNK_SIZE,
-        PARSE_EXPECTING_LF_AFTER_CHUNK_SIZE, PARSE_CHUNK, 
-        PARSE_EXPECTING_CR_AFTER_CHUNK, PARSE_EXPECTING_LF_AFTER_CHUNK,
-        PARSE_EXPECTING_FINAL_CR_OR_FOOTERS_AFTER_LAST_CHUNK, 
-        PARSE_EXPECTING_FINAL_LF_AFTER_LAST_CHUNK
-    };
-
-
-    /// the current state of parsing HTTP headers
-    message_parse_state_t               m_message_parse_state;
-
-    /// the current state of parsing HTTP headers
-    header_parse_state_t                m_headers_parse_state;
-
-    /// the current state of parsing chunked content
-    chunk_parse_state_t                 m_chunked_content_parse_state;
-    
-    /// if defined, this function is used to consume payload content
-    payload_handler_t                   m_payload_handler;
-
-    /// Used for parsing the HTTP response status code
-    uint16_t                     m_status_code;
-
-    /// Used for parsing the HTTP response status message
-    std::string                         m_status_message;
-
-    /// Used for parsing the request method
-    std::string                         m_method;
-
-    /// Used for parsing the name of resource requested
-    std::string                         m_resource;
-
-    /// Used for parsing the query string portion of a URI
-    std::string                         m_query_string;
-
-    /// Used to store the raw contents of HTTP headers when m_save_raw_headers is true
-    std::string                         m_raw_headers;
-
-    /// Used for parsing the name of HTTP headers
-    std::string                         m_header_name;
-
-    /// Used for parsing the value of HTTP headers
-    std::string                         m_header_value;
-
-    /// Used for parsing the chunk size
-    std::string                         m_chunk_size_str;
-
-    /// number of bytes in the chunk currently being parsed
-    std::size_t                         m_size_of_current_chunk;
-
-    /// number of bytes read so far in the chunk currently being parsed
-    std::size_t                         m_bytes_read_in_current_chunk;
-
-    /// number of payload content bytes that have not yet been read
-    std::size_t                         m_bytes_content_remaining;
-
-    /// number of bytes read so far into the message's payload content
-    std::size_t                         m_bytes_content_read;
-
-    /// number of bytes read during last parse operation
-    std::size_t                         m_bytes_last_read;
-
-    /// total number of bytes read while parsing the HTTP message
-    std::size_t                         m_bytes_total_read;
-
-    /// maximum length for HTTP payload content
-    std::size_t                         m_max_content_length;
-    
-    /// if true, then only HTTP headers will be parsed (no content parsing)
-    bool                                m_parse_headers_only;
-
-    /// if true, the raw contents of HTTP headers are stored into m_raw_headers
-    bool                                m_save_raw_headers;
-
-    /// points to a single and unique instance of the parser error_category_t
-    static error_category_t *           m_error_category_ptr;
-        
-    /// used to ensure thread safety of the parser error_category_t
-    static std::once_flag             m_instance_flag;
 };
 
 
@@ -722,7 +714,7 @@ inline bool parser::is_cookie_attribute(const std::string& name, bool set_cookie
     ));
 }
 
-}   // end namespace http
-}   // end namespace pion
+} // end namespace http
+} // end namespace pion
 
 #endif

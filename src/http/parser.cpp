@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 // ---------------------------------------------------------------------
 // pion:  a Boost C++ framework for building lightweight HTTP interfaces
 // ---------------------------------------------------------------------
@@ -9,22 +25,21 @@
 
 #include <string>
 #include <unordered_map>
+#include <regex>
 #include <cstdlib>
 #include <cstring>
-#include <regex>
 #include <cassert>
 #include <cstdint>
-#include <pion/tribool.hpp>
-#include <pion/algorithm.hpp>
-#include <pion/http/parser.hpp>
-#include <pion/http/request.hpp>
-#include <pion/http/response.hpp>
-#include <pion/http/message.hpp>
 
+#include "pion/tribool.hpp"
+#include "pion/algorithm.hpp"
+#include "pion/http/parser.hpp"
+#include "pion/http/request.hpp"
+#include "pion/http/response.hpp"
+#include "pion/http/message.hpp"
 
-namespace pion {    // begin namespace pion
-namespace http {    // begin namespace http
-
+namespace pion {
+namespace http {
 
 // static members of parser
 
@@ -1512,5 +1527,51 @@ bool parser::parse_forwarded_for(const std::string& header, std::string& public_
     return false;
 }
 
-}   // end namespace http
-}   // end namespace pion
+const char* parser::error_category_t::name() const PION_NOEXCEPT {
+    return "parser";
+}
+
+std::string parser::error_category_t::message(int ev) const {
+    switch (ev) {
+    case ERROR_METHOD_CHAR:
+        return "invalid method character";
+    case ERROR_METHOD_SIZE:
+        return "method exceeds maximum size";
+    case ERROR_URI_CHAR:
+        return "invalid URI character";
+    case ERROR_URI_SIZE:
+        return "method exceeds maximum size";
+    case ERROR_QUERY_CHAR:
+        return "invalid query string character";
+    case ERROR_QUERY_SIZE:
+        return "query string exceeds maximum size";
+    case ERROR_VERSION_EMPTY:
+        return "HTTP version undefined";
+    case ERROR_VERSION_CHAR:
+        return "invalid version character";
+    case ERROR_STATUS_EMPTY:
+        return "HTTP status undefined";
+    case ERROR_STATUS_CHAR:
+        return "invalid status character";
+    case ERROR_HEADER_CHAR:
+        return "invalid header character";
+    case ERROR_HEADER_NAME_SIZE:
+        return "header name exceeds maximum size";
+    case ERROR_HEADER_VALUE_SIZE:
+        return "header value exceeds maximum size";
+    case ERROR_INVALID_CONTENT_LENGTH:
+        return "invalid Content-Length header";
+    case ERROR_CHUNK_CHAR:
+        return "invalid chunk character";
+    case ERROR_MISSING_HEADER_DATA:
+        return "missing header data";
+    case ERROR_MISSING_CHUNK_DATA:
+        return "missing chunk data";
+    case ERROR_MISSING_TOO_MUCH_CONTENT:
+        return "missing too much content";
+    }
+    return "parser error";
+}
+
+} // end namespace http
+} // end namespace pion

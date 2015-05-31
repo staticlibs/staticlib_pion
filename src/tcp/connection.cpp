@@ -220,6 +220,31 @@ const connection::ssl_socket_type& connection::get_ssl_socket() const {
     return m_ssl_socket;
 }
 
+#ifndef PION_HAVE_SSL
+
+connection::ssl_socket_type::ssl_socket_type(asio::io_service& io_service) : 
+m_socket(io_service) { }
+
+connection::socket_type& connection::ssl_socket_type::next_layer() {
+    return m_socket;
+}
+
+const connection::socket_type& connection::ssl_socket_type::next_layer() const {
+    return m_socket;
+}
+
+connection::socket_type::lowest_layer_type& connection::ssl_socket_type::lowest_layer() {
+    return m_socket.lowest_layer();
+}
+
+const connection::socket_type::lowest_layer_type& connection::ssl_socket_type::lowest_layer() const {
+    return m_socket.lowest_layer();
+}
+
+void connection::ssl_socket_type::shutdown() { }
+
+#endif // PION_HAVE_SSL
+
 
 } // end namespace tcp
 } // end namespace pion

@@ -286,5 +286,10 @@ void one_to_one_scheduler::stop_services() {
 void one_to_one_scheduler::finish_services() {
     m_service_pool.clear();
 }
+
+one_to_one_scheduler::service_pair_type::service_pair_type() :
+first(), 
+second(first) { }
+
     
 } // end namespace pion

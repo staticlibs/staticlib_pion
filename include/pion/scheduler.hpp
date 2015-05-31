@@ -364,8 +364,20 @@ protected:
      * Struct for a pair object where first is an IO service and second is a deadline timer
      */
     struct service_pair_type {
-        service_pair_type(void) : first(), second(first) { }
+        
+        /**
+         * Constructor
+         */
+        service_pair_type();
+        
+        /**
+         * IO service
+         */
         asio::io_service first;
+        
+        /**
+         * Deadline timer for the IO service
+         */
         asio::steady_timer second;
     };
     
