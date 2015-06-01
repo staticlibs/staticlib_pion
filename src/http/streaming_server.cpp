@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /* 
  * File:   streaming_server.cpp
  * Author: alex
@@ -6,16 +22,21 @@
  */
 
 #include <functional>
+#include <stdexcept>
 #include <cstdint>
 
-#include <pion/tribool.hpp>
-#include <pion/http/streaming_server.hpp>
-#include <stdexcept>
-
+#include "pion/tribool.hpp"
 #include "pion/http/request_reader.hpp"
+#include "pion/http/streaming_server.hpp"
 
-namespace pion { // begin namespace pion
-namespace http { // begin namespace http
+namespace pion {
+namespace http {
+
+streaming_server::streaming_server(uint32_t number_of_threads, uint16_t port,
+        asio::ip::address_v4 ip_address) : 
+server(asio::ip::tcp::endpoint(ip_address, port)) {
+    get_active_scheduler().set_num_threads(number_of_threads);
+}
 
 void streaming_server::handle_connection(tcp::connection_ptr& tcp_conn) {
     request_reader_ptr my_reader_ptr;
