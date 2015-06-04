@@ -31,7 +31,7 @@ namespace pion {
 //  Contributed by Dave Abrahams
 
 /**
- * Internal namespace fro noncopyable for protection from unintended ADL
+ * Internal namespace for noncopyable for protection from unintended ADL
  */
 namespace noncopyable_  // protection from unintended ADL
 {
