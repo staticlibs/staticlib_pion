@@ -27,9 +27,19 @@ from the development shell `C:\Program Files (x86)\Microsoft Visual Studio 12.0\
     nmake
     nmake test
 
-Build with log4cplust and OpenSSL support:
+Build with log4cplust and OpenSSL support (run from project root):
 
-
+    git clone --branch 1.0.2 https://github.com/staticlibs/external_openssl.git deps/external_openssl
+    cd deps/external_openssl/
+    git submodule update --init --recursive
+    cd ../..
+    git clone --branch 1.1.2 https://github.com/staticlibs/external_log4cplus.git deps/external_log4cplus
+    cd deps/external_log4cplus/
+    git submodule update --init --recursive
+    cd ../..
+    mkdir build
+    cd build
+    cmake .. -DSTATICLIB_PION_USE_LOG4CPLUS=ON -DSTATICLIB_PION_USE_OPENSSL=ON -DSTATICLIB_TOOLCHAIN=...
 
 License information
 -------------------
