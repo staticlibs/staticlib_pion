@@ -19,7 +19,7 @@ set ( STATICLIB_TOOLCHAIN linux_amd64_gcc CACHE STRING "toolchain triplet" )
 set ( CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/cmake/toolchains/${STATICLIB_TOOLCHAIN}.cmake CACHE INTERNAL "" )
 
 # project setup
-project ( staticlib_pion_cpp11 CXX )
+project ( staticlib_httpserver CXX )
 set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7 )
 
 # common include
