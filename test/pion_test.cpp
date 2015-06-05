@@ -104,7 +104,7 @@ public:
         if (!ec) {
             stream.read(buf.data(), buf.size());
             writer->clear();
-            writer->write_no_copy(buf.data(), stream.gcount());
+            writer->write_no_copy(buf.data(), static_cast<size_t>(stream.gcount()));
             if (stream) {
                 writer->send_chunk(std::bind(&FileSender::handle_write, shared_from_this(), 
                         std::placeholders::_1, std::placeholders::_2));
