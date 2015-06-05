@@ -15,6 +15,9 @@ All changes were done with an attempt to stay as close as possible to original P
 
 Link to [API documentation](http://staticlibs.github.io/staticlib_httpserver/docs/html/namespacepion_1_1http.html).
 
+HTTP server can be used directly ([example](https://github.com/staticlibs/staticlib_httpserver/blob/master/test/pion_test.cpp)),
+or through more user-friendly (REST wrapper)[https://github.com/staticlibs/staticlib_restserver].
+
 How to build
 ------------
 
