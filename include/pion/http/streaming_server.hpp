@@ -38,6 +38,9 @@
 namespace pion {
 namespace http {
 
+/**
+ * Server extension that supports streaming requests of arbitrary size (file upload)
+ */
 class streaming_server : public server {   
        
 protected:
