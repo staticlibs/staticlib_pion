@@ -26,6 +26,8 @@ How to build
 Staticlib toolchain name must be specified as a `STATICLIB_TOOLCHAIN` parameter to `cmake` command
 unless you are using GCC on Linux x86_64 (`linux_amd64_gcc` toolchain) that is default.
 
+List of [supported toolchains](https://github.com/staticlibs/cmake/tree/master/toolchains).
+
 Example build for Windows x86_64 with Visual Studio 2013 Express, run the following commands 
 from the development shell `C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\Shortcuts\VS2013 x64 Cross Tools Command Prompt` :
 
@@ -59,6 +61,10 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2015-07-01**
+
+ * version 5.0.7.1 - toolchains update, minor cmake fixes
 
 **2015-06-04**
 
