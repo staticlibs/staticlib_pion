@@ -159,7 +159,7 @@ void streaming_server::handle_request_after_headers_parsed(http::request_ptr htt
 
 void streaming_server::add_method_specific_resource(const std::string& method, 
         const std::string& resource, request_handler_t request_handler) {
-    std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
     const std::string clean_resource(strip_trailing_slash(resource));
     auto en = std::make_pair(clean_resource, request_handler);
     if (types::REQUEST_METHOD_GET == method) {
@@ -177,7 +177,7 @@ void streaming_server::add_method_specific_resource(const std::string& method,
 
 void streaming_server::remove_method_specific_resource(const std::string& method,
         const std::string& resource) {
-    std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
     const std::string clean_resource(strip_trailing_slash(resource));    
     if (types::REQUEST_METHOD_GET == method) {
         m_get_resources.erase(clean_resource);
@@ -195,7 +195,7 @@ void streaming_server::remove_method_specific_resource(const std::string& method
 bool streaming_server::find_request_handler_internal(const resource_map_t& map, const std::string& resource, 
         request_handler_t& request_handler) const {
     // first make sure that HTTP resources are registered
-    std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
     if (map.empty()) return false;
 
     // iterate through each resource entry that may match the resource
@@ -219,7 +219,7 @@ bool streaming_server::find_request_handler_internal(const resource_map_t& map, 
 bool streaming_server::find_payload_handler_internal(const payloads_map_type& map, const std::string& resource,
         payload_handler_creator_type& payload_handler) const {
     // first make sure that HTTP resources are registered
-    std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
     if (map.empty()) return false;
 
     // iterate through each resource entry that may match the resource
@@ -255,7 +255,7 @@ bool streaming_server::find_method_specific_request_handler(const std::string& m
 
 void streaming_server::add_method_specific_payload_handler(const std::string& method,
         const std::string& resource, payload_handler_creator_type payload_handler) {
-    std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
     const std::string clean_resource(strip_trailing_slash(resource));
     if (types::REQUEST_METHOD_GET == method) {
         m_get_payloads.insert(std::make_pair(clean_resource, payload_handler));
@@ -274,7 +274,7 @@ void streaming_server::add_method_specific_payload_handler(const std::string& me
 
 void streaming_server::remove_method_specific_payload_handler(const std::string& method, 
         const std::string& resource) {
-    std::unique_lock<std::mutex> resource_lock(m_resource_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
     const std::string clean_resource(strip_trailing_slash(resource));
     if (types::REQUEST_METHOD_GET == method) {
         m_get_payloads.erase(clean_resource);

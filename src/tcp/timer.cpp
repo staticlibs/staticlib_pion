@@ -38,7 +38,7 @@ timer::timer(tcp::connection_ptr& conn_ptr)
     m_timer_active(false), m_was_cancelled(false) { }
 
 void timer::start(const uint32_t seconds) {
-    std::unique_lock<std::mutex> timer_lock(m_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> timer_lock(m_mutex);
     m_timer_active = true;
     m_timer.expires_from_now(std::chrono::seconds(seconds));
     m_timer.async_wait(std::bind(&timer::timer_callback,
@@ -46,14 +46,14 @@ void timer::start(const uint32_t seconds) {
 }
 
 void timer::cancel(void) {
-    std::unique_lock<std::mutex> timer_lock(m_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> timer_lock(m_mutex);
     m_was_cancelled = true;
     if (m_timer_active)
         m_timer.cancel();
 }
 
 void timer::timer_callback(const asio::error_code& /* ec */) {
-    std::unique_lock<std::mutex> timer_lock(m_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> timer_lock(m_mutex);
     m_timer_active = false;
     if (! m_was_cancelled)
         m_conn_ptr->cancel();

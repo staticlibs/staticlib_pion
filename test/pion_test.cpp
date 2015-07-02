@@ -100,7 +100,7 @@ public:
     }
     
     void handle_write(const asio::error_code& ec, std::size_t /* bytes_written */) {
-        std::unique_lock<std::mutex> lock{mutex, std::try_to_lock};
+        std::lock_guard<std::mutex> lock{mutex};
         if (!ec) {
             stream.read(buf.data(), buf.size());
             writer->clear();

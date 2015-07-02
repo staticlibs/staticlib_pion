@@ -108,7 +108,7 @@ m_is_listening(false) { }
     
 void server::start() {
     // lock mutex for thread safety
-    std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
+    std::unique_lock<std::mutex> server_lock(m_mutex);
 
     if (! m_is_listening) {
         PION_LOG_INFO(m_logger, "Starting server on port " << get_port());
@@ -150,7 +150,7 @@ void server::start() {
 
 void server::stop(bool wait_until_finished) {
     // lock mutex for thread safety
-    std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
+    std::unique_lock<std::mutex> server_lock(m_mutex);
 
     if (m_is_listening) {
         PION_LOG_INFO(m_logger, "Shutting down server on port " << get_port());
@@ -186,7 +186,7 @@ void server::stop(bool wait_until_finished) {
 }
 
 void server::join(void) {
-    std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
+    std::unique_lock<std::mutex> server_lock(m_mutex);
     while (m_is_listening) {
         // sleep until server_has_stopped condition is signaled
         m_server_has_stopped.wait(server_lock);
@@ -209,7 +209,7 @@ void server::set_ssl_key_file(const std::string& pem_key_file) {
 
 void server::listen() {
     // lock mutex for thread safety
-    std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> server_lock(m_mutex);
     
     if (m_is_listening) {
         // create a new TCP connection object
@@ -278,7 +278,7 @@ void server::handle_ssl_handshake(tcp::connection_ptr& tcp_conn,
 }
 
 void server::finish_connection(tcp::connection_ptr tcp_conn) {
-    std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> server_lock(m_mutex);
     if (m_is_listening && tcp_conn->get_keep_alive()) {
         
         // keep the connection alive
@@ -318,7 +318,7 @@ std::size_t server::prune_connections() {
 }
 
 std::size_t server::get_connections() const {
-    std::unique_lock<std::mutex> server_lock(m_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> server_lock(m_mutex);
     return (m_is_listening ? (m_conn_pool.size() - 1) : m_conn_pool.size());
 }
 

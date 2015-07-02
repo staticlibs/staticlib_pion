@@ -34,7 +34,7 @@ void scheduler::startup() { }
 
 void scheduler::shutdown(void) {
     // lock mutex for thread safety
-    std::unique_lock<std::mutex> scheduler_lock(m_mutex, std::try_to_lock);
+    std::unique_lock<std::mutex> scheduler_lock(m_mutex);
     
     if (m_is_running) {
         
@@ -73,7 +73,7 @@ void scheduler::shutdown(void) {
 }
 
 void scheduler::join(void) {
-    std::unique_lock<std::mutex> scheduler_lock(m_mutex, std::try_to_lock);
+    std::unique_lock<std::mutex> scheduler_lock(m_mutex);
     while (m_is_running) {
         // sleep until scheduler_has_stopped condition is signaled
         m_scheduler_has_stopped.wait(scheduler_lock);
@@ -115,12 +115,12 @@ void scheduler::keep_running(asio::io_service& my_service, asio::steady_timer& m
 
 void scheduler::add_active_user() {
     if (!m_is_running) startup();
-    std::unique_lock<std::mutex> scheduler_lock(m_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> scheduler_lock(m_mutex);
     ++m_active_users;
 }
 
 void scheduler::remove_active_user() {
-    std::unique_lock<std::mutex> scheduler_lock(m_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> scheduler_lock(m_mutex);
     if (--m_active_users == 0)
         m_no_more_active_users.notify_all();
 }
@@ -193,7 +193,7 @@ asio::io_service& single_service_scheduler::get_io_service() {
 
 void single_service_scheduler::startup() {
     // lock mutex for thread safety
-    std::unique_lock<std::mutex> scheduler_lock(m_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> scheduler_lock(m_mutex);
     
     if (! m_is_running) {
         PION_LOG_INFO(m_logger, "Starting thread scheduler");
@@ -232,7 +232,7 @@ one_to_one_scheduler::~one_to_one_scheduler() {
 }
 
 asio::io_service& one_to_one_scheduler::get_io_service() {
-    std::unique_lock<std::mutex> scheduler_lock(m_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> scheduler_lock(m_mutex);
     while (m_service_pool.size() < m_num_threads) {
         std::shared_ptr<service_pair_type> service_ptr(new service_pair_type());
         m_service_pool.push_back(service_ptr);
@@ -251,7 +251,7 @@ asio::io_service& one_to_one_scheduler::get_io_service(uint32_t n) {
 
 void one_to_one_scheduler::startup() {
     // lock mutex for thread safety
-    std::unique_lock<std::mutex> scheduler_lock(m_mutex, std::try_to_lock);
+    std::lock_guard<std::mutex> scheduler_lock(m_mutex);
     
     if (! m_is_running) {
         PION_LOG_INFO(m_logger, "Starting thread scheduler");
