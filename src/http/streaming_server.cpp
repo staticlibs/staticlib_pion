@@ -148,11 +148,15 @@ void streaming_server::handle_request_after_headers_parsed(http::request_ptr htt
 
     // search for a handler matching the resource requested
     payload_handler_creator_type creator;
-    if (find_method_specific_payload_handler(http_request_ptr->get_method(), resource_requested, creator)) {
+    auto& method = http_request_ptr->get_method();
+    if (find_method_specific_payload_handler(method, resource_requested, creator)) {
         auto ha = creator(http_request_ptr);
         http_request_ptr->set_payload_handler(std::move(ha));
     } else { // ignore request body as no payload_handler found
-        PION_LOG_INFO(m_logger, "No payload handlers found for resource: " << resource_requested);
+        // let's not spam client about GET and DELETE unlikely payloads
+        if (types::REQUEST_METHOD_GET != method && types::REQUEST_METHOD_DELETE != method) {
+            PION_LOG_INFO(m_logger, "No payload handlers found for resource: " << resource_requested);
+        }
         rc = true;
     }
 }
