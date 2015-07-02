@@ -62,6 +62,12 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2015-07-02**
+
+ * version 5.0.7.2
+ * locking fixes (use `lock_guards`)
+ * suppress "no payload handler for GET" log warning
+
 **2015-07-01**
 
  * version 5.0.7.1 - toolchains update, minor cmake fixes
