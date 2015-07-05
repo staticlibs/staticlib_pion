@@ -20,7 +20,7 @@ set ( CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/cmake/toolchains/${STATICLI
 
 # project setup
 project ( staticlib_httpserver CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7.2 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7.3 )
 
 # common include
 include ( ${CMAKE_CURRENT_LIST_DIR}/cmake/staticlibs_common.cmake )
@@ -57,9 +57,9 @@ if ( STATICLIB_PION_USE_OPENSSL )
     set ( ${PROJECT_NAME}_INCLUDES ${${PROJECT_NAME}_INCLUDES} ${external_openssl_INCLUDES} )
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DPION_HAVE_SSL )
 endif ( )
-# uncomment for newer clang
-# set ( ${PROJECT_NAME}_OPTIONS ${${PROJECT_NAME}_OPTIONS} -Wno-unused-local-typedef )
-# build library
+if ( CLANG_VERSION_STRING VERSION_GREATER 3.5 )
+    set ( ${PROJECT_NAME}_OPTIONS ${${PROJECT_NAME}_OPTIONS} -Wno-unused-local-typedef )
+endif ( )
 file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
 add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} )
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE ${${PROJECT_NAME}_INCLUDES} )
@@ -82,8 +82,7 @@ set ( ${PROJECT_NAME}_TEST_LIBS ${PROJECT_NAME} )
     if ( STATICLIB_PION_USE_OPENSSL )
         set ( ${PROJECT_NAME}_TEST_LIBS ${${PROJECT_NAME}_TEST_LIBS} external_openssl external_openssl_ssl )
     endif ( )
-# -Wno-unused-local-typedef also required for newer clang
-set ( ${PROJECT_NAME}_TEST_OPTS ${${PROJECT_NAME}_DEFINITIONS} )
+set ( ${PROJECT_NAME}_TEST_OPTS ${${PROJECT_NAME}_DEFINITIONS} ${${${PROJECT_NAME}_OPTIONS}} )
 staticlib_enable_testing ( ${PROJECT_NAME}_TEST_INCLUDES ${PROJECT_NAME}_TEST_LIBS ${PROJECT_NAME}_TEST_OPTS )
 
 # docs
