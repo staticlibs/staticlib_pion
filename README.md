@@ -40,19 +40,25 @@ from the development shell `C:\Program Files (x86)\Microsoft Visual Studio 12.0\
     nmake
     nmake test
 
-Build with [log4cplus](https://github.com/staticlibs/external_log4cplus) and [OpenSSL](https://github.com/staticlibs/external_openssl) support (run from project root):
+To build with system OpenSSL and log4cplus libraries use the followin CMake switches:
 
-    git clone --branch 1.1.2 https://github.com/staticlibs/external_log4cplus.git deps/external_log4cplus
+    cmake .. -DSTATICLIB_PION_USE_SYSTEM_LOG4CPLUS=ON -DSTATICLIB_PION_USE_SYSTEM_OPENSSL=ON -DSTATICLIB_TOOLCHAIN=...
+
+For platforms without pre-existing OpenSSL and log4cplus you can build this project with Staticlibs 
+[log4cplus](https://github.com/staticlibs/external_log4cplus) and 
+[OpenSSL](https://github.com/staticlibs/external_openssl) libs the following way (run from project root):
+
+    git clone --branch 1.1.2.2 https://github.com/staticlibs/external_log4cplus.git deps/external_log4cplus
     cd deps/external_log4cplus/
     git submodule update --init --recursive
     cd ../..
-    git clone --branch 1.0.2 https://github.com/staticlibs/external_openssl.git deps/external_openssl
+    git clone --branch 1.0.2.2 https://github.com/staticlibs/external_openssl.git deps/external_openssl
     cd deps/external_openssl/
     git submodule update --init --recursive
     cd ../..
     mkdir build
     cd build
-    cmake .. -DSTATICLIB_PION_USE_LOG4CPLUS=ON -DSTATICLIB_PION_USE_OPENSSL=ON -DSTATICLIB_TOOLCHAIN=...
+    cmake .. -DSTATICLIB_PION_USE_STATICLIB_LOG4CPLUS=ON -DSTATICLIB_PION_USE_STATICLIB_OPENSSL=ON -DSTATICLIB_TOOLCHAIN=...
 
 License information
 -------------------

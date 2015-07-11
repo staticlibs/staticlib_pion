@@ -39,13 +39,23 @@
 
 #ifdef PION_USE_LOG4CPLUS
 #include <log4cplus/logger.h>
-#include "staticlib/log4cplus_utils.hpp"
+#include <log4cplus/consoleappender.h>
 #endif // PION_USE_LOG4CPLUS
 
 namespace { // anonymous
 
 const uint16_t SECONDS_TO_RUN = 1;
-const uint16_t TCP_PORT = 8080;
+const uint16_t TCP_PORT = 8081;
+
+#ifdef PION_USE_LOG4CPLUS
+const std::string CONSOLE_APPENDER_LAYOUT = "%d{%H:%M:%S} [%-5p %-15.15c] %m%n";
+
+log4cplus::SharedAppenderPtr create_console_appender() {
+    log4cplus::SharedAppenderPtr res{new log4cplus::ConsoleAppender()};
+    res->setLayout(std::auto_ptr<log4cplus::Layout>(new log4cplus::PatternLayout(CONSOLE_APPENDER_LAYOUT)));
+    return res;
+}
+#endif // PION_USE_LOG4CPLUS
 
 void hello_service(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
     auto finfun = std::bind(&pion::tcp::connection::finish, tcp_conn);
@@ -142,8 +152,11 @@ FileWriter file_upload_payload_handler_creator(pion::http::request_ptr& http_req
 
 int main() {
 #ifdef PION_USE_LOG4CPLUS
+    #ifdef PION_USE_LOG4CPLUS_STATIC
+    // need initialization with static log4cplus
     log4cplus::initialize();
-    auto fa = staticlib::log::create_console_appender();
+    #endif // PION_USE_LOG4CPLUS_STATIC
+    auto fa = create_console_appender();
     log4cplus::Logger::getRoot().addAppender(fa);
     log4cplus::Logger::getRoot().setLogLevel(log4cplus::ALL_LOG_LEVEL);
     log4cplus::Logger::getInstance("pion").setLogLevel(log4cplus::DEBUG_LOG_LEVEL);
