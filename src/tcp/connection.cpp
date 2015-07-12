@@ -44,30 +44,11 @@ std::shared_ptr<connection> connection::create(asio::io_service& io_service,
             new connection(io_service, ssl_context, ssl_flag, finished_handler));
 }
 
-connection::connection(asio::io_service& io_service, const bool ssl_flag) :
-#ifdef PION_HAVE_SSL
-m_ssl_context(asio::ssl::context::sslv23),
-m_ssl_socket(io_service, m_ssl_context),
-m_ssl_flag(ssl_flag),
-#else
-m_ssl_context(0),
-m_ssl_socket(io_service),
-m_ssl_flag(false),
-#endif
-m_lifecycle(LIFECYCLE_CLOSE) {
-#ifndef PION_HAVE_SSL
-    (void) ssl_flag;
-    (void) m_ssl_context;
-#endif            
-    save_read_pos(NULL, NULL);
-}
-
 connection::connection(asio::io_service& io_service, ssl_context_type& ssl_context) :
 #ifdef PION_HAVE_SSL
-m_ssl_context(asio::ssl::context::sslv23),
-m_ssl_socket(io_service, ssl_context), m_ssl_flag(true),
+m_ssl_socket(io_service, ssl_context), 
+m_ssl_flag(true),
 #else
-m_ssl_context(0),
 m_ssl_socket(io_service),
 m_ssl_flag(false),
 #endif
@@ -81,11 +62,11 @@ m_lifecycle(LIFECYCLE_CLOSE) {
 connection::connection(asio::io_service& io_service, ssl_context_type& ssl_context,
         const bool ssl_flag, connection_handler finished_handler) :
 #ifdef PION_HAVE_SSL
-m_ssl_context(asio::ssl::context::sslv23),
-m_ssl_socket(io_service, ssl_context), m_ssl_flag(ssl_flag),
+m_ssl_socket(io_service, ssl_context), 
+m_ssl_flag(ssl_flag),
 #else
-m_ssl_context(0),
-m_ssl_socket(io_service), m_ssl_flag(false),
+m_ssl_socket(io_service), 
+m_ssl_flag(false),
 #endif
 m_lifecycle(LIFECYCLE_CLOSE),
 m_finished_handler(finished_handler) {

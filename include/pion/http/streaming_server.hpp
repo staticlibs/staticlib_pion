@@ -103,10 +103,27 @@ public:
      * 
      * @param number_of_threads number of threads to use for requests processing
      * @param port TCP port
-     * @param ip_address IPv4-address to use, ANY address by default
+     * @param ip_address (optional) IPv4-address to use, ANY address by default
+     * @param ssl_key_file (optional) path file containing concatenated X.509 key and certificate,
+     *        empty by default (SSL disabled)
+     * @param ssl_key_password_callback (optional) callback function that should return a password
+     *        that will be used to decrypt a PEM-encoded RSA private key file
+     * @param ssl_verify_file (optional) path to file containing one or more CA certificates in PEM format
+     * @param ssl_verify_callback (optional) callback function that can be used to customize client
+     *        certificate auth
      */
     explicit streaming_server(uint32_t number_of_threads, uint16_t port,
-            asio::ip::address_v4 ip_address = asio::ip::address_v4::any());
+            asio::ip::address_v4 ip_address = asio::ip::address_v4::any()
+#ifdef PION_HAVE_SSL
+            ,
+            const std::string& ssl_key_file = std::string(),
+            std::function<std::string(std::size_t, asio::ssl::context::password_purpose)> ssl_key_password_callback = 
+                    [](std::size_t, asio::ssl::context::password_purpose) { return std::string(); },
+            const std::string& ssl_verify_file = std::string(),
+            std::function<bool(bool, asio::ssl::verify_context&)> ssl_verify_callback = 
+                    [](bool, asio::ssl::verify_context&) { return true; }
+#endif // PION_HAVE_SSL
+            );
         
     /**
      * Adds a new web service to the HTTP server

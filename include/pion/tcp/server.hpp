@@ -53,12 +53,12 @@ protected:
      * Primary logging interface used by this class
      */
     logger m_logger;
-    
+
 private:
     
     /**
      * The default scheduler object used to manage worker threads
-     */
+     */ 
     single_service_scheduler m_default_scheduler;
 
     /**
@@ -71,11 +71,13 @@ private:
      */
     asio::ip::tcp::acceptor m_tcp_acceptor;
 
+protected:
     /**
      * Context used for SSL configuration
      */
     connection::ssl_context_type m_ssl_context;
 
+private:
     /**
      * Condition triggered when the server has stopped listening for connections
      */
@@ -134,14 +136,14 @@ public:
      * The calling thread will sleep until the server has stopped listening for connections
      */
     void join();
-    
+
     /**
      * Configures server for SSL using a PEM-encoded RSA private key file
      *
      * @param pem_key_file name of the file containing a PEM-encoded private key
      */
     void set_ssl_key_file(const std::string& pem_key_file);
-
+    
     /**
      * Returns the number of active tcp connections
      * 
@@ -209,7 +211,7 @@ public:
      * @return SSL context
      */
     connection::ssl_context_type& get_ssl_context_type();
-    
+        
     /**
      * Returns true if the server is listening for connections
      * 
@@ -243,10 +245,7 @@ public:
      * 
      * @return TCP connection acceptor
      */
-    const asio::ip::tcp::acceptor& get_acceptor() const;
-
-    
-protected:
+    const asio::ip::tcp::acceptor& get_acceptor() const;   
         
     /**
      * Protected constructor so that only derived objects may be created

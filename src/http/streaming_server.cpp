@@ -33,9 +33,34 @@ namespace pion {
 namespace http {
 
 streaming_server::streaming_server(uint32_t number_of_threads, uint16_t port,
-        asio::ip::address_v4 ip_address) : 
+        asio::ip::address_v4 ip_address
+#ifdef PION_HAVE_SSL        
+        ,
+        const std::string& ssl_key_file,
+        std::function<std::string(std::size_t, asio::ssl::context::password_purpose)> ssl_key_password_callback,
+        const std::string& ssl_verify_file,
+        std::function<bool(bool, asio::ssl::verify_context&)> ssl_verify_callback
+#endif // PION_HAVE_SSL
+) : 
 server(asio::ip::tcp::endpoint(ip_address, port)) {
     get_active_scheduler().set_num_threads(number_of_threads);
+#ifdef PION_HAVE_SSL
+    if (!ssl_key_file.empty()) {
+        set_ssl_flag(true);
+        this->m_ssl_context.set_options(asio::ssl::context::default_workarounds
+                | asio::ssl::context::no_compression
+                | asio::ssl::context::no_sslv2
+                | asio::ssl::context::single_dh_use);
+        this->m_ssl_context.set_password_callback(ssl_key_password_callback);
+        this->m_ssl_context.use_certificate_file(ssl_key_file, asio::ssl::context::pem);
+        this->m_ssl_context.use_private_key_file(ssl_key_file, asio::ssl::context::pem);
+        if (!ssl_verify_file.empty()) {
+            this->m_ssl_context.load_verify_file(ssl_verify_file);
+            this->m_ssl_context.set_verify_callback(ssl_verify_callback);
+            this->m_ssl_context.set_verify_mode(asio::ssl::verify_peer | asio::ssl::verify_fail_if_no_peer_cert);            
+        }
+    }
+#endif // PION_HAVE_SSL
 }
 
 void streaming_server::handle_connection(tcp::connection_ptr& tcp_conn) {

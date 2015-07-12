@@ -118,11 +118,6 @@ public:
 private:
 
     /**
-     * Context object for the SSL connection socket
-     */
-    ssl_context_type m_ssl_context;
-
-    /**
      * SSL connection socket
      */
     ssl_socket_type m_ssl_socket;
@@ -165,13 +160,6 @@ public:
      */
     static std::shared_ptr<connection> create(asio::io_service& io_service,
             ssl_context_type& ssl_context, const bool ssl_flag, connection_handler finished_handler);
-    /**
-     * creates a new connection object
-     *
-     * @param io_service asio service associated with the connection
-     * @param ssl_flag if true then the connection will be encrypted using SSL 
-     */
-    explicit connection(asio::io_service& io_service, const bool ssl_flag = false);
     
     /**
      * creates a new connection object for SSL
