@@ -20,7 +20,7 @@ set ( CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/cmake/toolchains/${STATICLI
 
 # project setup
 project ( staticlib_httpserver CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7.3 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7.4 )
 
 # common include
 include ( ${CMAKE_CURRENT_LIST_DIR}/cmake/staticlibs_common.cmake )

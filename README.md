@@ -68,6 +68,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2015-07-12**
+
+ * version 5.0.7.4
+ * support for HTTPS with client certificate auth to `streaming_server`
+
 **2015-07-05**
 
  * version 5.0.7.3
