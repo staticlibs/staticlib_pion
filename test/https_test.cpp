@@ -16,8 +16,10 @@
 #include <pion/http/response_writer.hpp>
 #include <pion/http/streaming_server.hpp>
 
+#ifdef PION_HAVE_SSL
 const uint16_t SECONDS_TO_RUN = 1;
 const uint16_t TCP_PORT = 8443;
+#endif // PION_HAVE_SSL
 
 int main() {
 #ifdef PION_HAVE_SSL
