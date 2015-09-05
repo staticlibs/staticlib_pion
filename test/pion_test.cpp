@@ -45,7 +45,7 @@
 namespace { // anonymous
 
 const uint16_t SECONDS_TO_RUN = 1;
-const uint16_t TCP_PORT = 8081;
+const uint16_t TCP_PORT = 8080;
 
 #ifdef PION_USE_LOG4CPLUS
 const std::string CONSOLE_APPENDER_LAYOUT = "%d{%H:%M:%S} [%-5p %-15.15c] %m%n";

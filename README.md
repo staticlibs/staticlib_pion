@@ -11,11 +11,11 @@ project ([description](http://sourceforge.net/p/pion/mailman/message/32075645/))
  - added support for streaming requests  of arbitrary size (file upload)
  - warnings cleanup to compile with `/W4 /WX` on MSVC and with `-Wall -Werror -Wextra` on GCC and Clang; Doxygen comments reformatted
 
-All changes were done with an attempt to stay as close as possible to original Pion implementation.
+All changes were done with an attempt to stay as close as possible to the original Pion implementation.
 
 Link to [API documentation](http://staticlibs.github.io/staticlib_httpserver/docs/html/namespacepion_1_1http.html).
 
-Usage ([example](https://github.com/staticlibs/staticlib_httpserver/blob/master/test/pion_test.cpp)).
+Usage [example](https://github.com/staticlibs/staticlib_httpserver/blob/master/test/pion_test.cpp).
 
 How to build
 ------------
@@ -23,7 +23,7 @@ How to build
 [CMake](http://cmake.org/) is required for building.
 
 Staticlib toolchain name must be specified as a `STATICLIB_TOOLCHAIN` parameter to `cmake` command
-unless you are using GCC on Linux x86_64 (`linux_amd64_gcc` toolchain) that is default.
+unless you are using GCC on Linux x86_64 (`linux_amd64_gcc` toolchain) that is a default one.
 
 List of [supported toolchains](https://github.com/staticlibs/cmake/tree/master/toolchains).
 
@@ -66,6 +66,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2015-09-05**
+
+ * version 5.0.7.5
+ * minor build changes
 
 **2015-07-12**
 
