@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7</span>
+   &#160;<span id="projectnumber">5.0.7.5</span>
    </div>
   </td>
  </tr>
@@ -195,6 +195,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8d6bc707ffb64bb6568387ad0f4c28bc inherit pub_methods_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns mutable reference to the TCP connection acceptor.  <a href="#a8d6bc707ffb64bb6568387ad0f4c28bc"></a><br/></td></tr>
 <tr class="memitem:ac9d5b2d64ce99ac39af7f6c390ccc074 inherit pub_methods_classpion_1_1tcp_1_1server"><td class="memItemLeft" align="right" valign="top">const asio::ip::tcp::acceptor &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#ac9d5b2d64ce99ac39af7f6c390ccc074">get_acceptor</a> () const </td></tr>
 <tr class="memdesc:ac9d5b2d64ce99ac39af7f6c390ccc074 inherit pub_methods_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns const reference to the TCP connection acceptor.  <a href="#ac9d5b2d64ce99ac39af7f6c390ccc074"></a><br/></td></tr>
+<tr class="memitem:a0f538b8406842bf30056539ca0214bc7 inherit pub_methods_classpion_1_1tcp_1_1server"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#a0f538b8406842bf30056539ca0214bc7">before_starting</a> ()</td></tr>
+<tr class="memdesc:a0f538b8406842bf30056539ca0214bc7 inherit pub_methods_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called before the TCP server starts listening for new connections.  <a href="#a0f538b8406842bf30056539ca0214bc7"></a><br/></td></tr>
+<tr class="memitem:afdea5a4d4d8779866c3517af5fd37710 inherit pub_methods_classpion_1_1tcp_1_1server"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#afdea5a4d4d8779866c3517af5fd37710">after_stopping</a> ()</td></tr>
+<tr class="memdesc:afdea5a4d4d8779866c3517af5fd37710 inherit pub_methods_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called after the TCP server has stopped listing for new connections.  <a href="#afdea5a4d4d8779866c3517af5fd37710"></a><br/></td></tr>
+<tr class="memitem:a4e679a2785053040cb49834717e262e6 inherit pub_methods_classpion_1_1tcp_1_1server"><td class="memItemLeft" align="right" valign="top">asio::io_service &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#a4e679a2785053040cb49834717e262e6">get_io_service</a> ()</td></tr>
+<tr class="memdesc:a4e679a2785053040cb49834717e262e6 inherit pub_methods_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an async I/O service used to schedule work.  <a href="#a4e679a2785053040cb49834717e262e6"></a><br/></td></tr>
+<tr class="memitem:aeec1e3b8bafa1e0b1deaee802d831f70 inherit pub_methods_classpion_1_1tcp_1_1server"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpion_1_1scheduler.html">scheduler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#aeec1e3b8bafa1e0b1deaee802d831f70">get_active_scheduler</a> ()</td></tr>
+<tr class="memdesc:aeec1e3b8bafa1e0b1deaee802d831f70 inherit pub_methods_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return active scheduler.  <a href="#aeec1e3b8bafa1e0b1deaee802d831f70"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -228,15 +236,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:aea66a95a4d53d70cc1913674b1f06337"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a new HTTP request.  <a href="#aea66a95a4d53d70cc1913674b1f06337"></a><br/></td></tr>
 <tr class="memitem:a16eabf50a66efc6104c0cea1fce38681"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1server.html#a16eabf50a66efc6104c0cea1fce38681">find_request_handler</a> (const std::string &amp;resource, <a class="el" href="classpion_1_1http_1_1server.html#a2ff5ef6d2de4ad64f407b9839f254594">request_handler_t</a> &amp;request_handler) const </td></tr>
 <tr class="memdesc:a16eabf50a66efc6104c0cea1fce38681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for the appropriate request handler to use for a given resource.  <a href="#a16eabf50a66efc6104c0cea1fce38681"></a><br/></td></tr>
-<tr class="inherit_header pro_methods_classpion_1_1tcp_1_1server"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classpion_1_1tcp_1_1server')"><img src="closed.png" alt="-"/>&nbsp;Protected Member Functions inherited from <a class="el" href="classpion_1_1tcp_1_1server.html">pion::tcp::server</a></td></tr>
-<tr class="memitem:a0f538b8406842bf30056539ca0214bc7 inherit pro_methods_classpion_1_1tcp_1_1server"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#a0f538b8406842bf30056539ca0214bc7">before_starting</a> ()</td></tr>
-<tr class="memdesc:a0f538b8406842bf30056539ca0214bc7 inherit pro_methods_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called before the TCP server starts listening for new connections.  <a href="#a0f538b8406842bf30056539ca0214bc7"></a><br/></td></tr>
-<tr class="memitem:afdea5a4d4d8779866c3517af5fd37710 inherit pro_methods_classpion_1_1tcp_1_1server"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#afdea5a4d4d8779866c3517af5fd37710">after_stopping</a> ()</td></tr>
-<tr class="memdesc:afdea5a4d4d8779866c3517af5fd37710 inherit pro_methods_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called after the TCP server has stopped listing for new connections.  <a href="#afdea5a4d4d8779866c3517af5fd37710"></a><br/></td></tr>
-<tr class="memitem:a4e679a2785053040cb49834717e262e6 inherit pro_methods_classpion_1_1tcp_1_1server"><td class="memItemLeft" align="right" valign="top">asio::io_service &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#a4e679a2785053040cb49834717e262e6">get_io_service</a> ()</td></tr>
-<tr class="memdesc:a4e679a2785053040cb49834717e262e6 inherit pro_methods_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an async I/O service used to schedule work.  <a href="#a4e679a2785053040cb49834717e262e6"></a><br/></td></tr>
-<tr class="memitem:aeec1e3b8bafa1e0b1deaee802d831f70 inherit pro_methods_classpion_1_1tcp_1_1server"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpion_1_1scheduler.html">scheduler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#aeec1e3b8bafa1e0b1deaee802d831f70">get_active_scheduler</a> ()</td></tr>
-<tr class="memdesc:aeec1e3b8bafa1e0b1deaee802d831f70 inherit pro_methods_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return active scheduler.  <a href="#aeec1e3b8bafa1e0b1deaee802d831f70"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -257,6 +256,8 @@ Protected Attributes</h2></td></tr>
 <tr class="inherit_header pro_attribs_classpion_1_1tcp_1_1server"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classpion_1_1tcp_1_1server')"><img src="closed.png" alt="-"/>&nbsp;Protected Attributes inherited from <a class="el" href="classpion_1_1tcp_1_1server.html">pion::tcp::server</a></td></tr>
 <tr class="memitem:a0fd391b946961fca8604b902ddb06f7d inherit pro_attribs_classpion_1_1tcp_1_1server"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpion_1_1logger.html">logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#a0fd391b946961fca8604b902ddb06f7d">m_logger</a></td></tr>
 <tr class="memdesc:a0fd391b946961fca8604b902ddb06f7d inherit pro_attribs_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary logging interface used by this class.  <a href="#a0fd391b946961fca8604b902ddb06f7d"></a><br/></td></tr>
+<tr class="memitem:aefec40026129d38f9223466602837296 inherit pro_attribs_classpion_1_1tcp_1_1server"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpion_1_1tcp_1_1connection.html#a8587c35bbf48a119aa82f228e779a30e">connection::ssl_context_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#aefec40026129d38f9223466602837296">m_ssl_context</a></td></tr>
+<tr class="memdesc:aefec40026129d38f9223466602837296 inherit pro_attribs_classpion_1_1tcp_1_1server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context used for SSL configuration.  <a href="#aefec40026129d38f9223466602837296"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
@@ -1323,7 +1324,7 @@ Static Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 5 2015 12:38:05 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 5 2015 19:57:25 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

@@ -34,6 +34,7 @@ var searchData=
   ['m_5fserver_5ferror_5fhandler',['m_server_error_handler',['../classpion_1_1http_1_1server.html#aab0ead507549ab853b8af163dcaec2a2',1,'pion::http::server']]],
   ['m_5fservice',['m_service',['../classpion_1_1single__service__scheduler.html#ac70e4af4d7ed47fd7fc6cb610af706f0',1,'pion::single_service_scheduler']]],
   ['m_5fservice_5fpool',['m_service_pool',['../classpion_1_1one__to__one__scheduler.html#a5d49556d9936fab08936a1cad0d4f81d',1,'pion::one_to_one_scheduler']]],
+  ['m_5fssl_5fcontext',['m_ssl_context',['../classpion_1_1tcp_1_1server.html#aefec40026129d38f9223466602837296',1,'pion::tcp::server']]],
   ['m_5fthread_5fpool',['m_thread_pool',['../classpion_1_1multi__thread__scheduler.html#aaf40aac80a36e9b655b285d2188e65df',1,'pion::multi_thread_scheduler']]],
   ['m_5ftimer',['m_timer',['../classpion_1_1single__service__scheduler.html#a6cf26d299006f95aa523eae4679cd32d',1,'pion::single_service_scheduler']]],
   ['max_5fredirects',['MAX_REDIRECTS',['../classpion_1_1http_1_1server.html#a4409063295dfe85853c74fce5920cab3',1,'pion::http::server']]],

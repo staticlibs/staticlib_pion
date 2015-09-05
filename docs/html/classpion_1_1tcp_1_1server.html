@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7</span>
+   &#160;<span id="projectnumber">5.0.7.5</span>
    </div>
   </td>
  </tr>
@@ -90,7 +90,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classpion_1_1tcp_1_1server-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -156,9 +155,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8d6bc707ffb64bb6568387ad0f4c28bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns mutable reference to the TCP connection acceptor.  <a href="#a8d6bc707ffb64bb6568387ad0f4c28bc"></a><br/></td></tr>
 <tr class="memitem:ac9d5b2d64ce99ac39af7f6c390ccc074"><td class="memItemLeft" align="right" valign="top">const asio::ip::tcp::acceptor &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#ac9d5b2d64ce99ac39af7f6c390ccc074">get_acceptor</a> () const </td></tr>
 <tr class="memdesc:ac9d5b2d64ce99ac39af7f6c390ccc074"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns const reference to the TCP connection acceptor.  <a href="#ac9d5b2d64ce99ac39af7f6c390ccc074"></a><br/></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
 <tr class="memitem:a2129bce03fd902c051e2a4b96d6bdf49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#a2129bce03fd902c051e2a4b96d6bdf49">server</a> (const unsigned int tcp_port)</td></tr>
 <tr class="memdesc:a2129bce03fd902c051e2a4b96d6bdf49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor so that only derived objects may be created.  <a href="#a2129bce03fd902c051e2a4b96d6bdf49"></a><br/></td></tr>
 <tr class="memitem:a3be30d50a40720742e2c11ba79323b57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#a3be30d50a40720742e2c11ba79323b57">server</a> (const asio::ip::tcp::endpoint &amp;endpoint)</td></tr>
@@ -182,6 +178,8 @@ Protected Member Functions</h2></td></tr>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a0fd391b946961fca8604b902ddb06f7d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpion_1_1logger.html">logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#a0fd391b946961fca8604b902ddb06f7d">m_logger</a></td></tr>
 <tr class="memdesc:a0fd391b946961fca8604b902ddb06f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary logging interface used by this class.  <a href="#a0fd391b946961fca8604b902ddb06f7d"></a><br/></td></tr>
+<tr class="memitem:aefec40026129d38f9223466602837296"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpion_1_1tcp_1_1connection.html#a8587c35bbf48a119aa82f228e779a30e">connection::ssl_context_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1tcp_1_1server.html#aefec40026129d38f9223466602837296">m_ssl_context</a></td></tr>
+<tr class="memdesc:aefec40026129d38f9223466602837296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context used for SSL configuration.  <a href="#aefec40026129d38f9223466602837296"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -233,7 +231,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -267,7 +265,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -311,7 +309,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -332,9 +330,6 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a32e5c160cc7fc1bd1592c9490745e02f"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">pion::tcp::server::server </td>
@@ -354,11 +349,6 @@ Additional Inherited Members</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Protected constructor so that only derived objects may be created. </p>
@@ -391,7 +381,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -416,7 +406,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -464,9 +454,6 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="aeec1e3b8bafa1e0b1deaee802d831f70"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classpion_1_1scheduler.html">scheduler</a>&amp; pion::tcp::server::get_active_scheduler </td>
@@ -475,11 +462,6 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Return active scheduler. </p>
@@ -544,9 +526,6 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a4e679a2785053040cb49834717e262e6"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">asio::io_service&amp; pion::tcp::server::get_io_service </td>
@@ -555,11 +534,6 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Returns an async I/O service used to schedule work. </p>
@@ -655,7 +629,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -915,13 +889,35 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aefec40026129d38f9223466602837296"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpion_1_1tcp_1_1connection.html#a8587c35bbf48a119aa82f228e779a30e">connection::ssl_context_type</a> pion::tcp::server::m_ssl_context</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Context used for SSL configuration. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>pion/tcp/<a class="el" href="tcp_2server_8hpp_source.html">server.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 5 2015 12:38:05 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 5 2015 19:57:25 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
