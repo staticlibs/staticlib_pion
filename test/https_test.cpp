@@ -23,11 +23,11 @@ const uint16_t TCP_PORT = 8443;
 
 int main() {
 #ifdef PION_HAVE_SSL
-    auto certpath = "../test/certificates/server/localhost.pem";
+    auto certpath = "../certificates/server/localhost.pem";
     auto pwdcb = [](std::size_t, asio::ssl::context::password_purpose) {
         return "test";
     };
-    auto capath = "../test/certificates/server/staticlibs_test_ca.cer";
+    auto capath = "../certificates/server/staticlibs_test_ca.cer";
     auto verifier = [](bool, asio::ssl::verify_context&) {
         return true;
     };

@@ -1,0 +1,30 @@
+# Copyright 2015, alex at staticlibs.net
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+cmake_minimum_required ( VERSION 2.8.12 )
+
+# enhanced version of pkg_check_modules macro with PKG_CONFIG_PATH logic
+# PKG_CONFIG_PATH handling through CMAKE_PREFIX_PATH was added in newer versions of CMake
+macro ( staticlib_pkg_check_modules _out_var_name _modifier _modules_list_var_name )
+    find_package ( PkgConfig )
+    if ( WIN32 )
+        set ( PATHENV_SEPARATOR ";" )
+    else ( )
+        set ( PATHENV_SEPARATOR ":" )
+    endif ( )
+    set (_pkgconfig_path $ENV{PKG_CONFIG_PATH} )
+    set ( ENV{PKG_CONFIG_PATH} "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pkgconfig${PATHENV_SEPARATOR}$ENV{PKG_CONFIG_PATH}" )
+    pkg_check_modules ( ${_out_var_name} ${_modifier} ${${_modules_list_var_name}} )
+    set ( ENV{PKG_CONFIG_PATH} ${_pkgconfig_path} )
+endmacro ( )

@@ -13,32 +13,44 @@
 # limitations under the License.
 
 cmake_minimum_required ( VERSION 2.8.12 )
+include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
 
-# toolchain setup
-set ( STATICLIB_TOOLCHAIN linux_amd64_gcc CACHE STRING "toolchain triplet" )
-set ( CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/cmake/toolchains/${STATICLIB_TOOLCHAIN}.cmake CACHE INTERNAL "" )
-
-# project setup
+# project
 project ( staticlib_httpserver CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7.5 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7.6 )
+set ( ${PROJECT_NAME}_DESCRIPTION "Embedded async HTTP 1.1 server based on a source code from https://github.com/splunk/pion" )
+set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_httpserver )
 
-# common include
-include ( ${CMAKE_CURRENT_LIST_DIR}/cmake/staticlibs_common.cmake )
+# docs
+option ( ${PROJECT_NAME}_ENABLE_DOCS "Generate doxyfile and exit build" OFF )
+if ( ${PROJECT_NAME}_ENABLE_DOCS )
+    configure_file ( ${CMAKE_CURRENT_LIST_DIR}/resources/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile )
+    return ( )
+endif ( )
+
 # options, use SET ( OPTNAME ON CACHE BOOL "") in parent to override
-option ( STATICLIB_PION_DISABLE_LOGGING "Disable logging to std out and err" OFF )
-option ( STATICLIB_PION_USE_STATICLIB_LOG4CPLUS "Use log4cplus lib from Staticlibs" OFF )
-option ( STATICLIB_PION_USE_SYSTEM_LOG4CPLUS "Use system log4cplus lib" OFF )
-option ( STATICLIB_PION_USE_STATICLIB_OPENSSL "Use OpenSSL lib from Staticlibs" OFF )
-option ( STATICLIB_PION_USE_SYSTEM_OPENSSL "Use system OpenSSL lib" OFF )
+option ( ${PROJECT_NAME}_DISABLE_LOGGING "Disable logging to std out and err" OFF )
+option ( ${PROJECT_NAME}_USE_LOG4CPLUS "Use log4cplus lib for logging" OFF )
+option ( ${PROJECT_NAME}_USE_OPENSSL "Use OpenSSL lib for https" OFF )
 
-# build steps
-set ( ${PROJECT_NAME}_INCLUDES
-        ${CMAKE_CURRENT_LIST_DIR}/include
-        ${CMAKE_CURRENT_LIST_DIR}/deps/asio/asio/include )
+# dependencies
+set ( ${PROJECT_NAME}_DEP_MODULES "" )
+if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
+    set ( ${PROJECT_NAME}_DEP_MODULES ${${PROJECT_NAME}_DEP_MODULES} log4cplus )
+endif ( )
+if ( ${PROJECT_NAME}_USE_OPENSSL )
+    set ( ${PROJECT_NAME}_DEP_MODULES ${${PROJECT_NAME}_DEP_MODULES} openssl )
+endif ( )
+staticlib_pkg_check_modules ( ${PROJECT_NAME}_DEP_PC REQUIRED ${PROJECT_NAME}_DEP_MODULES )
+
+# library
+file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
+add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} )
 set ( ${PROJECT_NAME}_DEFINITIONS
         -DASIO_STANDALONE
         -DASIO_HAS_STD_CHRONO )
 set ( ${PROJECT_NAME}_OPTIONS "" )
+set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_DEFINITIONS} )
 if ( STATICLIB_TOOLCHAIN MATCHES "windows_[^_]+_msvc" )    
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS}
             -D_CRT_SECURE_NO_WARNINGS
@@ -46,67 +58,59 @@ if ( STATICLIB_TOOLCHAIN MATCHES "windows_[^_]+_msvc" )
             -D_WIN32_WINNT=0x0501 
             -DPION_CMAKE_BUILD
             -DPION_STATIC_LINKING )
+    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -D_WIN32_WINNT=0x0501 -DPION_STATIC_LINKING )
 endif ( )
-if ( STATICLIB_PION_USE_STATICLIB_LOG4CPLUS )
-    staticlib_add_subdirectory ( deps external_log4cplus )
-    set ( ${PROJECT_NAME}_INCLUDES ${${PROJECT_NAME}_INCLUDES} ${external_log4cplus_INCLUDES} )
+if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DPION_USE_LOG4CPLUS )
-elseif ( STATICLIB_PION_USE_SYSTEM_LOG4CPLUS )
-    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DPION_USE_LOG4CPLUS )
-elseif ( STATICLIB_PION_DISABLE_LOGGING )
+    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DPION_USE_LOG4CPLUS )
+endif ( )
+if ( ${PROJECT_NAME}_USE_OPENSSL )
+    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DPION_HAVE_SSL )
+    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DPION_HAVE_SSL )
+endif ( )
+if ( ${PROJECT_NAME}_DISABLE_LOGGING ) 
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DPION_DISABLE_LOGGING )
-endif ( )
-if ( STATICLIB_PION_USE_STATICLIB_OPENSSL )
-    staticlib_add_subdirectory ( deps external_openssl )
-    set ( ${PROJECT_NAME}_INCLUDES ${${PROJECT_NAME}_INCLUDES} ${external_openssl_INCLUDES} )
-    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DPION_HAVE_SSL )
-elseif ( STATICLIB_PION_USE_SYSTEM_OPENSSL )
-    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DPION_HAVE_SSL )
+    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DPION_DISABLE_LOGGING )
 endif ( )
 if ( STATICLIB_TOOLCHAIN MATCHES "[^_]+_[^_]+_clang" )
     EXECUTE_PROCESS( COMMAND ${CMAKE_CXX_COMPILER} --version OUTPUT_VARIABLE clang_full_version_string )
     string (REGEX REPLACE ".*clang version ([0-9]+\\.[0-9]+).*" "\\1" CLANG_VERSION_STRING ${clang_full_version_string})
     if ( CLANG_VERSION_STRING VERSION_GREATER 3.5 )
         set ( ${PROJECT_NAME}_OPTIONS ${${PROJECT_NAME}_OPTIONS} -Wno-unused-local-typedef )
+        set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${ ${PROJECT_NAME}_CFLAGS_PUBLIC} -Wno-unused-local-typedef )
     endif ( )
 endif ( )
 if ( STATICLIB_TOOLCHAIN MATCHES "[^_]+_[^_]+_gcc" )
     # asio warnings with openssl on
     set ( ${PROJECT_NAME}_OPTIONS ${${PROJECT_NAME}_OPTIONS} -Wno-unused-variable )
+    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -Wno-unused-variable )
 endif ( )
-file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
-add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} )
+set ( ${PROJECT_NAME}_INCLUDES
+        ${CMAKE_CURRENT_LIST_DIR}/include
+        ${CMAKE_CURRENT_LIST_DIR}/asio/asio/include
+        ${${PROJECT_NAME}_DEP_PC_INCLUDE_DIRS} )
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE ${${PROJECT_NAME}_INCLUDES} )
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_DEFINITIONS} )
 target_compile_options ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_OPTIONS} )
-# force building Staticlibs openssl first
-if ( STATICLIB_PION_USE_STATICLIB_OPENSSL )
-    add_dependencies ( ${PROJECT_NAME} external_openssl )
-endif ( )
 
-# tests
-set ( ${PROJECT_NAME}_TEST_INCLUDES ${${PROJECT_NAME}_INCLUDES} )
-set ( ${PROJECT_NAME}_TEST_LIBS ${PROJECT_NAME} )
-set ( ${PROJECT_NAME}_TEST_OPTS ${${PROJECT_NAME}_DEFINITIONS} ${${PROJECT_NAME}_OPTIONS} )
+# pkg-config
+set ( ${PROJECT_NAME}_PC_CFLAGS "" )
+foreach ( _incdir ${${PROJECT_NAME}_INCLUDES} )
+    set ( ${PROJECT_NAME}_PC_CFLAGS "${${PROJECT_NAME}_PC_CFLAGS} -I${_incdir}" )
+endforeach ( )
+foreach ( _flag ${${PROJECT_NAME}_CFLAGS_PUBLIC} )
+    set ( ${PROJECT_NAME}_PC_CFLAGS "${${PROJECT_NAME}_PC_CFLAGS} ${_flag}" )
+endforeach ( )
+set ( ${PROJECT_NAME}_PC_LIBS -l${PROJECT_NAME} )
 if ( STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_[^_]+" )
-    set ( ${PROJECT_NAME}_TEST_LIBS ${${PROJECT_NAME}_TEST_LIBS} pthread )
+    set ( ${PROJECT_NAME}_PC_LIBS "${${PROJECT_NAME}_PC_LIBS} -lpthread" )
 endif ( )
-if ( STATICLIB_PION_USE_STATICLIB_LOG4CPLUS )
-    set ( ${PROJECT_NAME}_TEST_LIBS ${${PROJECT_NAME}_TEST_LIBS} external_log4cplus )
-    set ( ${PROJECT_NAME}_TEST_OPTS ${${PROJECT_NAME}_TEST_OPTS} -DPION_USE_LOG4CPLUS_STATIC )
-elseif ( STATICLIB_PION_USE_SYSTEM_LOG4CPLUS )
-    set ( ${PROJECT_NAME}_TEST_LIBS ${${PROJECT_NAME}_TEST_LIBS} log4cplus )
+set ( ${PROJECT_NAME}_PC_REQUIRES "" )
+foreach ( _mod ${${PROJECT_NAME}_DEP_MODULES} )
+    set ( ${PROJECT_NAME}_PC_REQUIRES "${${PROJECT_NAME}_PC_REQUIRES} ${_mod}" )
+endforeach ( )
+if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
+    set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
 endif ( )
-if ( STATICLIB_PION_USE_STATICLIB_OPENSSL )
-    set ( ${PROJECT_NAME}_TEST_LIBS ${${PROJECT_NAME}_TEST_LIBS} external_openssl external_openssl_ssl )
-elseif ( STATICLIB_PION_USE_SYSTEM_OPENSSL )
-    set ( ${PROJECT_NAME}_TEST_LIBS ${${PROJECT_NAME}_TEST_LIBS} ssl crypto )
-endif ( )
-staticlib_enable_testing ( ${PROJECT_NAME}_TEST_INCLUDES ${PROJECT_NAME}_TEST_LIBS ${PROJECT_NAME}_TEST_OPTS )
-
-# docs
-staticlib_enable_docs ( )
-
-# export headers
-set ( ${PROJECT_NAME}_INCLUDES ${${PROJECT_NAME}_INCLUDES} CACHE INTERNAL "" )
-set ( ${PROJECT_NAME}_OPTIONS ${${PROJECT_NAME}_DEFINITIONS} ${${PROJECT_NAME}_OPTIONS} CACHE INTERNAL "" )
+configure_file ( ${CMAKE_CURRENT_LIST_DIR}/resources/pkg-config.in 
+        ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pkgconfig/${PROJECT_NAME}.pc )

@@ -1,4 +1,4 @@
 /build
 /nbproject
-/deps/external_openssl
-/deps/external_log4cplus
+/test/cmake
+/test/deps
