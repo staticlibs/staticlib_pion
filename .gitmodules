@@ -1,6 +1,0 @@
-[submodule "cmake"]
-	path = cmake
-	url = ../cmake.git
-[submodule "deps/asio"]
-	path = deps/asio
-	url = https://github.com/chriskohlhoff/asio.git
