@@ -17,21 +17,21 @@ cmake_minimum_required ( VERSION 2.8.12 )
 # toolchain setup
 set ( STATICLIB_TOOLCHAIN linux_amd64_gcc CACHE STRING "toolchain triplet" )
 if ( NOT DEFINED STATICLIB_CMAKE )
-    set ( STATICLIB_CMAKE ${CMAKE_CURRENT_LIST_DIR}/cmake CACHE INTERNAL "" )
+    set ( STATICLIB_CMAKE ${CMAKE_CURRENT_LIST_DIR}/../cmake CACHE INTERNAL "" )
 endif ( )
 set ( CMAKE_TOOLCHAIN_FILE ${STATICLIB_CMAKE}/toolchains/${STATICLIB_TOOLCHAIN}.cmake CACHE INTERNAL "" )
 
 # project
 project ( staticlib_httpserver_test CXX )
-include ( ${CMAKE_CURRENT_LIST_DIR}/cmake/staticlibs_common.cmake )
+include ( ${STATICLIB_CMAKE}/staticlibs_common.cmake )
 
 # dependencies
 # options, use SET ( OPTNAME ON CACHE BOOL "") in parent to override
 set ( staticlib_httpserver_USE_LOG4CPLUS ON CACHE BOOL "" )
 set ( staticlib_httpserver_USE_OPENSSL ON CACHE BOOL "" )
 if ( NOT STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_[^_]+" )
-    staticlib_add_subdirectory ( deps external_log4cplus )
-    staticlib_add_subdirectory ( deps external_openssl )
+    staticlib_add_subdirectory ( ../deps external_log4cplus )
+    staticlib_add_subdirectory ( ../deps external_openssl )
 endif (  )
 staticlib_add_subdirectory ( ../.. staticlib_httpserver )
 set ( ${PROJECT_NAME}_DEP_MODULES staticlib_httpserver )
