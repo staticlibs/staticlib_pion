@@ -28,3 +28,11 @@ macro ( staticlib_pkg_check_modules _out_var_name _modifier _modules_list_var_na
     pkg_check_modules ( ${_out_var_name} ${_modifier} ${${_modules_list_var_name}} )
     set ( ENV{PKG_CONFIG_PATH} ${_pkgconfig_path} )
 endmacro ( )
+
+# converts list to space-separated string with a prefix to each element
+macro ( staticlib_list_to_string _out_var_name _prefix _list_var_name )
+    set ( ${_out_var_name} "" )
+    foreach ( _el ${${_list_var_name}} )
+        set ( ${_out_var_name} "${${_out_var_name}}${_prefix}${_el} " )
+    endforeach ( )
+endmacro ( )
