@@ -87,9 +87,10 @@ if ( ${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" )
 endif ( )
 set ( ${PROJECT_NAME}_INCLUDES
         ${CMAKE_CURRENT_LIST_DIR}/include
-        ${CMAKE_CURRENT_LIST_DIR}/asio/asio/include
+        ${CMAKE_CURRENT_LIST_DIR}/asio/asio/include )
+target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE 
+        ${${PROJECT_NAME}_INCLUDES} 
         ${${PROJECT_NAME}_DEP_PC_INCLUDE_DIRS} )
-target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE ${${PROJECT_NAME}_INCLUDES} )
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_DEFINITIONS} )
 target_compile_options ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_OPTIONS} )
 
