@@ -93,6 +93,15 @@ target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE
         ${${PROJECT_NAME}_DEP_PC_INCLUDE_DIRS} )
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_DEFINITIONS} )
 target_compile_options ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_OPTIONS} )
+if ( TARGET external_log4cplus )
+    add_dependencies ( ${PROJECT_NAME} external_log4cplus )
+endif ( )
+if ( TARGET external_openssl )
+    add_dependencies ( ${PROJECT_NAME} external_openssl )
+endif ( )
+if ( TARGET external_icu )
+    add_dependencies ( ${PROJECT_NAME} external_icu )
+endif ( )
 
 # pkg-config
 if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
