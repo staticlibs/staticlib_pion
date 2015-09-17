@@ -72,18 +72,22 @@ void hello_service_post(pion::http::request_ptr& http_request_ptr, pion::tcp::co
 }
 
 class FileWriter {
-    std::unique_ptr<std::ofstream> stream;
+    mutable std::unique_ptr<std::ofstream> stream;
     
 public:
-    // copy constructor is required due to std::function limitations, but won't be actually
-    // called so payload handler class can be non-copyable, but move-constructor must be explicit
-    FileWriter(const FileWriter&) {
-        throw std::exception();
-    }
+    // copy constructor is required due to std::function limitations
+    // but it doesn't used by server implementation
+    // move-only payload handlers can use move logic
+    // instead of copy one (with mutable member fields)
+    // in MSVC only moved-to instance will be used
+    // in GCC copy constructor won't be called at all
+    FileWriter(const FileWriter& other) :
+    stream(std::move(other.stream)) { }
     
     FileWriter& operator=(const FileWriter&) = delete;  
 
-    FileWriter(FileWriter&&) = default;
+    FileWriter(FileWriter&& other) :
+    stream(std::move(other.stream)) { }
             
     FileWriter& operator=(FileWriter&&) = delete;
     
