@@ -166,7 +166,7 @@ bool parser::is_parsing_response() const {
 }
 
 void parser::set_payload_handler(payload_handler_t& h) {
-    m_payload_handler = h;
+    m_payload_handler = &h;
 }
 
 void parser::set_max_content_length(std::size_t n) {
@@ -1408,7 +1408,7 @@ pion::tribool parser::parse_chunks(http::message::chunk_cache_t& chunks, asio::e
                     const std::size_t bytes_avail = bytes_available();
                     const std::size_t bytes_in_chunk = m_size_of_current_chunk - m_bytes_read_in_current_chunk;
                     const std::size_t len = (bytes_in_chunk > bytes_avail) ? bytes_avail : bytes_in_chunk;
-                    m_payload_handler(m_read_ptr, len);
+                    (*m_payload_handler)(m_read_ptr, len);
                     m_bytes_read_in_current_chunk += len;
                     if (len > 1) m_read_ptr += (len - 1);
                 } else if (chunks.size() < m_max_content_length) {
@@ -1506,7 +1506,7 @@ pion::tribool parser::consume_content(http::message& http_msg,
 
     // make sure content buffer is not already full
     if (m_payload_handler) {
-        m_payload_handler(m_read_ptr, content_bytes_to_read);
+        (*m_payload_handler)(m_read_ptr, content_bytes_to_read);
     } else if (m_bytes_content_read < m_max_content_length) {
         if (m_bytes_content_read + content_bytes_to_read > m_max_content_length) {
             // read would exceed maximum size for content buffer
@@ -1535,7 +1535,7 @@ std::size_t parser::consume_content_as_next_chunk(http::message::chunk_cache_t& 
         // note: m_bytes_last_read must be > 0 because of bytes_available() check
         m_bytes_last_read = (m_read_end_ptr - m_read_ptr);
         if (m_payload_handler) {
-            m_payload_handler(m_read_ptr, m_bytes_last_read);
+            (*m_payload_handler)(m_read_ptr, m_bytes_last_read);
             m_read_ptr += m_bytes_last_read;
         } else {
             while (m_read_ptr < m_read_end_ptr) {
