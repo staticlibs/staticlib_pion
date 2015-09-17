@@ -72,9 +72,20 @@ void hello_service_post(pion::http::request_ptr& http_request_ptr, pion::tcp::co
 }
 
 class FileWriter {
-    std::shared_ptr<std::ofstream> stream;
+    std::unique_ptr<std::ofstream> stream;
     
 public:
+    // copy constructor is required due to std::function limitations, but won't be actually
+    // called so payload handler class can be non-copyable, but move-constructor must be explicit
+    FileWriter(const FileWriter&) {
+        throw std::exception();
+    }
+    
+    FileWriter& operator=(const FileWriter&) = delete;  
+
+    FileWriter(FileWriter&&) = default;
+            
+    FileWriter& operator=(FileWriter&&) = delete;
     
     FileWriter(const std::string& filename) {
         stream = std::unique_ptr<std::ofstream>{new std::ofstream{filename, std::ios::out | std::ios::binary}};
