@@ -230,7 +230,7 @@ pion::tribool parser::parse(http::message& http_msg, asio::error_code& ec) {
                     rc = false;
                 }
                 // check if we have finished parsing all chunks
-                if (rc == true && !m_payload_handler) {
+                if (true == rc && nullptr == m_payload_handler) {
                     http_msg.concatenate_chunks();
                     
                     // Handle footers if present
@@ -1404,7 +1404,7 @@ pion::tribool parser::parse_chunks(http::message::chunk_cache_t& chunks, asio::e
 
         case PARSE_CHUNK:
             if (m_bytes_read_in_current_chunk < m_size_of_current_chunk) {
-                if (m_payload_handler) {
+                if (nullptr != m_payload_handler) {
                     const std::size_t bytes_avail = bytes_available();
                     const std::size_t bytes_in_chunk = m_size_of_current_chunk - m_bytes_read_in_current_chunk;
                     const std::size_t len = (bytes_in_chunk > bytes_avail) ? bytes_avail : bytes_in_chunk;
@@ -1505,7 +1505,7 @@ pion::tribool parser::consume_content(http::message& http_msg,
     }
 
     // make sure content buffer is not already full
-    if (m_payload_handler) {
+    if (nullptr != m_payload_handler) {
         (*m_payload_handler)(m_read_ptr, content_bytes_to_read);
     } else if (m_bytes_content_read < m_max_content_length) {
         if (m_bytes_content_read + content_bytes_to_read > m_max_content_length) {
@@ -1534,7 +1534,7 @@ std::size_t parser::consume_content_as_next_chunk(http::message::chunk_cache_t& 
     } else {
         // note: m_bytes_last_read must be > 0 because of bytes_available() check
         m_bytes_last_read = (m_read_end_ptr - m_read_ptr);
-        if (m_payload_handler) {
+        if (nullptr != m_payload_handler) {
             (*m_payload_handler)(m_read_ptr, m_bytes_last_read);
             m_read_ptr += m_bytes_last_read;
         } else {
@@ -1575,19 +1575,19 @@ void parser::finish(http::message& http_msg) const
         break;
     case PARSE_CHUNKS:
         http_msg.set_is_valid(m_chunked_content_parse_state==PARSE_CHUNK_SIZE_START);
-        if (!m_payload_handler)
+        if (nullptr == m_payload_handler)
             http_msg.concatenate_chunks();
         break;
     case PARSE_CONTENT_NO_LENGTH:
         http_msg.set_is_valid(true);
-        if (!m_payload_handler)
+        if (nullptr == m_payload_handler)
             http_msg.concatenate_chunks();
         break;
     }
 
     compute_msg_status(http_msg, http_msg.is_valid());
 
-    if (is_parsing_request() && !m_payload_handler && !m_parse_headers_only) {
+    if (is_parsing_request() && nullptr == m_payload_handler && !m_parse_headers_only) {
         // Parse query pairs from post content if content type is x-www-form-urlencoded.
         // Type could be followed by parameters (as defined in section 3.6 of RFC 2616)
         // e.g. Content-Type: application/x-www-form-urlencoded; charset=UTF-8

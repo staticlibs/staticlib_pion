@@ -259,7 +259,7 @@ private:
     /**
      * If defined, this function is used to consume payload content
      */
-    payload_handler_t* m_payload_handler;
+    payload_handler_t* m_payload_handler = nullptr;
 
     /**
      * Used for parsing the HTTP response status code

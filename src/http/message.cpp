@@ -611,7 +611,7 @@ void message::content_buffer_t::resize(std::size_t len) {
         m_buf.reset();
         m_ptr = &m_empty;
     } else {
-        m_buf.reset(new char[len + 1]);
+        m_buf.reset(new char[len + 1]);        
         m_buf[len] = '\0';
         m_ptr = m_buf.get();
     }
