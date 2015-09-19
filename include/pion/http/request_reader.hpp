@@ -48,14 +48,14 @@ public:
     /**
      * Function called after the HTTP message has been parsed
      */
-    typedef std::function<void(http::request_ptr, tcp::connection_ptr,
-            const asio::error_code&) > finished_handler_t;
+    typedef std::function<void(http::request_ptr, tcp::connection_ptr&,
+            const asio::error_code&)> finished_handler_t;
 
     /**
      * Function called after the HTTP message has been parsed
      */
-    typedef std::function<void(http::request_ptr, tcp::connection_ptr,
-            const asio::error_code&, pion::tribool& rc) > headers_parsing_finished_handler_t;    
+    typedef std::function<void(http::request_ptr, tcp::connection_ptr&,
+            const asio::error_code&, pion::tribool& rc)> headers_parsing_finished_handler_t;    
     
 protected:
 

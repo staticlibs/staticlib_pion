@@ -71,7 +71,7 @@ public:
     /**
      * Data type for a function that handles TCP connection objects
      */
-    typedef std::function<void(std::shared_ptr<connection>)> connection_handler;
+    typedef std::function<void(std::shared_ptr<connection>&)> connection_handler;
     
     /**
      * Data type for an I/O read buffer
@@ -161,14 +161,6 @@ public:
     static std::shared_ptr<connection> create(asio::io_service& io_service,
             ssl_context_type& ssl_context, const bool ssl_flag, connection_handler finished_handler);
     
-    /**
-     * creates a new connection object for SSL
-     *
-     * @param io_service asio service associated with the connection
-     * @param ssl_context asio ssl context associated with the connection
-     */
-    connection(asio::io_service& io_service, ssl_context_type& ssl_context);
-
     /**
      * Virtual destructor
      */

@@ -198,7 +198,7 @@ protected:
      * @param rc parsing result code, false: abort, true: ignore_body, indeterminate: continue
      */
     virtual void handle_request_after_headers_parsed(http::request_ptr http_request_ptr,
-            tcp::connection_ptr tcp_conn, const asio::error_code& ec, pion::tribool& rc);
+            tcp::connection_ptr& tcp_conn, const asio::error_code& ec, pion::tribool& rc);
 
     /**
      * Handles a new HTTP request
@@ -208,7 +208,7 @@ protected:
      * @param ec error_code contains additional information for parsing errors
      */
     virtual void handle_request(http::request_ptr http_request_ptr,
-            tcp::connection_ptr tcp_conn, const asio::error_code& ec) override;
+            tcp::connection_ptr& tcp_conn, const asio::error_code& ec) override;
 
 private:
 

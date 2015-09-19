@@ -279,7 +279,7 @@ protected:
      * @param ec error_code contains additional information for parsing errors
      */
     virtual void handle_request(http::request_ptr http_request_ptr,
-            tcp::connection_ptr tcp_conn, const asio::error_code& ec);
+            tcp::connection_ptr& tcp_conn, const asio::error_code& ec);
 
     /**
      * Searches for the appropriate request handler to use for a given resource

@@ -75,7 +75,7 @@ void streaming_server::handle_connection(tcp::connection_ptr& tcp_conn) {
 }
 
 void streaming_server::handle_request(http::request_ptr http_request_ptr,
-        tcp::connection_ptr tcp_conn, const asio::error_code& ec) {
+        tcp::connection_ptr& tcp_conn, const asio::error_code& ec) {
     if (ec || !http_request_ptr->is_valid()) {
         tcp_conn->set_lifecycle(tcp::connection::LIFECYCLE_CLOSE); // make sure it will get closed
         if (tcp_conn->is_open() && (ec.category() == http::parser::get_error_category())) {
@@ -154,7 +154,7 @@ void streaming_server::handle_request(http::request_ptr http_request_ptr,
 }
 
 void streaming_server::handle_request_after_headers_parsed(http::request_ptr http_request_ptr,
-        tcp::connection_ptr /* tcp_conn */, const asio::error_code& ec, pion::tribool& rc) {
+        tcp::connection_ptr& /* tcp_conn */, const asio::error_code& ec, pion::tribool& rc) {
     if (ec || !rc) return;
 
     // strip off trailing slash if the request has one

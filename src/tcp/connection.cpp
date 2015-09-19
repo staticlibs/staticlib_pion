@@ -44,21 +44,6 @@ std::shared_ptr<connection> connection::create(asio::io_service& io_service,
             new connection(io_service, ssl_context, ssl_flag, finished_handler));
 }
 
-connection::connection(asio::io_service& io_service, ssl_context_type& ssl_context) :
-#ifdef PION_HAVE_SSL
-m_ssl_socket(io_service, ssl_context), 
-m_ssl_flag(true),
-#else
-m_ssl_socket(io_service),
-m_ssl_flag(false),
-#endif
-m_lifecycle(LIFECYCLE_CLOSE) {
-#ifndef PION_HAVE_SSL
-    (void) ssl_context;
-#endif            
-    save_read_pos(NULL, NULL);
-}
-
 connection::connection(asio::io_service& io_service, ssl_context_type& ssl_context,
         const bool ssl_flag, connection_handler finished_handler) :
 #ifdef PION_HAVE_SSL
@@ -125,7 +110,8 @@ std::size_t connection::read_some(asio::error_code& ec) {
 }
 
 void connection::finish() {
-    if (m_finished_handler) m_finished_handler(shared_from_this());
+    connection_ptr conn = shared_from_this();
+    if (m_finished_handler) m_finished_handler(conn);
 }
 
 bool connection::get_ssl_flag() const {

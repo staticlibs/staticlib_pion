@@ -345,7 +345,7 @@ private:
      * 
      * @param tcp_conn TCP connection
      */
-    void finish_connection(tcp::connection_ptr tcp_conn);
+    void finish_connection(tcp::connection_ptr& tcp_conn);
     
     /**
      * Prunes orphaned connections that did not close cleanly

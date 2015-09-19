@@ -107,7 +107,7 @@ void server::handle_connection(tcp::connection_ptr& tcp_conn)
     my_reader_ptr->receive();
 }
 
-void server::handle_request(http::request_ptr http_request_ptr, tcp::connection_ptr tcp_conn,
+void server::handle_request(http::request_ptr http_request_ptr, tcp::connection_ptr& tcp_conn,
         const asio::error_code& ec) {
     if (ec || ! http_request_ptr->is_valid()) {
         tcp_conn->set_lifecycle(tcp::connection::LIFECYCLE_CLOSE); // make sure it will get closed
