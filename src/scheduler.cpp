@@ -163,12 +163,13 @@ void multi_thread_scheduler::stop_threads() {
         PION_LOG_DEBUG(m_logger, "Waiting for threads to shutdown");
 
         // wait until all threads in the pool have stopped
-        std::thread current_thread;
-        for (std::vector<std::shared_ptr < std::thread>>::iterator i = m_thread_pool.begin();
-                i != m_thread_pool.end(); ++i) {
+        auto current_id = std::this_thread::get_id();
+        for (auto& th_ptr : m_thread_pool) {
             // make sure we do not call join() for the current thread,
             // since this may yield "undefined behavior"
-            if ((*i)->get_id() != current_thread.get_id()) (*i)->join();
+            if (th_ptr->get_id() != current_id) {
+                th_ptr->join();
+            }
         }
     }
 }
@@ -205,9 +206,9 @@ void single_service_scheduler::startup() {
         
         // start multiple threads to handle async tasks
         for (uint32_t n = 0; n < m_num_threads; ++n) {
-            std::shared_ptr<std::thread> new_thread(new std::thread( std::bind(&scheduler::process_service_work,
+            std::unique_ptr<std::thread> new_thread(new std::thread( std::bind(&scheduler::process_service_work,
                                                                                        this, std::ref(m_service)) ));
-            m_thread_pool.push_back(new_thread);
+            m_thread_pool.emplace_back(std::move(new_thread));
         }
     }
 }

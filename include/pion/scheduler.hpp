@@ -268,7 +268,7 @@ protected:
     /**
      * Pool of threads used to perform work
      */
-    std::vector<std::shared_ptr<std::thread>> m_thread_pool;
+    std::vector<std::unique_ptr<std::thread>> m_thread_pool;
     
 public:
     
