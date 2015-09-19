@@ -265,7 +265,7 @@ void server::handle_bad_request(http::request_ptr& http_request_ptr, tcp::connec
         "<h1>Bad Request</h1>\n"
         "<p>Your browser sent a request that this server could not understand.</p>\n"
         "</body></html>\n";
-    http::response_writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
+    http::writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
             std::bind(&tcp::connection::finish, tcp_conn)));
     writer->get_response().set_status_code(http::types::RESPONSE_CODE_BAD_REQUEST);
     writer->get_response().set_status_message(http::types::RESPONSE_MESSAGE_BAD_REQUEST);
@@ -283,7 +283,7 @@ void server::handle_not_found_request(http::request_ptr& http_request_ptr, tcp::
     static const std::string NOT_FOUND_HTML_FINISH =
         " was not found on this server.</p>\n"
         "</body></html>\n";
-    http::response_writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
+    http::writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
             std::bind(&tcp::connection::finish, tcp_conn)));
     writer->get_response().set_status_code(http::types::RESPONSE_CODE_NOT_FOUND);
     writer->get_response().set_status_message(http::types::RESPONSE_MESSAGE_NOT_FOUND);
@@ -304,7 +304,7 @@ void server::handle_server_error(http::request_ptr& http_request_ptr, tcp::conne
     static const std::string SERVER_ERROR_HTML_FINISH =
         "</strong></p>\n"
         "</body></html>\n";
-    http::response_writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
+    http::writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
             std::bind(&tcp::connection::finish, tcp_conn)));
     writer->get_response().set_status_code(http::types::RESPONSE_CODE_SERVER_ERROR);
     writer->get_response().set_status_message(http::types::RESPONSE_MESSAGE_SERVER_ERROR);
@@ -327,7 +327,7 @@ void server::handle_forbidden_request(http::request_ptr& http_request_ptr,
     static const std::string FORBIDDEN_HTML_FINISH =
         "</strong></p>\n"
         "</body></html>\n";
-    http::response_writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
+    http::writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
             std::bind(&tcp::connection::finish, tcp_conn)));
     writer->get_response().set_status_code(http::types::RESPONSE_CODE_FORBIDDEN);
     writer->get_response().set_status_message(http::types::RESPONSE_MESSAGE_FORBIDDEN);
@@ -350,7 +350,7 @@ void server::handle_method_not_allowed(http::request_ptr& http_request_ptr,
     static const std::string NOT_ALLOWED_HTML_FINISH =
         " is not allowed on this server.</p>\n"
         "</body></html>\n";
-    http::response_writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
+    http::writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
                                                             std::bind(&tcp::connection::finish, tcp_conn)));
     writer->get_response().set_status_code(http::types::RESPONSE_CODE_METHOD_NOT_ALLOWED);
     writer->get_response().set_status_message(http::types::RESPONSE_MESSAGE_METHOD_NOT_ALLOWED);
