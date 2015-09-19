@@ -44,7 +44,7 @@
 
 namespace { // anonymous
 
-const uint16_t SECONDS_TO_RUN = 1000;
+const uint16_t SECONDS_TO_RUN = 10;
 const uint16_t TCP_PORT = 8080;
 
 #ifdef PION_USE_LOG4CPLUS
