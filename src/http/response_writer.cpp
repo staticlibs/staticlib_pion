@@ -44,7 +44,7 @@ m_sent_headers(false),
 m_finished(handler),
 m_http_response(new http::response(http_request)) {
     set_logger(PION_GET_LOGGER("pion.http.response_writer"));
-    // tell the http::writer base class whether or not the client supports chunks
+    // set whether or not the client supports chunks
     supports_chunked_messages(m_http_response->get_chunks_supported());
 }
 

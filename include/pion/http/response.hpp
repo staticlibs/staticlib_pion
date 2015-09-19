@@ -213,12 +213,6 @@ protected:
 
 };
 
-/**
- * Data type for a HTTP response pointer
- */
-typedef std::shared_ptr<response> response_ptr;
-
-
 } // end namespace http
 } // end namespace pion
 

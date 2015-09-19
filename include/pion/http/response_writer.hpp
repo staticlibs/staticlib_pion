@@ -149,7 +149,7 @@ private:
     /**
      * The response that will be sent
      */
-    http::response_ptr m_http_response;
+    std::unique_ptr<http::response> m_http_response;
 
     /**
      * The initial HTTP response header line
