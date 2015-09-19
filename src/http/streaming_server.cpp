@@ -64,8 +64,7 @@ server(asio::ip::tcp::endpoint(ip_address, port)) {
 }
 
 void streaming_server::handle_connection(tcp::connection_ptr& tcp_conn) {
-    request_reader_ptr my_reader_ptr;
-    my_reader_ptr = request_reader::create(tcp_conn, std::bind(&streaming_server::handle_request, this,
+    reader_ptr my_reader_ptr = request_reader::create(tcp_conn, std::bind(&streaming_server::handle_request, this,
             std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     http::request_reader::headers_parsing_finished_handler_t fun = std::bind(
             &streaming_server::handle_request_after_headers_parsed, this,

@@ -100,8 +100,7 @@ server::~server() PION_NOEXCEPT {
 
 void server::handle_connection(tcp::connection_ptr& tcp_conn)
 {
-    request_reader_ptr my_reader_ptr;
-    my_reader_ptr = request_reader::create(tcp_conn, std::bind(&server::handle_request, this,
+    reader_ptr my_reader_ptr = request_reader::create(tcp_conn, std::bind(&server::handle_request, this,
             std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     my_reader_ptr->set_max_content_length(m_max_content_length);
     my_reader_ptr->receive();

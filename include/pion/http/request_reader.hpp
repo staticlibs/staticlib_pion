@@ -32,8 +32,10 @@
 #include "asio.hpp"
 
 #include "pion/config.hpp"
+#include "pion/tcp/connection.hpp"
+#include "pion/tcp/timer.hpp"
 #include "pion/http/request.hpp"
-#include "pion/http/reader.hpp"
+#include "pion/http/parser.hpp"
 
 namespace pion {
 namespace http {
@@ -41,7 +43,7 @@ namespace http {
 /**
  * Asynchronously reads and parses HTTP requests
  */
-class request_reader : public http::reader, public std::enable_shared_from_this<request_reader> {
+class request_reader : public http::parser, public std::enable_shared_from_this<request_reader> {
     
 public:
 
@@ -57,8 +59,28 @@ public:
     typedef std::function<void(http::request_ptr, tcp::connection_ptr&,
             const asio::error_code&, pion::tribool& rc)> headers_parsing_finished_handler_t;    
     
-protected:
+private:
 
+    /**
+     * Default maximum number of seconds for read operations
+     */
+    static const uint32_t DEFAULT_READ_TIMEOUT;
+
+    /**
+     * The HTTP connection that has a new HTTP message to parse
+     */
+    tcp::connection_ptr m_tcp_conn;
+
+    /**
+     * Pointer to a tcp::timer object if read timeouts are enabled
+     */
+    tcp::timer_ptr m_timer_ptr;
+
+    /**
+     * Maximum number of seconds for read operations
+     */
+    uint32_t m_read_timeout;    
+    
     /**
      * The new HTTP message container being created
      */
@@ -77,11 +99,6 @@ protected:
 public:
 
     /**
-     * Default destructor
-     */
-    virtual ~request_reader();
-    
-    /**
      * Creates new request_reader objects
      *
      * @param tcp_conn TCP connection containing a new message to parse
@@ -89,6 +106,25 @@ public:
      */
     static std::shared_ptr<request_reader> create(tcp::connection_ptr& tcp_conn, 
             finished_handler_t handler);
+
+    /**
+     * Incrementally reads & parses the HTTP message
+     */
+    void receive();
+
+    /**
+     * Returns a shared pointer to the TCP connection
+     * 
+     * @return shared pointer to the TCP connection
+     */
+    tcp::connection_ptr& get_connection();
+
+    /**
+     * Sets the maximum number of seconds for read operations
+     * 
+     * @param seconds maximum number of seconds for read operations
+     */
+    void set_timeout(uint32_t seconds);
     
     /**
      * Sets a function to be called after HTTP headers have been parsed
@@ -97,7 +133,7 @@ public:
      */
     void set_headers_parsed_callback(headers_parsing_finished_handler_t& h);
     
-protected:
+private:
 
     /**
      * Protected constructor restricts creation of objects (use create())
@@ -106,40 +142,65 @@ protected:
      * @param handler function called after the message has been parsed
      */
     request_reader(tcp::connection_ptr& tcp_conn, finished_handler_t handler);
-        
-    /**
-     * Reads more bytes from the TCP connection
-     */
-    virtual void read_bytes();
 
+    /**
+     * Consumes bytes that have been read using an HTTP parser
+     * 
+     * @param read_error error status from the last read operation
+     * @param bytes_read number of bytes consumed by the last read operation
+     */
+    void consume_bytes(const asio::error_code& read_error, std::size_t bytes_read);
+
+    /**
+     * Consumes bytes that have been read using an HTTP parser
+     */
+    void consume_bytes();
+    
+    /**
+     * Reads more bytes for parsing, with timeout support
+     */
+    void read_bytes_with_timeout();
+
+    /**
+     * Handles errors that occur during read operations
+     *
+     * @param read_error error status from the last read operation
+     */
+    void handle_read_error(const asio::error_code& read_error);
+    
     /**
      * Called after we have finished parsing the HTTP message headers
      * 
      * @param ec error code reference
      * @param rc result code reference
      */
-    virtual void finished_parsing_headers(const asio::error_code& ec, pion::tribool& rc);
+    void finished_parsing_headers(const asio::error_code& ec, pion::tribool& rc);
+
+    /**
+     * Reads more bytes from the TCP connection
+     */
+    void read_bytes();
     
     /**
      * Called after we have finished reading/parsing the HTTP message
      * 
      * @param ec error code reference
      */
-    virtual void finished_reading(const asio::error_code& ec);
+    void finished_reading(const asio::error_code& ec);
     
     /**
      * Returns a reference to the HTTP message being parsed
      * 
      * @return HTTP message being parsed
      */
-    virtual http::message& get_message();
+    http::message& get_message();
 
 };
 
 /**
  * Data type for a request_reader pointer
  */
-typedef std::shared_ptr<request_reader> request_reader_ptr;
+typedef std::shared_ptr<request_reader> reader_ptr;
 
 } // end namespace http
 } // end namespace pion
