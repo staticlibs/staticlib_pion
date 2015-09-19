@@ -267,8 +267,8 @@ void server::handle_bad_request(http::request_ptr& http_request_ptr, tcp::connec
         "</body></html>\n";
     http::writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
             std::bind(&tcp::connection::finish, tcp_conn)));
-    writer->get_response().set_status_code(http::types::RESPONSE_CODE_BAD_REQUEST);
-    writer->get_response().set_status_message(http::types::RESPONSE_MESSAGE_BAD_REQUEST);
+    writer->get_response().set_status_code(http::message::RESPONSE_CODE_BAD_REQUEST);
+    writer->get_response().set_status_message(http::message::RESPONSE_MESSAGE_BAD_REQUEST);
     writer->write_no_copy(BAD_REQUEST_HTML);
     writer->send();
 }
@@ -285,8 +285,8 @@ void server::handle_not_found_request(http::request_ptr& http_request_ptr, tcp::
         "</body></html>\n";
     http::writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
             std::bind(&tcp::connection::finish, tcp_conn)));
-    writer->get_response().set_status_code(http::types::RESPONSE_CODE_NOT_FOUND);
-    writer->get_response().set_status_message(http::types::RESPONSE_MESSAGE_NOT_FOUND);
+    writer->get_response().set_status_code(http::message::RESPONSE_CODE_NOT_FOUND);
+    writer->get_response().set_status_message(http::message::RESPONSE_MESSAGE_NOT_FOUND);
     writer->write_no_copy(NOT_FOUND_HTML_START);
     writer << algorithm::xml_encode(http_request_ptr->get_resource());
     writer->write_no_copy(NOT_FOUND_HTML_FINISH);
@@ -306,8 +306,8 @@ void server::handle_server_error(http::request_ptr& http_request_ptr, tcp::conne
         "</body></html>\n";
     http::writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
             std::bind(&tcp::connection::finish, tcp_conn)));
-    writer->get_response().set_status_code(http::types::RESPONSE_CODE_SERVER_ERROR);
-    writer->get_response().set_status_message(http::types::RESPONSE_MESSAGE_SERVER_ERROR);
+    writer->get_response().set_status_code(http::message::RESPONSE_CODE_SERVER_ERROR);
+    writer->get_response().set_status_message(http::message::RESPONSE_MESSAGE_SERVER_ERROR);
     writer->write_no_copy(SERVER_ERROR_HTML_START);
     writer << algorithm::xml_encode(error_msg);
     writer->write_no_copy(SERVER_ERROR_HTML_FINISH);
@@ -329,8 +329,8 @@ void server::handle_forbidden_request(http::request_ptr& http_request_ptr,
         "</body></html>\n";
     http::writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
             std::bind(&tcp::connection::finish, tcp_conn)));
-    writer->get_response().set_status_code(http::types::RESPONSE_CODE_FORBIDDEN);
-    writer->get_response().set_status_message(http::types::RESPONSE_MESSAGE_FORBIDDEN);
+    writer->get_response().set_status_code(http::message::RESPONSE_CODE_FORBIDDEN);
+    writer->get_response().set_status_message(http::message::RESPONSE_MESSAGE_FORBIDDEN);
     writer->write_no_copy(FORBIDDEN_HTML_START);
     writer << algorithm::xml_encode(http_request_ptr->get_resource());
     writer->write_no_copy(FORBIDDEN_HTML_MIDDLE);
@@ -352,8 +352,8 @@ void server::handle_method_not_allowed(http::request_ptr& http_request_ptr,
         "</body></html>\n";
     http::writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
                                                             std::bind(&tcp::connection::finish, tcp_conn)));
-    writer->get_response().set_status_code(http::types::RESPONSE_CODE_METHOD_NOT_ALLOWED);
-    writer->get_response().set_status_message(http::types::RESPONSE_MESSAGE_METHOD_NOT_ALLOWED);
+    writer->get_response().set_status_code(http::message::RESPONSE_CODE_METHOD_NOT_ALLOWED);
+    writer->get_response().set_status_message(http::message::RESPONSE_MESSAGE_METHOD_NOT_ALLOWED);
     if (! allowed_methods.empty())
         writer->get_response().add_header("Allow", allowed_methods);
     writer->write_no_copy(NOT_ALLOWED_HTML_START);

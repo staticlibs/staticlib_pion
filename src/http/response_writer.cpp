@@ -83,13 +83,13 @@ void response_writer::prepare_write_buffers(http::message::write_buffers_t& writ
             // append length of chunk to write_buffers
             write_buffers.push_back(asio::buffer(m_text_cache.back()));
             // append an extra CRLF for chunk formatting
-            write_buffers.push_back(asio::buffer(http::types::STRING_CRLF));
+            write_buffers.push_back(asio::buffer(http::message::STRING_CRLF));
             
             // append response content buffers
             write_buffers.insert(write_buffers.end(), m_content_buffers.begin(),
                                  m_content_buffers.end());
             // append an extra CRLF for chunk formatting
-            write_buffers.push_back(asio::buffer(http::types::STRING_CRLF));
+            write_buffers.push_back(asio::buffer(http::message::STRING_CRLF));
         } else {
             // append response content buffers
             write_buffers.insert(write_buffers.end(), m_content_buffers.begin(),
@@ -104,8 +104,8 @@ void response_writer::prepare_write_buffers(http::message::write_buffers_t& writ
         // append length of chunk to write_buffers
         write_buffers.push_back(asio::buffer(m_text_cache.back()));
         // append an extra CRLF for chunk formatting
-        write_buffers.push_back(asio::buffer(http::types::STRING_CRLF));
-        write_buffers.push_back(asio::buffer(http::types::STRING_CRLF));
+        write_buffers.push_back(asio::buffer(http::message::STRING_CRLF));
+        write_buffers.push_back(asio::buffer(http::message::STRING_CRLF));
     }
 }
 

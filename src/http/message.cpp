@@ -25,9 +25,14 @@
 
 #include <iostream>
 #include <algorithm>
+#include <unordered_map>
+#include <mutex>
 #include <regex>
+#include <string>
 #include <cassert>
 #include <cstdlib>
+#include <cstdio>
+#include <ctime>
 
 #include "asio.hpp"
 
@@ -60,6 +65,79 @@ std::string message::receive_error_t::message(int ev) const {
 }
 
 // static members of message
+
+// generic strings used by HTTP
+const std::string message::STRING_EMPTY;
+const std::string message::STRING_CRLF("\x0D\x0A");
+const std::string message::STRING_HTTP_VERSION("HTTP/");
+const std::string message::HEADER_NAME_VALUE_DELIMITER(": ");
+const std::string message::COOKIE_NAME_VALUE_DELIMITER("=");
+
+// common HTTP header names
+const std::string message::HEADER_HOST("Host");
+const std::string message::HEADER_COOKIE("Cookie");
+const std::string message::HEADER_SET_COOKIE("Set-Cookie");
+const std::string message::HEADER_CONNECTION("Connection");
+const std::string message::HEADER_CONTENT_TYPE("Content-Type");
+const std::string message::HEADER_CONTENT_LENGTH("Content-Length");
+const std::string message::HEADER_CONTENT_LOCATION("Content-Location");
+const std::string message::HEADER_CONTENT_ENCODING("Content-Encoding");
+const std::string message::HEADER_CONTENT_DISPOSITION("Content-Disposition");
+const std::string message::HEADER_LAST_MODIFIED("Last-Modified");
+const std::string message::HEADER_IF_MODIFIED_SINCE("If-Modified-Since");
+const std::string message::HEADER_TRANSFER_ENCODING("Transfer-Encoding");
+const std::string message::HEADER_LOCATION("Location");
+const std::string message::HEADER_AUTHORIZATION("Authorization");
+const std::string message::HEADER_REFERER("Referer");
+const std::string message::HEADER_USER_AGENT("User-Agent");
+const std::string message::HEADER_X_FORWARDED_FOR("X-Forwarded-For");
+const std::string message::HEADER_CLIENT_IP("Client-IP");
+
+// common HTTP content types
+const std::string message::CONTENT_TYPE_HTML("text/html");
+const std::string message::CONTENT_TYPE_TEXT("text/plain");
+const std::string message::CONTENT_TYPE_XML("text/xml");
+const std::string message::CONTENT_TYPE_URLENCODED("application/x-www-form-urlencoded");
+const std::string message::CONTENT_TYPE_MULTIPART_FORM_DATA("multipart/form-data");
+
+// common HTTP request methods
+const std::string message::REQUEST_METHOD_HEAD("HEAD");
+const std::string message::REQUEST_METHOD_GET("GET");
+const std::string message::REQUEST_METHOD_PUT("PUT");
+const std::string message::REQUEST_METHOD_POST("POST");
+const std::string message::REQUEST_METHOD_DELETE("DELETE");
+
+// common HTTP response messages
+const std::string message::RESPONSE_MESSAGE_OK("OK");
+const std::string message::RESPONSE_MESSAGE_CREATED("Created");
+const std::string message::RESPONSE_MESSAGE_ACCEPTED("Accepted");
+const std::string message::RESPONSE_MESSAGE_NO_CONTENT("No Content");
+const std::string message::RESPONSE_MESSAGE_FOUND("Found");
+const std::string message::RESPONSE_MESSAGE_UNAUTHORIZED("Unauthorized");
+const std::string message::RESPONSE_MESSAGE_FORBIDDEN("Forbidden");
+const std::string message::RESPONSE_MESSAGE_NOT_FOUND("Not Found");
+const std::string message::RESPONSE_MESSAGE_METHOD_NOT_ALLOWED("Method Not Allowed");
+const std::string message::RESPONSE_MESSAGE_NOT_MODIFIED("Not Modified");
+const std::string message::RESPONSE_MESSAGE_BAD_REQUEST("Bad Request");
+const std::string message::RESPONSE_MESSAGE_SERVER_ERROR("Server Error");
+const std::string message::RESPONSE_MESSAGE_NOT_IMPLEMENTED("Not Implemented");
+const std::string message::RESPONSE_MESSAGE_CONTINUE("Continue");
+
+// common HTTP response codes
+const unsigned int message::RESPONSE_CODE_OK = 200;
+const unsigned int message::RESPONSE_CODE_CREATED = 201;
+const unsigned int message::RESPONSE_CODE_ACCEPTED = 202;
+const unsigned int message::RESPONSE_CODE_NO_CONTENT = 204;
+const unsigned int message::RESPONSE_CODE_FOUND = 302;
+const unsigned int message::RESPONSE_CODE_UNAUTHORIZED = 401;
+const unsigned int message::RESPONSE_CODE_FORBIDDEN = 403;
+const unsigned int message::RESPONSE_CODE_NOT_FOUND = 404;
+const unsigned int message::RESPONSE_CODE_METHOD_NOT_ALLOWED = 405;
+const unsigned int message::RESPONSE_CODE_NOT_MODIFIED = 304;
+const unsigned int message::RESPONSE_CODE_BAD_REQUEST = 400;
+const unsigned int message::RESPONSE_CODE_SERVER_ERROR = 500;
+const unsigned int message::RESPONSE_CODE_NOT_IMPLEMENTED = 501;
+const unsigned int message::RESPONSE_CODE_CONTINUE = 100;
 
 const std::regex  message::REGEX_ICASE_CHUNKED(".*chunked.*", std::regex::icase);
 
@@ -345,6 +423,55 @@ bool message::check_keep_alive() const {
     return (get_header(HEADER_CONNECTION) != "close"
             && (get_version_major() > 1
             || (get_version_major() >= 1 && get_version_minor() >= 1)));
+}
+
+std::string message::get_date_string(const time_t t) {
+    // use mutex since time functions are normally not thread-safe
+    static std::mutex time_mutex;
+    static const char *TIME_FORMAT = "%a, %d %b %Y %H:%M:%S GMT";
+    static const unsigned int TIME_BUF_SIZE = 100;
+    char time_buf[TIME_BUF_SIZE + 1];
+
+    std::unique_lock<std::mutex> time_lock(time_mutex);
+    if (strftime(time_buf, TIME_BUF_SIZE, TIME_FORMAT, gmtime(&t)) == 0)
+        time_buf[0] = '\0'; // failed; resulting buffer is indeterminate
+    time_lock.unlock();
+
+    return std::string(time_buf);
+}
+
+std::string message::make_query_string(const std::unordered_multimap<std::string, std::string,
+        algorithm::ihash, algorithm::iequal_to>& query_params) {
+    std::string query_string;
+    for (std::unordered_multimap<std::string, std::string,
+            algorithm::ihash, algorithm::iequal_to>::const_iterator i = query_params.begin();
+            i != query_params.end(); ++i) {
+        if (i != query_params.begin()) {
+            query_string += '&';
+        }
+        query_string += algorithm::url_encode(i->first);
+        query_string += '=';
+        query_string += algorithm::url_encode(i->second);
+    }
+    return query_string;
+}
+
+std::string message::make_set_cookie_header(const std::string& name, const std::string& value,
+        const std::string& path, const bool has_max_age, const unsigned long max_age) {
+    // note: according to RFC6265, attributes should not be quoted
+    std::string set_cookie_header(name);
+    set_cookie_header += "=\"";
+    set_cookie_header += value;
+    set_cookie_header += "\"; Version=1";
+    if (!path.empty()) {
+        set_cookie_header += "; Path=";
+        set_cookie_header += path;
+    }
+    if (has_max_age) {
+        set_cookie_header += "; Max-Age=";
+        set_cookie_header += pion::algorithm::to_string(max_age);
+    }
+    return set_cookie_header;
 }
 
 void message::prepare_buffers_for_send(write_buffers_t& write_buffers, const bool keep_alive,

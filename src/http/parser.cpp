@@ -753,7 +753,7 @@ void parser::update_message_with_header_data(http::message& http_msg) const
 
         // parse "Cookie" headers in request
         std::pair<std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator, std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator>
-        cookie_pair = http_request.get_headers().equal_range(http::types::HEADER_COOKIE);
+        cookie_pair = http_request.get_headers().equal_range(http::message::HEADER_COOKIE);
         for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator cookie_iterator = cookie_pair.first;
              cookie_iterator != http_request.get_headers().end()
              && cookie_iterator != cookie_pair.second; ++cookie_iterator)
@@ -773,7 +773,7 @@ void parser::update_message_with_header_data(http::message& http_msg) const
 
         // parse "Set-Cookie" headers in response
         std::pair<std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator, std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator>
-        cookie_pair = http_response.get_headers().equal_range(http::types::HEADER_SET_COOKIE);
+        cookie_pair = http_response.get_headers().equal_range(http::message::HEADER_SET_COOKIE);
         for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator cookie_iterator = cookie_pair.first;
              cookie_iterator != http_response.get_headers().end()
              && cookie_iterator != cookie_pair.second; ++cookie_iterator)
@@ -814,7 +814,7 @@ pion::tribool parser::finish_header_parsing(http::message& http_msg,
     } else {
         // content length should be specified in the headers
 
-        if (http_msg.has_header(http::types::HEADER_CONTENT_LENGTH)) {
+        if (http_msg.has_header(http::message::HEADER_CONTENT_LENGTH)) {
 
             // message has a content-length header
             try {
@@ -1124,10 +1124,10 @@ bool parser::parse_multipart_form_data(std::unordered_multimap<std::string, std:
                 // parsing the value of a header
                 if (*ptr == '\r' || *ptr == '\n') {
                     // reached the end of the value -> check if it's important
-                    if (pion::algorithm::iequals(header_name, types::HEADER_CONTENT_TYPE)) {
+                    if (pion::algorithm::iequals(header_name, message::HEADER_CONTENT_TYPE)) {
                         // only keep fields that have a text type or no type
                         save_current_field = pion::algorithm::iequals(header_value.substr(0, 5), "text/");
-                    } else if (pion::algorithm::iequals(header_name, types::HEADER_CONTENT_DISPOSITION)) {
+                    } else if (pion::algorithm::iequals(header_name, message::HEADER_CONTENT_DISPOSITION)) {
                         // get current field from content-disposition header
                         std::size_t name_pos = header_value.find("name=\"");
                         if (name_pos != std::string::npos) {
@@ -1592,16 +1592,16 @@ void parser::finish(http::message& http_msg) const
         // Type could be followed by parameters (as defined in section 3.6 of RFC 2616)
         // e.g. Content-Type: application/x-www-form-urlencoded; charset=UTF-8
         http::request& http_request(dynamic_cast<http::request&>(http_msg));
-        const std::string& content_type_header = http_request.get_header(http::types::HEADER_CONTENT_TYPE);
-        if (content_type_header.compare(0, http::types::CONTENT_TYPE_URLENCODED.length(),
-                                        http::types::CONTENT_TYPE_URLENCODED) == 0)
+        const std::string& content_type_header = http_request.get_header(http::message::HEADER_CONTENT_TYPE);
+        if (content_type_header.compare(0, http::message::CONTENT_TYPE_URLENCODED.length(),
+                                        http::message::CONTENT_TYPE_URLENCODED) == 0)
         {
             if (! parse_url_encoded(http_request.get_queries(),
                                   http_request.get_content(),
                                   http_request.get_content_length()))
                 PION_LOG_WARN(m_logger, "Request form data parsing failed (POST urlencoded)");
-        } else if (content_type_header.compare(0, http::types::CONTENT_TYPE_MULTIPART_FORM_DATA.length(),
-                                               http::types::CONTENT_TYPE_MULTIPART_FORM_DATA) == 0)
+        } else if (content_type_header.compare(0, http::message::CONTENT_TYPE_MULTIPART_FORM_DATA.length(),
+                                               http::message::CONTENT_TYPE_MULTIPART_FORM_DATA) == 0)
         {
             if (! parse_multipart_form_data(http_request.get_queries(),
                                             content_type_header,
