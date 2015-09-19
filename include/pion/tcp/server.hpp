@@ -27,7 +27,6 @@
 #define __PION_TCP_SERVER_HEADER__
 
 #include <set>
-#include <memory>
 #include <mutex>
 #include <condition_variable>
 
@@ -356,11 +355,6 @@ private:
     std::size_t prune_connections();
     
 };
-
-/**
- * Data type for a server pointer
- */
-typedef std::shared_ptr<server> server_ptr;
 
 } // end namespace tcp
 } // end namespace pion

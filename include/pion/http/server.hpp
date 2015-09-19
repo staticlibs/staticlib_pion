@@ -29,7 +29,6 @@
 #include <map>
 #include <string>
 #include <functional>
-#include <memory>
 #include <mutex>
 #include <cstdint>
 
@@ -291,12 +290,6 @@ protected:
             request_handler_t& request_handler) const;
 
 };
-
-/**
- * Data type for a HTTP server pointer
- */
-typedef std::shared_ptr<server>	server_ptr;
-
 
 } // end namespace http
 } // end namespace pion
