@@ -390,7 +390,7 @@ public:
     /**
      * Returns IP address of the remote endpoint
      */
-    asio::ip::address& get_remote_ip();
+    const asio::ip::address& get_remote_ip() const;
 
     /**
      * Returns the major HTTP version number

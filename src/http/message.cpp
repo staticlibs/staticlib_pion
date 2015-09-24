@@ -216,7 +216,7 @@ bool message::get_chunks_supported() const {
     return m_chunks_supported;
 }
 
-asio::ip::address& message::get_remote_ip() {
+const asio::ip::address& message::get_remote_ip() const {
     return m_remote_ip;
 }
 
