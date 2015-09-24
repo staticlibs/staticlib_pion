@@ -25,6 +25,8 @@
 #define	__PION_HTTP_STREAMING_SERVER_HPP__
 
 #include <unordered_map>
+#include <vector>
+#include <utility>
 #include <cstdint>
 
 #include "asio.hpp"
@@ -83,7 +85,7 @@ protected:
     /**
      * Data type for a multi map of filters
      */
-    typedef std::unordered_multimap<std::string, request_filter_type, algorithm::ihash, algorithm::iequal_to> filter_map_type;
+    typedef std::vector<std::pair<std::string, request_filter_type>> filter_map_type;
     
     /**
      * Collection of GET handlers that are recognized by this HTTP server

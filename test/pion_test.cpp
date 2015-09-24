@@ -194,8 +194,8 @@ int main() {
     pion::http::streaming_server web_server(2, TCP_PORT);
     web_server.add_handler("GET", "/hello", hello_service);
     web_server.add_handler("POST", "/hello", hello_service_post);
-    web_server.add_filter("POST", "/hello", logging_filter1);
-    web_server.add_filter("POST", "/hello", logging_filter2);
+    web_server.add_filter("POST", "/hel", logging_filter1);
+    web_server.add_filter("POST", "/", logging_filter2);
     web_server.add_handler("POST", "/fu", file_upload_resource);
     web_server.add_payload_handler("POST", "/fu", file_upload_payload_handler_creator);
     web_server.add_handler("POST", "/fu1", file_upload_resource);

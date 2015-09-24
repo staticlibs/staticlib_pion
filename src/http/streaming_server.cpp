@@ -183,7 +183,7 @@ void streaming_server::add_filter(const std::string& method, const std::string& 
     filter_map_type& map = choose_map_by_method(method, get_filters, post_filters, put_filters, delete_filters);
     const std::string clean_resource{strip_trailing_slash(resource)};
     PION_LOG_INFO(m_logger, "Added filter for HTTP resource: " << clean_resource << ", method: " << method);
-    map.emplace(std::move(clean_resource), std::move(filter));
+    map.emplace_back(std::move(clean_resource), std::move(filter));
 }
 
 void streaming_server::handle_connection(tcp::connection_ptr& conn) {
@@ -251,10 +251,11 @@ void streaming_server::handle_request(http::request_ptr request, tcp::connection
         try {
             PION_LOG_DEBUG(m_logger, "Found request handler for HTTP resource: " << path);
             filter_map_type& filter_map = choose_map_by_method(method, get_filters, post_filters, put_filters, delete_filters);
-            auto range = filter_map.equal_range(path);
             std::vector<std::reference_wrapper<request_filter_type>> filters{};
-            for (auto it = range.first; it != range.second; ++it) {
-                filters.emplace_back(std::ref(it->second));
+            for (auto& en : filter_map) {
+                if (0 == path.compare(0, en.first.length(), en.first)) {
+                    filters.emplace_back(std::ref(en.second));
+                }
             }
             filter_chain fc{std::move(filters), handler};
             fc.do_filter(request, conn);
