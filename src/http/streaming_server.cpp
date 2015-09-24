@@ -23,14 +23,98 @@
 
 #include <functional>
 #include <stdexcept>
+#include <algorithm>
 #include <cstdint>
 
 #include "pion/tribool.hpp"
 #include "pion/http/request_reader.hpp"
+#include "pion/http/httpserver_exception.hpp"
+#include "pion/http/filter_chain.hpp"
+#include "pion/http/response_writer.hpp"
 #include "pion/http/streaming_server.hpp"
 
 namespace pion {
 namespace http {
+
+namespace { // anonymous
+
+std::string strip_trailing_slash(const std::string& str) {
+    std::string result{str};
+    if (!result.empty() && '/' == result[result.size() - 1]) {
+        result.resize(result.size() - 1);
+    }
+    return result;
+}
+
+template<typename T>
+T& choose_map_by_method(const std::string& method, T& get_map, T& post_map, T& put_map, T& delete_map) {
+    if (message::REQUEST_METHOD_GET == method) {
+        return get_map;
+    } else if (message::REQUEST_METHOD_POST == method) {
+        return post_map;
+    } else if (message::REQUEST_METHOD_PUT == method) {
+        return put_map;
+    } else if (message::REQUEST_METHOD_DELETE == method) {
+        return delete_map;
+    } else {
+        throw httpserver_exception("Invalid HTTP method: [" + method + "]");
+    } 
+}
+
+void handle_bad_request(http::request_ptr& request, tcp::connection_ptr& conn) {
+    static const std::string BAD_REQUEST_MSG = R"({
+    "code": 400,
+    "message": "Bad Request",
+    "description": "Your browser sent a request that this server could not understand."
+})";
+    http::writer_ptr writer{http::response_writer::create(request, conn)};
+    writer->get_response().set_status_code(http::message::RESPONSE_CODE_BAD_REQUEST);
+    writer->get_response().set_status_message(http::message::RESPONSE_MESSAGE_BAD_REQUEST);
+    writer->write_no_copy(BAD_REQUEST_MSG);
+    writer->send();
+}
+
+void handle_not_found_request(http::request_ptr& request, tcp::connection_ptr& conn) {
+    static const std::string NOT_FOUND_MSG_START = R"({
+    "code": 404,
+    "message": "Not Found",
+    "description": "The requested URL: [)";
+    static const std::string NOT_FOUND_MSG_FINISH = R"(] was not found on this server."
+})";
+    http::writer_ptr writer{http::response_writer::create(request, conn)};
+    writer->get_response().set_status_code(http::message::RESPONSE_CODE_NOT_FOUND);
+    writer->get_response().set_status_message(http::message::RESPONSE_MESSAGE_NOT_FOUND);
+    writer->write_no_copy(NOT_FOUND_MSG_START);
+    auto res = algorithm::xml_encode(request->get_resource());
+    std::replace(res.begin(), res.end(), '"', '\'');
+    writer->write_move(std::move(res));
+    writer->write_no_copy(NOT_FOUND_MSG_FINISH);
+    writer->send();
+}
+
+void handle_server_error(http::request_ptr& http_request_ptr, tcp::connection_ptr& tcp_conn,
+        const std::string& error_msg) {
+    static const std::string SERVER_ERROR_MSG_START = R"({
+    "code": 404,
+    "message": "Not Found",
+    "description": ")";
+    static const std::string SERVER_ERROR_MSG_FINISH = R"("
+})";
+    http::writer_ptr writer(http::response_writer::create(tcp_conn, *http_request_ptr,
+            std::bind(&tcp::connection::finish, tcp_conn)));
+    writer->get_response().set_status_code(http::message::RESPONSE_CODE_SERVER_ERROR);
+    writer->get_response().set_status_message(http::message::RESPONSE_MESSAGE_SERVER_ERROR);
+    writer->write_no_copy(SERVER_ERROR_MSG_START);
+    auto res = algorithm::xml_encode(error_msg);
+    std::replace(res.begin(), res.end(), '"', '\'');
+    writer->write_move(std::move(res));
+    writer->write_no_copy(SERVER_ERROR_MSG_FINISH);
+    writer->send();
+}
+
+} // namespace
+
+streaming_server::~streaming_server() PION_NOEXCEPT { }
 
 streaming_server::streaming_server(uint32_t number_of_threads, uint16_t port,
         asio::ip::address_v4 ip_address
@@ -42,7 +126,10 @@ streaming_server::streaming_server(uint32_t number_of_threads, uint16_t port,
         std::function<bool(bool, asio::ssl::verify_context&)> ssl_verify_callback
 #endif // PION_HAVE_SSL
 ) : 
-server(asio::ip::tcp::endpoint(ip_address, port)) {
+tcp::server(asio::ip::tcp::endpoint(ip_address, port)),
+bad_request_handler(handle_bad_request),
+not_found_handler(handle_not_found_request),
+server_error_handler(handle_server_error) {
     get_active_scheduler().set_num_threads(number_of_threads);
 #ifdef PION_HAVE_SSL
     if (!ssl_key_file.empty()) {
@@ -63,8 +150,45 @@ server(asio::ip::tcp::endpoint(ip_address, port)) {
 #endif // PION_HAVE_SSL
 }
 
-void streaming_server::handle_connection(tcp::connection_ptr& tcp_conn) {
-    reader_ptr my_reader_ptr = request_reader::create(tcp_conn, std::bind(&streaming_server::handle_request, this,
+void streaming_server::add_handler(const std::string& method,
+        const std::string& resource, request_handler_type request_handler) {
+    handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, delete_handlers);
+    const std::string clean_resource{strip_trailing_slash(resource)};
+    PION_LOG_INFO(m_logger, "Added handler for HTTP resource: " << clean_resource << ", method: " << method);
+    map.emplace(std::move(clean_resource), std::move(request_handler));
+}
+
+void streaming_server::set_bad_request_handler(request_handler_type handler) {
+    bad_request_handler = std::move(handler);
+}
+
+void streaming_server::set_not_found_handler(request_handler_type handler) {
+    not_found_handler = std::move(handler);
+}
+
+void streaming_server::set_error_handler(error_handler_type handler) {
+    server_error_handler = std::move(handler);
+}
+
+void streaming_server::add_payload_handler(const std::string& method, const std::string& resource,
+        payload_handler_creator_type payload_handler) {
+    payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, delete_payloads);
+    const std::string clean_resource{strip_trailing_slash(resource)};
+    PION_LOG_INFO(m_logger, "Added payload handler for HTTP resource: " << clean_resource << ", method: " << method);
+    map.emplace(std::move(clean_resource), std::move(payload_handler));
+}
+
+void streaming_server::add_filter(const std::string& method, const std::string& resource,
+        request_filter_type filter) {
+    filter_map_type& map = choose_map_by_method(method, get_filters, post_filters, put_filters, delete_filters);
+    const std::string clean_resource{strip_trailing_slash(resource)};
+    PION_LOG_INFO(m_logger, "Added filter for HTTP resource: " << clean_resource << ", method: " << method);
+    map.emplace(std::move(clean_resource), std::move(filter));
+}
+
+void streaming_server::handle_connection(tcp::connection_ptr& conn) {
+    reader_ptr my_reader_ptr = request_reader::create(conn, std::bind(
+            &streaming_server::handle_request, this,
             std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     http::request_reader::headers_parsing_finished_handler_t fun = std::bind(
             &streaming_server::handle_request_after_headers_parsed, this,
@@ -73,263 +197,79 @@ void streaming_server::handle_connection(tcp::connection_ptr& tcp_conn) {
     my_reader_ptr->receive();
 }
 
-void streaming_server::handle_request(http::request_ptr http_request_ptr,
-        tcp::connection_ptr& tcp_conn, const asio::error_code& ec) {
-    if (ec || !http_request_ptr->is_valid()) {
-        tcp_conn->set_lifecycle(tcp::connection::LIFECYCLE_CLOSE); // make sure it will get closed
-        if (tcp_conn->is_open() && (ec.category() == http::parser::get_error_category())) {
+void streaming_server::handle_request_after_headers_parsed(http::request_ptr request,
+        tcp::connection_ptr& /* conn */, const asio::error_code& ec, pion::tribool& rc) {
+    if (ec || !rc) return;
+    auto& method = request->get_method();
+    payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, delete_payloads);
+    std::string path{strip_trailing_slash(request->get_resource())};
+    auto it = map.find(path);
+    if (map.end() != it) {
+        auto ha = it->second(request);
+        request->set_payload_handler(std::move(ha));
+    } else {
+        // let's not spam client about GET and DELETE unlikely payloads
+        if (message::REQUEST_METHOD_GET != method && message::REQUEST_METHOD_DELETE != method) {
+            PION_LOG_INFO(m_logger, "No payload handlers found for resource: " << path);
+        }
+        // ignore request body as no payload_handler found
+        rc = true;
+    }
+}
+
+void streaming_server::handle_request(http::request_ptr request, tcp::connection_ptr& conn,
+        const asio::error_code& ec) {
+    // handle error
+    if (ec || !request->is_valid()) {
+        conn->set_lifecycle(tcp::connection::LIFECYCLE_CLOSE); // make sure it will get closed
+        if (conn->is_open() && (ec.category() == http::parser::get_error_category())) {
             // HTTP parser error
             PION_LOG_INFO(m_logger, "Invalid HTTP request (" << ec.message() << ")");
-            m_bad_request_handler(http_request_ptr, tcp_conn);
+            bad_request_handler(request, conn);
         } else {
             static const asio::error_code
             ERRCOND_CANCELED(asio::error::operation_aborted, asio::error::system_category),
                     ERRCOND_EOF(asio::error::eof, asio::error::misc_category);
-
             if (ec == ERRCOND_CANCELED || ec == ERRCOND_EOF) {
                 // don't spam the log with common (non-)errors that happen during normal operation
                 PION_LOG_DEBUG(m_logger, "Lost connection on port " << get_port() << " (" << ec.message() << ")");
             } else {
                 PION_LOG_INFO(m_logger, "Lost connection on port " << get_port() << " (" << ec.message() << ")");
             }
-
-            tcp_conn->finish();
+            conn->finish();
         }
         return;
     }
-
+    // handle request
     PION_LOG_DEBUG(m_logger, "Received a valid HTTP request");
-
-    // strip off trailing slash if the request has one
-    std::string resource_requested(strip_trailing_slash(http_request_ptr->get_resource()));
-
-    // apply any redirection
-    redirect_map_t::const_iterator it = m_redirects.find(resource_requested);
-    unsigned int num_redirects = 0;
-    while (it != m_redirects.end()) {
-        if (++num_redirects > MAX_REDIRECTS) {
-            PION_LOG_ERROR(m_logger, "Maximum number of redirects (server::MAX_REDIRECTS) exceeded for requested resource: " << http_request_ptr->get_original_resource());
-            m_server_error_handler(http_request_ptr, tcp_conn, "Maximum number of redirects (server::MAX_REDIRECTS) exceeded for requested resource");
-            return;
-        }
-        resource_requested = it->second;
-        http_request_ptr->change_resource(resource_requested);
-        it = m_redirects.find(resource_requested);
-    }
-
-    // search for a handler matching the resource requested
-    request_handler_t request_handler;
-    // only this line is changed comparing to parent method
-    if (find_method_specific_request_handler(http_request_ptr->get_method(), resource_requested, request_handler) || 
-            find_request_handler(resource_requested, request_handler)) {
-
-        // try to handle the request
+    auto& method = request->get_method();
+    handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, delete_handlers);
+    std::string path{strip_trailing_slash(request->get_resource())};
+    auto handles_it = map.find(path);
+    if (map.end() != handles_it) {
+        request_handler_type& handler = handles_it->second;
         try {
-            request_handler(http_request_ptr, tcp_conn);
-            PION_LOG_DEBUG(m_logger, "Found request handler for HTTP resource: "
-                    << resource_requested);
-            if (http_request_ptr->get_resource() != http_request_ptr->get_original_resource()) {
-                PION_LOG_DEBUG(m_logger, "Original resource requested was: " << http_request_ptr->get_original_resource());
+            PION_LOG_DEBUG(m_logger, "Found request handler for HTTP resource: " << path);
+            filter_map_type& filter_map = choose_map_by_method(method, get_filters, post_filters, put_filters, delete_filters);
+            auto range = filter_map.equal_range(path);
+            std::vector<std::reference_wrapper<request_filter_type>> filters{};
+            for (auto it = range.first; it != range.second; ++it) {
+                filters.emplace_back(std::ref(it->second));
             }
+            filter_chain fc{std::move(filters), handler};
+            fc.do_filter(request, conn);
         } catch (std::bad_alloc&) {
             // propagate memory errors (FATAL)
             throw;
         } catch (std::exception& e) {
             // recover gracefully from other exceptions thrown by request handlers
             PION_LOG_ERROR(m_logger, "HTTP request handler: " << e.what());
-            m_server_error_handler(http_request_ptr, tcp_conn, e.what());
+            server_error_handler(request, conn, e.what());
         }
-
     } else {
-
-        // no web services found that could handle the request
-        PION_LOG_INFO(m_logger, "No HTTP request handlers found for resource: "
-                << resource_requested);
-        if (http_request_ptr->get_resource() != http_request_ptr->get_original_resource()) {
-            PION_LOG_DEBUG(m_logger, "Original resource requested was: " << http_request_ptr->get_original_resource());
-        }
-        m_not_found_handler(http_request_ptr, tcp_conn);
-    }
-}
-
-void streaming_server::handle_request_after_headers_parsed(http::request_ptr http_request_ptr,
-        tcp::connection_ptr& /* tcp_conn */, const asio::error_code& ec, pion::tribool& rc) {
-    if (ec || !rc) return;
-
-    // strip off trailing slash if the request has one
-    std::string resource_requested(strip_trailing_slash(http_request_ptr->get_resource()));
-
-    // apply any redirection
-    redirect_map_t::const_iterator it = m_redirects.find(resource_requested);
-    unsigned int num_redirects = 0;
-    while (it != m_redirects.end()) {
-        if (++num_redirects > MAX_REDIRECTS) {
-            return;
-        }
-        resource_requested = it->second;
-        it = m_redirects.find(resource_requested);
-    }
-
-    // search for a handler matching the resource requested
-    payload_handler_creator_type creator;
-    auto& method = http_request_ptr->get_method();
-    if (find_method_specific_payload_handler(method, resource_requested, creator)) {
-        auto ha = creator(http_request_ptr);
-        http_request_ptr->set_payload_handler(std::move(ha));
-    } else { // ignore request body as no payload_handler found
-        // let's not spam client about GET and DELETE unlikely payloads
-        if (message::REQUEST_METHOD_GET != method && message::REQUEST_METHOD_DELETE != method) {
-            PION_LOG_INFO(m_logger, "No payload handlers found for resource: " << resource_requested);
-        }
-        rc = true;
-    }
-}
-
-void streaming_server::add_method_specific_resource(const std::string& method, 
-        const std::string& resource, request_handler_t request_handler) {
-    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
-    const std::string clean_resource(strip_trailing_slash(resource));
-    auto en = std::make_pair(clean_resource, request_handler);
-    if (message::REQUEST_METHOD_GET == method) {
-        m_get_resources.insert(en);
-    } else if (message::REQUEST_METHOD_POST == method) {
-        m_post_resources.insert(en);
-    } else if (message::REQUEST_METHOD_PUT == method) {
-        m_put_resources.insert(en);
-    } else if (message::REQUEST_METHOD_DELETE == method) {
-        m_delete_resources.insert(en);
-    }
-    PION_LOG_INFO(m_logger, "Added handler for HTTP resource: " << clean_resource 
-            << ", method: " << method);
-}
-
-void streaming_server::remove_method_specific_resource(const std::string& method,
-        const std::string& resource) {
-    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
-    const std::string clean_resource(strip_trailing_slash(resource));    
-    if (message::REQUEST_METHOD_GET == method) {
-        m_get_resources.erase(clean_resource);
-    } else if (message::REQUEST_METHOD_POST == method) {
-        m_post_resources.erase(clean_resource);
-    } else if (message::REQUEST_METHOD_PUT == method) {
-        m_put_resources.erase(clean_resource);
-    } else if (message::REQUEST_METHOD_DELETE == method) {
-        m_delete_resources.erase(clean_resource);
-    }
-    PION_LOG_INFO(m_logger, "Removed handler for HTTP resource: " << clean_resource
-            << ", method: " << method);
-}
-
-bool streaming_server::find_request_handler_internal(const resource_map_t& map, const std::string& resource, 
-        request_handler_t& request_handler) const {
-    // first make sure that HTTP resources are registered
-    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
-    if (map.empty()) return false;
-
-    // iterate through each resource entry that may match the resource
-    resource_map_t::const_iterator i = map.upper_bound(resource);
-    while (i != map.begin()) {
-        --i;
-        // check for a match if the first part of the strings match
-        if (i->first.empty() || resource.compare(0, i->first.size(), i->first) == 0) {
-            // only if the resource matches the plug-in's identifier
-            // or if resource is followed first with a '/' character
-            if (resource.size() == i->first.size() || resource[i->first.size()] == '/') {
-                request_handler = i->second;
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-bool streaming_server::find_payload_handler_internal(const payloads_map_type& map, const std::string& resource,
-        payload_handler_creator_type& payload_handler) const {
-    // first make sure that HTTP resources are registered
-    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
-    if (map.empty()) return false;
-
-    // iterate through each resource entry that may match the resource
-    payloads_map_type::const_iterator i = map.upper_bound(resource);
-    while (i != map.begin()) {
-        --i;
-        // check for a match if the first part of the strings match
-        if (i->first.empty() || resource.compare(0, i->first.size(), i->first) == 0) {
-            // only if the resource matches the plug-in's identifier
-            // or if resource is followed first with a '/' character
-            if (resource.size() == i->first.size() || resource[i->first.size()] == '/') {
-                payload_handler = i->second;
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-bool streaming_server::find_method_specific_request_handler(const std::string& method,
-        const std::string& resource, request_handler_t& request_handler) const {
-    if (message::REQUEST_METHOD_GET == method) {
-        return find_request_handler_internal(m_get_resources, resource, request_handler);
-    } else if (message::REQUEST_METHOD_POST == method) {
-        return find_request_handler_internal(m_post_resources, resource, request_handler);
-    } else if (message::REQUEST_METHOD_PUT == method) {
-        return find_request_handler_internal(m_put_resources, resource, request_handler);
-    } else if (message::REQUEST_METHOD_DELETE == method) {
-        return find_request_handler_internal(m_delete_resources, resource, request_handler);
-    } else return false;
-}
-
-void streaming_server::add_method_specific_payload_handler(const std::string& method,
-        const std::string& resource, payload_handler_creator_type payload_handler) {
-    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
-    const std::string clean_resource(strip_trailing_slash(resource));
-    if (message::REQUEST_METHOD_GET == method) {
-        m_get_payloads.insert(std::make_pair(clean_resource, payload_handler));
-    } else if (message::REQUEST_METHOD_POST == method) {
-        m_post_payloads.insert(std::make_pair(clean_resource, payload_handler));
-    } else if (message::REQUEST_METHOD_PUT == method) {
-        m_put_payloads.insert(std::make_pair(clean_resource, payload_handler));
-    } else if (message::REQUEST_METHOD_DELETE == method) {
-        m_delete_payloads.insert(std::make_pair(clean_resource, payload_handler));        
-    } else {
-        throw std::runtime_error("Invalid payload method: [" + method + "]");
+        PION_LOG_INFO(m_logger, "No HTTP request handlers found for resource: " << path);
+        not_found_handler(request, conn);
     }    
-    PION_LOG_INFO(m_logger, "Added payload handler for HTTP resource: " << clean_resource
-            << ", method: " << method);
-}
-
-void streaming_server::remove_method_specific_payload_handler(const std::string& method, 
-        const std::string& resource) {
-    std::lock_guard<std::mutex> resource_lock(m_resource_mutex);
-    const std::string clean_resource(strip_trailing_slash(resource));
-    if (message::REQUEST_METHOD_GET == method) {
-        m_get_payloads.erase(clean_resource);
-    } else if (message::REQUEST_METHOD_POST == method) {
-        m_post_payloads.erase(clean_resource);
-    } else if (message::REQUEST_METHOD_PUT == method) {
-        m_put_payloads.erase(clean_resource);
-    } else if (message::REQUEST_METHOD_DELETE == method) {
-        m_delete_payloads.erase(clean_resource);
-    } else {
-        throw std::runtime_error("Invalid payload method: [" + method + "]");
-    }    
-    PION_LOG_INFO(m_logger, "Removed payload handler for HTTP resource: " << clean_resource
-            << ", method: " << method);
-}
-
-bool streaming_server::find_method_specific_payload_handler(const std::string& method,
-        const std::string& resource, payload_handler_creator_type& payload_handler) const {
-    if (message::REQUEST_METHOD_GET == method) {
-        return find_payload_handler_internal(m_get_payloads, resource, payload_handler);
-    } else if (message::REQUEST_METHOD_POST == method) {
-        return find_payload_handler_internal(m_post_payloads, resource, payload_handler);
-    } else if (message::REQUEST_METHOD_PUT == method) {
-        return find_payload_handler_internal(m_put_payloads, resource, payload_handler);
-    } else if (message::REQUEST_METHOD_DELETE == method) {
-        return find_payload_handler_internal(m_delete_payloads, resource, payload_handler);
-    } else return false;
 }
 
 } // end namespace http

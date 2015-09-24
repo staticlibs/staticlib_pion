@@ -24,55 +24,101 @@
 #ifndef __PION_HTTP_STREAMING_SERVER_HPP__
 #define	__PION_HTTP_STREAMING_SERVER_HPP__
 
-#include <map>
+#include <unordered_map>
 #include <cstdint>
 
 #include "asio.hpp"
 
 #include "pion/tribool.hpp"
+#include "pion/config.hpp"
 #include "pion/tcp/connection.hpp"
+#include "pion/tcp/server.hpp"
 #include "pion/http/request.hpp"
 #include "pion/http/parser.hpp"
-#include "pion/http/server.hpp"
 
 namespace pion {
 namespace http {
 
+// forward declaration
+class filter_chain;
+
 /**
  * Server extension that supports streaming requests of arbitrary size (file upload)
  */
-class streaming_server : public server {   
-       
+class streaming_server : public tcp::server {   
+    friend class filter_chain;   
+    
 protected:
+    /**
+     * Type of function that is used to handle requests
+     */
+    typedef std::function<void(http::request_ptr&, tcp::connection_ptr&)> request_handler_type;
+
+    /**
+     * Handler for requests that result in "500 Server Error"
+     */
+    typedef std::function<void(http::request_ptr&, tcp::connection_ptr&,
+            const std::string&)> error_handler_type;
+
     /**
      * Type of function that is used to create payload handlers
      */
     typedef std::function<parser::payload_handler_t(http::request_ptr&)> payload_handler_creator_type;
 
     /**
-     * Data type for a map of resources to request handlers
+     * Type for filters
      */
-    typedef std::map<std::string, payload_handler_creator_type> payloads_map_type;    
-
-    /**
-     * Collection of GET resources that are recognized by this HTTP server
-     */
-    resource_map_t m_get_resources;
+    typedef std::function<void(http::request_ptr&, tcp::connection_ptr&, filter_chain&)> request_filter_type;
     
     /**
-     * Collection of POST resources that are recognized by this HTTP server
+     * Data type for a map of resources to request handlers
      */
-    resource_map_t m_post_resources;
+    typedef std::unordered_map<std::string, request_handler_type> handlers_map_type;
+    
+    /**
+     * Data type for a map of resources to request handlers
+     */
+    typedef std::unordered_map<std::string, payload_handler_creator_type> payloads_map_type; 
+    
+    /**
+     * Data type for a multi map of filters
+     */
+    typedef std::unordered_multimap<std::string, request_filter_type, algorithm::ihash, algorithm::iequal_to> filter_map_type;
+    
+    /**
+     * Collection of GET handlers that are recognized by this HTTP server
+     */
+    handlers_map_type get_handlers;
+    
+    /**
+     * Collection of POST handlers that are recognized by this HTTP server
+     */
+    handlers_map_type post_handlers;
 
     /**
-     * Collection of PUT resources that are recognized by this HTTP server
+     * Collection of PUT handlers that are recognized by this HTTP server
      */
-    resource_map_t m_put_resources;
+    handlers_map_type put_handlers;
 
     /**
-     * Collection of DELETE resources that are recognized by this HTTP server
+     * Collection of DELETE handlers that are recognized by this HTTP server
      */    
-    resource_map_t m_delete_resources;
+    handlers_map_type delete_handlers;
+
+    /**
+     * Points to a function that handles bad HTTP requests
+     */
+    request_handler_type bad_request_handler;
+
+    /**
+     * Points to a function that handles requests which match no web services
+     */
+    request_handler_type not_found_handler;
+
+    /**
+     * Points to the function that handles server errors
+     */
+    error_handler_type server_error_handler;
 
     /**
      * Collection of payload handlers GET resources that are recognized by this HTTP server
@@ -80,24 +126,46 @@ protected:
     // GET payload won't happen, but lets be consistent here
     // to simplify clients implementation and to make sure that
     // pion's form-data parsing won't be triggered
-    payloads_map_type m_get_payloads;
+    payloads_map_type get_payloads;
 
     /**
      * Collection of payload handlers POST resources that are recognized by this HTTP server
      */
-    payloads_map_type m_post_payloads;
+    payloads_map_type post_payloads;
 
     /**
      * Collection of payload handlers PUT resources that are recognized by this HTTP server
      */
-    payloads_map_type m_put_payloads;
+    payloads_map_type put_payloads;
 
     /**
      * Collection of payload handlers DELETE resources that are recognized by this HTTP server
      */
-    payloads_map_type m_delete_payloads;
-    
+    payloads_map_type delete_payloads;
+
+    /**
+     * Collection of GET filters
+     */
+    filter_map_type get_filters;
+
+    /**
+     * Collection of POST filters
+     */
+    filter_map_type post_filters;
+
+    /**
+     * Collection of PUT filters
+     */
+    filter_map_type put_filters;
+
+    /**
+     * Collection of DELETE filters
+     */
+    filter_map_type delete_filters;
+
 public:
+    ~streaming_server() PION_NOEXCEPT;
+    
     /**
      * Creates a new server object
      * 
@@ -132,16 +200,29 @@ public:
      * @param resource the resource name or uri-stem to bind to the handler
      * @param request_handler function used to handle requests to the resource
      */
-    void add_method_specific_resource(const std::string& method, const std::string& resource,
-            request_handler_t request_handler);
+    void add_handler(const std::string& method, const std::string& resource,
+            request_handler_type request_handler);
 
     /**
-     * Removes a web service from the HTTP server
-     *
-     * @param method HTTP method name
-     * @param resource the resource name or uri-stem to remove
+     * Sets the function that handles bad HTTP requests
+     * 
+     * @param handler function that handles bad HTTP requests
      */
-    void remove_method_specific_resource(const std::string& method, const std::string& resource);
+    void set_bad_request_handler(request_handler_type handler);
+
+    /**
+     * Sets the function that handles requests which match no other web services
+     * 
+     * @param handler function that handles requests which match no other web services
+     */
+    void set_not_found_handler(request_handler_type handler);
+
+    /**
+     * Sets the function that handles requests which match no other web services
+     * 
+     * @param h the function that handles requests which match no other web services
+     */
+    void set_error_handler(error_handler_type handler);
     
     /**
      * Adds a new payload_handler to the HTTP server
@@ -150,90 +231,50 @@ public:
      * @param resource the resource name or uri-stem to bind to the handler
      * @param payload_handler function used to handle payload for the request
      */
-    void add_method_specific_payload_handler(const std::string& method, const std::string& resource, 
+    void add_payload_handler(const std::string& method, const std::string& resource, 
             payload_handler_creator_type payload_handler);
 
     /**
-     * Removes a payload_handler from the HTTP server
+     * Adds a new filter to the HTTP server
      *
      * @param method HTTP method name
-     * @param resource the resource name or uri-stem to remove
-     */
-    void remove_method_specific_payload_handler(const std::string& method, const std::string& resource);
+     * @param resource the resource name or uri-stem to bind to the handler
+     * @param request_handler filter function
+     */    
+    void add_filter(const std::string& method, const std::string& resource,
+            request_filter_type filter);
 
 protected:
-    
-    /**
-     * Searches for the appropriate request handler to use for a given resource
-     *
-     * @param method the name of the HTTP method for specified resource to search for
-     * @param resource the name of the resource to search for
-     * @param request_handler function that can handle requests for this resource
-     */
-    virtual bool find_method_specific_request_handler(const std::string& method,
-            const std::string& resource, request_handler_t& request_handler) const;
-    
-    /**
-     * Searches for the appropriate payload handler to use for a given resource
-     *
-     * @param resource the name of the resource to search for
-     * @param payload_handler function that can handle payload for this resource
-     */
-    virtual bool find_method_specific_payload_handler(const std::string& method, 
-            const std::string& resource, payload_handler_creator_type& payload_handler_creator) const;
     
     /**
      * Handles a new TCP connection
      * 
      * @param tcp_conn the new TCP connection to handle
      */
-    virtual void handle_connection(tcp::connection_ptr& tcp_conn) override;
+    virtual void handle_connection(tcp::connection_ptr& conn) override;
     
     /**
      * Handles a new HTTP request
      *
-     * @param http_request_ptr the HTTP request to handle
-     * @param tcp_conn TCP connection containing a new request
+     * @param request the HTTP request to handle
+     * @param conn TCP connection containing a new request
      * @param ec error_code contains additional information for parsing errors
      * @param rc parsing result code, false: abort, true: ignore_body, indeterminate: continue
      */
-    virtual void handle_request_after_headers_parsed(http::request_ptr http_request_ptr,
-            tcp::connection_ptr& tcp_conn, const asio::error_code& ec, pion::tribool& rc);
+    virtual void handle_request_after_headers_parsed(http::request_ptr request,
+            tcp::connection_ptr& conn, const asio::error_code& ec, pion::tribool& rc);
 
     /**
      * Handles a new HTTP request
      *
-     * @param http_request_ptr the HTTP request to handle
-     * @param tcp_conn TCP connection containing a new request
+     * @param request the HTTP request to handle
+     * @param conn TCP connection containing a new request
      * @param ec error_code contains additional information for parsing errors
      */
-    virtual void handle_request(http::request_ptr http_request_ptr,
-            tcp::connection_ptr& tcp_conn, const asio::error_code& ec) override;
-
-private:
-
-    /**
-     * Internal method to find out request handler for the specified resource path
-     * 
-     * @param map handlers map
-     * @param resource resource path
-     * @param request_handler out handler parameter
-     * @return whether handler was found
-     */
-    bool find_request_handler_internal(const resource_map_t& map, const std::string& resource, 
-            request_handler_t& request_handler) const;
-
-    /**
-     * Internal method to find out payload handler for the specified resource path
-     * 
-     * @param map handlers map
-     * @param resource resource path
-     * @param payload_handler out handler parameter
-     * @return whether handler was found
-     */
-    bool find_payload_handler_internal(const payloads_map_type& map, const std::string& resource,
-            payload_handler_creator_type& payload_handler) const;
-
+    virtual void handle_request(http::request_ptr request,
+            tcp::connection_ptr& conn, const asio::error_code& ec);
+   
+    
 };    
 
 } // end namespace http

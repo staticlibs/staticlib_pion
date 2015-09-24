@@ -163,13 +163,24 @@ public:
      * 
      * @param tcp_conn TCP connection used to send the response
      * @param http_request the request we are responding to
+     * 
+     * @return std::shared_ptr<response_writer> shared pointer to
+     *         the new writer object that was created
+     */
+    static std::shared_ptr<response_writer> create(http::request_ptr& http_request, tcp::connection_ptr& tcp_conn);
+    
+    /**
+     * Creates new response_writer objects
+     * 
+     * @param tcp_conn TCP connection used to send the response
+     * @param http_request the request we are responding to
      * @param handler function called after the request has been sent
      * 
      * @return std::shared_ptr<response_writer> shared pointer to
      *         the new writer object that was created
      */
     static std::shared_ptr<response_writer> create(tcp::connection_ptr& tcp_conn,
-            const http::request& http_request, finished_handler_t handler = finished_handler_t());
+            const http::request& http_request, finished_handler_t handler);
 
     /**
      * Returns a non-const reference to the response that will be sent

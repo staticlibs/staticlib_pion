@@ -50,6 +50,10 @@ m_http_response(new http::response(http_request)) {
 
 // writer member functions
 
+std::shared_ptr<response_writer> response_writer::create(http::request_ptr& http_request, tcp::connection_ptr& tcp_conn) {
+    return create(tcp_conn, *http_request, std::bind(&tcp::connection::finish, tcp_conn));
+}
+
 std::shared_ptr<response_writer> response_writer::create(tcp::connection_ptr& tcp_conn,
         const http::request& http_request, finished_handler_t handler) {
     return std::shared_ptr<response_writer>(new response_writer(tcp_conn, http_request, handler));

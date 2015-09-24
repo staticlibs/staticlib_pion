@@ -32,10 +32,11 @@
 
 #include "asio.hpp"
 
-#include <pion/config.hpp>
-#include <pion/logger.hpp>
-#include <pion/http/response_writer.hpp>
-#include <pion/http/streaming_server.hpp>
+#include "pion/config.hpp"
+#include "pion/logger.hpp"
+#include "pion/http/response_writer.hpp"
+#include "pion/http/streaming_server.hpp"
+#include "pion/http/filter_chain.hpp"
 
 #ifdef PION_USE_LOG4CPLUS
 #include <log4cplus/logger.h>
@@ -44,7 +45,7 @@
 
 namespace { // anonymous
 
-const uint16_t SECONDS_TO_RUN = 10;
+const uint16_t SECONDS_TO_RUN = 1;
 const uint16_t TCP_PORT = 8080;
 
 #ifdef PION_USE_LOG4CPLUS
@@ -142,7 +143,6 @@ public:
             // log error
         }
     }
-    
 };
 
 void file_upload_resource(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
@@ -163,6 +163,18 @@ FileWriter file_upload_payload_handler_creator(pion::http::request_ptr& http_req
     return FileWriter{"uploaded.dat"};
 }
 
+void logging_filter1(pion::http::request_ptr& request, pion::tcp::connection_ptr& conn, 
+        pion::http::filter_chain& chain) {
+    std::cout << "Hi from filter 1 for [" << request->get_resource() << "]" << std::endl;
+    chain.do_filter(request, conn);
+}
+
+void logging_filter2(pion::http::request_ptr& request, pion::tcp::connection_ptr& conn,
+        pion::http::filter_chain& chain) {
+    std::cout << "Hi from filter 2 for [" << request->get_resource() << "]" << std::endl;
+    chain.do_filter(request, conn);
+}
+
 } // namespace
 
 int main() {
@@ -180,11 +192,13 @@ int main() {
 #endif // PION_USE_LOG4CPLUS    
     // pion
     pion::http::streaming_server web_server(2, TCP_PORT);
-    web_server.add_method_specific_resource("GET", "/hello", hello_service);
-    web_server.add_method_specific_resource("POST", "/hello", hello_service_post);
-    web_server.add_method_specific_resource("POST", "/fu", file_upload_resource);
-    web_server.add_method_specific_payload_handler("POST", "/fu", file_upload_payload_handler_creator);
-    web_server.add_method_specific_resource("POST", "/fu1", file_upload_resource);
+    web_server.add_handler("GET", "/hello", hello_service);
+    web_server.add_handler("POST", "/hello", hello_service_post);
+    web_server.add_filter("POST", "/hello", logging_filter1);
+    web_server.add_filter("POST", "/hello", logging_filter2);
+    web_server.add_handler("POST", "/fu", file_upload_resource);
+    web_server.add_payload_handler("POST", "/fu", file_upload_payload_handler_creator);
+    web_server.add_handler("POST", "/fu1", file_upload_resource);
     web_server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});
     web_server.stop(true);
