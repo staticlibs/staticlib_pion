@@ -85,7 +85,7 @@ protected:
     /**
      * Data type for a multi map of filters
      */
-    typedef std::vector<std::pair<std::string, request_filter_type>> filter_map_type;
+    typedef std::unordered_multimap<std::string, request_filter_type, algorithm::ihash, algorithm::iequal_to> filter_map_type;
     
     /**
      * Collection of GET handlers that are recognized by this HTTP server

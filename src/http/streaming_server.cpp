@@ -112,6 +112,40 @@ void handle_server_error(http::request_ptr& http_request_ptr, tcp::connection_pt
     writer->send();
 }
 
+template<typename T>
+typename T::iterator find_submatch(T& map, const std::string& path) {
+    std::string st{path};
+    auto end = map.end();
+    std::string::size_type slash_ind = st.length();
+    do {
+        st = st.substr(0, slash_ind);
+        auto it = map.find(st);
+        if (end != it) {
+            return it;
+        }
+        slash_ind = st.find_last_of("/");
+    } while(std::string::npos != slash_ind);
+    return end;
+}
+
+template<typename T>
+std::vector<std::reference_wrapper<T>> find_submatch_filters(
+        std::unordered_multimap<std::string, T, algorithm::ihash, algorithm::iequal_to>& map, 
+        const std::string& path) {
+    std::string st{path};
+    std::vector<std::reference_wrapper<T>> vec{};
+    std::string::size_type slash_ind = st.length();
+    do {
+        st = st.substr(0, slash_ind);
+        auto ra = map.equal_range(st);
+        for (auto it = ra.first; it != ra.second; ++it) {
+            vec.emplace_back(std::ref(it->second));
+        }
+        slash_ind = st.find_last_of("/");
+    } while (std::string::npos != slash_ind);
+    return vec;
+}
+
 } // namespace
 
 streaming_server::~streaming_server() PION_NOEXCEPT { }
@@ -155,7 +189,8 @@ void streaming_server::add_handler(const std::string& method,
     handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, delete_handlers);
     const std::string clean_resource{strip_trailing_slash(resource)};
     PION_LOG_INFO(m_logger, "Added handler for HTTP resource: " << clean_resource << ", method: " << method);
-    map.emplace(std::move(clean_resource), std::move(request_handler));
+    auto it = map.emplace(std::move(clean_resource), std::move(request_handler));
+    if (!it.second) throw httpserver_exception("Invalid duplicate handler path: [" + clean_resource + "], method: [" + method + "]");
 }
 
 void streaming_server::set_bad_request_handler(request_handler_type handler) {
@@ -175,7 +210,8 @@ void streaming_server::add_payload_handler(const std::string& method, const std:
     payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, delete_payloads);
     const std::string clean_resource{strip_trailing_slash(resource)};
     PION_LOG_INFO(m_logger, "Added payload handler for HTTP resource: " << clean_resource << ", method: " << method);
-    map.emplace(std::move(clean_resource), std::move(payload_handler));
+    auto it = map.emplace(std::move(clean_resource), std::move(payload_handler));
+    if (!it.second) throw httpserver_exception("Invalid duplicate payload path: [" + clean_resource + "], method: [" + method + "]");
 }
 
 void streaming_server::add_filter(const std::string& method, const std::string& resource,
@@ -183,7 +219,7 @@ void streaming_server::add_filter(const std::string& method, const std::string& 
     filter_map_type& map = choose_map_by_method(method, get_filters, post_filters, put_filters, delete_filters);
     const std::string clean_resource{strip_trailing_slash(resource)};
     PION_LOG_INFO(m_logger, "Added filter for HTTP resource: " << clean_resource << ", method: " << method);
-    map.emplace_back(std::move(clean_resource), std::move(filter));
+    map.emplace(std::move(clean_resource), std::move(filter));
 }
 
 void streaming_server::handle_connection(tcp::connection_ptr& conn) {
@@ -203,7 +239,7 @@ void streaming_server::handle_request_after_headers_parsed(http::request_ptr req
     auto& method = request->get_method();
     payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, delete_payloads);
     std::string path{strip_trailing_slash(request->get_resource())};
-    auto it = map.find(path);
+    auto it = find_submatch(map, path);
     if (map.end() != it) {
         auto ha = it->second(request);
         request->set_payload_handler(std::move(ha));
@@ -245,18 +281,13 @@ void streaming_server::handle_request(http::request_ptr request, tcp::connection
     auto& method = request->get_method();
     handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, delete_handlers);
     std::string path{strip_trailing_slash(request->get_resource())};
-    auto handles_it = map.find(path);
-    if (map.end() != handles_it) {
-        request_handler_type& handler = handles_it->second;
+    auto handlers_it = find_submatch(map, path);
+    if (map.end() != handlers_it) {
+        request_handler_type& handler = handlers_it->second;
         try {
             PION_LOG_DEBUG(m_logger, "Found request handler for HTTP resource: " << path);
             filter_map_type& filter_map = choose_map_by_method(method, get_filters, post_filters, put_filters, delete_filters);
-            std::vector<std::reference_wrapper<request_filter_type>> filters{};
-            for (auto& en : filter_map) {
-                if (0 == path.compare(0, en.first.length(), en.first)) {
-                    filters.emplace_back(std::ref(en.second));
-                }
-            }
+            std::vector<std::reference_wrapper<request_filter_type>> filters = find_submatch_filters(filter_map, path);
             filter_chain fc{std::move(filters), handler};
             fc.do_filter(request, conn);
         } catch (std::bad_alloc&) {
