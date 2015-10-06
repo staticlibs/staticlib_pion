@@ -19,8 +19,6 @@
 #include <array>
 #include <functional>
 
-#include "openssl/ssl.h"
-
 #include "asio.hpp"
 #ifdef PION_HAVE_SSL
 #ifdef PION_XCODE
@@ -61,7 +59,6 @@ m_finished_handler(finished_handler) {
     (void) ssl_context;
     (void) ssl_flag;
 #endif            
-    SSL_CTX_set_session_cache_mode(ssl_context.native_handle(), SSL_SESS_CACHE_OFF);
     save_read_pos(NULL, NULL);
 }   
 

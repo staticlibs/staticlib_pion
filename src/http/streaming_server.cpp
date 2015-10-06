@@ -182,7 +182,8 @@ server_error_handler(handle_server_error) {
             this->m_ssl_context.set_verify_callback(ssl_verify_callback);
             this->m_ssl_context.set_verify_mode(asio::ssl::verify_peer | asio::ssl::verify_fail_if_no_peer_cert);
             // https://www.openssl.org/docs/manmaster/ssl/SSL_CTX_set_session_id_context.html#WARNINGS
-            SSL_CTX_set_session_cache_mode(m_ssl_context.native_handle(), SSL_SESS_CACHE_OFF);
+//            SSL_CTX_set_session_cache_mode(m_ssl_context.native_handle(), SSL_SESS_CACHE_OFF);
+            SSL_CTX_set_session_id_context(m_ssl_context.native_handle(), reinterpret_cast<const unsigned char*>("pion"), 4);
         }
     }
 #endif // PION_HAVE_SSL
