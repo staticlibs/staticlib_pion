@@ -26,6 +26,8 @@
 #include <algorithm>
 #include <cstdint>
 
+#include "openssl/ssl.h"
+
 #include "pion/tribool.hpp"
 #include "pion/http/request_reader.hpp"
 #include "pion/http/httpserver_exception.hpp"
@@ -178,7 +180,9 @@ server_error_handler(handle_server_error) {
         if (!ssl_verify_file.empty()) {
             this->m_ssl_context.load_verify_file(ssl_verify_file);
             this->m_ssl_context.set_verify_callback(ssl_verify_callback);
-            this->m_ssl_context.set_verify_mode(asio::ssl::verify_peer | asio::ssl::verify_fail_if_no_peer_cert);            
+            this->m_ssl_context.set_verify_mode(asio::ssl::verify_peer | asio::ssl::verify_fail_if_no_peer_cert);
+            // https://www.openssl.org/docs/manmaster/ssl/SSL_CTX_set_session_id_context.html#WARNINGS
+            SSL_CTX_set_session_cache_mode(m_ssl_context.native_handle(), SSL_SESS_CACHE_OFF);
         }
     }
 #endif // PION_HAVE_SSL
