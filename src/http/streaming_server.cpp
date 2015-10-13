@@ -26,14 +26,16 @@
 #include <algorithm>
 #include <cstdint>
 
-#include "openssl/ssl.h"
-
 #include "pion/tribool.hpp"
 #include "pion/http/request_reader.hpp"
 #include "pion/http/httpserver_exception.hpp"
 #include "pion/http/filter_chain.hpp"
 #include "pion/http/response_writer.hpp"
 #include "pion/http/streaming_server.hpp"
+
+#ifdef PION_USE_SSL
+#include "openssl/ssl.h"
+#endif
 
 namespace pion {
 namespace http {
