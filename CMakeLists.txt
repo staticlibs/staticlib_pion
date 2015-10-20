@@ -13,13 +13,13 @@
 # limitations under the License.
 
 cmake_minimum_required ( VERSION 2.8.12 )
-include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
 
 # project
 project ( staticlib_httpserver CXX )
 set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7.6 )
 set ( ${PROJECT_NAME}_DESCRIPTION "Embedded async HTTP 1.1 server based on a source code from https://github.com/splunk/pion" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_httpserver )
+include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
 
 # docs
 option ( ${PROJECT_NAME}_ENABLE_DOCS "Generate doxyfile and exit build" OFF )
@@ -34,18 +34,23 @@ option ( ${PROJECT_NAME}_USE_LOG4CPLUS "Use log4cplus lib for logging" OFF )
 option ( ${PROJECT_NAME}_USE_OPENSSL "Use OpenSSL lib for https" OFF )
 
 # dependencies
-set ( ${PROJECT_NAME}_DEP_MODULES "" )
+set ( ${PROJECT_NAME}_DEPS "" )
 if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
-    set ( ${PROJECT_NAME}_DEP_MODULES ${${PROJECT_NAME}_DEP_MODULES} log4cplus )
+    set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} log4cplus )
 endif ( )
 if ( ${PROJECT_NAME}_USE_OPENSSL )
-    set ( ${PROJECT_NAME}_DEP_MODULES ${${PROJECT_NAME}_DEP_MODULES} openssl )
+    set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} openssl )
 endif ( )
-staticlib_pkg_check_modules ( ${PROJECT_NAME}_DEP_PC REQUIRED ${PROJECT_NAME}_DEP_MODULES )
+if ( ${PROJECT_NAME}_USE_LOG4CPLUS OR ${PROJECT_NAME}_USE_OPENSSL )
+    staticlib_httpserver_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
+endif ( )
 
 # library
 file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
-add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} )
+file ( GLOB_RECURSE ${PROJECT_NAME}_HEADERS ${CMAKE_CURRENT_LIST_DIR}/src/*.hpp )
+add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} ${${PROJECT_NAME}_HEADERS} )
+source_group ( "src" FILES ${${PROJECT_NAME}_SRC} )
+source_group ( "include" FILES ${${PROJECT_NAME}_HEADERS} )
 set ( ${PROJECT_NAME}_DEFINITIONS
         -DASIO_STANDALONE
         -DASIO_HAS_STD_CHRONO )
@@ -91,7 +96,7 @@ set ( ${PROJECT_NAME}_INCLUDES
         ${CMAKE_CURRENT_LIST_DIR}/asio/asio/include )
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE 
         ${${PROJECT_NAME}_INCLUDES} 
-        ${${PROJECT_NAME}_DEP_PC_INCLUDE_DIRS} )
+        ${${PROJECT_NAME}_DEPS_PC_INCLUDE_DIRS} )
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_DEFINITIONS} )
 target_compile_options ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_OPTIONS} )
 if ( TARGET external_log4cplus )
@@ -108,13 +113,13 @@ endif ( )
 if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
     set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
 endif ( )
-staticlib_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_INC "-I" ${PROJECT_NAME}_INCLUDES )
-staticlib_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_OTHER "" ${PROJECT_NAME}_CFLAGS_PUBLIC )
+staticlib_httpserver_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_INC "-I" ${PROJECT_NAME}_INCLUDES )
+staticlib_httpserver_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_OTHER "" ${PROJECT_NAME}_CFLAGS_PUBLIC )
 set ( ${PROJECT_NAME}_PC_CFLAGS "${${PROJECT_NAME}_PC_CFLAGS_INC}${${PROJECT_NAME}_PC_CFLAGS_OTHER}" )
 set ( ${PROJECT_NAME}_PC_LIBS "-L${CMAKE_LIBRARY_OUTPUT_DIRECTORY} -l${PROJECT_NAME}" )
 if ( CMAKE_SYSTEM_NAME STREQUAL "Linux" )
     set ( ${PROJECT_NAME}_PC_LIBS "${${PROJECT_NAME}_PC_LIBS} -lpthread" )
 endif ( )
-staticlib_list_to_string ( ${PROJECT_NAME}_PC_REQUIRES "" ${PROJECT_NAME}_DEP_MODULES )
+staticlib_httpserver_list_to_string ( ${PROJECT_NAME}_PC_REQUIRES "" ${PROJECT_NAME}_DEPS )
 configure_file ( ${CMAKE_CURRENT_LIST_DIR}/resources/pkg-config.in 
         ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pkgconfig/${PROJECT_NAME}.pc )

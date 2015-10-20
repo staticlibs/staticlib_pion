@@ -1,4 +1,4 @@
 /build
 /nbproject
-/cmake
-/deps
+/test/cmake
+/test/deps
