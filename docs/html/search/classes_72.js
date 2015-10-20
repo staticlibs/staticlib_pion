@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['reader',['reader',['../classpion_1_1http_1_1reader.html',1,'pion::http']]],
   ['receive_5ferror_5ft',['receive_error_t',['../structpion_1_1http_1_1message_1_1receive__error__t.html',1,'pion::http::message']]],
   ['request',['request',['../classpion_1_1http_1_1request.html',1,'pion::http']]],
   ['request_5freader',['request_reader',['../classpion_1_1http_1_1request__reader.html',1,'pion::http']]],

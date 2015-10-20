@@ -2,9 +2,10 @@ var searchData=
 [
   ['add_5factive_5fuser',['add_active_user',['../classpion_1_1scheduler.html#ad08827f7edf49f97bd5087580e5b4a4f',1,'pion::scheduler']]],
   ['add_5fcookie',['add_cookie',['../classpion_1_1http_1_1message.html#a0bc8756a9db916d5423dad19211de771',1,'pion::http::message']]],
+  ['add_5ffilter',['add_filter',['../classpion_1_1http_1_1streaming__server.html#afce076e6eac42b8e013b39d17a92c897',1,'pion::http::streaming_server']]],
+  ['add_5fhandler',['add_handler',['../classpion_1_1http_1_1streaming__server.html#a88186ccc068a455e6edf7a58b61ddc83',1,'pion::http::streaming_server']]],
   ['add_5fheader',['add_header',['../classpion_1_1http_1_1message.html#a115c9657c4933f034dcf2f4ce7bd55f0',1,'pion::http::message']]],
-  ['add_5fmethod_5fspecific_5fpayload_5fhandler',['add_method_specific_payload_handler',['../classpion_1_1http_1_1streaming__server.html#a6190fb139cb7adb1100bb8c3dab085ad',1,'pion::http::streaming_server']]],
-  ['add_5fmethod_5fspecific_5fresource',['add_method_specific_resource',['../classpion_1_1http_1_1streaming__server.html#a60ce110722a688c6ce519c4659a1a75e',1,'pion::http::streaming_server']]],
+  ['add_5fpayload_5fhandler',['add_payload_handler',['../classpion_1_1http_1_1streaming__server.html#a47af9a413e32f69f08c4cce077f1dc91',1,'pion::http::streaming_server']]],
   ['add_5fquery',['add_query',['../classpion_1_1http_1_1request.html#a4167f9aed250f3f7cb6d935b5787bbba',1,'pion::http::request']]],
   ['add_5fredirect',['add_redirect',['../classpion_1_1http_1_1server.html#a114c86a620ac425e4da9ebacebda3f21',1,'pion::http::server']]],
   ['add_5fresource',['add_resource',['../classpion_1_1http_1_1server.html#a312ad564b529bda2b4ddd12f02fd6d62',1,'pion::http::server']]],

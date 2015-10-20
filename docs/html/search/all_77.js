@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['write',['write',['../classpion_1_1http_1_1message.html#a24be2d365249dc52e799798c014bac3d',1,'pion::http::message::write()'],['../classpion_1_1http_1_1writer.html#a5959a2c14149da804ce62fe52b009596',1,'pion::http::writer::write(const T &amp;data)'],['../classpion_1_1http_1_1writer.html#aaa847dd2364e85844395fc4815a654ca',1,'pion::http::writer::write(std::ostream &amp;(*iomanip)(std::ostream &amp;))'],['../classpion_1_1http_1_1writer.html#a8b0b29526fb03597934145eb9f21e932',1,'pion::http::writer::write(const void *data, size_t length)'],['../classpion_1_1tcp_1_1connection.html#a8c28c3d48160a31bcf80c69ed2199806',1,'pion::tcp::connection::write()']]],
+  ['what',['what',['../classpion_1_1http_1_1httpserver__exception.html#a1e52d656b958e0253e6e7c879613688a',1,'pion::http::httpserver_exception']]],
+  ['write',['write',['../classpion_1_1http_1_1message.html#a24be2d365249dc52e799798c014bac3d',1,'pion::http::message::write()'],['../classpion_1_1http_1_1response__writer.html#a79cc22fbd86f274c436719c83bee4dac',1,'pion::http::response_writer::write(const T &amp;data)'],['../classpion_1_1http_1_1response__writer.html#adc20c748259ffec4c39d678d84cb7fc3',1,'pion::http::response_writer::write(std::ostream &amp;(*iomanip)(std::ostream &amp;))'],['../classpion_1_1http_1_1response__writer.html#aabc1646180c6c26f6d6a4583dc6c4ae8',1,'pion::http::response_writer::write(const void *data, size_t length)'],['../classpion_1_1tcp_1_1connection.html#a8c28c3d48160a31bcf80c69ed2199806',1,'pion::tcp::connection::write()']]],
   ['write_5fbuffers_5ft',['write_buffers_t',['../classpion_1_1http_1_1message.html#aeae6811b57881a402ebd27928bcb87e4',1,'pion::http::message']]],
-  ['write_5fhandler_5ft',['write_handler_t',['../classpion_1_1http_1_1writer.html#a6105ec79a8818b46aaad08b1c1fb3de0',1,'pion::http::writer']]],
-  ['write_5fmove',['write_move',['../classpion_1_1http_1_1writer.html#a551f4e74ae8bbde352f88d24a2f629b1',1,'pion::http::writer']]],
-  ['write_5fno_5fcopy',['write_no_copy',['../classpion_1_1http_1_1writer.html#ad82908f247f558770c6c4d9f58d2a5f2',1,'pion::http::writer::write_no_copy(const std::string &amp;data)'],['../classpion_1_1http_1_1writer.html#a33832b2c08f3696a50614d0ad3c886a9',1,'pion::http::writer::write_no_copy(void *data, size_t length)']]],
-  ['writer',['writer',['../classpion_1_1http_1_1writer.html#a50963534a051029e1645ce6386774192',1,'pion::http::writer']]],
-  ['writer',['writer',['../classpion_1_1http_1_1writer.html',1,'pion::http']]],
-  ['writer_2ehpp',['writer.hpp',['../writer_8hpp.html',1,'']]],
-  ['writer_5fptr',['writer_ptr',['../namespacepion_1_1http.html#a520c87811f176de43fb3702c546015ec',1,'pion::http']]]
+  ['write_5fmove',['write_move',['../classpion_1_1http_1_1response__writer.html#abc8fe111f1576290593e9923698d40c4',1,'pion::http::response_writer']]],
+  ['write_5fno_5fcopy',['write_no_copy',['../classpion_1_1http_1_1response__writer.html#a65338e167c9fa382496b6e6eb32966bb',1,'pion::http::response_writer::write_no_copy(const std::string &amp;data)'],['../classpion_1_1http_1_1response__writer.html#aea37fc3e091a0aec92f5cbf7d55310fc',1,'pion::http::response_writer::write_no_copy(void *data, size_t length)']]],
+  ['writer_5fptr',['writer_ptr',['../namespacepion_1_1http.html#a0611b92b8baf832af1557b74cb844784',1,'pion::http']]]
 ];

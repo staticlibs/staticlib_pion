@@ -4,6 +4,7 @@ var searchData=
   ['error_5fcategory_5ft',['error_category_t',['../classpion_1_1http_1_1parser_1_1error__category__t.html',1,'pion::http::parser']]],
   ['error_5fchunk_5fchar',['ERROR_CHUNK_CHAR',['../classpion_1_1http_1_1parser.html#a056c791c4b2dda0dd4c2037dd941d5d8abfd2136b613537506493c193b5e8caf1',1,'pion::http::parser']]],
   ['error_5fhandler_5ft',['error_handler_t',['../classpion_1_1http_1_1server.html#ab4c097123ff9fc30dc59a7d5179250fc',1,'pion::http::server']]],
+  ['error_5fhandler_5ftype',['error_handler_type',['../classpion_1_1http_1_1streaming__server.html#a83e6608b42b27ae4b40b9df3584b3d44',1,'pion::http::streaming_server']]],
   ['error_5fheader_5fchar',['ERROR_HEADER_CHAR',['../classpion_1_1http_1_1parser.html#a056c791c4b2dda0dd4c2037dd941d5d8ae695d24cfd40b5354d5d3def0c7bbefd',1,'pion::http::parser']]],
   ['error_5fheader_5fname_5fsize',['ERROR_HEADER_NAME_SIZE',['../classpion_1_1http_1_1parser.html#a056c791c4b2dda0dd4c2037dd941d5d8a968de881fea53ccb84f3dc98c380ef53',1,'pion::http::parser']]],
   ['error_5fheader_5fvalue_5fsize',['ERROR_HEADER_VALUE_SIZE',['../classpion_1_1http_1_1parser.html#a056c791c4b2dda0dd4c2037dd941d5d8aa713c03b93494671a51a2097cbb9d1b9',1,'pion::http::parser']]],

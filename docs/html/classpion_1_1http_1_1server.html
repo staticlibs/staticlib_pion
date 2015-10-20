@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.5</span>
+   &#160;<span id="projectnumber">5.0.7.6</span>
    </div>
   </td>
  </tr>
@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -114,7 +114,6 @@ Inheritance diagram for pion::http::server:</div>
   <map id="pion::http::server_map" name="pion::http::server_map">
 <area href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server." alt="pion::tcp::server" shape="rect" coords="0,56,201,80"/>
 <area href="classpion_1_1noncopyable___1_1noncopyable.html" alt="pion::noncopyable_::noncopyable" shape="rect" coords="0,0,201,24"/>
-<area href="classpion_1_1http_1_1streaming__server.html" title="Server extension that supports streaming requests of arbitrary size (file upload)" alt="pion::http::streaming_server" shape="rect" coords="0,168,201,192"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -232,8 +231,8 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:af535985bd6420487068e4ec6f94a4157"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1server.html#af535985bd6420487068e4ec6f94a4157">handle_connection</a> (<a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;tcp_conn)</td></tr>
 <tr class="memdesc:af535985bd6420487068e4ec6f94a4157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a new TCP connection.  <a href="#af535985bd6420487068e4ec6f94a4157"></a><br/></td></tr>
-<tr class="memitem:aea66a95a4d53d70cc1913674b1f06337"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1server.html#aea66a95a4d53d70cc1913674b1f06337">handle_request</a> (<a class="el" href="namespacepion_1_1http.html#a0912a8cafb21954a418b4746fd68c7b3">http::request_ptr</a> http_request_ptr, <a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> tcp_conn, const asio::error_code &amp;ec)</td></tr>
-<tr class="memdesc:aea66a95a4d53d70cc1913674b1f06337"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a new HTTP request.  <a href="#aea66a95a4d53d70cc1913674b1f06337"></a><br/></td></tr>
+<tr class="memitem:af6b1ec4ad7ce9d22ef129a1032b4595f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1server.html#af6b1ec4ad7ce9d22ef129a1032b4595f">handle_request</a> (<a class="el" href="namespacepion_1_1http.html#a0912a8cafb21954a418b4746fd68c7b3">http::request_ptr</a> http_request_ptr, <a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;tcp_conn, const asio::error_code &amp;ec)</td></tr>
+<tr class="memdesc:af6b1ec4ad7ce9d22ef129a1032b4595f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a new HTTP request.  <a href="#af6b1ec4ad7ce9d22ef129a1032b4595f"></a><br/></td></tr>
 <tr class="memitem:a16eabf50a66efc6104c0cea1fce38681"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1server.html#a16eabf50a66efc6104c0cea1fce38681">find_request_handler</a> (const std::string &amp;resource, <a class="el" href="classpion_1_1http_1_1server.html#a2ff5ef6d2de4ad64f407b9839f254594">request_handler_t</a> &amp;request_handler) const </td></tr>
 <tr class="memdesc:a16eabf50a66efc6104c0cea1fce38681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for the appropriate request handler to use for a given resource.  <a href="#a16eabf50a66efc6104c0cea1fce38681"></a><br/></td></tr>
 </table><table class="memberdecls">
@@ -731,8 +730,6 @@ Static Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classpion_1_1tcp_1_1server.html#a4ec9c99b1125d0190ceb7850edb77f66">pion::tcp::server</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classpion_1_1http_1_1streaming__server.html#a33de67925a93efebfd1e1fbcab1cf18a">pion::http::streaming_server</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aeb1ff85c33791d5bc7e1091b0998154a"></a>
@@ -878,7 +875,7 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aea66a95a4d53d70cc1913674b1f06337"></a>
+<a class="anchor" id="af6b1ec4ad7ce9d22ef129a1032b4595f"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -894,7 +891,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;&#160;</td>
           <td class="paramname"><em>tcp_conn</em>, </td>
         </tr>
         <tr>
@@ -925,8 +922,6 @@ Static Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Reimplemented in <a class="el" href="classpion_1_1http_1_1streaming__server.html#a5e3152ed3229c4596fb0d54c705d9741">pion::http::streaming_server</a>.</p>
 
 </div>
 </div>
@@ -1324,7 +1319,7 @@ Static Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 5 2015 19:57:25 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 20 2015 15:19:29 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

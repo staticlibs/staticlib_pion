@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.5</span>
+   &#160;<span id="projectnumber">5.0.7.6</span>
    </div>
   </td>
  </tr>
@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -119,139 +119,136 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define __PION_TCP_SERVER_HEADER__</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;set&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;asio.hpp&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config_8hpp.html">pion/config.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="noncopyable_8hpp.html">pion/noncopyable.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="logger_8hpp.html">pion/logger.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scheduler_8hpp.html">pion/scheduler.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="connection_8hpp.html">pion/tcp/connection.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">namespace </span>pion {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">namespace </span>tcp {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="code" href="classpion_1_1tcp_1_1server.html">   48</a></span>&#160;<span class="keyword">class </span><a class="code" href="config_8hpp.html#aa2a329e7d6d2f201b98d5dfdd1a099c1">PION_API</a> <a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a> : <span class="keyword">private</span> <a class="code" href="classpion_1_1noncopyable___1_1noncopyable.html">pion::noncopyable</a> {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="code" href="classpion_1_1tcp_1_1server.html#a0fd391b946961fca8604b902ddb06f7d">   55</a></span>&#160;    <a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a> <a class="code" href="classpion_1_1tcp_1_1server.html#a0fd391b946961fca8604b902ddb06f7d" title="Primary logging interface used by this class.">m_logger</a>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="classpion_1_1single__service__scheduler.html" title="Uses a single IO service to schedule work.">single_service_scheduler</a> m_default_scheduler;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="classpion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a> &amp; m_active_scheduler;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    asio::ip::tcp::acceptor m_tcp_acceptor;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="code" href="classpion_1_1tcp_1_1server.html#aefec40026129d38f9223466602837296">   78</a></span>&#160;    <a class="code" href="classpion_1_1tcp_1_1connection.html#a8587c35bbf48a119aa82f228e779a30e" title="Dummy data type for SSL configuration context in non-SSL environment.">connection::ssl_context_type</a> <a class="code" href="classpion_1_1tcp_1_1server.html#aefec40026129d38f9223466602837296" title="Context used for SSL configuration.">m_ssl_context</a>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    std::condition_variable m_server_has_stopped;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    std::condition_variable m_no_more_connections;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    std::set&lt;tcp::connection_ptr&gt; m_conn_pool;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    asio::ip::tcp::endpoint m_endpoint;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">bool</span> m_ssl_flag;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">bool</span> m_is_listening;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">mutable</span> std::mutex m_mutex;    </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a>() <a class="code" href="config_8hpp.html#a77fb0055e526a154d47ea64db627d781">PION_NOEXCEPT</a>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">void</span> start();</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">void</span> stop(<span class="keywordtype">bool</span> wait_until_finished = false);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">void</span> join();</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordtype">void</span> set_ssl_key_file(const std::<span class="keywordtype">string</span>&amp; pem_key_file);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    std::<span class="keywordtype">size_t</span> get_connections() const;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> get_port() const;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordtype">void</span> set_port(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> p);</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    asio::ip::address get_address() const;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordtype">void</span> set_address(const asio::ip::address&amp; addr);</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    const asio::ip::tcp::endpoint&amp; get_endpoint() const;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordtype">void</span> set_endpoint(const asio::ip::tcp::endpoint&amp; ep);</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keywordtype">bool</span> get_ssl_flag() const;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    </div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordtype">void</span> set_ssl_flag(<span class="keywordtype">bool</span> b = true);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    </div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <a class="code" href="classpion_1_1tcp_1_1connection.html" title="Represents a single tcp connection.">connection</a>::ssl_context_type&amp; get_ssl_context_type();</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        </div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keywordtype">bool</span> is_listening() const;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    </div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordtype">void</span> set_logger(<a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a> log_ptr);</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    </div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a> get_logger();</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    </div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    asio::ip::tcp::acceptor&amp; get_acceptor();</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    const asio::ip::tcp::acceptor&amp; get_acceptor() const;   </div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        </div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    explicit <a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a>(const <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tcp_port);</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    </div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    explicit <a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a>(const asio::ip::tcp::endpoint&amp; endpoint);</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    explicit <a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a>(<a class="code" href="classpion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a>&amp; sched, const <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tcp_port = 0);</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    </div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a>(<a class="code" href="classpion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a>&amp; sched, const asio::ip::tcp::endpoint&amp; endpoint);</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    </div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    virtual <span class="keywordtype">void</span> handle_connection(tcp::<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">connection_ptr</a>&amp; tcp_conn);</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    </div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    virtual <span class="keywordtype">void</span> before_starting();</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    virtual <span class="keywordtype">void</span> after_stopping();</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    </div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    asio::io_service&amp; get_io_service();</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    </div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <a class="code" href="classpion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a>&amp; get_active_scheduler();</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    </div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;private:</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        </div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keywordtype">void</span> handle_stop_request();</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    </div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keywordtype">void</span> listen();</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordtype">void</span> handle_accept(tcp::<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">connection_ptr</a>&amp; tcp_conn, const asio::error_code&amp; accept_error);</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="keywordtype">void</span> handle_ssl_handshake(tcp::<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">connection_ptr</a>&amp; tcp_conn, const asio::error_code&amp; handshake_error);</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    </div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keywordtype">void</span> finish_connection(tcp::<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">connection_ptr</a> tcp_conn);</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    </div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    std::<span class="keywordtype">size_t</span> prune_connections();</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    </div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;};</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;</div>
-<div class="line"><a name="l00363"></a><span class="lineno"><a class="code" href="namespacepion_1_1tcp.html#a0caa2b80d3148b4b369155f56c0cf1d6">  363</a></span>&#160;typedef std::shared_ptr&lt;<a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a>&gt; <a class="code" href="namespacepion_1_1tcp.html#a0caa2b80d3148b4b369155f56c0cf1d6" title="Data type for a server pointer.">server_ptr</a>;</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;} <span class="comment">// end namespace tcp</span></div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;} <span class="comment">// end namespace pion</span></div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;asio.hpp&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config_8hpp.html">pion/config.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="noncopyable_8hpp.html">pion/noncopyable.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="logger_8hpp.html">pion/logger.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scheduler_8hpp.html">pion/scheduler.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="connection_8hpp.html">pion/tcp/connection.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">namespace </span>pion {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">namespace </span>tcp {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="code" href="classpion_1_1tcp_1_1server.html">   47</a></span>&#160;<span class="keyword">class </span><a class="code" href="config_8hpp.html#aa2a329e7d6d2f201b98d5dfdd1a099c1">PION_API</a> <a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a> : <span class="keyword">private</span> <a class="code" href="classpion_1_1noncopyable___1_1noncopyable.html">pion::noncopyable</a> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="classpion_1_1tcp_1_1server.html#a0fd391b946961fca8604b902ddb06f7d">   54</a></span>&#160;    <a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a> <a class="code" href="classpion_1_1tcp_1_1server.html#a0fd391b946961fca8604b902ddb06f7d" title="Primary logging interface used by this class.">m_logger</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="classpion_1_1single__service__scheduler.html" title="Uses a single IO service to schedule work.">single_service_scheduler</a> m_default_scheduler;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="classpion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a> &amp; m_active_scheduler;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    asio::ip::tcp::acceptor m_tcp_acceptor;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="code" href="classpion_1_1tcp_1_1server.html#aefec40026129d38f9223466602837296">   77</a></span>&#160;    <a class="code" href="classpion_1_1tcp_1_1connection.html#a8587c35bbf48a119aa82f228e779a30e" title="Dummy data type for SSL configuration context in non-SSL environment.">connection::ssl_context_type</a> <a class="code" href="classpion_1_1tcp_1_1server.html#aefec40026129d38f9223466602837296" title="Context used for SSL configuration.">m_ssl_context</a>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    std::condition_variable m_server_has_stopped;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    std::condition_variable m_no_more_connections;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    std::set&lt;tcp::connection_ptr&gt; m_conn_pool;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    asio::ip::tcp::endpoint m_endpoint;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">bool</span> m_ssl_flag;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">bool</span> m_is_listening;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">mutable</span> std::mutex m_mutex;    </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a>() <a class="code" href="config_8hpp.html#a77fb0055e526a154d47ea64db627d781">PION_NOEXCEPT</a>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">void</span> start();</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">void</span> stop(<span class="keywordtype">bool</span> wait_until_finished = false);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">void</span> join();</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordtype">void</span> set_ssl_key_file(const std::<span class="keywordtype">string</span>&amp; pem_key_file);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    std::<span class="keywordtype">size_t</span> get_connections() const;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> get_port() const;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordtype">void</span> set_port(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> p);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    asio::ip::address get_address() const;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordtype">void</span> set_address(const asio::ip::address&amp; addr);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    </div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    const asio::ip::tcp::endpoint&amp; get_endpoint() const;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordtype">void</span> set_endpoint(const asio::ip::tcp::endpoint&amp; ep);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordtype">bool</span> get_ssl_flag() const;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordtype">void</span> set_ssl_flag(<span class="keywordtype">bool</span> b = true);</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <a class="code" href="classpion_1_1tcp_1_1connection.html" title="Represents a single tcp connection.">connection</a>::ssl_context_type&amp; get_ssl_context_type();</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        </div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordtype">bool</span> is_listening() const;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keywordtype">void</span> set_logger(<a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a> log_ptr);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a> get_logger();</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    asio::ip::tcp::acceptor&amp; get_acceptor();</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    const asio::ip::tcp::acceptor&amp; get_acceptor() const;   </div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    explicit <a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a>(const <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tcp_port);</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    </div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    explicit <a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a>(const asio::ip::tcp::endpoint&amp; endpoint);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    explicit <a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a>(<a class="code" href="classpion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a>&amp; sched, const <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tcp_port = 0);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    </div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <a class="code" href="classpion_1_1tcp_1_1server.html" title="Multi-threaded, asynchronous TCP server.">server</a>(<a class="code" href="classpion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a>&amp; sched, const asio::ip::tcp::endpoint&amp; endpoint);</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    </div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    virtual <span class="keywordtype">void</span> handle_connection(tcp::<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">connection_ptr</a>&amp; tcp_conn);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    virtual <span class="keywordtype">void</span> before_starting();</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    virtual <span class="keywordtype">void</span> after_stopping();</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    asio::io_service&amp; get_io_service();</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <a class="code" href="classpion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a>&amp; get_active_scheduler();</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    </div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;private:</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        </div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordtype">void</span> handle_stop_request();</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    </div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keywordtype">void</span> listen();</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordtype">void</span> handle_accept(tcp::<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">connection_ptr</a>&amp; tcp_conn, const asio::error_code&amp; accept_error);</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keywordtype">void</span> handle_ssl_handshake(tcp::<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">connection_ptr</a>&amp; tcp_conn, const asio::error_code&amp; handshake_error);</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keywordtype">void</span> finish_connection(tcp::<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">connection_ptr</a>&amp; tcp_conn);</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    std::<span class="keywordtype">size_t</span> prune_connections();</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    </div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;};</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;} <span class="comment">// end namespace tcp</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;} <span class="comment">// end namespace pion</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 5 2015 19:57:24 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 20 2015 15:19:28 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

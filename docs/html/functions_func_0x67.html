@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.5</span>
+   &#160;<span id="projectnumber">5.0.7.6</span>
    </div>
   </td>
  </tr>
@@ -76,6 +76,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_type.html"><span>Typedefs</span></a></li>
       <li><a href="functions_enum.html"><span>Enumerations</span></a></li>
       <li><a href="functions_eval.html"><span>Enumerator</span></a></li>
+      <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
@@ -110,7 +111,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -145,8 +146,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classpion_1_1http_1_1message.html#a6aba29c309207cfe42776daa57f4cc20">pion::http::message</a>
 </li>
 <li>get_connection()
-: <a class="el" href="classpion_1_1http_1_1reader.html#a2490be986c29c8913b1f9b7033047315">pion::http::reader</a>
-, <a class="el" href="classpion_1_1http_1_1writer.html#a0a71ae7f5a29eb6c0eae1a60e1ae3da0">pion::http::writer</a>
+: <a class="el" href="classpion_1_1http_1_1request__reader.html#a66a374cd93c05f9aedbd3ec19826fbea">pion::http::request_reader</a>
+, <a class="el" href="classpion_1_1http_1_1response__writer.html#a5ced9fd776ada690623a6fbaa4b91af4">pion::http::response_writer</a>
 </li>
 <li>get_connections()
 : <a class="el" href="classpion_1_1tcp_1_1server.html#a598aab878cf589490972580d0d31dbdb">pion::tcp::server</a>
@@ -162,7 +163,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>get_content_length()
 : <a class="el" href="classpion_1_1http_1_1message.html#a92640b26b06210884bd9c36ef56ba737">pion::http::message</a>
-, <a class="el" href="classpion_1_1http_1_1writer.html#ac049cd221873c715530807f9841c3a88">pion::http::writer</a>
+, <a class="el" href="classpion_1_1http_1_1response__writer.html#ad27eb5627451ba1f3c784459716519fe">pion::http::response_writer</a>
 </li>
 <li>get_cookie()
 : <a class="el" href="classpion_1_1http_1_1message.html#a735de2125e0b3c3a8caae7fad757cfc0">pion::http::message</a>
@@ -171,7 +172,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classpion_1_1http_1_1message.html#a2c8c6427dfc05fedfcb60786936b9caf">pion::http::message</a>
 </li>
 <li>get_date_string()
-: <a class="el" href="structpion_1_1http_1_1types.html#a434f7531cc92cbe56d18e615e9e3aad5">pion::http::types</a>
+: <a class="el" href="classpion_1_1http_1_1message.html#a6c72297fc139f8a2760921e8b8ff3804">pion::http::message</a>
 </li>
 <li>get_endpoint()
 : <a class="el" href="classpion_1_1tcp_1_1server.html#a0e94347fd4b5ee154b33c7c7daa266bb">pion::tcp::server</a>
@@ -189,11 +190,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classpion_1_1http_1_1message.html#ad1816dfe471bb00eeeb9e18427c693ea">pion::http::message</a>
 </li>
 <li>get_io_service()
-: <a class="el" href="classpion_1_1tcp_1_1server.html#a4e679a2785053040cb49834717e262e6">pion::tcp::server</a>
-, <a class="el" href="classpion_1_1scheduler.html#ab236cf66d434284487ff1b9d961086c4">pion::scheduler</a>
+: <a class="el" href="classpion_1_1scheduler.html#ab236cf66d434284487ff1b9d961086c4">pion::scheduler</a>
 , <a class="el" href="classpion_1_1single__service__scheduler.html#a539aecbfe64fcca1a0ece55a65c374de">pion::single_service_scheduler</a>
-, <a class="el" href="classpion_1_1one__to__one__scheduler.html#ab3415da5ce8aff1a71544459f86ad208">pion::one_to_one_scheduler</a>
 , <a class="el" href="classpion_1_1tcp_1_1connection.html#a5ef30c8c6cb973b1894b803cda26dd3a">pion::tcp::connection</a>
+, <a class="el" href="classpion_1_1tcp_1_1server.html#a4e679a2785053040cb49834717e262e6">pion::tcp::server</a>
 </li>
 <li>get_keep_alive()
 : <a class="el" href="classpion_1_1tcp_1_1connection.html#a974b4d93413aaa6a8697b0d87cd4db4f">pion::tcp::connection</a>
@@ -203,16 +203,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>get_logger()
 : <a class="el" href="classpion_1_1http_1_1parser.html#a8e0eacbca870aa78e8fb85bb7daf25b7">pion::http::parser</a>
-, <a class="el" href="classpion_1_1http_1_1writer.html#aad486b897cd64a9c8dc1892b65c0da77">pion::http::writer</a>
+, <a class="el" href="classpion_1_1http_1_1response__writer.html#aa635bef1cd89e5d850e68953cdf183e7">pion::http::response_writer</a>
 , <a class="el" href="classpion_1_1scheduler.html#a3fba5b7cb9d99d49394241e386e5f581">pion::scheduler</a>
 , <a class="el" href="classpion_1_1tcp_1_1server.html#a408a54f5fa9ead82546a79ef4384de3d">pion::tcp::server</a>
 </li>
 <li>get_max_content_length()
 : <a class="el" href="classpion_1_1http_1_1parser.html#ad9d41370b9a867ecb79868c254816e16">pion::http::parser</a>
-</li>
-<li>get_message()
-: <a class="el" href="classpion_1_1http_1_1reader.html#a7e4bec6e5a9b214cd80f5f93c65128d9">pion::http::reader</a>
-, <a class="el" href="classpion_1_1http_1_1request__reader.html#af294ed55caf639b9fd5938f2b9001439">pion::http::request_reader</a>
 </li>
 <li>get_method()
 : <a class="el" href="classpion_1_1http_1_1request.html#a97bb3e09c764eb364cdf85a36dab2d5b">pion::http::request</a>
@@ -257,8 +253,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classpion_1_1tcp_1_1connection.html#a2474ed33ee83a9face42cd597d0a5a09">pion::tcp::connection</a>
 </li>
 <li>get_remote_ip()
-: <a class="el" href="classpion_1_1tcp_1_1connection.html#a32a764c03bb89e026e6604b79bee7629">pion::tcp::connection</a>
-, <a class="el" href="classpion_1_1http_1_1message.html#a38f094b014939de3bb0001416922d006">pion::http::message</a>
+: <a class="el" href="classpion_1_1http_1_1message.html#a0ee3359fdc4bec2b2b8aa376e83acbe3">pion::http::message</a>
+, <a class="el" href="classpion_1_1tcp_1_1connection.html#a32a764c03bb89e026e6604b79bee7629">pion::tcp::connection</a>
 </li>
 <li>get_remote_port()
 : <a class="el" href="classpion_1_1tcp_1_1connection.html#a8fe2ec4b319a6e690dc26f85e1fd3ef5">pion::tcp::connection</a>
@@ -283,7 +279,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classpion_1_1tcp_1_1server.html#a13ec419607c895ef8fc78be08702a028">pion::tcp::server</a>
 </li>
 <li>get_ssl_socket()
-: <a class="el" href="classpion_1_1tcp_1_1connection.html#a32328563ee76af05c95ebf6fc0dc0f60">pion::tcp::connection</a>
+: <a class="el" href="classpion_1_1tcp_1_1connection.html#a4d62c7c540d7d8b586ffcbfd4580facd">pion::tcp::connection</a>
 </li>
 <li>get_status()
 : <a class="el" href="classpion_1_1http_1_1message.html#aabb2581095e035b5b274ee88442ad9ed">pion::http::message</a>
@@ -313,7 +309,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 5 2015 19:57:25 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 20 2015 15:19:29 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

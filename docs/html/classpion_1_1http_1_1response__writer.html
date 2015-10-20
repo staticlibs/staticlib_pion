@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.5</span>
+   &#160;<span id="projectnumber">5.0.7.6</span>
    </div>
   </td>
  </tr>
@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -89,16 +89,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classpion_1_1http_1_1response__writer-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">pion::http::response_writer Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Sends HTTP response content asynchronously.  
+<p>Sends HTTP data asynchronously.  
  <a href="classpion_1_1http_1_1response__writer.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="response__writer_8hpp_source.html">pion/http/response_writer.hpp</a>&gt;</code></p>
@@ -108,127 +108,95 @@ Inheritance diagram for pion::http::response_writer:</div>
  <div class="center">
   <img src="classpion_1_1http_1_1response__writer.png" usemap="#pion::http::response_writer_map" alt=""/>
   <map id="pion::http::response_writer_map" name="pion::http::response_writer_map">
-<area href="classpion_1_1http_1_1writer.html" title="Sends HTTP data asynchronously." alt="pion::http::writer" shape="rect" coords="0,56,201,80"/>
 <area href="classpion_1_1noncopyable___1_1noncopyable.html" alt="pion::noncopyable_::noncopyable" shape="rect" coords="0,0,201,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><b>binary_cache_t</b></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to cache binary data included within the payload content. <br/></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5e5e539e05550960f3a2819fe5b13a1a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a5e5e539e05550960f3a2819fe5b13a1a">~response_writer</a> ()</td></tr>
-<tr class="memdesc:a5e5e539e05550960f3a2819fe5b13a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <a href="#a5e5e539e05550960f3a2819fe5b13a1a"></a><br/></td></tr>
 <tr class="memitem:a790fb08ec847c2f07d2c9e973d1ab5de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpion_1_1http_1_1response.html">http::response</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a790fb08ec847c2f07d2c9e973d1ab5de">get_response</a> ()</td></tr>
 <tr class="memdesc:a790fb08ec847c2f07d2c9e973d1ab5de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a non-const reference to the response that will be sent.  <a href="#a790fb08ec847c2f07d2c9e973d1ab5de"></a><br/></td></tr>
-<tr class="inherit_header pub_methods_classpion_1_1http_1_1writer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classpion_1_1http_1_1writer')"><img src="closed.png" alt="-"/>&nbsp;Public Member Functions inherited from <a class="el" href="classpion_1_1http_1_1writer.html">pion::http::writer</a></td></tr>
-<tr class="memitem:ae8a84fa8012af64f2b5c22582f37f0ef inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#ae8a84fa8012af64f2b5c22582f37f0ef">~writer</a> ()</td></tr>
-<tr class="memdesc:ae8a84fa8012af64f2b5c22582f37f0ef inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <a href="#ae8a84fa8012af64f2b5c22582f37f0ef"></a><br/></td></tr>
-<tr class="memitem:a7e8ff3bf8585dffb598163da4d9b2e61 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a7e8ff3bf8585dffb598163da4d9b2e61">clear</a> ()</td></tr>
-<tr class="memdesc:a7e8ff3bf8585dffb598163da4d9b2e61 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears out all of the memory buffers used to cache payload content data.  <a href="#a7e8ff3bf8585dffb598163da4d9b2e61"></a><br/></td></tr>
-<tr class="memitem:a5959a2c14149da804ce62fe52b009596 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a5959a2c14149da804ce62fe52b009596"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a5959a2c14149da804ce62fe52b009596">write</a> (const T &amp;data)</td></tr>
-<tr class="memdesc:a5959a2c14149da804ce62fe52b009596 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write text (non-binary) payload content.  <a href="#a5959a2c14149da804ce62fe52b009596"></a><br/></td></tr>
-<tr class="memitem:aaa847dd2364e85844395fc4815a654ca inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#aaa847dd2364e85844395fc4815a654ca">write</a> (std::ostream &amp;(*iomanip)(std::ostream &amp;))</td></tr>
-<tr class="memdesc:aaa847dd2364e85844395fc4815a654ca inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write using manipulator.  <a href="#aaa847dd2364e85844395fc4815a654ca"></a><br/></td></tr>
-<tr class="memitem:a8b0b29526fb03597934145eb9f21e932 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a8b0b29526fb03597934145eb9f21e932">write</a> (const void *data, size_t length)</td></tr>
-<tr class="memdesc:a8b0b29526fb03597934145eb9f21e932 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write binary payload content.  <a href="#a8b0b29526fb03597934145eb9f21e932"></a><br/></td></tr>
-<tr class="memitem:ad82908f247f558770c6c4d9f58d2a5f2 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#ad82908f247f558770c6c4d9f58d2a5f2">write_no_copy</a> (const std::string &amp;data)</td></tr>
-<tr class="memdesc:ad82908f247f558770c6c4d9f58d2a5f2 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write text (non-binary) payload content; the data written is not copied, and therefore must persist until the message has finished sending.  <a href="#ad82908f247f558770c6c4d9f58d2a5f2"></a><br/></td></tr>
-<tr class="memitem:a33832b2c08f3696a50614d0ad3c886a9 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a33832b2c08f3696a50614d0ad3c886a9">write_no_copy</a> (void *data, size_t length)</td></tr>
-<tr class="memdesc:a33832b2c08f3696a50614d0ad3c886a9 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write binary payload content; the data written is not copied, and therefore must persist until the message has finished sending.  <a href="#a33832b2c08f3696a50614d0ad3c886a9"></a><br/></td></tr>
-<tr class="memitem:a551f4e74ae8bbde352f88d24a2f629b1 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a551f4e74ae8bbde352f88d24a2f629b1">write_move</a> (std::string &amp;&amp;data)</td></tr>
-<tr class="memdesc:a551f4e74ae8bbde352f88d24a2f629b1 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write binary payload content using r-value string.  <a href="#a551f4e74ae8bbde352f88d24a2f629b1"></a><br/></td></tr>
-<tr class="memitem:a7006fcecf7331b415aba55af46dc2c07 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a7006fcecf7331b415aba55af46dc2c07">send</a> ()</td></tr>
-<tr class="memdesc:a7006fcecf7331b415aba55af46dc2c07 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered as a single HTTP message (without chunking).  <a href="#a7006fcecf7331b415aba55af46dc2c07"></a><br/></td></tr>
-<tr class="memitem:a7f258348ea914b41591c30a226b9d6a5 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memTemplParams" colspan="2">template&lt;typename SendHandler &gt; </td></tr>
-<tr class="memitem:a7f258348ea914b41591c30a226b9d6a5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a7f258348ea914b41591c30a226b9d6a5">send</a> (SendHandler send_handler)</td></tr>
-<tr class="memdesc:a7f258348ea914b41591c30a226b9d6a5 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered as a single HTTP message (without chunking).  <a href="#a7f258348ea914b41591c30a226b9d6a5"></a><br/></td></tr>
-<tr class="memitem:ab84706ce61c770b5d38e42f0da52b678 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memTemplParams" colspan="2">template&lt;typename SendHandler &gt; </td></tr>
-<tr class="memitem:ab84706ce61c770b5d38e42f0da52b678"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#ab84706ce61c770b5d38e42f0da52b678">send_chunk</a> (SendHandler send_handler)</td></tr>
-<tr class="memdesc:ab84706ce61c770b5d38e42f0da52b678 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered as a single HTTP chunk.  <a href="#ab84706ce61c770b5d38e42f0da52b678"></a><br/></td></tr>
-<tr class="memitem:a1001000ab1c48af56e1de38d0b92e22f inherit pub_methods_classpion_1_1http_1_1writer"><td class="memTemplParams" colspan="2">template&lt;typename SendHandler &gt; </td></tr>
-<tr class="memitem:a1001000ab1c48af56e1de38d0b92e22f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a1001000ab1c48af56e1de38d0b92e22f">send_final_chunk</a> (SendHandler send_handler)</td></tr>
-<tr class="memdesc:a1001000ab1c48af56e1de38d0b92e22f inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered (if any) and also sends the final HTTP chunk.  <a href="#a1001000ab1c48af56e1de38d0b92e22f"></a><br/></td></tr>
-<tr class="memitem:a6b20320be64c1f94860d96e94cd6568a inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a6b20320be64c1f94860d96e94cd6568a">send_final_chunk</a> ()</td></tr>
-<tr class="memdesc:a6b20320be64c1f94860d96e94cd6568a inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered (if any) and also sends the final HTTP chunk.  <a href="#a6b20320be64c1f94860d96e94cd6568a"></a><br/></td></tr>
-<tr class="memitem:a0a71ae7f5a29eb6c0eae1a60e1ae3da0 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a0a71ae7f5a29eb6c0eae1a60e1ae3da0">get_connection</a> ()</td></tr>
-<tr class="memdesc:a0a71ae7f5a29eb6c0eae1a60e1ae3da0 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a shared pointer to the TCP connection.  <a href="#a0a71ae7f5a29eb6c0eae1a60e1ae3da0"></a><br/></td></tr>
-<tr class="memitem:ac049cd221873c715530807f9841c3a88 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#ac049cd221873c715530807f9841c3a88">get_content_length</a> () const </td></tr>
-<tr class="memdesc:ac049cd221873c715530807f9841c3a88 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the length of the payload content (in bytes)  <a href="#ac049cd221873c715530807f9841c3a88"></a><br/></td></tr>
-<tr class="memitem:ae2d856d25a3e4859d3f5f86d4d269364 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#ae2d856d25a3e4859d3f5f86d4d269364">supports_chunked_messages</a> (bool b)</td></tr>
-<tr class="memdesc:ae2d856d25a3e4859d3f5f86d4d269364 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether or not the client supports chunked messages.  <a href="#ae2d856d25a3e4859d3f5f86d4d269364"></a><br/></td></tr>
-<tr class="memitem:ab7a31c41238ac7524eb8a2cc461a153b inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#ab7a31c41238ac7524eb8a2cc461a153b">supports_chunked_messages</a> () const </td></tr>
-<tr class="memdesc:ab7a31c41238ac7524eb8a2cc461a153b inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the client supports chunked messages.  <a href="#ab7a31c41238ac7524eb8a2cc461a153b"></a><br/></td></tr>
-<tr class="memitem:a7a9f95f0cc0ccf1d091a94d5ba5ecebc inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a7a9f95f0cc0ccf1d091a94d5ba5ecebc">sending_chunked_message</a> () const </td></tr>
-<tr class="memdesc:a7a9f95f0cc0ccf1d091a94d5ba5ecebc inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if we are sending a chunked message to the client.  <a href="#a7a9f95f0cc0ccf1d091a94d5ba5ecebc"></a><br/></td></tr>
-<tr class="memitem:a25f0a6f75c22eb95d619ae600c0f2121 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a25f0a6f75c22eb95d619ae600c0f2121">set_logger</a> (<a class="el" href="structpion_1_1logger.html">logger</a> log_ptr)</td></tr>
-<tr class="memdesc:a25f0a6f75c22eb95d619ae600c0f2121 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the logger to be used.  <a href="#a25f0a6f75c22eb95d619ae600c0f2121"></a><br/></td></tr>
-<tr class="memitem:aad486b897cd64a9c8dc1892b65c0da77 inherit pub_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpion_1_1logger.html">logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#aad486b897cd64a9c8dc1892b65c0da77">get_logger</a> ()</td></tr>
-<tr class="memdesc:aad486b897cd64a9c8dc1892b65c0da77 inherit pub_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the logger currently in use.  <a href="#aad486b897cd64a9c8dc1892b65c0da77"></a><br/></td></tr>
+<tr class="memitem:aefc291d5a1d7f48e86ceedcda180ecf2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#aefc291d5a1d7f48e86ceedcda180ecf2">clear</a> ()</td></tr>
+<tr class="memdesc:aefc291d5a1d7f48e86ceedcda180ecf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears out all of the memory buffers used to cache payload content data.  <a href="#aefc291d5a1d7f48e86ceedcda180ecf2"></a><br/></td></tr>
+<tr class="memitem:a79cc22fbd86f274c436719c83bee4dac"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a79cc22fbd86f274c436719c83bee4dac"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a79cc22fbd86f274c436719c83bee4dac">write</a> (const T &amp;data)</td></tr>
+<tr class="memdesc:a79cc22fbd86f274c436719c83bee4dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write text (non-binary) payload content.  <a href="#a79cc22fbd86f274c436719c83bee4dac"></a><br/></td></tr>
+<tr class="memitem:adc20c748259ffec4c39d678d84cb7fc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#adc20c748259ffec4c39d678d84cb7fc3">write</a> (std::ostream &amp;(*iomanip)(std::ostream &amp;))</td></tr>
+<tr class="memdesc:adc20c748259ffec4c39d678d84cb7fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write using manipulator.  <a href="#adc20c748259ffec4c39d678d84cb7fc3"></a><br/></td></tr>
+<tr class="memitem:aabc1646180c6c26f6d6a4583dc6c4ae8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#aabc1646180c6c26f6d6a4583dc6c4ae8">write</a> (const void *data, size_t length)</td></tr>
+<tr class="memdesc:aabc1646180c6c26f6d6a4583dc6c4ae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write binary payload content.  <a href="#aabc1646180c6c26f6d6a4583dc6c4ae8"></a><br/></td></tr>
+<tr class="memitem:a65338e167c9fa382496b6e6eb32966bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a65338e167c9fa382496b6e6eb32966bb">write_no_copy</a> (const std::string &amp;data)</td></tr>
+<tr class="memdesc:a65338e167c9fa382496b6e6eb32966bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write text (non-binary) payload content; the data written is not copied, and therefore must persist until the message has finished sending.  <a href="#a65338e167c9fa382496b6e6eb32966bb"></a><br/></td></tr>
+<tr class="memitem:aea37fc3e091a0aec92f5cbf7d55310fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#aea37fc3e091a0aec92f5cbf7d55310fc">write_no_copy</a> (void *data, size_t length)</td></tr>
+<tr class="memdesc:aea37fc3e091a0aec92f5cbf7d55310fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write binary payload content; the data written is not copied, and therefore must persist until the message has finished sending.  <a href="#aea37fc3e091a0aec92f5cbf7d55310fc"></a><br/></td></tr>
+<tr class="memitem:abc8fe111f1576290593e9923698d40c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#abc8fe111f1576290593e9923698d40c4">write_move</a> (std::string &amp;&amp;data)</td></tr>
+<tr class="memdesc:abc8fe111f1576290593e9923698d40c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write binary payload content using r-value string.  <a href="#abc8fe111f1576290593e9923698d40c4"></a><br/></td></tr>
+<tr class="memitem:a6144008bba8282903d1ce2c35fd4ea0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a6144008bba8282903d1ce2c35fd4ea0b">send</a> ()</td></tr>
+<tr class="memdesc:a6144008bba8282903d1ce2c35fd4ea0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered as a single HTTP message (without chunking).  <a href="#a6144008bba8282903d1ce2c35fd4ea0b"></a><br/></td></tr>
+<tr class="memitem:a6c10fb9d609676e14fe412ae1d2eccc1"><td class="memTemplParams" colspan="2">template&lt;typename SendHandler &gt; </td></tr>
+<tr class="memitem:a6c10fb9d609676e14fe412ae1d2eccc1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a6c10fb9d609676e14fe412ae1d2eccc1">send</a> (SendHandler send_handler)</td></tr>
+<tr class="memdesc:a6c10fb9d609676e14fe412ae1d2eccc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered as a single HTTP message (without chunking).  <a href="#a6c10fb9d609676e14fe412ae1d2eccc1"></a><br/></td></tr>
+<tr class="memitem:a544869eca079b8ea647fbe8367a5e8fc"><td class="memTemplParams" colspan="2">template&lt;typename SendHandler &gt; </td></tr>
+<tr class="memitem:a544869eca079b8ea647fbe8367a5e8fc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a544869eca079b8ea647fbe8367a5e8fc">send_chunk</a> (SendHandler send_handler)</td></tr>
+<tr class="memdesc:a544869eca079b8ea647fbe8367a5e8fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered as a single HTTP chunk.  <a href="#a544869eca079b8ea647fbe8367a5e8fc"></a><br/></td></tr>
+<tr class="memitem:ac57802692df644e4666830d8d22b4b01"><td class="memTemplParams" colspan="2">template&lt;typename SendHandler &gt; </td></tr>
+<tr class="memitem:ac57802692df644e4666830d8d22b4b01"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#ac57802692df644e4666830d8d22b4b01">send_final_chunk</a> (SendHandler send_handler)</td></tr>
+<tr class="memdesc:ac57802692df644e4666830d8d22b4b01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered (if any) and also sends the final HTTP chunk.  <a href="#ac57802692df644e4666830d8d22b4b01"></a><br/></td></tr>
+<tr class="memitem:a50a787902485514bd7f1e33e4b636c0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a50a787902485514bd7f1e33e4b636c0a">send_final_chunk</a> ()</td></tr>
+<tr class="memdesc:a50a787902485514bd7f1e33e4b636c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered (if any) and also sends the final HTTP chunk.  <a href="#a50a787902485514bd7f1e33e4b636c0a"></a><br/></td></tr>
+<tr class="memitem:a5ced9fd776ada690623a6fbaa4b91af4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a5ced9fd776ada690623a6fbaa4b91af4">get_connection</a> ()</td></tr>
+<tr class="memdesc:a5ced9fd776ada690623a6fbaa4b91af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a shared pointer to the TCP connection.  <a href="#a5ced9fd776ada690623a6fbaa4b91af4"></a><br/></td></tr>
+<tr class="memitem:ad27eb5627451ba1f3c784459716519fe"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#ad27eb5627451ba1f3c784459716519fe">get_content_length</a> () const </td></tr>
+<tr class="memdesc:ad27eb5627451ba1f3c784459716519fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the length of the payload content (in bytes)  <a href="#ad27eb5627451ba1f3c784459716519fe"></a><br/></td></tr>
+<tr class="memitem:a48d06adfe14ccd05f64e1a6f368150b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a48d06adfe14ccd05f64e1a6f368150b1">supports_chunked_messages</a> (bool b)</td></tr>
+<tr class="memdesc:a48d06adfe14ccd05f64e1a6f368150b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether or not the client supports chunked messages.  <a href="#a48d06adfe14ccd05f64e1a6f368150b1"></a><br/></td></tr>
+<tr class="memitem:a0d1ef98e9324c5ba6a586e93872c62b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a0d1ef98e9324c5ba6a586e93872c62b4">supports_chunked_messages</a> () const </td></tr>
+<tr class="memdesc:a0d1ef98e9324c5ba6a586e93872c62b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the client supports chunked messages.  <a href="#a0d1ef98e9324c5ba6a586e93872c62b4"></a><br/></td></tr>
+<tr class="memitem:a6854a03ac21c2365cd23f99b018cef7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a6854a03ac21c2365cd23f99b018cef7f">sending_chunked_message</a> () const </td></tr>
+<tr class="memdesc:a6854a03ac21c2365cd23f99b018cef7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if we are sending a chunked message to the client.  <a href="#a6854a03ac21c2365cd23f99b018cef7f"></a><br/></td></tr>
+<tr class="memitem:ad372af5522e69007b3d0811858cab111"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#ad372af5522e69007b3d0811858cab111">set_logger</a> (<a class="el" href="structpion_1_1logger.html">logger</a> log_ptr)</td></tr>
+<tr class="memdesc:ad372af5522e69007b3d0811858cab111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the logger to be used.  <a href="#ad372af5522e69007b3d0811858cab111"></a><br/></td></tr>
+<tr class="memitem:aa635bef1cd89e5d850e68953cdf183e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpion_1_1logger.html">logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#aa635bef1cd89e5d850e68953cdf183e7">get_logger</a> ()</td></tr>
+<tr class="memdesc:aa635bef1cd89e5d850e68953cdf183e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the logger currently in use.  <a href="#aa635bef1cd89e5d850e68953cdf183e7"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a93b041c1d19eb56dace7530300166481"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr<br class="typebreak"/>
-&lt; <a class="el" href="classpion_1_1http_1_1response__writer.html">response_writer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a93b041c1d19eb56dace7530300166481">create</a> (<a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;tcp_conn, const <a class="el" href="classpion_1_1http_1_1request.html">http::request</a> &amp;http_request, <a class="el" href="classpion_1_1http_1_1writer.html#a50ff2797ab33952925bc57b3002e1b65">finished_handler_t</a> handler=<a class="el" href="classpion_1_1http_1_1writer.html#a50ff2797ab33952925bc57b3002e1b65">finished_handler_t</a>())</td></tr>
-<tr class="memdesc:a93b041c1d19eb56dace7530300166481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new <a class="el" href="classpion_1_1http_1_1response__writer.html" title="Sends HTTP response content asynchronously.">response_writer</a> objects.  <a href="#a93b041c1d19eb56dace7530300166481"></a><br/></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a7203e168df87def5ad07cdfa8bae16af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a7203e168df87def5ad07cdfa8bae16af">response_writer</a> (<a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;tcp_conn, <a class="el" href="namespacepion_1_1http.html#ae601ab0deed0ae423d84b2e79604700a">http::response_ptr</a> &amp;http_response_ptr, <a class="el" href="classpion_1_1http_1_1writer.html#a50ff2797ab33952925bc57b3002e1b65">finished_handler_t</a> handler)</td></tr>
-<tr class="memdesc:a7203e168df87def5ad07cdfa8bae16af"><td class="mdescLeft">&#160;</td><td class="mdescRight">protected constructor restricts creation of objects (use <a class="el" href="classpion_1_1http_1_1response__writer.html#a93b041c1d19eb56dace7530300166481" title="Creates new response_writer objects.">create()</a>)  <a href="#a7203e168df87def5ad07cdfa8bae16af"></a><br/></td></tr>
-<tr class="memitem:abd234468a489ea3efe1e9280256efddd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#abd234468a489ea3efe1e9280256efddd">response_writer</a> (<a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;tcp_conn, const <a class="el" href="classpion_1_1http_1_1request.html">http::request</a> &amp;http_request, <a class="el" href="classpion_1_1http_1_1writer.html#a50ff2797ab33952925bc57b3002e1b65">finished_handler_t</a> handler)</td></tr>
-<tr class="memdesc:abd234468a489ea3efe1e9280256efddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor restricts creation of objects (use <a class="el" href="classpion_1_1http_1_1response__writer.html#a93b041c1d19eb56dace7530300166481" title="Creates new response_writer objects.">create()</a>)  <a href="#abd234468a489ea3efe1e9280256efddd"></a><br/></td></tr>
-<tr class="memitem:a5f18282e90307978ca33be6c4e4f7bf9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a5f18282e90307978ca33be6c4e4f7bf9">prepare_buffers_for_send</a> (<a class="el" href="classpion_1_1http_1_1message.html#aeae6811b57881a402ebd27928bcb87e4">http::message::write_buffers_t</a> &amp;write_buffers)</td></tr>
-<tr class="memdesc:a5f18282e90307978ca33be6c4e4f7bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a vector of write buffers with the HTTP message information.  <a href="#a5f18282e90307978ca33be6c4e4f7bf9"></a><br/></td></tr>
-<tr class="memitem:a11d35649f1ce28f8074dec3837d433d7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classpion_1_1http_1_1writer.html#a6105ec79a8818b46aaad08b1c1fb3de0">write_handler_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a11d35649f1ce28f8074dec3837d433d7">bind_to_write_handler</a> ()</td></tr>
-<tr class="memdesc:a11d35649f1ce28f8074dec3837d433d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a function bound to <a href="http::writer::handle_write()">http::writer::handle_write()</a>  <a href="#a11d35649f1ce28f8074dec3837d433d7"></a><br/></td></tr>
-<tr class="memitem:a54321a005c29c42f10bea0d92e25a843"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a54321a005c29c42f10bea0d92e25a843">handle_write</a> (const asio::error_code &amp;write_error, std::size_t bytes_written)</td></tr>
-<tr class="memdesc:a54321a005c29c42f10bea0d92e25a843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called after the response is sent.  <a href="#a54321a005c29c42f10bea0d92e25a843"></a><br/></td></tr>
-<tr class="inherit_header pro_methods_classpion_1_1http_1_1writer"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classpion_1_1http_1_1writer')"><img src="closed.png" alt="-"/>&nbsp;Protected Member Functions inherited from <a class="el" href="classpion_1_1http_1_1writer.html">pion::http::writer</a></td></tr>
-<tr class="memitem:a50963534a051029e1645ce6386774192 inherit pro_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a50963534a051029e1645ce6386774192">writer</a> (<a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;tcp_conn, <a class="el" href="classpion_1_1http_1_1writer.html#a50ff2797ab33952925bc57b3002e1b65">finished_handler_t</a> handler)</td></tr>
-<tr class="memdesc:a50963534a051029e1645ce6386774192 inherit pro_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor: only derived classes may create objects.  <a href="#a50963534a051029e1645ce6386774192"></a><br/></td></tr>
-<tr class="memitem:a6a38ce945a8d69e3f5a9c3ec52485f68 inherit pro_methods_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a6a38ce945a8d69e3f5a9c3ec52485f68">finished_writing</a> (const asio::error_code &amp;ec)</td></tr>
-<tr class="memdesc:a6a38ce945a8d69e3f5a9c3ec52485f68 inherit pro_methods_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">called after we have finished sending the HTTP message  <a href="#a6a38ce945a8d69e3f5a9c3ec52485f68"></a><br/></td></tr>
+<tr class="memitem:a2904e3a71f1622059d6e8ac2d601fb47"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr<br class="typebreak"/>
+&lt; <a class="el" href="classpion_1_1http_1_1response__writer.html">response_writer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a2904e3a71f1622059d6e8ac2d601fb47">create</a> (<a class="el" href="namespacepion_1_1http.html#a0912a8cafb21954a418b4746fd68c7b3">http::request_ptr</a> &amp;http_request, <a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;tcp_conn)</td></tr>
+<tr class="memdesc:a2904e3a71f1622059d6e8ac2d601fb47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new <a class="el" href="classpion_1_1http_1_1response__writer.html" title="Sends HTTP data asynchronously.">response_writer</a> objects.  <a href="#a2904e3a71f1622059d6e8ac2d601fb47"></a><br/></td></tr>
+<tr class="memitem:a567cc4dafd9859a2e20caaf0b8e8890a"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr<br class="typebreak"/>
+&lt; <a class="el" href="classpion_1_1http_1_1response__writer.html">response_writer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html#a567cc4dafd9859a2e20caaf0b8e8890a">create</a> (<a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;tcp_conn, const <a class="el" href="classpion_1_1http_1_1request.html">http::request</a> &amp;http_request, finished_handler_t handler)</td></tr>
+<tr class="memdesc:a567cc4dafd9859a2e20caaf0b8e8890a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new <a class="el" href="classpion_1_1http_1_1response__writer.html" title="Sends HTTP data asynchronously.">response_writer</a> objects.  <a href="#a567cc4dafd9859a2e20caaf0b8e8890a"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_types_classpion_1_1http_1_1writer"><td colspan="2" onclick="javascript:toggleInherit('pro_types_classpion_1_1http_1_1writer')"><img src="closed.png" alt="-"/>&nbsp;Protected Types inherited from <a class="el" href="classpion_1_1http_1_1writer.html">pion::http::writer</a></td></tr>
-<tr class="memitem:a50ff2797ab33952925bc57b3002e1b65 inherit pro_types_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(const <br class="typebreak"/>
-asio::error_code &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a50ff2797ab33952925bc57b3002e1b65">finished_handler_t</a></td></tr>
-<tr class="memdesc:a50ff2797ab33952925bc57b3002e1b65 inherit pro_types_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function called after the HTTP message has been sent.  <a href="#a50ff2797ab33952925bc57b3002e1b65"></a><br/></td></tr>
-<tr class="memitem:a6105ec79a8818b46aaad08b1c1fb3de0 inherit pro_types_classpion_1_1http_1_1writer"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(const <br class="typebreak"/>
-asio::error_code <br class="typebreak"/>
-&amp;, std::size_t)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1writer.html#a6105ec79a8818b46aaad08b1c1fb3de0">write_handler_t</a></td></tr>
-<tr class="memdesc:a6105ec79a8818b46aaad08b1c1fb3de0 inherit pro_types_classpion_1_1http_1_1writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for a function that handles write operations.  <a href="#a6105ec79a8818b46aaad08b1c1fb3de0"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Sends HTTP response content asynchronously. </p>
-</div><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a5e5e539e05550960f3a2819fe5b13a1a"></a>
+<div class="textblock"><p>Sends HTTP data asynchronously. </p>
+</div><h2>Member Function Documentation</h2>
+<a class="anchor" id="aefc291d5a1d7f48e86ceedcda180ecf2"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual pion::http::response_writer::~response_writer </td>
+          <td class="memname">void pion::http::response_writer::clear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Default destructor. </p>
+<p>Clears out all of the memory buffers used to cache payload content data. </p>
 
 </div>
 </div>
-<a class="anchor" id="a7203e168df87def5ad07cdfa8bae16af"></a>
+<a class="anchor" id="a2904e3a71f1622059d6e8ac2d601fb47"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -236,72 +204,16 @@ asio::error_code <br class="typebreak"/>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">pion::http::response_writer::response_writer </td>
+          <td class="memname">static std::shared_ptr&lt;<a class="el" href="classpion_1_1http_1_1response__writer.html">response_writer</a>&gt; pion::http::response_writer::create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>tcp_conn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespacepion_1_1http.html#ae601ab0deed0ae423d84b2e79604700a">http::response_ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>http_response_ptr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classpion_1_1http_1_1writer.html#a50ff2797ab33952925bc57b3002e1b65">finished_handler_t</a>&#160;</td>
-          <td class="paramname"><em>handler</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>protected constructor restricts creation of objects (use <a class="el" href="classpion_1_1http_1_1response__writer.html#a93b041c1d19eb56dace7530300166481" title="Creates new response_writer objects.">create()</a>) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tcp_conn</td><td>TCP connection used to send the response </td></tr>
-    <tr><td class="paramname">http_response</td><td>pointer to the response that will be sent </td></tr>
-    <tr><td class="paramname">handler</td><td>function called after the request has been sent </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="abd234468a489ea3efe1e9280256efddd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">pion::http::response_writer::response_writer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>tcp_conn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classpion_1_1http_1_1request.html">http::request</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacepion_1_1http.html#a0912a8cafb21954a418b4746fd68c7b3">http::request_ptr</a> &amp;&#160;</td>
           <td class="paramname"><em>http_request</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpion_1_1http_1_1writer.html#a50ff2797ab33952925bc57b3002e1b65">finished_handler_t</a>&#160;</td>
-          <td class="paramname"><em>handler</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>tcp_conn</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -311,53 +223,24 @@ asio::error_code <br class="typebreak"/>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Protected constructor restricts creation of objects (use <a class="el" href="classpion_1_1http_1_1response__writer.html#a93b041c1d19eb56dace7530300166481" title="Creates new response_writer objects.">create()</a>) </p>
+<p>Creates new <a class="el" href="classpion_1_1http_1_1response__writer.html" title="Sends HTTP data asynchronously.">response_writer</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tcp_conn</td><td>TCP connection used to send the response </td></tr>
-    <tr><td class="paramname">http_request</td><td>the request we are responding to </td></tr>
-    <tr><td class="paramname">handler</td><td>function called after the request has been sent </td></tr>
+    <tr><td class="paramname">http_request</td><td>the request we are responding to</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;response_writer&gt; shared pointer to the new writer object that was created </dd></dl>
 
 </div>
 </div>
-<h2>Member Function Documentation</h2>
-<a class="anchor" id="a11d35649f1ce28f8074dec3837d433d7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classpion_1_1http_1_1writer.html#a6105ec79a8818b46aaad08b1c1fb3de0">write_handler_t</a> pion::http::response_writer::bind_to_write_handler </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a function bound to <a href="http::writer::handle_write()">http::writer::handle_write()</a> </p>
-<dl class="section return"><dt>Returns</dt><dd>function bound to <a href="http::writer::handle_write()">http::writer::handle_write()</a> </dd></dl>
-
-<p>Implements <a class="el" href="classpion_1_1http_1_1writer.html#a7868448251b0bb37d1485a1e7f80c1b5">pion::http::writer</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a93b041c1d19eb56dace7530300166481"></a>
+<a class="anchor" id="a567cc4dafd9859a2e20caaf0b8e8890a"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -379,8 +262,8 @@ asio::error_code <br class="typebreak"/>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classpion_1_1http_1_1writer.html#a50ff2797ab33952925bc57b3002e1b65">finished_handler_t</a>&#160;</td>
-          <td class="paramname"><em>handler</em> = <code><a class="el" href="classpion_1_1http_1_1writer.html#a50ff2797ab33952925bc57b3002e1b65">finished_handler_t</a>()</code>&#160;</td>
+          <td class="paramtype">finished_handler_t&#160;</td>
+          <td class="paramname"><em>handler</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -395,7 +278,7 @@ asio::error_code <br class="typebreak"/>
 </table>
 </div><div class="memdoc">
 
-<p>Creates new <a class="el" href="classpion_1_1http_1_1response__writer.html" title="Sends HTTP response content asynchronously.">response_writer</a> objects. </p>
+<p>Creates new <a class="el" href="classpion_1_1http_1_1response__writer.html" title="Sends HTTP data asynchronously.">response_writer</a> objects. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tcp_conn</td><td>TCP connection used to send the response </td></tr>
@@ -405,6 +288,60 @@ asio::error_code <br class="typebreak"/>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;response_writer&gt; shared pointer to the new writer object that was created </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5ced9fd776ada690623a6fbaa4b91af4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c">tcp::connection_ptr</a>&amp; pion::http::response_writer::get_connection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a shared pointer to the TCP connection. </p>
+<dl class="section return"><dt>Returns</dt><dd>shared pointer to the TCP connection </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad27eb5627451ba1f3c784459716519fe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t pion::http::response_writer::get_content_length </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the length of the payload content (in bytes) </p>
+<dl class="section return"><dt>Returns</dt><dd>length of the payload content (in bytes) </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa635bef1cd89e5d850e68953cdf183e7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpion_1_1logger.html">logger</a> pion::http::response_writer::get_logger </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the logger currently in use. </p>
+<dl class="section return"><dt>Returns</dt><dd>logger currently in use </dd></dl>
 
 </div>
 </div>
@@ -426,24 +363,304 @@ asio::error_code <br class="typebreak"/>
 
 </div>
 </div>
-<a class="anchor" id="a54321a005c29c42f10bea0d92e25a843"></a>
+<a class="anchor" id="a6144008bba8282903d1ce2c35fd4ea0b"></a>
 <div class="memitem">
 <div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pion::http::response_writer::send </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sends all data buffered as a single HTTP message (without chunking). </p>
+<p>Following a call to this function, it is not thread safe to use your reference to the writer object. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6c10fb9d609676e14fe412ae1d2eccc1"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SendHandler &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void pion::http::response_writer::handle_write </td>
+          <td class="memname">void pion::http::response_writer::send </td>
           <td>(</td>
-          <td class="paramtype">const asio::error_code &amp;&#160;</td>
-          <td class="paramname"><em>write_error</em>, </td>
+          <td class="paramtype">SendHandler&#160;</td>
+          <td class="paramname"><em>send_handler</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sends all data buffered as a single HTTP message (without chunking). </p>
+<p>Following a call to this function, it is not thread safe to use your reference to the writer object until the send_handler has been called.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">send_handler</td><td>function that is called after the message has been sent to the client. Your callback function must end the connection by calling connection::finish(). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a544869eca079b8ea647fbe8367a5e8fc"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SendHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pion::http::response_writer::send_chunk </td>
+          <td>(</td>
+          <td class="paramtype">SendHandler&#160;</td>
+          <td class="paramname"><em>send_handler</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sends all data buffered as a single HTTP chunk. </p>
+<p>Following a call to this function, it is not thread safe to use your reference to the writer object until the send_handler has been called.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">send_handler</td><td>function that is called after the chunk has been sent to the client. Your callback function must end by calling one of <a class="el" href="classpion_1_1http_1_1response__writer.html#a544869eca079b8ea647fbe8367a5e8fc" title="Sends all data buffered as a single HTTP chunk.">send_chunk()</a> or <a class="el" href="classpion_1_1http_1_1response__writer.html#a50a787902485514bd7f1e33e4b636c0a" title="Sends all data buffered (if any) and also sends the final HTTP chunk.">send_final_chunk()</a>. Also, be sure to <a class="el" href="classpion_1_1http_1_1response__writer.html#aefc291d5a1d7f48e86ceedcda180ecf2" title="Clears out all of the memory buffers used to cache payload content data.">clear()</a> the writer before writing data to it. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac57802692df644e4666830d8d22b4b01"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SendHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pion::http::response_writer::send_final_chunk </td>
+          <td>(</td>
+          <td class="paramtype">SendHandler&#160;</td>
+          <td class="paramname"><em>send_handler</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sends all data buffered (if any) and also sends the final HTTP chunk. </p>
+<p>This function (either overloaded version) must be called following any calls to <a class="el" href="classpion_1_1http_1_1response__writer.html#a544869eca079b8ea647fbe8367a5e8fc" title="Sends all data buffered as a single HTTP chunk.">send_chunk()</a>. Following a call to this function, it is not thread safe to use your reference to the writer object until the send_handler has been called.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">send_handler</td><td>function that is called after the message has been sent to the client. Your callback function must end the connection by calling connection::finish(). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a50a787902485514bd7f1e33e4b636c0a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pion::http::response_writer::send_final_chunk </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sends all data buffered (if any) and also sends the final HTTP chunk. </p>
+<p>This function (either overloaded version) must be called following any calls to <a class="el" href="classpion_1_1http_1_1response__writer.html#a544869eca079b8ea647fbe8367a5e8fc" title="Sends all data buffered as a single HTTP chunk.">send_chunk()</a>. Following a call to this function, it is not thread safe to use your reference to the writer object. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6854a03ac21c2365cd23f99b018cef7f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pion::http::response_writer::sending_chunked_message </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if we are sending a chunked message to the client. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if we are sending a chunked message to the client </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad372af5522e69007b3d0811858cab111"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pion::http::response_writer::set_logger </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpion_1_1logger.html">logger</a>&#160;</td>
+          <td class="paramname"><em>log_ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the logger to be used. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">log_ptr</td><td>logger to be used </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a48d06adfe14ccd05f64e1a6f368150b1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pion::http::response_writer::supports_chunked_messages </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets whether or not the client supports chunked messages. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b</td><td>whether or not the client supports chunked messages </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a0d1ef98e9324c5ba6a586e93872c62b4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pion::http::response_writer::supports_chunked_messages </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if the client supports chunked messages. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the client supports chunked messages </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a79cc22fbd86f274c436719c83bee4dac"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pion::http::response_writer::write </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write text (non-binary) payload content. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>the data to append to the payload content </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="adc20c748259ffec4c39d678d84cb7fc3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pion::http::response_writer::write </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;(*)(std::ostream &amp;)&#160;</td>
+          <td class="paramname"><em>iomanip</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write using manipulator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iomanip</td><td>manipulator </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aabc1646180c6c26f6d6a4583dc6c4ae8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pion::http::response_writer::write </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>bytes_written</em>&#160;</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -451,57 +668,100 @@ asio::error_code <br class="typebreak"/>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Called after the response is sent. </p>
+<p>Write binary payload content. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">write_error</td><td>error status from the last write operation </td></tr>
-    <tr><td class="paramname">bytes_written</td><td>number of bytes sent by the last write operation </td></tr>
+    <tr><td class="paramname">data</td><td>points to the binary data to append to the payload content </td></tr>
+    <tr><td class="paramname">length</td><td>the length, in bytes, of the binary data </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classpion_1_1http_1_1writer.html#adf6290bef2502e12dec55149e00a868b">pion::http::writer</a>.</p>
-
 </div>
 </div>
-<a class="anchor" id="a5f18282e90307978ca33be6c4e4f7bf9"></a>
+<a class="anchor" id="abc8fe111f1576290593e9923698d40c4"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void pion::http::response_writer::prepare_buffers_for_send </td>
+          <td class="memname">void pion::http::response_writer::write_move </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classpion_1_1http_1_1message.html#aeae6811b57881a402ebd27928bcb87e4">http::message::write_buffers_t</a> &amp;&#160;</td>
-          <td class="paramname"><em>write_buffers</em></td><td>)</td>
+          <td class="paramtype">std::string &amp;&amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Initializes a vector of write buffers with the HTTP message information. </p>
+<p>Write binary payload content using r-value string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">write_buffers</td><td>vector of write buffers to initialize </td></tr>
+    <tr><td class="paramname">data</td><td>points to the binary data to append to the payload content </td></tr>
+    <tr><td class="paramname">length</td><td>the length, in bytes, of the binary data </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classpion_1_1http_1_1writer.html#ab7a583948d97402772dc1fe2e87bcf66">pion::http::writer</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a65338e167c9fa382496b6e6eb32966bb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pion::http::response_writer::write_no_copy </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write text (non-binary) payload content; the data written is not copied, and therefore must persist until the message has finished sending. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>the data to append to the payload content </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aea37fc3e091a0aec92f5cbf7d55310fc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pion::http::response_writer::write_no_copy </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write binary payload content; the data written is not copied, and therefore must persist until the message has finished sending. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>points to the binary data to append to the payload content </td></tr>
+    <tr><td class="paramname">length</td><td>the length, in bytes, of the binary data </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -511,7 +771,7 @@ asio::error_code <br class="typebreak"/>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 5 2015 19:57:25 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 20 2015 15:19:29 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

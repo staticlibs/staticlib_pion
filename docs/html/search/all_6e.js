@@ -5,5 +5,6 @@ var searchData=
   ['noncopyable',['noncopyable',['../classpion_1_1noncopyable___1_1noncopyable.html#a74ad7df46f450b28b350e75990123dc9',1,'pion::noncopyable_::noncopyable::noncopyable()'],['../classpion_1_1noncopyable___1_1noncopyable.html#af48042a17fe1e6dc88ff25149b15c242',1,'pion::noncopyable_::noncopyable::noncopyable(const noncopyable &amp;)'],['../namespacepion.html#a53868e59392c6d48f894f42bedaf8c3a',1,'pion::noncopyable()']]],
   ['noncopyable',['noncopyable',['../classpion_1_1noncopyable___1_1noncopyable.html',1,'pion::noncopyable_']]],
   ['noncopyable_2ehpp',['noncopyable.hpp',['../noncopyable_8hpp.html',1,'']]],
+  ['not_5ffound_5fhandler',['not_found_handler',['../classpion_1_1http_1_1streaming__server.html#af23b05dbfffe6104fe886c12e434c2ce',1,'pion::http::streaming_server']]],
   ['nsec_5fin_5fsecond',['NSEC_IN_SECOND',['../classpion_1_1scheduler.html#a2e99f493eb6bf977a52d2eb508591090',1,'pion::scheduler']]]
 ];

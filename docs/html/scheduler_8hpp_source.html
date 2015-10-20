@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.5</span>
+   &#160;<span id="projectnumber">5.0.7.6</span>
    </div>
   </td>
  </tr>
@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -222,7 +222,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    </div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;</div>
-<div class="line"><a name="l00271"></a><span class="lineno"><a class="code" href="classpion_1_1multi__thread__scheduler.html#aaf40aac80a36e9b655b285d2188e65df">  271</a></span>&#160;    std::vector&lt;std::shared_ptr&lt;std::thread&gt;&gt; <a class="code" href="classpion_1_1multi__thread__scheduler.html#aaf40aac80a36e9b655b285d2188e65df" title="Pool of threads used to perform work.">m_thread_pool</a>;</div>
+<div class="line"><a name="l00271"></a><span class="lineno"><a class="code" href="classpion_1_1multi__thread__scheduler.html#a9e72e30b7def9ba78aed28b1e18e293c">  271</a></span>&#160;    std::vector&lt;std::unique_ptr&lt;std::thread&gt;&gt; <a class="code" href="classpion_1_1multi__thread__scheduler.html#a9e72e30b7def9ba78aed28b1e18e293c" title="Pool of threads used to perform work.">m_thread_pool</a>;</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    </div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    </div>
@@ -264,51 +264,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    </div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> finish_services();</div>
 <div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;};</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    </div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;</div>
-<div class="line"><a name="l00359"></a><span class="lineno"><a class="code" href="classpion_1_1one__to__one__scheduler.html">  359</a></span>&#160;<span class="keyword">class </span><a class="code" href="config_8hpp.html#aa2a329e7d6d2f201b98d5dfdd1a099c1">PION_API</a> <a class="code" href="classpion_1_1one__to__one__scheduler.html" title="Uses a single IO service for each thread.">one_to_one_scheduler</a> : <span class="keyword">public</span> <a class="code" href="classpion_1_1multi__thread__scheduler.html" title="Uses a pool of threads to perform work.">multi_thread_scheduler</a> {</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;</div>
-<div class="line"><a name="l00366"></a><span class="lineno"><a class="code" href="structpion_1_1one__to__one__scheduler_1_1service__pair__type.html">  366</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structpion_1_1one__to__one__scheduler_1_1service__pair__type.html" title="Struct for a pair object where first is an IO service and second is a deadline timer.">service_pair_type</a> {</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        </div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        <a class="code" href="structpion_1_1one__to__one__scheduler_1_1service__pair__type.html" title="Struct for a pair object where first is an IO service and second is a deadline timer.">service_pair_type</a>();</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        </div>
-<div class="line"><a name="l00376"></a><span class="lineno"><a class="code" href="structpion_1_1one__to__one__scheduler_1_1service__pair__type.html#a43186e2a4e91725c7a60c879f86ba173">  376</a></span>&#160;        asio::io_service <a class="code" href="structpion_1_1one__to__one__scheduler_1_1service__pair__type.html#a43186e2a4e91725c7a60c879f86ba173" title="IO service.">first</a>;</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;        </div>
-<div class="line"><a name="l00381"></a><span class="lineno"><a class="code" href="structpion_1_1one__to__one__scheduler_1_1service__pair__type.html#a6077d870327fef1bff208b337755bad1">  381</a></span>&#160;        asio::steady_timer <a class="code" href="structpion_1_1one__to__one__scheduler_1_1service__pair__type.html#a6077d870327fef1bff208b337755bad1" title="Deadline timer for the IO service.">second</a>;</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    };</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    </div>
-<div class="line"><a name="l00387"></a><span class="lineno"><a class="code" href="classpion_1_1one__to__one__scheduler.html#a5d49556d9936fab08936a1cad0d4f81d">  387</a></span>&#160;    std::vector&lt;std::shared_ptr&lt;service_pair_type&gt;&gt; <a class="code" href="classpion_1_1one__to__one__scheduler.html#a5d49556d9936fab08936a1cad0d4f81d" title="Pool of IO services used to schedule work.">m_service_pool</a>;</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;</div>
-<div class="line"><a name="l00392"></a><span class="lineno"><a class="code" href="classpion_1_1one__to__one__scheduler.html#af955342ca0a521af8742b95100038cc0">  392</a></span>&#160;    uint32_t <a class="code" href="classpion_1_1one__to__one__scheduler.html#af955342ca0a521af8742b95100038cc0" title="The next service to use for scheduling work.">m_next_service</a>;</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    </div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    </div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <a class="code" href="classpion_1_1one__to__one__scheduler.html" title="Uses a single IO service for each thread.">one_to_one_scheduler</a>();</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    </div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classpion_1_1one__to__one__scheduler.html" title="Uses a single IO service for each thread.">one_to_one_scheduler</a>();</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    </div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <span class="keyword">virtual</span> asio::io_service&amp; get_io_service();</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    </div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keyword">virtual</span> asio::io_service&amp; get_io_service(uint32_t n);</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> startup();    </div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    </div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    </div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> stop_services();</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        </div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> finish_services();</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;};</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    </div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;} <span class="comment">// end namespace pion</span></div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;<span class="preprocessor">#endif // __PION_SCHEDULER_HEADER__</span></div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;} <span class="comment">// end namespace pion</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="preprocessor">#endif // __PION_SCHEDULER_HEADER__</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 5 2015 19:57:24 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 20 2015 15:19:28 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

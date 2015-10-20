@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.5</span>
+   &#160;<span id="projectnumber">5.0.7.6</span>
    </div>
   </td>
  </tr>
@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -95,13 +95,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">response_writer.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;functional&gt;</code><br/>
+<div class="textblock"><code>#include &lt;vector&gt;</code><br/>
+<code>#include &lt;list&gt;</code><br/>
+<code>#include &lt;string&gt;</code><br/>
 <code>#include &lt;memory&gt;</code><br/>
+<code>#include &lt;functional&gt;</code><br/>
 <code>#include &quot;asio.hpp&quot;</code><br/>
 <code>#include &quot;<a class="el" href="noncopyable_8hpp_source.html">pion/noncopyable.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="config_8hpp_source.html">pion/config.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="writer_8hpp_source.html">pion/http/writer.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="request_8hpp_source.html">pion/http/request.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="logger_8hpp_source.html">pion/logger.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="connection_8hpp_source.html">pion/tcp/connection.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="message_8hpp_source.html">pion/http/message.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="response_8hpp_source.html">pion/http/response.hpp</a>&quot;</code><br/>
 </div>
 <p><a href="response__writer_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -109,7 +113,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr class="heading"><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1http_1_1response__writer.html">pion::http::response_writer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends HTTP response content asynchronously.  <a href="classpion_1_1http_1_1response__writer.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends HTTP data asynchronously.  <a href="classpion_1_1http_1_1response__writer.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><b>pion::http::response_writer::binary_cache_t</b></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to cache binary data included within the payload content. <br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -118,22 +124,22 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:af85259fd4f7d6663ef62321e66394947"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr<br class="typebreak"/>
-&lt; response_writer &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepion_1_1http.html#af85259fd4f7d6663ef62321e66394947">pion::http::response_writer_ptr</a></td></tr>
-<tr class="memdesc:af85259fd4f7d6663ef62321e66394947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for a <a class="el" href="classpion_1_1http_1_1response__writer.html" title="Sends HTTP response content asynchronously.">response_writer</a> pointer.  <a href="#af85259fd4f7d6663ef62321e66394947"></a><br/></td></tr>
+<tr class="memitem:a0611b92b8baf832af1557b74cb844784"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr<br class="typebreak"/>
+&lt; response_writer &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepion_1_1http.html#a0611b92b8baf832af1557b74cb844784">pion::http::writer_ptr</a></td></tr>
+<tr class="memdesc:a0611b92b8baf832af1557b74cb844784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for a <a class="el" href="classpion_1_1http_1_1response__writer.html" title="Sends HTTP data asynchronously.">response_writer</a> pointer.  <a href="#a0611b92b8baf832af1557b74cb844784"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac7d19b3180626fe21ab19eab46be37bd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac7d19b3180626fe21ab19eab46be37bd"><td class="memTemplItemLeft" align="right" valign="top">const response_writer_ptr &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepion_1_1http.html#ac7d19b3180626fe21ab19eab46be37bd">pion::http::operator&lt;&lt;</a> (const response_writer_ptr &amp;writer, const T &amp;data)</td></tr>
-<tr class="memdesc:ac7d19b3180626fe21ab19eab46be37bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override operator shift for convenience.  <a href="#ac7d19b3180626fe21ab19eab46be37bd"></a><br/></td></tr>
-<tr class="memitem:a7c5d092c7456e0802179ef0e4e4a598a"><td class="memItemLeft" align="right" valign="top">response_writer_ptr &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepion_1_1http.html#a7c5d092c7456e0802179ef0e4e4a598a">pion::http::operator&lt;&lt;</a> (response_writer_ptr &amp;writer, std::ostream &amp;(*iomanip)(std::ostream &amp;))</td></tr>
-<tr class="memdesc:a7c5d092c7456e0802179ef0e4e4a598a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override operator shift for convenience.  <a href="#a7c5d092c7456e0802179ef0e4e4a598a"></a><br/></td></tr>
+<tr class="memitem:a6bc0a9d86fa7e6e096b306f2e5d3f96e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6bc0a9d86fa7e6e096b306f2e5d3f96e"><td class="memTemplItemLeft" align="right" valign="top">const writer_ptr &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacepion_1_1http.html#a6bc0a9d86fa7e6e096b306f2e5d3f96e">pion::http::operator&lt;&lt;</a> (const writer_ptr &amp;writer, const T &amp;data)</td></tr>
+<tr class="memdesc:a6bc0a9d86fa7e6e096b306f2e5d3f96e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override operator shift for convenience.  <a href="#a6bc0a9d86fa7e6e096b306f2e5d3f96e"></a><br/></td></tr>
+<tr class="memitem:a3295cdc8e4104af9a1a48ef1184fcb4e"><td class="memItemLeft" align="right" valign="top">const writer_ptr &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepion_1_1http.html#a3295cdc8e4104af9a1a48ef1184fcb4e">pion::http::operator&lt;&lt;</a> (const writer_ptr &amp;writer, std::ostream &amp;(*iomanip)(std::ostream &amp;))</td></tr>
+<tr class="memdesc:a3295cdc8e4104af9a1a48ef1184fcb4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override operator shift for convenience.  <a href="#a3295cdc8e4104af9a1a48ef1184fcb4e"></a><br/></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 5 2015 19:57:24 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 20 2015 15:19:28 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

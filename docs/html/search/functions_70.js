@@ -13,7 +13,7 @@ var searchData=
   ['parse_5furl_5fencoded',['parse_url_encoded',['../classpion_1_1http_1_1parser.html#ac1e76427f2ecdcf4be82ce3c5995538e',1,'pion::http::parser::parse_url_encoded(std::unordered_multimap&lt; std::string, std::string, algorithm::ihash, algorithm::iequal_to &gt; &amp;dict, const char *ptr, const std::size_t len)'],['../classpion_1_1http_1_1parser.html#ae4bf7e853a52a55e46b4f805012767ac',1,'pion::http::parser::parse_url_encoded(std::unordered_multimap&lt; std::string, std::string, algorithm::ihash, algorithm::iequal_to &gt; &amp;dict, const std::string &amp;query)']]],
   ['parser',['parser',['../classpion_1_1http_1_1parser.html#a33fe9cfd9bcae8868b817332d38a9261',1,'pion::http::parser']]],
   ['post',['post',['../classpion_1_1scheduler.html#a4455ab13d671284845bda5bdb4e06045',1,'pion::scheduler']]],
-  ['prepare_5fbuffers_5ffor_5fsend',['prepare_buffers_for_send',['../classpion_1_1http_1_1message.html#a668182618dfc614ddbe6c1af26552568',1,'pion::http::message::prepare_buffers_for_send()'],['../classpion_1_1http_1_1response__writer.html#a5f18282e90307978ca33be6c4e4f7bf9',1,'pion::http::response_writer::prepare_buffers_for_send()'],['../classpion_1_1http_1_1writer.html#ab7a583948d97402772dc1fe2e87bcf66',1,'pion::http::writer::prepare_buffers_for_send()']]],
+  ['prepare_5fbuffers_5ffor_5fsend',['prepare_buffers_for_send',['../classpion_1_1http_1_1message.html#a668182618dfc614ddbe6c1af26552568',1,'pion::http::message']]],
   ['prepare_5fheaders_5ffor_5fsend',['prepare_headers_for_send',['../classpion_1_1http_1_1message.html#a1addd3b90c3b048c895f9723371f329f',1,'pion::http::message']]],
   ['process_5fservice_5fwork',['process_service_work',['../classpion_1_1scheduler.html#a82e174c555ac245522d52da4cf81ee55',1,'pion::scheduler']]]
 ];
