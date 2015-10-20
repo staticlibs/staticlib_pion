@@ -26,7 +26,7 @@ To build the library on Windows using Visual Studio 2013 Express run the followi
 Visual Studio development command prompt 
 (`C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\Shortcuts\VS2013 x86 Native Tools Command Prompt`):
 
-    git clone https://github.com/staticlibs/staticlib_httpserver.git
+    git clone --recursive https://github.com/staticlibs/staticlib_httpserver.git
     cd staticlib_httpserver
     mkdir build
     cd build
@@ -52,17 +52,16 @@ For other platforms - see notes about `pkg-config` below. To configure build wit
 
 [pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config/) utility is used for dependency management.
 For Windows users ready-to-use binary version of `pkg-config` can be obtained from [tools_windows_pkgconfig](https://github.com/staticlibs/tools_windows_pkgconfig) repository.
+
 See [PkgConfig](https://github.com/staticlibs/wiki/wiki/PkgConfig) for Staticlibs-specific details about `pkg-config` usage.
 
-See also [StaticlibsDependencies](https://github.com/staticlibs/wiki/wiki/StaticlibsDependencies) for more 
-details about dependency management with Staticlibs.
-
-To build this project with `OpenSSL` and `log4cplus` support manually you can use 
+To build this project with `OpenSSL` and `log4cplus` support manually on
+platforms without corresponding system libraries you can use 
 [external_openssl](https://github.com/staticlibs/external_openssl) and 
 [external_log4cplus](https://github.com/staticlibs/external_log4cplus) projects: 
 
  * checkout both dependent projects (using `--recursive` flag)
- * configure these projects using the same output directory:
+ * configure these projects using the same output directory (see their readmes for specific build instructions):
 
 Run:
 
@@ -72,6 +71,9 @@ Run:
 
  * build all the dependent projects
  * configure this projects using the same output directory and build it
+
+See [StaticlibsDependencies](https://github.com/staticlibs/wiki/wiki/StaticlibsDependencies) for more 
+details about dependency management with Staticlibs.
 
 License information
 -------------------
