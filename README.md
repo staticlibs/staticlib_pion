@@ -13,7 +13,7 @@ project ([description](http://sourceforge.net/p/pion/mailman/message/32075645/))
 
 All changes were done with an attempt to stay as close as possible to the original Pion implementation.
 
-Link to [API documentation](http://staticlibs.github.io/staticlib_httpserver/docs/html/namespacepion_1_1http.html).
+Link to the [API documentation](http://staticlibs.github.io/staticlib_httpserver/docs/html/namespacepion_1_1http.html).
 
 Usage [example](https://github.com/staticlibs/staticlib_httpserver/blob/master/test/pion_test.cpp).
 
@@ -82,6 +82,12 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2015-12-03**
+
+ * version 5.0.7.7
+ * deplibs cache support
+ * minor cmake cleanup
 
 **2015-10-20**
 

@@ -23,20 +23,19 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include <set>
-#include <memory>
+#include "pion/tcp/server.hpp"
+
 #include <functional>
-#include <mutex>
-#include <condition_variable>
+#include <memory>
 
 #include "asio.hpp"
 
 #include "pion/config.hpp"
-#include "pion/noncopyable.hpp"
 #include "pion/logger.hpp"
+#include "pion/noncopyable.hpp"
 #include "pion/scheduler.hpp"
 #include "pion/tcp/connection.hpp"
-#include "pion/tcp/server.hpp"
+
 
 namespace pion {
 namespace tcp {

@@ -23,10 +23,8 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include "asio.hpp"
-
-#include "pion/http/message.hpp"
 #include "pion/http/response_writer.hpp"
+
 
 namespace pion {
 namespace http {

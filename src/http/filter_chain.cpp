@@ -5,11 +5,8 @@
  * Created on September 22, 2015, 11:26 AM
  */
 
-#include <atomic>
-#include <vector>
-#include <cstdint>
-
 #include "pion/http/filter_chain.hpp"
+
 
 namespace pion {
 namespace http {

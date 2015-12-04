@@ -7,13 +7,13 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
+#include "pion/scheduler.hpp"
+
 #include <chrono>
 #include <cstdint>
 
-#include "pion/scheduler.hpp"
 
 namespace pion {
-
 
 // members of scheduler
     

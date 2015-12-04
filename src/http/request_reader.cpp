@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-#include <functional>
-#include <memory>
+#include "pion/http/request_reader.hpp"
 
 #include "asio.hpp"
 
-#include "pion/config.hpp"
-#include "pion/http/request.hpp"
-#include "pion/http/request_reader.hpp"
 
 namespace pion {
 namespace http {

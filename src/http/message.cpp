@@ -23,12 +23,11 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
+#include "pion/http/message.hpp"
+
 #include <iostream>
 #include <algorithm>
-#include <unordered_map>
 #include <mutex>
-#include <regex>
-#include <string>
 #include <cassert>
 #include <cstdlib>
 #include <cstdio>
@@ -40,7 +39,7 @@
 #include "pion/http/request.hpp"
 #include "pion/http/parser.hpp"
 #include "pion/tcp/connection.hpp"
-#include "pion/http/message.hpp"
+
 
 namespace pion {
 namespace http {

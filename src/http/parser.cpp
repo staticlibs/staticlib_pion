@@ -23,20 +23,16 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include <string>
-#include <unordered_map>
+#include "pion/http/parser.hpp"
+
 #include <regex>
+#include <unordered_map>
 #include <cstdlib>
 #include <cstring>
 #include <cassert>
-#include <cstdint>
 
-#include "pion/tribool.hpp"
-#include "pion/algorithm.hpp"
-#include "pion/http/parser.hpp"
 #include "pion/http/request.hpp"
 #include "pion/http/response.hpp"
-#include "pion/http/message.hpp"
 
 namespace pion {
 namespace http {

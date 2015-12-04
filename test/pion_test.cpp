@@ -43,7 +43,6 @@
 #include <log4cplus/consoleappender.h>
 #endif // PION_USE_LOG4CPLUS
 
-namespace { // anonymous
 
 const uint16_t SECONDS_TO_RUN = 1;
 const uint16_t TCP_PORT = 8080;
@@ -175,9 +174,7 @@ void logging_filter2(pion::http::request_ptr& request, pion::tcp::connection_ptr
     chain.do_filter(request, conn);
 }
 
-} // namespace
-
-int main() {
+void test_pion() {
 #ifdef PION_USE_LOG4CPLUS
     #ifdef PION_USE_LOG4CPLUS_STATIC
     // need initialization with static log4cplus
@@ -202,6 +199,14 @@ int main() {
     web_server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});
     web_server.stop(true);
-    
+}
+
+int main() {
+    try {
+        test_pion();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
     return 0;
 }

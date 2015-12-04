@@ -23,15 +23,16 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
+#include "pion/algorithm.hpp"
+
 #include <algorithm>
-#include <stdexcept>
 #include <locale>
+#include <stdexcept>
 #include <cstdint>
 #include <climits>
 #include <cerrno>
 #include <cctype>
 
-#include "pion/algorithm.hpp"
 
 namespace pion {
 namespace algorithm {

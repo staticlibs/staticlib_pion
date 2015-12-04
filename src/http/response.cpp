@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-#include <memory>
-
-#include "pion/config.hpp"
-#include "pion/algorithm.hpp"
-#include "pion/http/message.hpp"
-#include "pion/http/request.hpp"
 #include "pion/http/response.hpp"
+
+#include "pion/algorithm.hpp"
+
 
 namespace pion {
 namespace http {

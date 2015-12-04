@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-#include <string>
-#include <functional>
-
-#include "pion/config.hpp"
-#include "pion/http/parser.hpp"
-#include "pion/http/message.hpp"
 #include "pion/http/request.hpp"
+
 
 namespace pion {
 namespace http {

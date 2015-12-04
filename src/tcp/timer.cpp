@@ -23,10 +23,8 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-
-#include <functional>
-
 #include "pion/tcp/timer.hpp"
+
 
 namespace pion {
 namespace tcp {

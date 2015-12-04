@@ -21,17 +21,17 @@
  * Created on March 23, 2015, 8:19 PM
  */
 
+#include "pion/http/streaming_server.hpp"
+
 #include <functional>
 #include <stdexcept>
 #include <algorithm>
-#include <cstdint>
 
-#include "pion/tribool.hpp"
 #include "pion/http/request_reader.hpp"
 #include "pion/http/httpserver_exception.hpp"
 #include "pion/http/filter_chain.hpp"
 #include "pion/http/response_writer.hpp"
-#include "pion/http/streaming_server.hpp"
+
 
 #ifdef PION_USE_SSL
 #include "openssl/ssl.h"

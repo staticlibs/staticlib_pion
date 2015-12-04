@@ -23,24 +23,14 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include <map>
-#include <string>
-#include <functional>
+#include "pion/http/server.hpp"
+
 #include <memory>
-#include <mutex>
-#include <cstdint>
 
-#include "asio.hpp"
-
-#include "pion/config.hpp"
 #include "pion/algorithm.hpp"
-#include "pion/tcp/server.hpp"
-#include "pion/tcp/connection.hpp"
-#include "pion/http/request.hpp"
-#include "pion/http/parser.hpp"
 #include "pion/http/request_reader.hpp"
 #include "pion/http/response_writer.hpp"
-#include "pion/http/server.hpp"
+
 
 namespace pion {
 namespace http {

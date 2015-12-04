@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-#include <string>
-#include <memory>
-#include <array>
-#include <functional>
+#include "pion/tcp/connection.hpp"
 
 #include "asio.hpp"
 #ifdef PION_HAVE_SSL
@@ -28,10 +25,6 @@
 #include "asio/ssl.hpp"
 #endif
 
-#include "pion/noncopyable.hpp"
-#include "pion/config.hpp"
-#include "pion/algorithm.hpp"
-#include "pion/tcp/connection.hpp"
 
 namespace pion {
 namespace tcp {

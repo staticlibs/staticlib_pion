@@ -21,7 +21,7 @@ const uint16_t SECONDS_TO_RUN = 1;
 const uint16_t TCP_PORT = 8443;
 #endif // PION_HAVE_SSL
 
-int main() {
+void test_https() {
 #ifdef PION_HAVE_SSL
     auto certpath = "../test/certificates/server/localhost.pem";
     auto pwdcb = [](std::size_t, asio::ssl::context::password_purpose) {
@@ -43,6 +43,15 @@ int main() {
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});
     server.stop(true);
 #endif // PION_HAVE_SSL
+}
+
+int main() {
+    try {
+        test_https();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
     return 0;
 }
 
