@@ -26,12 +26,13 @@
 #ifndef __PION_HTTP_REQUEST_HEADER__
 #define __PION_HTTP_REQUEST_HEADER__
 
-#include <string>
 #include <functional>
+#include <string>
 
 #include "pion/config.hpp"
-#include "pion/http/parser.hpp"
 #include "pion/http/message.hpp"
+#include "pion/http/parser.hpp"
+
 
 namespace pion {
 namespace http {

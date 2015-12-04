@@ -26,19 +26,20 @@
 #ifndef __PION_HTTP_MESSAGE_HEADER__
 #define __PION_HTTP_MESSAGE_HEADER__
 
-#include <string>
-#include <unordered_map>
 #include <iosfwd>
-#include <vector>
 #include <memory>
 #include <regex>
+#include <string>
+#include <unordered_map>
+#include <vector>
 #include <cstring>
 #include <cstdint>
 
 #include "asio.hpp"
 
-#include "pion/config.hpp"
 #include "pion/algorithm.hpp"
+#include "pion/config.hpp"
+
 
 namespace pion {
 	

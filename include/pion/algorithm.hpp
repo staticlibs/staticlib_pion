@@ -26,10 +26,10 @@
 #ifndef __PION_ALGORITHM_HEADER__
 #define __PION_ALGORITHM_HEADER__
 
-#include <string>
 #include <functional>
-#include <cstdint>
 #include <sstream>
+#include <string>
+#include <cstdint>
 
 #include "pion/config.hpp"
 

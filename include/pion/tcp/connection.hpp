@@ -26,10 +26,10 @@
 #ifndef __PION_TCP_CONNECTION_HEADER__
 #define __PION_TCP_CONNECTION_HEADER__
 
-#include <string>
-#include <memory>
 #include <array>
 #include <functional>
+#include <memory>
+#include <string>
 
 #include "asio.hpp"
 #ifdef PION_HAVE_SSL
@@ -40,9 +40,10 @@
     #include "asio/ssl.hpp"
 #endif
 
-#include "pion/noncopyable.hpp"
-#include "pion/config.hpp"
 #include "pion/algorithm.hpp"
+#include "pion/config.hpp"
+#include "pion/noncopyable.hpp"
+
 
 namespace pion {
 namespace tcp {

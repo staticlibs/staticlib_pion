@@ -28,6 +28,17 @@ if ( ${PROJECT_NAME}_ENABLE_DOCS )
     return ( )
 endif ( )
 
+# check deplibs cache
+if ( STATICLIB_USE_DEPLIBS_CACHE )
+    set ( ${PROJECT_NAME}_CACHED_LIB_PATH ${STATICLIB_DEPLIBS_CACHE_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}${PROJECT_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX} )
+    if ( EXISTS ${${PROJECT_NAME}_CACHED_LIB_PATH} )
+        add_library( ${PROJECT_NAME} STATIC IMPORTED GLOBAL )
+        set_target_properties( ${PROJECT_NAME} PROPERTIES IMPORTED_LOCATION ${${PROJECT_NAME}_CACHED_LIB_PATH} )
+        message ( STATUS "Using cached library: [${${PROJECT_NAME}_CACHED_LIB_PATH}]" )
+        return ( )
+    endif ( )
+endif ( )
+
 # options, use SET ( OPTNAME ON CACHE BOOL "") in parent to override
 option ( ${PROJECT_NAME}_DISABLE_LOGGING "Disable logging to std out and err" OFF )
 option ( ${PROJECT_NAME}_USE_LOG4CPLUS "Use log4cplus lib for logging" OFF )

@@ -26,20 +26,21 @@
 #ifndef __PION_HTTP_RESPONSE_WRITER_HEADER__
 #define __PION_HTTP_RESPONSE_WRITER_HEADER__
 
-#include <vector>
-#include <list>
-#include <string>
-#include <memory>
 #include <functional>
+#include <list>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "asio.hpp"
 
-#include "pion/noncopyable.hpp"
 #include "pion/config.hpp"
 #include "pion/logger.hpp"
-#include "pion/tcp/connection.hpp"
+#include "pion/noncopyable.hpp"
 #include "pion/http/message.hpp"
 #include "pion/http/response.hpp"
+#include "pion/tcp/connection.hpp"
+
 
 namespace pion {
 namespace http {

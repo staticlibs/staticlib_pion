@@ -28,8 +28,8 @@
 
 #include <memory>
 
-#include "pion/config.hpp"
 #include "pion/algorithm.hpp"
+#include "pion/config.hpp"
 #include "pion/http/message.hpp"
 #include "pion/http/request.hpp"
 

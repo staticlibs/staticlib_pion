@@ -24,10 +24,10 @@
 #ifndef __PION_HTTP_FILTER_CHAIN_HPP__
 #define	__PION_HTTP_FILTER_CHAIN_HPP__
 
-#include <memory>
 #include <atomic>
-#include <vector>
 #include <functional>
+#include <memory>
+#include <vector>
 #include <cstdint>
 
 #include "pion/noncopyable.hpp"

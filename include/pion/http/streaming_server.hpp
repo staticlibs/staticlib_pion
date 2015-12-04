@@ -24,19 +24,20 @@
 #ifndef __PION_HTTP_STREAMING_SERVER_HPP__
 #define	__PION_HTTP_STREAMING_SERVER_HPP__
 
-#include <unordered_map>
 #include <vector>
+#include <unordered_map>
 #include <utility>
 #include <cstdint>
 
 #include "asio.hpp"
 
-#include "pion/tribool.hpp"
 #include "pion/config.hpp"
+#include "pion/tribool.hpp"
+#include "pion/http/parser.hpp"
+#include "pion/http/request.hpp"
 #include "pion/tcp/connection.hpp"
 #include "pion/tcp/server.hpp"
-#include "pion/http/request.hpp"
-#include "pion/http/parser.hpp"
+
 
 namespace pion {
 namespace http {

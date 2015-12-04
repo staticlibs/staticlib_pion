@@ -32,10 +32,11 @@
 #include "asio.hpp"
 
 #include "pion/config.hpp"
+#include "pion/http/parser.hpp"
+#include "pion/http/request.hpp"
 #include "pion/tcp/connection.hpp"
 #include "pion/tcp/timer.hpp"
-#include "pion/http/request.hpp"
-#include "pion/http/parser.hpp"
+
 
 namespace pion {
 namespace http {

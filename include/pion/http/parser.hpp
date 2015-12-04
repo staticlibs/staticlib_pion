@@ -26,16 +26,16 @@
 #ifndef __PION_HTTP_PARSER_HEADER__
 #define __PION_HTTP_PARSER_HEADER__
 
-#include <string>
 #include <functional>
 #include <mutex>
+#include <string>
 #include <cstdint>
 
-#include "pion/tribool.hpp"
-#include "pion/noncopyable.hpp"
-#include "pion/config.hpp"
 #include "pion/algorithm.hpp"
+#include "pion/config.hpp"
 #include "pion/logger.hpp"
+#include "pion/noncopyable.hpp"
+#include "pion/tribool.hpp"
 #include "pion/http/message.hpp"
 
 namespace pion {

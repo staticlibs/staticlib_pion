@@ -17,9 +17,9 @@ cmake_minimum_required ( VERSION 2.8.12 )
 # toolchain setup
 set ( STATICLIB_TOOLCHAIN linux_amd64_gcc CACHE STRING "toolchain triplet" )
 if ( NOT DEFINED STATICLIB_CMAKE )
-    set ( STATICLIB_CMAKE ${CMAKE_CURRENT_LIST_DIR}/cmake CACHE INTERNAL "" )
-    set ( CMAKE_TOOLCHAIN_FILE ${STATICLIB_CMAKE}/toolchains/${STATICLIB_TOOLCHAIN}.cmake CACHE INTERNAL "" )
+    set ( STATICLIB_CMAKE ${CMAKE_CURRENT_LIST_DIR}/../../cmake CACHE INTERNAL "" )    
 endif ( )
+set ( CMAKE_TOOLCHAIN_FILE ${STATICLIB_CMAKE}/toolchains/${STATICLIB_TOOLCHAIN}.cmake CACHE INTERNAL "" )
 
 # project
 project ( staticlib_httpserver_test CXX )
@@ -27,14 +27,14 @@ include ( ${STATICLIB_CMAKE}/staticlibs_common.cmake )
 
 # dependencies
 # options, use SET ( OPTNAME ON CACHE BOOL "") in parent to override
-set ( staticlib_httpserver_USE_LOG4CPLUS ON CACHE BOOL "" )
-set ( staticlib_httpserver_USE_OPENSSL ON CACHE BOOL "" )
+set ( staticlib_httpserver_USE_LOG4CPLUS OFF CACHE BOOL "" )
+set ( staticlib_httpserver_USE_OPENSSL OFF CACHE BOOL "" )
 if ( NOT STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_[^_]+" )
     staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/deps/external_log4cplus )
     if ( NOT STATICLIB_TOOLCHAIN MATCHES "alpine_[^_]+_[^_]+" )
         staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/deps/external_openssl )
-    endif (  )
-endif (  )
+    endif ( )
+endif ( )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_httpserver )
 set ( ${PROJECT_NAME}_DEPS staticlib_httpserver )
 staticlib_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
