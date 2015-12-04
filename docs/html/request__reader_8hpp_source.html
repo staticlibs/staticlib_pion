@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.6</span>
+   &#160;<span id="projectnumber">5.0.7.7</span>
    </div>
   </td>
  </tr>
@@ -124,85 +124,86 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;asio.hpp&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config_8hpp.html">pion/config.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="connection_8hpp.html">pion/tcp/connection.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="timer_8hpp.html">pion/tcp/timer.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="request_8hpp.html">pion/http/request.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="parser_8hpp.html">pion/http/parser.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="parser_8hpp.html">pion/http/parser.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="request_8hpp.html">pion/http/request.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="connection_8hpp.html">pion/tcp/connection.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="timer_8hpp.html">pion/tcp/timer.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">namespace </span>pion {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">namespace </span>http {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="code" href="classpion_1_1http_1_1request__reader.html">   46</a></span>&#160;<span class="keyword">class </span><a class="code" href="classpion_1_1http_1_1request__reader.html" title="Asynchronously reads and parses HTTP requests.">request_reader</a> : <span class="keyword">public</span> <a class="code" href="classpion_1_1http_1_1parser.html" title="Parses HTTP messages.">http::parser</a>, <span class="keyword">public</span> std::enable_shared_from_this&lt;request_reader&gt; {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">typedef</span> std::function&lt;void(<a class="code" href="namespacepion_1_1http.html#a0912a8cafb21954a418b4746fd68c7b3" title="Data type for a HTTP request pointer.">http::request_ptr</a>, <a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a>&amp;,</div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="classpion_1_1http_1_1request__reader.html#a79b3c4d8e2740a057a913b4ca5e4af5a">   54</a></span>&#160;            <span class="keyword">const</span> asio::error_code&amp;)&gt; <a class="code" href="classpion_1_1http_1_1request__reader.html#a79b3c4d8e2740a057a913b4ca5e4af5a" title="Function called after the HTTP message has been parsed.">finished_handler_t</a>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">typedef</span> std::function&lt;void(<a class="code" href="namespacepion_1_1http.html#a0912a8cafb21954a418b4746fd68c7b3" title="Data type for a HTTP request pointer.">http::request_ptr</a>, <a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a>&amp;,</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="code" href="classpion_1_1http_1_1request__reader.html#ac03838e508f59041efed9b4836d71b66">   60</a></span>&#160;            <span class="keyword">const</span> asio::error_code&amp;, pion::tribool&amp; rc)&gt; <a class="code" href="classpion_1_1http_1_1request__reader.html#ac03838e508f59041efed9b4836d71b66" title="Function called after the HTTP message has been parsed.">headers_parsing_finished_handler_t</a>;    </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> uint32_t DEFAULT_READ_TIMEOUT;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a> m_tcp_conn;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="namespacepion_1_1tcp.html#ac6a2853cc9b22b7803d6a9afb7bb7b33" title="Shared pointer to a timer object.">tcp::timer_ptr</a> m_timer_ptr;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    uint32_t m_read_timeout;    </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="namespacepion_1_1http.html#a0912a8cafb21954a418b4746fd68c7b3" title="Data type for a HTTP request pointer.">http::request_ptr</a> m_http_msg;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="classpion_1_1http_1_1request__reader.html#a79b3c4d8e2740a057a913b4ca5e4af5a" title="Function called after the HTTP message has been parsed.">finished_handler_t</a> m_finished;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="classpion_1_1http_1_1request__reader.html#ac03838e508f59041efed9b4836d71b66" title="Function called after the HTTP message has been parsed.">headers_parsing_finished_handler_t</a> m_parsed_headers;    </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">static</span> std::shared_ptr&lt;request_reader&gt; <a class="code" href="classpion_1_1http_1_1request__reader.html#ab426681f2ff4497946331d92c14cc8c3" title="Creates new request_reader objects.">create</a>(<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a>&amp; tcp_conn, </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <a class="code" href="classpion_1_1http_1_1request__reader.html#a79b3c4d8e2740a057a913b4ca5e4af5a" title="Function called after the HTTP message has been parsed.">finished_handler_t</a> handler);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classpion_1_1http_1_1request__reader.html#a864494d7f9b70e0e5865822a822e0ae5" title="Incrementally reads &amp; parses the HTTP message.">receive</a>();</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a>&amp; <a class="code" href="classpion_1_1http_1_1request__reader.html#a66a374cd93c05f9aedbd3ec19826fbea" title="Returns a shared pointer to the TCP connection.">get_connection</a>();</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classpion_1_1http_1_1request__reader.html#ab76a386384c56b934147b8653d7c313e" title="Sets the maximum number of seconds for read operations.">set_timeout</a>(uint32_t seconds);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classpion_1_1http_1_1request__reader.html#a5d0c14f5db8c7404ca98e97f684bab3b" title="Sets a function to be called after HTTP headers have been parsed.">set_headers_parsed_callback</a>(<a class="code" href="classpion_1_1http_1_1request__reader.html#ac03838e508f59041efed9b4836d71b66" title="Function called after the HTTP message has been parsed.">headers_parsing_finished_handler_t</a>&amp; h);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <a class="code" href="classpion_1_1http_1_1request__reader.html" title="Asynchronously reads and parses HTTP requests.">request_reader</a>(<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a>&amp; tcp_conn, <a class="code" href="classpion_1_1http_1_1request__reader.html#a79b3c4d8e2740a057a913b4ca5e4af5a" title="Function called after the HTTP message has been parsed.">finished_handler_t</a> handler);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordtype">void</span> consume_bytes(<span class="keyword">const</span> asio::error_code&amp; read_error, std::size_t bytes_read);</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordtype">void</span> consume_bytes();</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordtype">void</span> read_bytes_with_timeout();</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordtype">void</span> handle_read_error(<span class="keyword">const</span> asio::error_code&amp; read_error);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordtype">void</span> finished_parsing_headers(<span class="keyword">const</span> asio::error_code&amp; ec, pion::tribool&amp; rc);</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordtype">void</span> read_bytes();</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordtype">void</span> finished_reading(<span class="keyword">const</span> asio::error_code&amp; ec);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <a class="code" href="classpion_1_1http_1_1message.html" title="Base container for HTTP messages.">http::message</a>&amp; get_message();</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;};</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;</div>
-<div class="line"><a name="l00203"></a><span class="lineno"><a class="code" href="namespacepion_1_1http.html#aca0bcf802a5733c2715a4f5efe084f82">  203</a></span>&#160;<span class="keyword">typedef</span> std::shared_ptr&lt;request_reader&gt; <a class="code" href="namespacepion_1_1http.html#aca0bcf802a5733c2715a4f5efe084f82" title="Data type for a request_reader pointer.">reader_ptr</a>;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;} <span class="comment">// end namespace http</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;} <span class="comment">// end namespace pion</span></div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">namespace </span>pion {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">namespace </span>http {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="code" href="classpion_1_1http_1_1request__reader.html">   47</a></span>&#160;<span class="keyword">class </span><a class="code" href="classpion_1_1http_1_1request__reader.html" title="Asynchronously reads and parses HTTP requests.">request_reader</a> : <span class="keyword">public</span> <a class="code" href="classpion_1_1http_1_1parser.html" title="Parses HTTP messages.">http::parser</a>, <span class="keyword">public</span> std::enable_shared_from_this&lt;request_reader&gt; {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">typedef</span> std::function&lt;void(<a class="code" href="namespacepion_1_1http.html#a0912a8cafb21954a418b4746fd68c7b3" title="Data type for a HTTP request pointer.">http::request_ptr</a>, <a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a>&amp;,</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="code" href="classpion_1_1http_1_1request__reader.html#a79b3c4d8e2740a057a913b4ca5e4af5a">   55</a></span>&#160;            <span class="keyword">const</span> asio::error_code&amp;)&gt; <a class="code" href="classpion_1_1http_1_1request__reader.html#a79b3c4d8e2740a057a913b4ca5e4af5a" title="Function called after the HTTP message has been parsed.">finished_handler_t</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">typedef</span> std::function&lt;void(<a class="code" href="namespacepion_1_1http.html#a0912a8cafb21954a418b4746fd68c7b3" title="Data type for a HTTP request pointer.">http::request_ptr</a>, <a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a>&amp;,</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="code" href="classpion_1_1http_1_1request__reader.html#ac03838e508f59041efed9b4836d71b66">   61</a></span>&#160;            <span class="keyword">const</span> asio::error_code&amp;, pion::tribool&amp; rc)&gt; <a class="code" href="classpion_1_1http_1_1request__reader.html#ac03838e508f59041efed9b4836d71b66" title="Function called after the HTTP message has been parsed.">headers_parsing_finished_handler_t</a>;    </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> uint32_t DEFAULT_READ_TIMEOUT;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a> m_tcp_conn;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="namespacepion_1_1tcp.html#ac6a2853cc9b22b7803d6a9afb7bb7b33" title="Shared pointer to a timer object.">tcp::timer_ptr</a> m_timer_ptr;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    uint32_t m_read_timeout;    </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="namespacepion_1_1http.html#a0912a8cafb21954a418b4746fd68c7b3" title="Data type for a HTTP request pointer.">http::request_ptr</a> m_http_msg;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="classpion_1_1http_1_1request__reader.html#a79b3c4d8e2740a057a913b4ca5e4af5a" title="Function called after the HTTP message has been parsed.">finished_handler_t</a> m_finished;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="classpion_1_1http_1_1request__reader.html#ac03838e508f59041efed9b4836d71b66" title="Function called after the HTTP message has been parsed.">headers_parsing_finished_handler_t</a> m_parsed_headers;    </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">static</span> std::shared_ptr&lt;request_reader&gt; <a class="code" href="classpion_1_1http_1_1request__reader.html#ab426681f2ff4497946331d92c14cc8c3" title="Creates new request_reader objects.">create</a>(<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a>&amp; tcp_conn, </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <a class="code" href="classpion_1_1http_1_1request__reader.html#a79b3c4d8e2740a057a913b4ca5e4af5a" title="Function called after the HTTP message has been parsed.">finished_handler_t</a> handler);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classpion_1_1http_1_1request__reader.html#a864494d7f9b70e0e5865822a822e0ae5" title="Incrementally reads &amp; parses the HTTP message.">receive</a>();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a>&amp; <a class="code" href="classpion_1_1http_1_1request__reader.html#a66a374cd93c05f9aedbd3ec19826fbea" title="Returns a shared pointer to the TCP connection.">get_connection</a>();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classpion_1_1http_1_1request__reader.html#ab76a386384c56b934147b8653d7c313e" title="Sets the maximum number of seconds for read operations.">set_timeout</a>(uint32_t seconds);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classpion_1_1http_1_1request__reader.html#a5d0c14f5db8c7404ca98e97f684bab3b" title="Sets a function to be called after HTTP headers have been parsed.">set_headers_parsed_callback</a>(<a class="code" href="classpion_1_1http_1_1request__reader.html#ac03838e508f59041efed9b4836d71b66" title="Function called after the HTTP message has been parsed.">headers_parsing_finished_handler_t</a>&amp; h);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <a class="code" href="classpion_1_1http_1_1request__reader.html" title="Asynchronously reads and parses HTTP requests.">request_reader</a>(<a class="code" href="namespacepion_1_1tcp.html#ad75a29ceabe3ab511bb2610d2d292f9c" title="Data type for a connection pointer.">tcp::connection_ptr</a>&amp; tcp_conn, <a class="code" href="classpion_1_1http_1_1request__reader.html#a79b3c4d8e2740a057a913b4ca5e4af5a" title="Function called after the HTTP message has been parsed.">finished_handler_t</a> handler);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">void</span> consume_bytes(<span class="keyword">const</span> asio::error_code&amp; read_error, std::size_t bytes_read);</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">void</span> consume_bytes();</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordtype">void</span> read_bytes_with_timeout();</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordtype">void</span> handle_read_error(<span class="keyword">const</span> asio::error_code&amp; read_error);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordtype">void</span> finished_parsing_headers(<span class="keyword">const</span> asio::error_code&amp; ec, pion::tribool&amp; rc);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordtype">void</span> read_bytes();</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordtype">void</span> finished_reading(<span class="keyword">const</span> asio::error_code&amp; ec);</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <a class="code" href="classpion_1_1http_1_1message.html" title="Base container for HTTP messages.">http::message</a>&amp; get_message();</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;};</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
+<div class="line"><a name="l00204"></a><span class="lineno"><a class="code" href="namespacepion_1_1http.html#aca0bcf802a5733c2715a4f5efe084f82">  204</a></span>&#160;<span class="keyword">typedef</span> std::shared_ptr&lt;request_reader&gt; <a class="code" href="namespacepion_1_1http.html#aca0bcf802a5733c2715a4f5efe084f82" title="Data type for a request_reader pointer.">reader_ptr</a>;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;} <span class="comment">// end namespace http</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;} <span class="comment">// end namespace pion</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 20 2015 15:19:28 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 4 2015 21:12:21 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
