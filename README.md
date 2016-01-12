@@ -85,6 +85,11 @@ Changelog
 
 **2015-12-03**
 
+ * version 5.0.7.8
+ * fix type in cmake workaround for newer clang
+
+**2015-12-03**
+
  * version 5.0.7.7
  * deplibs cache support
  * minor cmake cleanup
