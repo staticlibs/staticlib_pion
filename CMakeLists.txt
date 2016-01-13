@@ -103,7 +103,7 @@ if ( ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" )
     string (REGEX REPLACE "^(Apple LLVM version|clang version) ([0-9]+\\.[0-9]+).*" "\\2" CLANG_VERSION_STRING ${CLANG_FULL_VERSION_STRING})
     if ( (APPLE AND (CLANG_VERSION_STRING VERSION_GREATER 6.0)) OR
         ((NOT APPLE) AND (CLANG_VERSION_STRING VERSION_GREATER 3.5)) )
-        message ( STATUS "Enabling ASIO warning suppression for Clang ${CLANG_VERSION_STRING}" )
+        message ( STATUS "Enabling ASIO warning suppression for Clang: [${CLANG_VERSION_STRING}]" )
         set ( ${PROJECT_NAME}_OPTIONS ${${PROJECT_NAME}_OPTIONS} -Wno-unused-local-typedef )
         set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -Wno-unused-local-typedef )
     endif ( )
