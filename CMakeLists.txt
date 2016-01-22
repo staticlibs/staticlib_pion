@@ -16,7 +16,7 @@ cmake_minimum_required ( VERSION 2.8.12 )
 
 # project
 project ( staticlib_httpserver CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7.8 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7.9 )
 set ( ${PROJECT_NAME}_DESCRIPTION "Embedded async HTTP 1.1 server based on a source code from https://github.com/splunk/pion" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_httpserver )
 include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
@@ -39,10 +39,25 @@ if ( STATICLIB_USE_DEPLIBS_CACHE )
     endif ( )
 endif ( )
 
-# options, use SET ( OPTNAME ON CACHE BOOL "") in parent to override
+# options, use set ( OPTNAME ON CACHE BOOL "") in parent to override
 option ( ${PROJECT_NAME}_DISABLE_LOGGING "Disable logging to std out and err" OFF )
 option ( ${PROJECT_NAME}_USE_LOG4CPLUS "Use log4cplus lib for logging" OFF )
 option ( ${PROJECT_NAME}_USE_OPENSSL "Use OpenSSL lib for https" OFF )
+
+# standalone build
+if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
+    set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} )
+endif ( )
+if ( NOT DEFINED STATICLIB_TOOLCHAIN )
+    if ( NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux" )
+        if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
+            staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_log4cplus )
+        endif ( )
+        if ( ${PROJECT_NAME}_USE_OPENSSL )
+            staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_openssl )
+        endif ( )
+    endif (  )
+endif ( )
 
 # dependencies
 set ( ${PROJECT_NAME}_DEPS "" )
@@ -57,9 +72,11 @@ if ( ${PROJECT_NAME}_USE_LOG4CPLUS OR ${PROJECT_NAME}_USE_OPENSSL )
 endif ( )
 # patch ASIO if musl is used
 # https://github.com/voidlinux/void-packages/blob/4d4449033e3caa02bc9f9f978c30ef6a79b573c4/srcpkgs/asio/patches/musl_strerror_r.patch
-if ( STATICLIB_TOOLCHAIN MATCHES "alpine_[^_]+_[^_]+" )
+if ( STATICLIB_TOOLCHAIN MATCHES "alpine_[^_]+_[^_]+" AND ( NOT DEFINED ${PROJECT_NAME}_ASIO_MUSL_APPLIED ) )
+    message ( STATUS "Applying patch to ASIO to support musl" )
     staticlib_apply_git_patch ( ${CMAKE_CURRENT_LIST_DIR}/asio
             ${STATICLIB_CMAKE}/resources/musl/asio106_musl.patch )
+    set ( ${PROJECT_NAME}_ASIO_MUSL_APPLIED "" CACHE INTERNAL "" )
 endif ( )
 
 # library
@@ -132,9 +149,6 @@ if ( TARGET external_icu )
 endif ( )
 
 # pkg-config
-if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
-    set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
-endif ( )
 staticlib_httpserver_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_INC "-I" ${PROJECT_NAME}_INCLUDES )
 staticlib_httpserver_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_OTHER "" ${PROJECT_NAME}_CFLAGS_PUBLIC )
 set ( ${PROJECT_NAME}_PC_CFLAGS "${${PROJECT_NAME}_PC_CFLAGS_INC}${${PROJECT_NAME}_PC_CFLAGS_OTHER}" )

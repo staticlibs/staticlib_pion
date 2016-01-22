@@ -58,22 +58,8 @@ See [PkgConfig](https://github.com/staticlibs/wiki/wiki/PkgConfig) for Staticlib
 To build this project with `OpenSSL` and `log4cplus` support manually on
 platforms without corresponding system libraries you can use 
 [external_openssl](https://github.com/staticlibs/external_openssl) and 
-[external_log4cplus](https://github.com/staticlibs/external_log4cplus) projects: 
-
- * checkout both dependent projects (using `--recursive` flag)
- * configure these projects using the same output directory (see their readmes for specific build instructions):
-
-Run:
-
-    mkdir build
-    cd build
-    cmake .. -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=<my_lib_dir>
-
- * build all the dependent projects
- * configure this projects using the same output directory and build it
-
-See [StaticlibsDependencies](https://github.com/staticlibs/wiki/wiki/StaticlibsDependencies) for more 
-details about dependency management with Staticlibs.
+[external_log4cplus](https://github.com/staticlibs/external_log4cplus) projects - checkout
+these projects (using `--recursive` flag) next to staticlib_httpserver sources before running CMake command above.
 
 License information
 -------------------
@@ -82,6 +68,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2016-01-22**
+
+ * version 5.0.7.9
+ * minor CMake changes
 
 **2015-12-03**
 
