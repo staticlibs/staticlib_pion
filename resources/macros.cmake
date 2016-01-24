@@ -39,3 +39,13 @@ macro ( ${PROJECT_NAME}_list_to_string _out_var_name _prefix _list_var_name )
         set ( ${_out_var_name} "${${_out_var_name}}${_prefix}${_el} " )
     endforeach ( )
 endmacro ( )
+
+# call add_subdirectory using only if specified module is not yet added to main project
+macro ( ${PROJECT_NAME}_add_subdirectory _project_path )
+    string ( REGEX REPLACE "^.*/" "" _target_name ${_project_path} )
+    if ( NOT TARGET ${_target_name} )
+        message ( STATUS "Adding dependency: [${_target_name}], path: [${_project_path}]" )
+        add_subdirectory ( ${_project_path} ${CMAKE_BINARY_DIR}/${_target_name} )
+        set_target_properties ( ${_target_name} PROPERTIES FOLDER "deps" )
+    endif ( )
+endmacro ( )
