@@ -195,7 +195,7 @@ void streaming_server::add_handler(const std::string& method,
         const std::string& resource, request_handler_type request_handler) {
     handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, delete_handlers);
     const std::string clean_resource{strip_trailing_slash(resource)};
-    PION_LOG_INFO(m_logger, "Added handler for HTTP resource: " << clean_resource << ", method: " << method);
+    PION_LOG_INFO(m_logger, "Added handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
     auto it = map.emplace(std::move(clean_resource), std::move(request_handler));
     if (!it.second) throw httpserver_exception("Invalid duplicate handler path: [" + clean_resource + "], method: [" + method + "]");
 }
@@ -216,7 +216,7 @@ void streaming_server::add_payload_handler(const std::string& method, const std:
         payload_handler_creator_type payload_handler) {
     payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, delete_payloads);
     const std::string clean_resource{strip_trailing_slash(resource)};
-    PION_LOG_INFO(m_logger, "Added payload handler for HTTP resource: " << clean_resource << ", method: " << method);
+    PION_LOG_INFO(m_logger, "Added payload handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
     auto it = map.emplace(std::move(clean_resource), std::move(payload_handler));
     if (!it.second) throw httpserver_exception("Invalid duplicate payload path: [" + clean_resource + "], method: [" + method + "]");
 }
