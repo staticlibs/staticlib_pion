@@ -9,7 +9,9 @@ project ([description](http://sourceforge.net/p/pion/mailman/message/32075645/))
  - all Boost dependencies removed in favour of C++11 with [standalone Asio](https://think-async.com/Asio/AsioStandalone)
  - some optional non-HTTP functionality removed (dynamic-load plugins, SPDY support)
  - added support for streaming requests  of arbitrary size (file upload)
- - warnings cleanup to compile with `/W4 /WX` on MSVC and with `-Wall -Werror -Wextra` on GCC and Clang; Doxygen comments reformatted
+ - warnings cleanup to compile with `/W4 /WX` on MSVC and with `-Wall -Werror -Wextra` on GCC and Clang
+ - Doxygen comments reformatted
+ - namespaces and classes renaming (in `5.0.7.10`)
 
 All changes were done with an attempt to stay as close as possible to the original Pion implementation.
 
@@ -68,6 +70,12 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2016-03-09**
+
+ * version 5.0.7.10
+ * major namespaces and classes renaming
+ * original Pion `http::server` removed in favour of a `streaming` one
 
 **2016-01-22**
 

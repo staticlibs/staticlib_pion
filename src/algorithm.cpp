@@ -23,7 +23,7 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include "pion/algorithm.hpp"
+#include "staticlib/httpserver/algorithm.hpp"
 
 #include <algorithm>
 #include <locale>
@@ -33,8 +33,8 @@
 #include <cerrno>
 #include <cctype>
 
-
-namespace pion {
+namespace staticlib { 
+namespace httpserver {
 namespace algorithm {
 
 // http://stackoverflow.com/a/27813
@@ -272,17 +272,18 @@ std::string xml_encode(const std::string& str) {
 }
 
 bool iequal_to::operator()(std::string const& x, std::string const& y) const {
-    return pion::algorithm::iequals(x, y);
+    return algorithm::iequals(x, y);
 }
 
 std::size_t ihash::operator()(std::string const& x) const {
     std::size_t seed = 0;
     std::locale locale;
     for (std::string::const_iterator it = x.begin(); it != x.end(); ++it) {
-        pion::algorithm::hash_combine(seed, std::toupper(*it, locale));
+        algorithm::hash_combine(seed, std::toupper(*it, locale));
     }
     return seed;
 }
     
-} // end namespace algorithm
-} // end namespace pion
+} // namespace
+}
+}

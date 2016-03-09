@@ -23,32 +23,14 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include "staticlib/httpserver/logger.hpp"
+#ifndef STATICLIB_HTTPSERVER_CONFIG_HPP
+#define STATICLIB_HTTPSERVER_CONFIG_HPP
 
-namespace staticlib { 
-namespace httpserver {
+// http://stackoverflow.com/a/18387764/314015
+#ifndef _MSC_VER
+#define STATICLIB_HTTPSERVER_NOEXCEPT noexcept
+#else
+#define STATICLIB_HTTPSERVER_NOEXCEPT
+#endif // _MSC_VER
 
-#if defined(STATICLIB_HTTPSERVER_DISABLE_LOGGING)
-
-logger::logger(int /* glog */) { }
-
-logger::operator bool() const {
-    return false;
-}
-
-#elif defined(STATICLIB_HTTPSERVER_USE_OSTREAM_LOGGING)
-
-logger::log_priority_type logger::m_priority = logger::LOG_LEVEL_INFO;
-
-logger::~logger() { }
-
-logger::logger() : m_name("pion") { }
-
-logger::logger(const std::string& name) : m_name(name) { }
-
-logger::logger(const logger& p) : m_name(p.m_name) { }
-
-#endif
-    
-} // namespace
-}
+#endif //STATICLIB_HTTPSERVER_CONFIG_HPP

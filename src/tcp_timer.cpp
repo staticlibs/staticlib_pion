@@ -23,32 +23,38 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include "staticlib/httpserver/logger.hpp"
+#include "staticlib/httpserver/tcp_timer.hpp"
 
 namespace staticlib { 
 namespace httpserver {
 
-#if defined(STATICLIB_HTTPSERVER_DISABLE_LOGGING)
+// timer member functions
 
-logger::logger(int /* glog */) { }
+tcp_timer::tcp_timer(tcp_connection_ptr& conn_ptr)
+    : m_conn_ptr(conn_ptr), m_timer(conn_ptr->get_io_service()),
+    m_timer_active(false), m_was_cancelled(false) { }
 
-logger::operator bool() const {
-    return false;
+void tcp_timer::start(const uint32_t seconds) {
+    std::lock_guard<std::mutex> timer_lock(m_mutex);
+    m_timer_active = true;
+    m_timer.expires_from_now(std::chrono::seconds(seconds));
+    m_timer.async_wait(std::bind(&tcp_timer::timer_callback,
+        shared_from_this(), std::placeholders::_1));
 }
 
-#elif defined(STATICLIB_HTTPSERVER_USE_OSTREAM_LOGGING)
+void tcp_timer::cancel(void) {
+    std::lock_guard<std::mutex> timer_lock(m_mutex);
+    m_was_cancelled = true;
+    if (m_timer_active)
+        m_timer.cancel();
+}
 
-logger::log_priority_type logger::m_priority = logger::LOG_LEVEL_INFO;
+void tcp_timer::timer_callback(const asio::error_code& /* ec */) {
+    std::lock_guard<std::mutex> timer_lock(m_mutex);
+    m_timer_active = false;
+    if (! m_was_cancelled)
+        m_conn_ptr->cancel();
+}
 
-logger::~logger() { }
-
-logger::logger() : m_name("pion") { }
-
-logger::logger(const std::string& name) : m_name(name) { }
-
-logger::logger(const logger& p) : m_name(p.m_name) { }
-
-#endif
-    
 } // namespace
 }

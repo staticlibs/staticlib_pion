@@ -32,22 +32,22 @@
 
 #include "asio.hpp"
 
-#include "pion/config.hpp"
-#include "pion/logger.hpp"
-#include "pion/http/response_writer.hpp"
-#include "pion/http/streaming_server.hpp"
-#include "pion/http/filter_chain.hpp"
+#include "staticlib/httpserver/config.hpp"
+#include "staticlib/httpserver/logger.hpp"
+#include "staticlib/httpserver/http_response_writer.hpp"
+#include "staticlib/httpserver/http_server.hpp"
+#include "staticlib/httpserver/http_filter_chain.hpp"
 
-#ifdef PION_USE_LOG4CPLUS
+#ifdef STATICLIB_HTTPSERVER_USE_LOG4CPLUS
 #include <log4cplus/logger.h>
 #include <log4cplus/consoleappender.h>
-#endif // PION_USE_LOG4CPLUS
+#endif // STATICLIB_HTTPSERVER_USE_LOG4CPLUS
 
 
 const uint16_t SECONDS_TO_RUN = 1;
 const uint16_t TCP_PORT = 8080;
 
-#ifdef PION_USE_LOG4CPLUS
+#ifdef STATICLIB_HTTPSERVER_USE_LOG4CPLUS
 const std::string CONSOLE_APPENDER_LAYOUT = "%d{%H:%M:%S} [%-5p %-15.15c] %m%n";
 
 log4cplus::SharedAppenderPtr create_console_appender() {
@@ -55,18 +55,20 @@ log4cplus::SharedAppenderPtr create_console_appender() {
     res->setLayout(std::auto_ptr<log4cplus::Layout>(new log4cplus::PatternLayout(CONSOLE_APPENDER_LAYOUT)));
     return res;
 }
-#endif // PION_USE_LOG4CPLUS
+#endif // STATICLIB_HTTPSERVER_USE_LOG4CPLUS
 
-void hello_service(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
-    auto finfun = std::bind(&pion::tcp::connection::finish, tcp_conn);
-    auto writer = pion::http::response_writer::create(tcp_conn, *http_request_ptr, finfun);
+namespace sh = staticlib::httpserver;
+
+void hello_service(sh::http_request_ptr& req, sh::tcp_connection_ptr& conn) {
+    auto finfun = std::bind(&sh::tcp_connection::finish, conn);
+    auto writer = sh::http_response_writer::create(conn, *req, finfun);
     writer << "Hello World!\n";
     writer->send();
 }
 
-void hello_service_post(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
-    auto finfun = std::bind(&pion::tcp::connection::finish, tcp_conn);
-    auto writer = pion::http::response_writer::create(tcp_conn, *http_request_ptr, finfun);
+void hello_service_post(sh::http_request_ptr& req, sh::tcp_connection_ptr& conn) {
+    auto finfun = std::bind(&sh::tcp_connection::finish, conn);
+    auto writer = sh::http_response_writer::create(conn, *req, finfun);
     writer << "Hello POST!\n";
     writer->send();
 }
@@ -107,13 +109,13 @@ public:
 };
 
 class FileSender : public std::enable_shared_from_this<FileSender> {
-    pion::http::writer_ptr writer;
+    sh::http_response_writer_ptr writer;
     std::ifstream stream;
     std::array<char, 8192> buf;
     std::mutex mutex;
     
 public:
-    FileSender(const std::string& filename, pion::http::writer_ptr writer) : 
+    FileSender(const std::string& filename, sh::http_response_writer_ptr writer) : 
     writer(writer),
     stream(filename, std::ios::in | std::ios::binary) {
         stream.exceptions(std::ifstream::badbit);
@@ -138,70 +140,70 @@ public:
             }
         } else {
             // make sure it will get closed
-            writer->get_connection()->set_lifecycle(pion::tcp::connection::LIFECYCLE_CLOSE);
+            writer->get_connection()->set_lifecycle(sh::tcp_connection::LIFECYCLE_CLOSE);
             // log error
         }
     }
 };
 
-void file_upload_resource(pion::http::request_ptr& http_request_ptr, pion::tcp::connection_ptr& tcp_conn) {
-    auto ph = http_request_ptr->get_payload_handler<FileWriter>();
+void file_upload_resource(sh::http_request_ptr& req, sh::tcp_connection_ptr& conn) {
+    auto ph = req->get_payload_handler<FileWriter>();
     if (ph) {
         ph->close();
     } else {
         std::cout << "No payload handler found in main handler" << std::endl;
     }
-    auto finfun = std::bind(&pion::tcp::connection::finish, tcp_conn);
-    auto writer = pion::http::response_writer::create(tcp_conn, *http_request_ptr, finfun);
+    auto finfun = std::bind(&sh::tcp_connection::finish, conn);
+    auto writer = sh::http_response_writer::create(conn, *req, finfun);
     auto fs = std::make_shared<FileSender>("uploaded.dat", writer);
     fs->send();
 }
 
-FileWriter file_upload_payload_handler_creator(pion::http::request_ptr& http_request_ptr) {
-    (void) http_request_ptr;
+FileWriter file_upload_payload_handler_creator(sh::http_request_ptr& req) {
+    (void) req;
     return FileWriter{"uploaded.dat"};
 }
 
-void logging_filter1(pion::http::request_ptr& request, pion::tcp::connection_ptr& conn, 
-        pion::http::filter_chain& chain) {
+void logging_filter1(sh::http_request_ptr& request, sh::tcp_connection_ptr& conn, 
+        sh::http_filter_chain& chain) {
     std::cout << "Hi from filter 1 for [" << request->get_resource() << "]" << std::endl;
     chain.do_filter(request, conn);
 }
 
-void logging_filter2(pion::http::request_ptr& request, pion::tcp::connection_ptr& conn,
-        pion::http::filter_chain& chain) {
+void logging_filter2(sh::http_request_ptr& request, sh::tcp_connection_ptr& conn,
+        sh::http_filter_chain& chain) {
     std::cout << "Hi from filter 2 for [" << request->get_resource() << "]" << std::endl;
     chain.do_filter(request, conn);
 }
 
 void test_pion() {
-#ifdef PION_USE_LOG4CPLUS
-    #ifdef PION_USE_LOG4CPLUS_STATIC
+#ifdef STATICLIB_HTTPSERVER_USE_LOG4CPLUS
+    #ifdef STATICLIB_HTTPSERVER_USE_LOG4CPLUS_STATIC
     // need initialization with static log4cplus
     log4cplus::initialize();
-    #endif // PION_USE_LOG4CPLUS_STATIC
+    #endif // STATICLIB_HTTPSERVER_USE_LOG4CPLUS_STATIC
     auto fa = create_console_appender();
     log4cplus::Logger::getRoot().addAppender(fa);
     log4cplus::Logger::getRoot().setLogLevel(log4cplus::ALL_LOG_LEVEL);
     log4cplus::Logger::getInstance("pion").setLogLevel(log4cplus::DEBUG_LOG_LEVEL);
 #else // std out logging
-    PION_LOG_SETLEVEL_INFO(PION_GET_LOGGER("pion"))
-#endif // PION_USE_LOG4CPLUS    
+    STATICLIB_HTTPSERVER_LOG_SETLEVEL_INFO(STATICLIB_HTTPSERVER_GET_LOGGER("pion"))
+#endif // STATICLIB_HTTPSERVER_USE_LOG4CPLUS    
     // pion
-    pion::http::streaming_server web_server(2, TCP_PORT);
-    web_server.add_handler("GET", "/hello", hello_service);
-    web_server.add_handler("POST", "/hello/post", hello_service_post);
-    web_server.add_filter("POST", "/hello", logging_filter1);
-    web_server.add_filter("POST", "/", logging_filter2);
-    web_server.add_handler("POST", "/fu", file_upload_resource);
-    web_server.add_payload_handler("POST", "/fu", file_upload_payload_handler_creator);
-    web_server.add_handler("POST", "/fu1", file_upload_resource);
-    web_server.start();
+    sh::http_server server(2, TCP_PORT);
+    server.add_handler("GET", "/hello", hello_service);
+    server.add_handler("POST", "/hello/post", hello_service_post);
+    server.add_filter("POST", "/hello", logging_filter1);
+    server.add_filter("POST", "/", logging_filter2);
+    server.add_handler("POST", "/fu", file_upload_resource);
+    server.add_payload_handler("POST", "/fu", file_upload_payload_handler_creator);
+    server.add_handler("POST", "/fu1", file_upload_resource);
+    server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});
-    web_server.stop(true);
+    server.stop(true);
 }
 
-int main() {
+int main() {    
     try {
         test_pion();
     } catch (const std::exception& e) {
