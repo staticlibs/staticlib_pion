@@ -57,7 +57,7 @@ std::once_flag            http_parser::m_instance_flag{};
 // parser member functions
 
 http_parser::http_parser(const bool is_request, std::size_t max_content_length) :
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("pion.http.parser")),
+m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.http_parser")),
 m_is_request(is_request),
 m_read_ptr(NULL),
 m_read_end_ptr(NULL),

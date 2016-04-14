@@ -53,7 +53,7 @@ tcp_server::~tcp_server() STATICLIB_HTTPSERVER_NOEXCEPT {
 }
 
 tcp_server::tcp_server(scheduler& sched, const unsigned int tcp_port) : 
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("pion.tcp.server")),
+m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.tcp_server")),
 m_active_scheduler(sched),
 m_tcp_acceptor(m_active_scheduler.get_io_service()),
 #ifdef STATICLIB_HTTPSERVER_HAVE_SSL
@@ -66,7 +66,7 @@ m_ssl_flag(false),
 m_is_listening(false) { }
     
 tcp_server::tcp_server(scheduler& sched, const asio::ip::tcp::endpoint& endpoint) : 
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("pion.tcp.server")),
+m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.tcp_server")),
 m_active_scheduler(sched),
 m_tcp_acceptor(m_active_scheduler.get_io_service()),
 #ifdef STATICLIB_HTTPSERVER_HAVE_SSL
@@ -78,7 +78,7 @@ m_endpoint(endpoint),
 m_ssl_flag(false), m_is_listening(false) { }
 
 tcp_server::tcp_server(const unsigned int tcp_port) : 
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("pion.tcp.server")),
+m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.tcp_server")),
 m_default_scheduler(), 
 m_active_scheduler(m_default_scheduler),
 m_tcp_acceptor(m_active_scheduler.get_io_service()),
@@ -91,7 +91,7 @@ m_endpoint(asio::ip::tcp::v4(), static_cast<unsigned short>(tcp_port)),
 m_ssl_flag(false), m_is_listening(false) { }
 
 tcp_server::tcp_server(const asio::ip::tcp::endpoint& endpoint) : 
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("pion.tcp.server")),
+m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.tcp_server")),
 m_default_scheduler(),
 m_active_scheduler(m_default_scheduler),
 m_tcp_acceptor(m_active_scheduler.get_io_service()),

@@ -180,7 +180,7 @@ m_http_msg(new http_request),
 m_finished(handler) {
     m_http_msg->set_remote_ip(tcp_conn->get_remote_ip());
     m_http_msg->set_request_reader(this);
-    set_logger(STATICLIB_HTTPSERVER_GET_LOGGER("pion.http.request_reader"));
+    set_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.http_request_reader"));
 }
 
 void http_request_reader::read_bytes(void) {

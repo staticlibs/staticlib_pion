@@ -42,7 +42,7 @@ logger::log_priority_type logger::m_priority = logger::LOG_LEVEL_INFO;
 
 logger::~logger() { }
 
-logger::logger() : m_name("pion") { }
+logger::logger() : m_name("staticlib.httpserver") { }
 
 logger::logger(const std::string& name) : m_name(name) { }
 

@@ -187,7 +187,7 @@ void test_pion() {
     log4cplus::Logger::getRoot().setLogLevel(log4cplus::ALL_LOG_LEVEL);
     log4cplus::Logger::getInstance("pion").setLogLevel(log4cplus::DEBUG_LOG_LEVEL);
 #else // std out logging
-    STATICLIB_HTTPSERVER_LOG_SETLEVEL_INFO(STATICLIB_HTTPSERVER_GET_LOGGER("pion"))
+    STATICLIB_HTTPSERVER_LOG_SETLEVEL_INFO(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver"))
 #endif // STATICLIB_HTTPSERVER_USE_LOG4CPLUS    
     // pion
     sh::http_server server(2, TCP_PORT);

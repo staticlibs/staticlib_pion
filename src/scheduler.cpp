@@ -23,7 +23,7 @@ const uint32_t   scheduler::MICROSEC_IN_SECOND = 1000000;    // (10^6)
 const uint32_t   scheduler::KEEP_RUNNING_TIMER_SECONDS = 5;
 
 scheduler::scheduler() :
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("pion.scheduler")),
+m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.scheduler")),
 m_num_threads(DEFAULT_NUM_THREADS),
 m_active_users(0),
 m_is_running(false) { }

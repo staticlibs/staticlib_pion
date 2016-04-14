@@ -30,7 +30,7 @@ namespace httpserver {
 
 http_response_writer::http_response_writer(tcp_connection_ptr& tcp_conn, const http_request& http_request,
         finished_handler_t handler) :
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("pion.http.writer")),
+m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.http_response_writer")),
 m_tcp_conn(tcp_conn),
 m_content_length(0),
 m_stream_is_empty(true),
@@ -39,7 +39,7 @@ m_sending_chunks(false),
 m_sent_headers(false),
 m_finished(handler),
 m_http_response(new http_response(http_request)) {
-    set_logger(STATICLIB_HTTPSERVER_GET_LOGGER("pion.http.response_writer"));
+    set_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.http_response_writer"));
     // set whether or not the client supports chunks
     supports_chunked_messages(m_http_response->get_chunks_supported());
 }
