@@ -51,8 +51,8 @@ void test_https() {
     };
     sh::http_server server(2, TCP_PORT, asio::ip::address_v4::any(), certpath, pwdcb, capath, verifier);
     server.add_handler("GET", "/", 
-            [] (sh::http_request_ptr& http_request_ptr, sh::tcp::connection_ptr& tcp_conn) {
-                auto finfun = std::bind(&sh::tcp::tcp_connection::finish, tcp_conn);
+            [] (sh::http_request_ptr& http_request_ptr, sh::tcp_connection_ptr& tcp_conn) {
+                auto finfun = std::bind(&sh::tcp_connection::finish, tcp_conn);
                 auto writer = sh::http_response_writer::create(tcp_conn, *http_request_ptr, finfun);
                 writer << "Hello pion\n";
                 writer->send();
