@@ -77,6 +77,12 @@ if ( STATICLIB_TOOLCHAIN MATCHES "alpine_[^_]+_[^_]+" AND ( NOT DEFINED ${PROJEC
     staticlib_apply_git_patch ( ${CMAKE_CURRENT_LIST_DIR}/asio
             ${STATICLIB_CMAKE}/resources/musl/asio106_musl.patch )
     set ( ${PROJECT_NAME}_ASIO_MUSL_APPLIED "" CACHE INTERNAL "" )
+# https://github.com/worldforge/hammer/blob/dd0c373f3c2063fa39771c91b2a1cb5d85ae9004/support/android_fix-boost.patch
+elseif ( STATICLIB_TOOLCHAIN MATCHES "android_i386_gcc" AND ( NOT DEFINED ${PROJECT_NAME}_ASIO_ANDROID_APPLIED ) )
+    message ( STATUS "Applying patch to ASIO to support android i386" )
+    staticlib_apply_git_patch ( ${CMAKE_CURRENT_LIST_DIR}/asio
+            ${STATICLIB_CMAKE}/resources/android/asio106_android_i386.patch )
+    set ( ${PROJECT_NAME}_ASIO_ANDROID_APPLIED "" CACHE INTERNAL "" )
 endif ( )
 
 # library
