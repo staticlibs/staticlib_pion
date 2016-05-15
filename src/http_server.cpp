@@ -194,7 +194,7 @@ void http_server::add_handler(const std::string& method,
         const std::string& resource, request_handler_type request_handler) {
     handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, delete_handlers);
     const std::string clean_resource{strip_trailing_slash(resource)};
-    STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "Added handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
+    STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Added handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
     auto it = map.emplace(std::move(clean_resource), std::move(request_handler));
     if (!it.second) throw httpserver_exception("Invalid duplicate handler path: [" + clean_resource + "], method: [" + method + "]");
 }
@@ -215,7 +215,7 @@ void http_server::add_payload_handler(const std::string& method, const std::stri
         payload_handler_creator_type payload_handler) {
     payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, delete_payloads);
     const std::string clean_resource{strip_trailing_slash(resource)};
-    STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "Added payload handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
+    STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Added payload handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
     auto it = map.emplace(std::move(clean_resource), std::move(payload_handler));
     if (!it.second) throw httpserver_exception("Invalid duplicate payload path: [" + clean_resource + "], method: [" + method + "]");
 }
@@ -224,7 +224,7 @@ void http_server::add_filter(const std::string& method, const std::string& resou
         request_filter_type filter) {
     filter_map_type& map = choose_map_by_method(method, get_filters, post_filters, put_filters, delete_filters);
     const std::string clean_resource{strip_trailing_slash(resource)};
-    STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "Added filter for HTTP resource: " << clean_resource << ", method: " << method);
+    STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Added filter for HTTP resource: " << clean_resource << ", method: " << method);
     map.emplace(std::move(clean_resource), std::move(filter));
 }
 
@@ -252,7 +252,7 @@ void http_server::handle_request_after_headers_parsed(http_request_ptr request,
     } else {
         // let's not spam client about GET and DELETE unlikely payloads
         if (http_message::REQUEST_METHOD_GET != method && http_message::REQUEST_METHOD_DELETE != method) {
-            STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "No payload handlers found for resource: " << path);
+            STATICLIB_HTTPSERVER_LOG_WARN(m_logger, "No payload handlers found for resource: " << path);
         }
         // ignore request body as no payload_handler found
         rc = true;
