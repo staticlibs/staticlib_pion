@@ -15,7 +15,7 @@ project ([description](http://sourceforge.net/p/pion/mailman/message/32075645/))
 
 All changes were done with an attempt to stay as close as possible to the original Pion implementation.
 
-Link to the [API documentation](http://staticlibs.github.io/staticlib_httpserver/docs/html/namespacepion_1_1http.html).
+Link to the [API documentation](http://staticlibs.github.io/staticlib_httpserver/docs/html/namespacestaticlib_1_1httpserver.html).
 
 Usage [example](https://github.com/staticlibs/staticlib_httpserver/blob/master/test/pion_test.cpp).
 
@@ -55,7 +55,7 @@ For other platforms - see notes about `pkg-config` below. To configure build wit
 [pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config/) utility is used for dependency management.
 For Windows users ready-to-use binary version of `pkg-config` can be obtained from [tools_windows_pkgconfig](https://github.com/staticlibs/tools_windows_pkgconfig) repository.
 
-See [PkgConfig](https://github.com/staticlibs/wiki/wiki/PkgConfig) for Staticlibs-specific details about `pkg-config` usage.
+See [StaticlibsPkgConfig](https://github.com/staticlibs/wiki/wiki/StaticlibsPkgConfig) for Staticlibs-specific details about `pkg-config` usage.
 
 To build this project with `OpenSSL` and `log4cplus` support manually on
 platforms without corresponding system libraries you can use 
