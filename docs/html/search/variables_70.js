@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['post_5ffilters',['post_filters',['../classpion_1_1http_1_1streaming__server.html#a0c481c546af0d9b9ee15b4704ae900bf',1,'pion::http::streaming_server']]],
-  ['post_5fhandlers',['post_handlers',['../classpion_1_1http_1_1streaming__server.html#a4eea0f113535e96467ab81fc54add2ad',1,'pion::http::streaming_server']]],
-  ['post_5fpayloads',['post_payloads',['../classpion_1_1http_1_1streaming__server.html#a149908afd671b077e23bd5ee2689093d',1,'pion::http::streaming_server']]],
-  ['put_5ffilters',['put_filters',['../classpion_1_1http_1_1streaming__server.html#a47600a0937e4a7abe865323037516b25',1,'pion::http::streaming_server']]],
-  ['put_5fhandlers',['put_handlers',['../classpion_1_1http_1_1streaming__server.html#abfe5a76b6771db8e1614cf0285f83979',1,'pion::http::streaming_server']]],
-  ['put_5fpayloads',['put_payloads',['../classpion_1_1http_1_1streaming__server.html#a07113a0f487b0f7e5bef10cafc438a73',1,'pion::http::streaming_server']]]
+  ['post_5ffilters',['post_filters',['../classstaticlib_1_1httpserver_1_1http__server.html#ae896ff3d53e869093a89ec4ebd799104',1,'staticlib::httpserver::http_server']]],
+  ['post_5fhandlers',['post_handlers',['../classstaticlib_1_1httpserver_1_1http__server.html#a0ecce226ff5c45732a12c29e4725ddd7',1,'staticlib::httpserver::http_server']]],
+  ['post_5fpayloads',['post_payloads',['../classstaticlib_1_1httpserver_1_1http__server.html#a11cc7c30eb29863074beed0edb8f343b',1,'staticlib::httpserver::http_server']]],
+  ['put_5ffilters',['put_filters',['../classstaticlib_1_1httpserver_1_1http__server.html#a7a00693674444df860962e1dd9ab8546',1,'staticlib::httpserver::http_server']]],
+  ['put_5fhandlers',['put_handlers',['../classstaticlib_1_1httpserver_1_1http__server.html#ad14ea138db90abc42250a4fd1526caad',1,'staticlib::httpserver::http_server']]],
+  ['put_5fpayloads',['put_payloads',['../classstaticlib_1_1httpserver_1_1http__server.html#a8def175373ed776606a95447e3d4994a',1,'staticlib::httpserver::http_server']]]
 ];

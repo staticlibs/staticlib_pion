@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_httpserver: pion/logger.hpp Source File</title>
+<title>staticlib_httpserver: staticlib/httpserver/logger.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.7</span>
+   &#160;<span id="projectnumber">5.0.7.10</span>
    </div>
   </td>
  </tr>
@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f19c414da8caafd0a855ffb01d90860.html">pion</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_c33d3ca81783b96de1fd366e75cb14d0.html">staticlib</a></li><li class="navelem"><a class="el" href="dir_05fdd8ed122623fd25bfabb888adb5b9.html">httpserver</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -115,131 +115,135 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// See http://www.boost.org/LICENSE_1_0.txt</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef __PION_LOGGER_HEADER__</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define __PION_LOGGER_HEADER__</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef STATICLIB_HTTPSERVER_LOGGER_HPP</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define STATICLIB_HTTPSERVER_LOGGER_HPP</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config_8hpp.html">pion/config.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config_8hpp.html">staticlib/httpserver/config.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#if defined(PION_USE_LOG4CPLUS)</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#if defined(STATICLIB_HTTPSERVER_USE_LOG4CPLUS)</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="comment">// log4cplus headers</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">    #include &quot;log4cplus/logger.h&quot;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">    #include &quot;log4cplus/loggingmacros.h&quot;</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">namespace </span>pion {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">typedef</span> log4cplus::Logger logger;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">    #define PION_LOG_CONFIG_BASIC   log4cplus::BasicConfigurator::doConfigure();</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_CONFIG(FILE)   log4cplus::PropertyConfigurator::doConfigure(FILE);</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_GET_LOGGER(NAME)   log4cplus::Logger::getInstance(NAME)</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_SHUTDOWN_LOGGER    log4cplus::Logger::shutdown();</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">    #define PION_LOG_SETLEVEL_DEBUG(LOG)    LOG.setLogLevel(log4cplus::DEBUG_LOG_LEVEL);</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_INFO(LOG)     LOG.setLogLevel(log4cplus::INFO_LOG_LEVEL);</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_WARN(LOG)     LOG.setLogLevel(log4cplus::WARN_LOG_LEVEL);</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_ERROR(LOG)    LOG.setLogLevel(log4cplus::ERROR_LOG_LEVEL);</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_FATAL(LOG)    LOG.setLogLevel(log4cplus::FATAL_LOG_LEVEL);</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_UP(LOG)       LOG.setLogLevel(LOG.getLogLevel()+1);</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_DOWN(LOG)     LOG.setLogLevel(LOG.getLogLevel()-1);</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">    #define PION_LOG_DEBUG  LOG4CPLUS_DEBUG</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_INFO   LOG4CPLUS_INFO</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_WARN   LOG4CPLUS_WARN</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_ERROR  LOG4CPLUS_ERROR</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_FATAL  LOG4CPLUS_FATAL</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#elif defined(PION_DISABLE_LOGGING)</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// Logging is disabled -&gt; add do-nothing stubs for logging</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">namespace </span>pion {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keyword">struct </span><a class="code" href="config_8hpp.html#aa2a329e7d6d2f201b98d5dfdd1a099c1">PION_API</a> logger {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            logger(<span class="keywordtype">int</span> <span class="comment">/* glog */</span>);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keyword">operator</span> bool() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        };</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">    #define PION_LOG_CONFIG_BASIC   {}</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_CONFIG(FILE)   {}</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_GET_LOGGER(NAME)   0</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_SHUTDOWN_LOGGER    0</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">// use LOG to avoid warnings about LOG not being used</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">    #define PION_LOG_SETLEVEL_DEBUG(LOG)    { if (LOG) {} }</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_INFO(LOG)     { if (LOG) {} }</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_WARN(LOG)     { if (LOG) {} }</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_ERROR(LOG)    { if (LOG) {} }</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_FATAL(LOG)    { if (LOG) {} }</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_UP(LOG)       { if (LOG) {} }</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_DOWN(LOG)     { if (LOG) {} }</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">    #define PION_LOG_DEBUG(LOG, MSG)    { if (LOG) {} }</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_INFO(LOG, MSG)     { if (LOG) {} }</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_WARN(LOG, MSG)     { if (LOG) {} }</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_ERROR(LOG, MSG)    { if (LOG) {} }</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_FATAL(LOG, MSG)    { if (LOG) {} }</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="code" href="logger_8hpp.html#adb316dd84e5ca3d3ce11c77d21364ad2">  107</a></span>&#160;<span class="preprocessor">    #define PION_USE_OSTREAM_LOGGING</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">namespace </span>staticlib { </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">namespace </span>httpserver {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keyword">typedef</span> log4cplus::Logger logger;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    } <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_CONFIG_BASIC   log4cplus::BasicConfigurator::doConfigure();</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_CONFIG(FILE)   log4cplus::PropertyConfigurator::doConfigure(FILE);</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_GET_LOGGER(NAME)   log4cplus::Logger::getInstance(NAME)</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_SHUTDOWN_LOGGER    log4cplus::Logger::shutdown();</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DEBUG(LOG)    LOG.setLogLevel(log4cplus::DEBUG_LOG_LEVEL);</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_INFO(LOG)     LOG.setLogLevel(log4cplus::INFO_LOG_LEVEL);</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_WARN(LOG)     LOG.setLogLevel(log4cplus::WARN_LOG_LEVEL);</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_ERROR(LOG)    LOG.setLogLevel(log4cplus::ERROR_LOG_LEVEL);</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_FATAL(LOG)    LOG.setLogLevel(log4cplus::FATAL_LOG_LEVEL);</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_UP(LOG)       LOG.setLogLevel(LOG.getLogLevel()+1);</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DOWN(LOG)     LOG.setLogLevel(LOG.getLogLevel()-1);</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_DEBUG  LOG4CPLUS_DEBUG</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_INFO   LOG4CPLUS_INFO</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_WARN   LOG4CPLUS_WARN</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_ERROR  LOG4CPLUS_ERROR</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_FATAL  LOG4CPLUS_FATAL</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#elif defined(STATICLIB_HTTPSERVER_DISABLE_LOGGING)</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// Logging is disabled -&gt; add do-nothing stubs for logging</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">namespace </span>staticlib { <span class="keyword">namespace </span>httpserver {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">struct </span>logger {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a187bc1b23e092a9c427c6fc461bafd46" title="Constructor, returns logger with name &quot;pion&quot;.">logger</a>(<span class="keywordtype">int</span> <span class="comment">/* glog */</span>);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keyword">operator</span> bool() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        };</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_CONFIG_BASIC   {}</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_CONFIG(FILE)   {}</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_GET_LOGGER(NAME)   0</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_SHUTDOWN_LOGGER    0</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="comment">// use LOG to avoid warnings about LOG not being used</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DEBUG(LOG)    { if (LOG) {} }</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_INFO(LOG)     { if (LOG) {} }</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_WARN(LOG)     { if (LOG) {} }</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_ERROR(LOG)    { if (LOG) {} }</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_FATAL(LOG)    { if (LOG) {} }</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_UP(LOG)       { if (LOG) {} }</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DOWN(LOG)     { if (LOG) {} }</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_DEBUG(LOG, MSG)    { if (LOG) {} }</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_INFO(LOG, MSG)     { if (LOG) {} }</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_WARN(LOG, MSG)     { if (LOG) {} }</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_ERROR(LOG, MSG)    { if (LOG) {} }</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_FATAL(LOG, MSG)    { if (LOG) {} }</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="comment">// Logging uses std::cout and std::cerr</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">    #include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">    #include &lt;string&gt;</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">    #include &lt;ctime&gt;</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">namespace </span>pion {</div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="code" href="structpion_1_1logger.html">  118</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="config_8hpp.html#aa2a329e7d6d2f201b98d5dfdd1a099c1">PION_API</a> <a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a> {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8">  123</a></span>&#160;            <span class="keyword">enum</span> <a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8" title="Supported log levels.">log_priority_type</a> {</div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a36ae33c70511f0e2755ad24b009cd378">  124</a></span>&#160;                <a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a36ae33c70511f0e2755ad24b009cd378">LOG_LEVEL_DEBUG</a>, </div>
-<div class="line"><a name="l00125"></a><span class="lineno"><a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a469a91269377b34699eb188ca935dade">  125</a></span>&#160;                <a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a469a91269377b34699eb188ca935dade">LOG_LEVEL_INFO</a>, </div>
-<div class="line"><a name="l00126"></a><span class="lineno"><a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa53e46352ecd58083e2a70b5c37fc445">  126</a></span>&#160;                <a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa53e46352ecd58083e2a70b5c37fc445">LOG_LEVEL_WARN</a>,</div>
-<div class="line"><a name="l00127"></a><span class="lineno"><a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a54e5ff73e35f679b488ed307d0d1ad99">  127</a></span>&#160;                <a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a54e5ff73e35f679b488ed307d0d1ad99">LOG_LEVEL_ERROR</a>, </div>
-<div class="line"><a name="l00128"></a><span class="lineno"><a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa3d4b8849e02f23d00e081703280a9e7">  128</a></span>&#160;                LOG_LEVEL_FATAL</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            };</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="code" href="structpion_1_1logger.html#a4093c40a7d1be8af9a0106b0751ed68e">  134</a></span>&#160;            std::string <a class="code" href="structpion_1_1logger.html#a4093c40a7d1be8af9a0106b0751ed68e" title="Logger name.">m_name</a>;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            </div>
-<div class="line"><a name="l00139"></a><span class="lineno"><a class="code" href="structpion_1_1logger.html#a29cca3a109b06a74a38cd452c9c7ef70">  139</a></span>&#160;            <span class="keyword">static</span> <a class="code" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8" title="Supported log levels.">log_priority_type</a> <a class="code" href="structpion_1_1logger.html#a29cca3a109b06a74a38cd452c9c7ef70" title="Global priority for all loggers.">m_priority</a>;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            ~<a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a>();</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a>();</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            <a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a>(<span class="keyword">const</span> std::string&amp; name);</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            <a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a>(<span class="keyword">const</span> <a class="code" href="structpion_1_1logger.html" title="STDOUT logger implementation.">logger</a>&amp; p);            </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        };</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    }</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
-<div class="line"><a name="l00167"></a><span class="lineno"><a class="code" href="logger_8hpp.html#ad345e82edaf6e2e841ccc277d3d8e26d">  167</a></span>&#160;<span class="preprocessor">    #define PION_LOG_CONFIG_BASIC   {}</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a2e1718f2a774ac62a24afb4bc18b901a">  168</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_CONFIG(FILE)   {}</span></div>
-<div class="line"><a name="l00169"></a><span class="lineno"><a class="code" href="logger_8hpp.html#ab799921481c48386dc6d3ac8c3738f7b">  169</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_GET_LOGGER(NAME)   pion::logger(NAME)</span></div>
-<div class="line"><a name="l00170"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a2e0a99762d74cdb622d8a09319f7037a">  170</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_SHUTDOWN_LOGGER    {}</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00172"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a3e9e6b25f12c5166af10b6f8f7f34ad7">  172</a></span>&#160;<span class="preprocessor">    #define PION_LOG_SETLEVEL_DEBUG(LOG)    { LOG.m_priority = pion::logger::LOG_LEVEL_DEBUG; }</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a0682f397d094613f17178d9109804503">  173</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_INFO(LOG)     { LOG.m_priority = pion::logger::LOG_LEVEL_INFO; }</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="code" href="logger_8hpp.html#ab7b1ec36fd515d164689e45cfead8b06">  174</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_WARN(LOG)     { LOG.m_priority = pion::logger::LOG_LEVEL_WARN; }</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a361f62c32696f909200ee1b0f591ab07">  175</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_ERROR(LOG)    { LOG.m_priority = pion::logger::LOG_LEVEL_ERROR; }</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="code" href="logger_8hpp.html#af0a1500451daf1eca476d1ecd54d0704">  176</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_FATAL(LOG)    { LOG.m_priority = pion::logger::LOG_LEVEL_FATAL; }</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno"><a class="code" href="logger_8hpp.html#aea1c8dbeb343b71abb4e548090487686">  177</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_UP(LOG)       { ++LOG.m_priority; }</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a735afafde3e1a0b51f23f22645ead1ff">  178</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_SETLEVEL_DOWN(LOG)     { --LOG.m_priority; }</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00180"></a><span class="lineno"><a class="code" href="logger_8hpp.html#abe19bc22ad50b995922c60501b9485d0">  180</a></span>&#160;<span class="preprocessor">    #define PION_LOG_DEBUG(LOG, MSG)    if (LOG.m_priority &lt;= pion::logger::LOG_LEVEL_DEBUG) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; DEBUG &quot; &lt;&lt; LOG.m_name &lt;&lt; &#39; &#39; &lt;&lt; MSG &lt;&lt; std::endl; }</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a4aabb7c61208f820c8d08a6798a0cbc7">  181</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_INFO(LOG, MSG)     if (LOG.m_priority &lt;= pion::logger::LOG_LEVEL_INFO) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; INFO &quot; &lt;&lt; LOG.m_name &lt;&lt; &#39; &#39; &lt;&lt; MSG &lt;&lt; std::endl; }</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a0c8babdf3b347113397b33ab9538b9d4">  182</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_WARN(LOG, MSG)     if (LOG.m_priority &lt;= pion::logger::LOG_LEVEL_WARN) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; WARN &quot; &lt;&lt; LOG.m_name &lt;&lt; &#39; &#39; &lt;&lt; MSG &lt;&lt; std::endl; }</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno"><a class="code" href="logger_8hpp.html#ac5efb38d858b4fbc7b81c4d5cde876a2">  183</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_ERROR(LOG, MSG)    if (LOG.m_priority &lt;= pion::logger::LOG_LEVEL_ERROR) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; ERROR &quot; &lt;&lt; LOG.m_name &lt;&lt; &#39; &#39; &lt;&lt; MSG &lt;&lt; std::endl; }</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a99a21d74a682b3223466d23b315b6381">  184</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define PION_LOG_FATAL(LOG, MSG)    if (LOG.m_priority &lt;= pion::logger::LOG_LEVEL_FATAL) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; FATAL &quot; &lt;&lt; LOG.m_name &lt;&lt; &#39; &#39; &lt;&lt; MSG &lt;&lt; std::endl; }</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">#endif // __PION_LOGGER_HEADER__</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="code" href="logger_8hpp.html#aa7293d771cb4de2d7ec453d62769c89f">  109</a></span>&#160;<span class="preprocessor">    #define STATICLIB_HTTPSERVER_USE_OSTREAM_LOGGING</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// Logging uses std::cout and std::cerr</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">    #include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">    #include &lt;string&gt;</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">    #include &lt;ctime&gt;</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">namespace </span>staticlib { </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keyword">namespace </span>httpserver {</div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="code" href="structstaticlib_1_1httpserver_1_1logger.html">  121</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a> {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00">  126</a></span>&#160;            <span class="keyword">enum</span> <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00" title="Supported log levels.">log_priority_type</a> {</div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a33a3763a67f0325bfbfce43de43ba508">  127</a></span>&#160;                <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a33a3763a67f0325bfbfce43de43ba508">LOG_LEVEL_DEBUG</a>, </div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a728c6b1f2e9136920d1762fbcc6f434f">  128</a></span>&#160;                <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a728c6b1f2e9136920d1762fbcc6f434f">LOG_LEVEL_INFO</a>, </div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00af2c52a848fa73774e6f2ff8c07a746e7">  129</a></span>&#160;                <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00af2c52a848fa73774e6f2ff8c07a746e7">LOG_LEVEL_WARN</a>,</div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a3ab779903180d94e56912a640d4dac2f">  130</a></span>&#160;                <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a3ab779903180d94e56912a640d4dac2f">LOG_LEVEL_ERROR</a>, </div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a31410c4e6e48cc385d88bae965ef14fe">  131</a></span>&#160;                LOG_LEVEL_FATAL</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            };</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a3f3e104a2b622c1c3eeb5cfe9421a1ee">  137</a></span>&#160;            std::string <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a3f3e104a2b622c1c3eeb5cfe9421a1ee" title="Logger name.">m_name</a>;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            </div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a7ffefec92b103aa9b8b6c3b53159484e">  142</a></span>&#160;            <span class="keyword">static</span> <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00" title="Supported log levels.">log_priority_type</a> <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html#a7ffefec92b103aa9b8b6c3b53159484e" title="Global priority for all loggers.">m_priority</a>;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            ~<a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a>();</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a>();</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a>(<span class="keyword">const</span> std::string&amp; name);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a>(<span class="keyword">const</span> <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a>&amp; p);            </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        };</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    } <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    }</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a792a399d05416848e3663172788fdbbc">  171</a></span>&#160;<span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_CONFIG_BASIC   {}</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="code" href="logger_8hpp.html#aca1326dcbfa100e518eda2d384cd422f">  172</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_CONFIG(FILE)   {}</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a4ec6ca9ff1e09b2b0658eac9f8f5d6db">  173</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_GET_LOGGER(NAME)   staticlib::httpserver::logger(NAME)</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a71efa6bca75f383694a4e52e3ced1e9e">  174</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_SHUTDOWN_LOGGER    {}</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a4e752bbef9c91639e469a041398ebd76">  176</a></span>&#160;<span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DEBUG(LOG)    { LOG.m_priority = staticlib::httpserver::logger::LOG_LEVEL_DEBUG; }</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a573f85e04e13618604e8235e85880cc3">  177</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_INFO(LOG)     { LOG.m_priority = staticlib::httpserver::logger::LOG_LEVEL_INFO; }</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="code" href="logger_8hpp.html#ab3ce852066a065d2bba6b9c1729a6a3f">  178</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_WARN(LOG)     { LOG.m_priority = staticlib::httpserver::httpserver::logger::LOG_LEVEL_WARN; }</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="code" href="logger_8hpp.html#ac16c9a246aca62de76d689c4674acdd3">  179</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_ERROR(LOG)    { LOG.m_priority = staticlib::httpserver::logger::LOG_LEVEL_ERROR; }</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="code" href="logger_8hpp.html#aaf6aa337e2e8248252d13e91807788c4">  180</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_FATAL(LOG)    { LOG.m_priority = staticlib::httpserver::logger::LOG_LEVEL_FATAL; }</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a096ddd8ac319839a658f515545081aa8">  181</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_UP(LOG)       { ++LOG.m_priority; }</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno"><a class="code" href="logger_8hpp.html#aebdd39b32fd0f89636e67dc8e1018935">  182</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DOWN(LOG)     { --LOG.m_priority; }</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="code" href="logger_8hpp.html#ae0e483657601f9de6441cc0e0e7b0744">  184</a></span>&#160;<span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_DEBUG(LOG, MSG)    if (LOG.m_priority &lt;= staticlib::httpserver::logger::LOG_LEVEL_DEBUG) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; DEBUG &quot; &lt;&lt; LOG.m_name &lt;&lt; &#39; &#39; &lt;&lt; MSG &lt;&lt; std::endl; }</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a9b1e8262125882a61a3c5e6aa1aac3cc">  185</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_INFO(LOG, MSG)     if (LOG.m_priority &lt;= staticlib::httpserver::logger::LOG_LEVEL_INFO) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; INFO &quot; &lt;&lt; LOG.m_name &lt;&lt; &#39; &#39; &lt;&lt; MSG &lt;&lt; std::endl; }</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno"><a class="code" href="logger_8hpp.html#afe194c8e731e89bdd3fba18384c7fb13">  186</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_WARN(LOG, MSG)     if (LOG.m_priority &lt;= staticlib::httpserver::logger::LOG_LEVEL_WARN) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; WARN &quot; &lt;&lt; LOG.m_name &lt;&lt; &#39; &#39; &lt;&lt; MSG &lt;&lt; std::endl; }</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a129ae80286df2f1da2138bc6d132be57">  187</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_ERROR(LOG, MSG)    if (LOG.m_priority &lt;= staticlib::httpserver::logger::LOG_LEVEL_ERROR) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; ERROR &quot; &lt;&lt; LOG.m_name &lt;&lt; &#39; &#39; &lt;&lt; MSG &lt;&lt; std::endl; }</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="code" href="logger_8hpp.html#a602c96175bea8ef24a2f4da97a5d656e">  188</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define STATICLIB_HTTPSERVER_LOG_FATAL(LOG, MSG)    if (LOG.m_priority &lt;= staticlib::httpserver::logger::LOG_LEVEL_FATAL) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; FATAL &quot; &lt;&lt; LOG.m_name &lt;&lt; &#39; &#39; &lt;&lt; MSG &lt;&lt; std::endl; }</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="preprocessor">#endif // STATICLIB_HTTPSERVER_LOGGER_HPP</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 4 2015 21:12:21 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

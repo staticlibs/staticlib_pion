@@ -1,13 +1,20 @@
 var searchData=
 [
-  ['timer',['timer',['../classpion_1_1tcp_1_1timer.html',1,'pion::tcp']]],
-  ['timer',['timer',['../classpion_1_1tcp_1_1timer.html#a8b132dfd2c9dd58a3845f74e292f8848',1,'pion::tcp::timer']]],
-  ['timer_2ehpp',['timer.hpp',['../timer_8hpp.html',1,'']]],
-  ['timer_5fptr',['timer_ptr',['../namespacepion_1_1tcp.html#ac6a2853cc9b22b7803d6a9afb7bb7b33',1,'pion::tcp']]],
-  ['to_5fstring',['to_string',['../namespacepion_1_1algorithm.html#adc5569ed106b95911bc9760e2b9e86a2',1,'pion::algorithm']]],
-  ['tribool',['tribool',['../classpion_1_1logic_1_1tribool.html',1,'pion::logic']]],
-  ['tribool',['tribool',['../classpion_1_1logic_1_1tribool.html#ad9da1e61c3067833935184c624b4195f',1,'pion::logic::tribool::tribool()'],['../classpion_1_1logic_1_1tribool.html#a1c46b117a969580acbbd903f2f31259e',1,'pion::logic::tribool::tribool(bool initial_value)'],['../classpion_1_1logic_1_1tribool.html#a97c4e90887f64ebae057281140de41e5',1,'pion::logic::tribool::tribool(indeterminate_keyword_t)']]],
+  ['tcp_5fconnection',['tcp_connection',['../classstaticlib_1_1httpserver_1_1tcp__connection.html',1,'staticlib::httpserver']]],
+  ['tcp_5fconnection',['tcp_connection',['../classstaticlib_1_1httpserver_1_1tcp__connection.html#a27bc7685abc92ffbbceb33a2cbdf21f7',1,'staticlib::httpserver::tcp_connection']]],
+  ['tcp_5fconnection_2ehpp',['tcp_connection.hpp',['../tcp__connection_8hpp.html',1,'']]],
+  ['tcp_5fconnection_5fptr',['tcp_connection_ptr',['../namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8',1,'staticlib::httpserver']]],
+  ['tcp_5fserver',['tcp_server',['../classstaticlib_1_1httpserver_1_1tcp__server.html',1,'staticlib::httpserver']]],
+  ['tcp_5fserver',['tcp_server',['../classstaticlib_1_1httpserver_1_1tcp__server.html#a53f307ffa12a337799b7afa50594b43f',1,'staticlib::httpserver::tcp_server::tcp_server(const unsigned int tcp_port)'],['../classstaticlib_1_1httpserver_1_1tcp__server.html#a6d37304273ce70db809ac790698cc7d8',1,'staticlib::httpserver::tcp_server::tcp_server(const asio::ip::tcp::endpoint &amp;endpoint)'],['../classstaticlib_1_1httpserver_1_1tcp__server.html#ae051e0fa48420c513034e5ae1a716df7',1,'staticlib::httpserver::tcp_server::tcp_server(scheduler &amp;sched, const unsigned int tcp_port=0)'],['../classstaticlib_1_1httpserver_1_1tcp__server.html#aeeefa1418ee75df61007628acd89dcd1',1,'staticlib::httpserver::tcp_server::tcp_server(scheduler &amp;sched, const asio::ip::tcp::endpoint &amp;endpoint)']]],
+  ['tcp_5fserver_2ehpp',['tcp_server.hpp',['../tcp__server_8hpp.html',1,'']]],
+  ['tcp_5ftimer',['tcp_timer',['../classstaticlib_1_1httpserver_1_1tcp__timer.html#a867b12edbf18b1e696e0a588836c0744',1,'staticlib::httpserver::tcp_timer']]],
+  ['tcp_5ftimer',['tcp_timer',['../classstaticlib_1_1httpserver_1_1tcp__timer.html',1,'staticlib::httpserver']]],
+  ['tcp_5ftimer_2ehpp',['tcp_timer.hpp',['../tcp__timer_8hpp.html',1,'']]],
+  ['tcp_5ftimer_5fptr',['tcp_timer_ptr',['../namespacestaticlib_1_1httpserver.html#a8f0a0deb3d54e23ff3873311a8e4e0a0',1,'staticlib::httpserver']]],
+  ['to_5fstring',['to_string',['../namespacestaticlib_1_1httpserver_1_1algorithm.html#a5059849f8a889f8e18004a63233f55df',1,'staticlib::httpserver::algorithm']]],
+  ['tribool',['tribool',['../classstaticlib_1_1httpserver_1_1logic_1_1tribool.html#a75f9793f0c19be4900894bbdf9840c6c',1,'staticlib::httpserver::logic::tribool::tribool()'],['../classstaticlib_1_1httpserver_1_1logic_1_1tribool.html#abd18a01b58129e936a735eea3f841b5d',1,'staticlib::httpserver::logic::tribool::tribool(bool initial_value)'],['../classstaticlib_1_1httpserver_1_1logic_1_1tribool.html#abce7be90187345fe77da56bab1fb7ee2',1,'staticlib::httpserver::logic::tribool::tribool(indeterminate_keyword_t)']]],
+  ['tribool',['tribool',['../classstaticlib_1_1httpserver_1_1logic_1_1tribool.html',1,'staticlib::httpserver::logic']]],
   ['tribool_2ehpp',['tribool.hpp',['../tribool_8hpp.html',1,'']]],
-  ['trim',['trim',['../namespacepion_1_1algorithm.html#a59d012ae614925f1b31ee9596c3b6f6a',1,'pion::algorithm']]],
-  ['true_5fvalue',['true_value',['../classpion_1_1logic_1_1tribool.html#a3ecd041fc36b72b494e7657e607ad7fbaa13025ab336653a3235d41d1398aee9d',1,'pion::logic::tribool']]]
+  ['trim',['trim',['../namespacestaticlib_1_1httpserver_1_1algorithm.html#a1cf29c2bfac9368c7f17c218441a7bb7',1,'staticlib::httpserver::algorithm']]],
+  ['true_5fvalue',['true_value',['../classstaticlib_1_1httpserver_1_1logic_1_1tribool.html#a0b2a2b500050742d273327247af89672af7645aa823dbe7545cbe2f290e01f874',1,'staticlib::httpserver::logic::tribool']]]
 ];

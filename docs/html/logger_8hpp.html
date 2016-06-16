@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_httpserver: pion/logger.hpp File Reference</title>
+<title>staticlib_httpserver: staticlib/httpserver/logger.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.7</span>
+   &#160;<span id="projectnumber">5.0.7.10</span>
    </div>
   </td>
  </tr>
@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f19c414da8caafd0a855ffb01d90860.html">pion</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_c33d3ca81783b96de1fd366e75cb14d0.html">staticlib</a></li><li class="navelem"><a class="el" href="dir_05fdd8ed122623fd25bfabb888adb5b9.html">httpserver</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -94,7 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">logger.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="config_8hpp_source.html">pion/config.hpp</a>&quot;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="config_8hpp_source.html">staticlib/httpserver/config.hpp</a>&quot;</code><br/>
 <code>#include &lt;iostream&gt;</code><br/>
 <code>#include &lt;string&gt;</code><br/>
 <code>#include &lt;ctime&gt;</code><br/>
@@ -103,56 +103,57 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpion_1_1logger.html">pion::logger</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">STDOUT logger implementation.  <a href="structpion_1_1logger.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstaticlib_1_1httpserver_1_1logger.html">staticlib::httpserver::logger</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">STDOUT logger implementation.  <a href="structstaticlib_1_1httpserver_1_1logger.html#details">More...</a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespacepion"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepion.html">pion</a></td></tr>
+<tr class="memitem:namespacestaticlib"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib.html">staticlib</a></td></tr>
+<tr class="memitem:namespacestaticlib_1_1httpserver"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1httpserver.html">staticlib::httpserver</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:adb316dd84e5ca3d3ce11c77d21364ad2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#adb316dd84e5ca3d3ce11c77d21364ad2">PION_USE_OSTREAM_LOGGING</a></td></tr>
-<tr class="memitem:ad345e82edaf6e2e841ccc277d3d8e26d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#ad345e82edaf6e2e841ccc277d3d8e26d">PION_LOG_CONFIG_BASIC</a>&#160;&#160;&#160;{}</td></tr>
-<tr class="memitem:a2e1718f2a774ac62a24afb4bc18b901a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a2e1718f2a774ac62a24afb4bc18b901a">PION_LOG_CONFIG</a>(FILE)&#160;&#160;&#160;{}</td></tr>
-<tr class="memitem:ab799921481c48386dc6d3ac8c3738f7b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#ab799921481c48386dc6d3ac8c3738f7b">PION_GET_LOGGER</a>(NAME)&#160;&#160;&#160;<a class="el" href="structpion_1_1logger.html">pion::logger</a>(NAME)</td></tr>
-<tr class="memitem:a2e0a99762d74cdb622d8a09319f7037a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a2e0a99762d74cdb622d8a09319f7037a">PION_SHUTDOWN_LOGGER</a>&#160;&#160;&#160;{}</td></tr>
-<tr class="memitem:a3e9e6b25f12c5166af10b6f8f7f34ad7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a3e9e6b25f12c5166af10b6f8f7f34ad7">PION_LOG_SETLEVEL_DEBUG</a>(LOG)&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a36ae33c70511f0e2755ad24b009cd378">pion::logger::LOG_LEVEL_DEBUG</a>; }</td></tr>
-<tr class="memitem:a0682f397d094613f17178d9109804503"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a0682f397d094613f17178d9109804503">PION_LOG_SETLEVEL_INFO</a>(LOG)&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a469a91269377b34699eb188ca935dade">pion::logger::LOG_LEVEL_INFO</a>; }</td></tr>
-<tr class="memitem:ab7b1ec36fd515d164689e45cfead8b06"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#ab7b1ec36fd515d164689e45cfead8b06">PION_LOG_SETLEVEL_WARN</a>(LOG)&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa53e46352ecd58083e2a70b5c37fc445">pion::logger::LOG_LEVEL_WARN</a>; }</td></tr>
-<tr class="memitem:a361f62c32696f909200ee1b0f591ab07"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a361f62c32696f909200ee1b0f591ab07">PION_LOG_SETLEVEL_ERROR</a>(LOG)&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a54e5ff73e35f679b488ed307d0d1ad99">pion::logger::LOG_LEVEL_ERROR</a>; }</td></tr>
-<tr class="memitem:af0a1500451daf1eca476d1ecd54d0704"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#af0a1500451daf1eca476d1ecd54d0704">PION_LOG_SETLEVEL_FATAL</a>(LOG)&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa3d4b8849e02f23d00e081703280a9e7">pion::logger::LOG_LEVEL_FATAL</a>; }</td></tr>
-<tr class="memitem:aea1c8dbeb343b71abb4e548090487686"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#aea1c8dbeb343b71abb4e548090487686">PION_LOG_SETLEVEL_UP</a>(LOG)&#160;&#160;&#160;{ ++LOG.m_priority; }</td></tr>
-<tr class="memitem:a735afafde3e1a0b51f23f22645ead1ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a735afafde3e1a0b51f23f22645ead1ff">PION_LOG_SETLEVEL_DOWN</a>(LOG)&#160;&#160;&#160;{ --LOG.m_priority; }</td></tr>
-<tr class="memitem:abe19bc22ad50b995922c60501b9485d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#abe19bc22ad50b995922c60501b9485d0">PION_LOG_DEBUG</a>(LOG, MSG)&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a36ae33c70511f0e2755ad24b009cd378">pion::logger::LOG_LEVEL_DEBUG</a>) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; DEBUG &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td></tr>
-<tr class="memitem:a4aabb7c61208f820c8d08a6798a0cbc7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a4aabb7c61208f820c8d08a6798a0cbc7">PION_LOG_INFO</a>(LOG, MSG)&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a469a91269377b34699eb188ca935dade">pion::logger::LOG_LEVEL_INFO</a>) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; INFO &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td></tr>
-<tr class="memitem:a0c8babdf3b347113397b33ab9538b9d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a0c8babdf3b347113397b33ab9538b9d4">PION_LOG_WARN</a>(LOG, MSG)&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa53e46352ecd58083e2a70b5c37fc445">pion::logger::LOG_LEVEL_WARN</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; WARN &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td></tr>
-<tr class="memitem:ac5efb38d858b4fbc7b81c4d5cde876a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#ac5efb38d858b4fbc7b81c4d5cde876a2">PION_LOG_ERROR</a>(LOG, MSG)&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a54e5ff73e35f679b488ed307d0d1ad99">pion::logger::LOG_LEVEL_ERROR</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; ERROR &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td></tr>
-<tr class="memitem:a99a21d74a682b3223466d23b315b6381"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a99a21d74a682b3223466d23b315b6381">PION_LOG_FATAL</a>(LOG, MSG)&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa3d4b8849e02f23d00e081703280a9e7">pion::logger::LOG_LEVEL_FATAL</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; FATAL &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td></tr>
+<tr class="memitem:aa7293d771cb4de2d7ec453d62769c89f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#aa7293d771cb4de2d7ec453d62769c89f">STATICLIB_HTTPSERVER_USE_OSTREAM_LOGGING</a></td></tr>
+<tr class="memitem:a792a399d05416848e3663172788fdbbc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a792a399d05416848e3663172788fdbbc">STATICLIB_HTTPSERVER_LOG_CONFIG_BASIC</a>&#160;&#160;&#160;{}</td></tr>
+<tr class="memitem:aca1326dcbfa100e518eda2d384cd422f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#aca1326dcbfa100e518eda2d384cd422f">STATICLIB_HTTPSERVER_LOG_CONFIG</a>(FILE)&#160;&#160;&#160;{}</td></tr>
+<tr class="memitem:a4ec6ca9ff1e09b2b0658eac9f8f5d6db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a4ec6ca9ff1e09b2b0658eac9f8f5d6db">STATICLIB_HTTPSERVER_GET_LOGGER</a>(NAME)&#160;&#160;&#160;<a class="el" href="structstaticlib_1_1httpserver_1_1logger.html">staticlib::httpserver::logger</a>(NAME)</td></tr>
+<tr class="memitem:a71efa6bca75f383694a4e52e3ced1e9e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a71efa6bca75f383694a4e52e3ced1e9e">STATICLIB_HTTPSERVER_SHUTDOWN_LOGGER</a>&#160;&#160;&#160;{}</td></tr>
+<tr class="memitem:a4e752bbef9c91639e469a041398ebd76"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a4e752bbef9c91639e469a041398ebd76">STATICLIB_HTTPSERVER_LOG_SETLEVEL_DEBUG</a>(LOG)&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a33a3763a67f0325bfbfce43de43ba508">staticlib::httpserver::logger::LOG_LEVEL_DEBUG</a>; }</td></tr>
+<tr class="memitem:a573f85e04e13618604e8235e85880cc3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a573f85e04e13618604e8235e85880cc3">STATICLIB_HTTPSERVER_LOG_SETLEVEL_INFO</a>(LOG)&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a728c6b1f2e9136920d1762fbcc6f434f">staticlib::httpserver::logger::LOG_LEVEL_INFO</a>; }</td></tr>
+<tr class="memitem:ab3ce852066a065d2bba6b9c1729a6a3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#ab3ce852066a065d2bba6b9c1729a6a3f">STATICLIB_HTTPSERVER_LOG_SETLEVEL_WARN</a>(LOG)&#160;&#160;&#160;{ LOG.m_priority = staticlib::httpserver::httpserver::logger::LOG_LEVEL_WARN; }</td></tr>
+<tr class="memitem:ac16c9a246aca62de76d689c4674acdd3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#ac16c9a246aca62de76d689c4674acdd3">STATICLIB_HTTPSERVER_LOG_SETLEVEL_ERROR</a>(LOG)&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a3ab779903180d94e56912a640d4dac2f">staticlib::httpserver::logger::LOG_LEVEL_ERROR</a>; }</td></tr>
+<tr class="memitem:aaf6aa337e2e8248252d13e91807788c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#aaf6aa337e2e8248252d13e91807788c4">STATICLIB_HTTPSERVER_LOG_SETLEVEL_FATAL</a>(LOG)&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a31410c4e6e48cc385d88bae965ef14fe">staticlib::httpserver::logger::LOG_LEVEL_FATAL</a>; }</td></tr>
+<tr class="memitem:a096ddd8ac319839a658f515545081aa8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a096ddd8ac319839a658f515545081aa8">STATICLIB_HTTPSERVER_LOG_SETLEVEL_UP</a>(LOG)&#160;&#160;&#160;{ ++LOG.m_priority; }</td></tr>
+<tr class="memitem:aebdd39b32fd0f89636e67dc8e1018935"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#aebdd39b32fd0f89636e67dc8e1018935">STATICLIB_HTTPSERVER_LOG_SETLEVEL_DOWN</a>(LOG)&#160;&#160;&#160;{ --LOG.m_priority; }</td></tr>
+<tr class="memitem:ae0e483657601f9de6441cc0e0e7b0744"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#ae0e483657601f9de6441cc0e0e7b0744">STATICLIB_HTTPSERVER_LOG_DEBUG</a>(LOG, MSG)&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a33a3763a67f0325bfbfce43de43ba508">staticlib::httpserver::logger::LOG_LEVEL_DEBUG</a>) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; DEBUG &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td></tr>
+<tr class="memitem:a9b1e8262125882a61a3c5e6aa1aac3cc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a9b1e8262125882a61a3c5e6aa1aac3cc">STATICLIB_HTTPSERVER_LOG_INFO</a>(LOG, MSG)&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a728c6b1f2e9136920d1762fbcc6f434f">staticlib::httpserver::logger::LOG_LEVEL_INFO</a>) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; INFO &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td></tr>
+<tr class="memitem:afe194c8e731e89bdd3fba18384c7fb13"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#afe194c8e731e89bdd3fba18384c7fb13">STATICLIB_HTTPSERVER_LOG_WARN</a>(LOG, MSG)&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00af2c52a848fa73774e6f2ff8c07a746e7">staticlib::httpserver::logger::LOG_LEVEL_WARN</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; WARN &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td></tr>
+<tr class="memitem:a129ae80286df2f1da2138bc6d132be57"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a129ae80286df2f1da2138bc6d132be57">STATICLIB_HTTPSERVER_LOG_ERROR</a>(LOG, MSG)&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a3ab779903180d94e56912a640d4dac2f">staticlib::httpserver::logger::LOG_LEVEL_ERROR</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; ERROR &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td></tr>
+<tr class="memitem:a602c96175bea8ef24a2f4da97a5d656e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8hpp.html#a602c96175bea8ef24a2f4da97a5d656e">STATICLIB_HTTPSERVER_LOG_FATAL</a>(LOG, MSG)&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a31410c4e6e48cc385d88bae965ef14fe">staticlib::httpserver::logger::LOG_LEVEL_FATAL</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; FATAL &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td></tr>
 </table>
 <h2>Macro Definition Documentation</h2>
-<a class="anchor" id="ab799921481c48386dc6d3ac8c3738f7b"></a>
+<a class="anchor" id="a4ec6ca9ff1e09b2b0658eac9f8f5d6db"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_GET_LOGGER</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_GET_LOGGER</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">NAME</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="structpion_1_1logger.html">pion::logger</a>(NAME)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="structstaticlib_1_1httpserver_1_1logger.html">staticlib::httpserver::logger</a>(NAME)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a2e1718f2a774ac62a24afb4bc18b901a"></a>
+<a class="anchor" id="aca1326dcbfa100e518eda2d384cd422f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_CONFIG</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_CONFIG</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">FILE</td><td>)</td>
@@ -163,24 +164,24 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad345e82edaf6e2e841ccc277d3d8e26d"></a>
+<a class="anchor" id="a792a399d05416848e3663172788fdbbc"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_CONFIG_BASIC&#160;&#160;&#160;{}</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_CONFIG_BASIC&#160;&#160;&#160;{}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="abe19bc22ad50b995922c60501b9485d0"></a>
+<a class="anchor" id="ae0e483657601f9de6441cc0e0e7b0744"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_DEBUG</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_DEBUG</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG, </td>
@@ -194,19 +195,19 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a36ae33c70511f0e2755ad24b009cd378">pion::logger::LOG_LEVEL_DEBUG</a>) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; DEBUG &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td>
+          <td></td><td>&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a33a3763a67f0325bfbfce43de43ba508">staticlib::httpserver::logger::LOG_LEVEL_DEBUG</a>) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; DEBUG &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="ac5efb38d858b4fbc7b81c4d5cde876a2"></a>
+<a class="anchor" id="a129ae80286df2f1da2138bc6d132be57"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_ERROR</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_ERROR</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG, </td>
@@ -220,19 +221,19 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a54e5ff73e35f679b488ed307d0d1ad99">pion::logger::LOG_LEVEL_ERROR</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; ERROR &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td>
+          <td></td><td>&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a3ab779903180d94e56912a640d4dac2f">staticlib::httpserver::logger::LOG_LEVEL_ERROR</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; ERROR &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a99a21d74a682b3223466d23b315b6381"></a>
+<a class="anchor" id="a602c96175bea8ef24a2f4da97a5d656e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_FATAL</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_FATAL</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG, </td>
@@ -246,19 +247,19 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa3d4b8849e02f23d00e081703280a9e7">pion::logger::LOG_LEVEL_FATAL</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; FATAL &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td>
+          <td></td><td>&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a31410c4e6e48cc385d88bae965ef14fe">staticlib::httpserver::logger::LOG_LEVEL_FATAL</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; FATAL &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a4aabb7c61208f820c8d08a6798a0cbc7"></a>
+<a class="anchor" id="a9b1e8262125882a61a3c5e6aa1aac3cc"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_INFO</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_INFO</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG, </td>
@@ -272,35 +273,35 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a469a91269377b34699eb188ca935dade">pion::logger::LOG_LEVEL_INFO</a>) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; INFO &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td>
+          <td></td><td>&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a728c6b1f2e9136920d1762fbcc6f434f">staticlib::httpserver::logger::LOG_LEVEL_INFO</a>) { std::cout &lt;&lt; time(NULL) &lt;&lt; &quot; INFO &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a3e9e6b25f12c5166af10b6f8f7f34ad7"></a>
+<a class="anchor" id="a4e752bbef9c91639e469a041398ebd76"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_SETLEVEL_DEBUG</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DEBUG</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG</td><td>)</td>
-          <td>&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a36ae33c70511f0e2755ad24b009cd378">pion::logger::LOG_LEVEL_DEBUG</a>; }</td>
+          <td>&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a33a3763a67f0325bfbfce43de43ba508">staticlib::httpserver::logger::LOG_LEVEL_DEBUG</a>; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a735afafde3e1a0b51f23f22645ead1ff"></a>
+<a class="anchor" id="aebdd39b32fd0f89636e67dc8e1018935"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_SETLEVEL_DOWN</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DOWN</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG</td><td>)</td>
@@ -311,60 +312,60 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a361f62c32696f909200ee1b0f591ab07"></a>
+<a class="anchor" id="ac16c9a246aca62de76d689c4674acdd3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_SETLEVEL_ERROR</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_SETLEVEL_ERROR</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG</td><td>)</td>
-          <td>&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a54e5ff73e35f679b488ed307d0d1ad99">pion::logger::LOG_LEVEL_ERROR</a>; }</td>
+          <td>&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a3ab779903180d94e56912a640d4dac2f">staticlib::httpserver::logger::LOG_LEVEL_ERROR</a>; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="af0a1500451daf1eca476d1ecd54d0704"></a>
+<a class="anchor" id="aaf6aa337e2e8248252d13e91807788c4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_SETLEVEL_FATAL</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_SETLEVEL_FATAL</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG</td><td>)</td>
-          <td>&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa3d4b8849e02f23d00e081703280a9e7">pion::logger::LOG_LEVEL_FATAL</a>; }</td>
+          <td>&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a31410c4e6e48cc385d88bae965ef14fe">staticlib::httpserver::logger::LOG_LEVEL_FATAL</a>; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a0682f397d094613f17178d9109804503"></a>
+<a class="anchor" id="a573f85e04e13618604e8235e85880cc3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_SETLEVEL_INFO</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_SETLEVEL_INFO</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG</td><td>)</td>
-          <td>&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a469a91269377b34699eb188ca935dade">pion::logger::LOG_LEVEL_INFO</a>; }</td>
+          <td>&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a728c6b1f2e9136920d1762fbcc6f434f">staticlib::httpserver::logger::LOG_LEVEL_INFO</a>; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="aea1c8dbeb343b71abb4e548090487686"></a>
+<a class="anchor" id="a096ddd8ac319839a658f515545081aa8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_SETLEVEL_UP</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_SETLEVEL_UP</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG</td><td>)</td>
@@ -375,28 +376,28 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab7b1ec36fd515d164689e45cfead8b06"></a>
+<a class="anchor" id="ab3ce852066a065d2bba6b9c1729a6a3f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_SETLEVEL_WARN</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_SETLEVEL_WARN</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG</td><td>)</td>
-          <td>&#160;&#160;&#160;{ LOG.m_priority = <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa53e46352ecd58083e2a70b5c37fc445">pion::logger::LOG_LEVEL_WARN</a>; }</td>
+          <td>&#160;&#160;&#160;{ LOG.m_priority = staticlib::httpserver::httpserver::logger::LOG_LEVEL_WARN; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a0c8babdf3b347113397b33ab9538b9d4"></a>
+<a class="anchor" id="afe194c8e731e89bdd3fba18384c7fb13"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_LOG_WARN</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_LOG_WARN</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">LOG, </td>
@@ -410,31 +411,31 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa53e46352ecd58083e2a70b5c37fc445">pion::logger::LOG_LEVEL_WARN</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; WARN &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td>
+          <td></td><td>&#160;&#160;&#160;if (LOG.m_priority &lt;= <a class="el" href="structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00af2c52a848fa73774e6f2ff8c07a746e7">staticlib::httpserver::logger::LOG_LEVEL_WARN</a>) { std::cerr &lt;&lt; time(NULL) &lt;&lt; &quot; WARN &quot; &lt;&lt; LOG.m_name &lt;&lt; ' ' &lt;&lt; MSG &lt;&lt; std::endl; }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a2e0a99762d74cdb622d8a09319f7037a"></a>
+<a class="anchor" id="a71efa6bca75f383694a4e52e3ced1e9e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_SHUTDOWN_LOGGER&#160;&#160;&#160;{}</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_SHUTDOWN_LOGGER&#160;&#160;&#160;{}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="adb316dd84e5ca3d3ce11c77d21364ad2"></a>
+<a class="anchor" id="aa7293d771cb4de2d7ec453d62769c89f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PION_USE_OSTREAM_LOGGING</td>
+          <td class="memname">#define STATICLIB_HTTPSERVER_USE_OSTREAM_LOGGING</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -444,7 +445,7 @@ Macros</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 4 2015 21:12:21 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

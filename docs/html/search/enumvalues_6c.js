@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['lifecycle_5fclose',['LIFECYCLE_CLOSE',['../classpion_1_1tcp_1_1connection.html#a1888aaf31f431a3f00c70c2568f4cb25a1eee3589ec1f6b59a13bc36fd5f48e63',1,'pion::tcp::connection']]],
-  ['lifecycle_5fkeepalive',['LIFECYCLE_KEEPALIVE',['../classpion_1_1tcp_1_1connection.html#a1888aaf31f431a3f00c70c2568f4cb25ab3bb67380ff48e263e16b55ff786e96f',1,'pion::tcp::connection']]],
-  ['lifecycle_5fpipelined',['LIFECYCLE_PIPELINED',['../classpion_1_1tcp_1_1connection.html#a1888aaf31f431a3f00c70c2568f4cb25ac3e9ae9a9b7a71232679416d57b7d95f',1,'pion::tcp::connection']]],
-  ['log_5flevel_5fdebug',['LOG_LEVEL_DEBUG',['../structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a36ae33c70511f0e2755ad24b009cd378',1,'pion::logger']]],
-  ['log_5flevel_5ferror',['LOG_LEVEL_ERROR',['../structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a54e5ff73e35f679b488ed307d0d1ad99',1,'pion::logger']]],
-  ['log_5flevel_5ffatal',['LOG_LEVEL_FATAL',['../structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa3d4b8849e02f23d00e081703280a9e7',1,'pion::logger']]],
-  ['log_5flevel_5finfo',['LOG_LEVEL_INFO',['../structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8a469a91269377b34699eb188ca935dade',1,'pion::logger']]],
-  ['log_5flevel_5fwarn',['LOG_LEVEL_WARN',['../structpion_1_1logger.html#a028e0caa7e4d190f0bbf629cd15456b8aa53e46352ecd58083e2a70b5c37fc445',1,'pion::logger']]]
+  ['lifecycle_5fclose',['LIFECYCLE_CLOSE',['../classstaticlib_1_1httpserver_1_1tcp__connection.html#a34f52d3bb70c101adbb91cbfba883f62a0be9978ba39523e021ded48d16114e24',1,'staticlib::httpserver::tcp_connection']]],
+  ['lifecycle_5fkeepalive',['LIFECYCLE_KEEPALIVE',['../classstaticlib_1_1httpserver_1_1tcp__connection.html#a34f52d3bb70c101adbb91cbfba883f62a9a0388819ba6809ea038b4528469332d',1,'staticlib::httpserver::tcp_connection']]],
+  ['lifecycle_5fpipelined',['LIFECYCLE_PIPELINED',['../classstaticlib_1_1httpserver_1_1tcp__connection.html#a34f52d3bb70c101adbb91cbfba883f62ac96f71c277087acbfaa13bc1496ed583',1,'staticlib::httpserver::tcp_connection']]],
+  ['log_5flevel_5fdebug',['LOG_LEVEL_DEBUG',['../structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a33a3763a67f0325bfbfce43de43ba508',1,'staticlib::httpserver::logger']]],
+  ['log_5flevel_5ferror',['LOG_LEVEL_ERROR',['../structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a3ab779903180d94e56912a640d4dac2f',1,'staticlib::httpserver::logger']]],
+  ['log_5flevel_5ffatal',['LOG_LEVEL_FATAL',['../structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a31410c4e6e48cc385d88bae965ef14fe',1,'staticlib::httpserver::logger']]],
+  ['log_5flevel_5finfo',['LOG_LEVEL_INFO',['../structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00a728c6b1f2e9136920d1762fbcc6f434f',1,'staticlib::httpserver::logger']]],
+  ['log_5flevel_5fwarn',['LOG_LEVEL_WARN',['../structstaticlib_1_1httpserver_1_1logger.html#a53f55e68fb270137c687429daefe6b00af2c52a848fa73774e6f2ff8c07a746e7',1,'staticlib::httpserver::logger']]]
 ];

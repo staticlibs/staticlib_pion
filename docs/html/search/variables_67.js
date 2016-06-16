@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['get_5ffilters',['get_filters',['../classpion_1_1http_1_1streaming__server.html#a05dfeefabc18981e89e596b037785579',1,'pion::http::streaming_server']]],
-  ['get_5fhandlers',['get_handlers',['../classpion_1_1http_1_1streaming__server.html#a9fca91cc6a8f80728bea2a1d18d90df4',1,'pion::http::streaming_server']]],
-  ['get_5fpayloads',['get_payloads',['../classpion_1_1http_1_1streaming__server.html#a68f3a3a6239c54d69a87512323c035bc',1,'pion::http::streaming_server']]]
+  ['get_5ffilters',['get_filters',['../classstaticlib_1_1httpserver_1_1http__server.html#a047e741413fd8328ec9fcda7ad285f1b',1,'staticlib::httpserver::http_server']]],
+  ['get_5fhandlers',['get_handlers',['../classstaticlib_1_1httpserver_1_1http__server.html#a57710bfa9844ca7e88fa2babc2f316d4',1,'staticlib::httpserver::http_server']]],
+  ['get_5fpayloads',['get_payloads',['../classstaticlib_1_1httpserver_1_1http__server.html#ad04294b848f162f00443653eb8c4b9f7',1,'staticlib::httpserver::http_server']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['join',['join',['../classpion_1_1scheduler.html#a3c910398210dc85dc5bff0fe0c216a97',1,'pion::scheduler::join()'],['../classpion_1_1tcp_1_1server.html#a9e05df6d17de4428db4adedfae8511af',1,'pion::tcp::server::join()']]]
+  ['join',['join',['../classstaticlib_1_1httpserver_1_1scheduler.html#aa7ef6b0ec31ae99c4d1792ac943af4bf',1,'staticlib::httpserver::scheduler::join()'],['../classstaticlib_1_1httpserver_1_1tcp__server.html#abbbc8d63060d0c52d54928b54b2ea4f7',1,'staticlib::httpserver::tcp_server::join()']]]
 ];

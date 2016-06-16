@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['timer_5fptr',['timer_ptr',['../namespacepion_1_1tcp.html#ac6a2853cc9b22b7803d6a9afb7bb7b33',1,'pion::tcp']]]
+  ['tcp_5fconnection_5fptr',['tcp_connection_ptr',['../namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8',1,'staticlib::httpserver']]],
+  ['tcp_5ftimer_5fptr',['tcp_timer_ptr',['../namespacestaticlib_1_1httpserver.html#a8f0a0deb3d54e23ff3873311a8e4e0a0',1,'staticlib::httpserver']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['noncopyable',['noncopyable',['../classpion_1_1noncopyable___1_1noncopyable.html',1,'pion::noncopyable_']]]
+  ['noncopyable',['noncopyable',['../classstaticlib_1_1httpserver_1_1noncopyable___1_1noncopyable.html',1,'staticlib::httpserver::noncopyable_']]]
 ];

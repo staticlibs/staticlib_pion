@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['false_5fvalue',['false_value',['../classpion_1_1logic_1_1tribool.html#a3ecd041fc36b72b494e7657e607ad7fba68254ffbc190b4e701648b23fb6d189d',1,'pion::logic::tribool']]]
+  ['false_5fvalue',['false_value',['../classstaticlib_1_1httpserver_1_1logic_1_1tribool.html#a0b2a2b500050742d273327247af89672a0c98aad94e690190563ee00d97082cfc',1,'staticlib::httpserver::logic::tribool']]]
 ];

@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['staticlib_5fhttpserver_5fget_5flogger',['STATICLIB_HTTPSERVER_GET_LOGGER',['../logger_8hpp.html#a4ec6ca9ff1e09b2b0658eac9f8f5d6db',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5fconfig',['STATICLIB_HTTPSERVER_LOG_CONFIG',['../logger_8hpp.html#aca1326dcbfa100e518eda2d384cd422f',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5fconfig_5fbasic',['STATICLIB_HTTPSERVER_LOG_CONFIG_BASIC',['../logger_8hpp.html#a792a399d05416848e3663172788fdbbc',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5fdebug',['STATICLIB_HTTPSERVER_LOG_DEBUG',['../logger_8hpp.html#ae0e483657601f9de6441cc0e0e7b0744',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5ferror',['STATICLIB_HTTPSERVER_LOG_ERROR',['../logger_8hpp.html#a129ae80286df2f1da2138bc6d132be57',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5ffatal',['STATICLIB_HTTPSERVER_LOG_FATAL',['../logger_8hpp.html#a602c96175bea8ef24a2f4da97a5d656e',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5finfo',['STATICLIB_HTTPSERVER_LOG_INFO',['../logger_8hpp.html#a9b1e8262125882a61a3c5e6aa1aac3cc',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5fsetlevel_5fdebug',['STATICLIB_HTTPSERVER_LOG_SETLEVEL_DEBUG',['../logger_8hpp.html#a4e752bbef9c91639e469a041398ebd76',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5fsetlevel_5fdown',['STATICLIB_HTTPSERVER_LOG_SETLEVEL_DOWN',['../logger_8hpp.html#aebdd39b32fd0f89636e67dc8e1018935',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5fsetlevel_5ferror',['STATICLIB_HTTPSERVER_LOG_SETLEVEL_ERROR',['../logger_8hpp.html#ac16c9a246aca62de76d689c4674acdd3',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5fsetlevel_5ffatal',['STATICLIB_HTTPSERVER_LOG_SETLEVEL_FATAL',['../logger_8hpp.html#aaf6aa337e2e8248252d13e91807788c4',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5fsetlevel_5finfo',['STATICLIB_HTTPSERVER_LOG_SETLEVEL_INFO',['../logger_8hpp.html#a573f85e04e13618604e8235e85880cc3',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5fsetlevel_5fup',['STATICLIB_HTTPSERVER_LOG_SETLEVEL_UP',['../logger_8hpp.html#a096ddd8ac319839a658f515545081aa8',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5fsetlevel_5fwarn',['STATICLIB_HTTPSERVER_LOG_SETLEVEL_WARN',['../logger_8hpp.html#ab3ce852066a065d2bba6b9c1729a6a3f',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5flog_5fwarn',['STATICLIB_HTTPSERVER_LOG_WARN',['../logger_8hpp.html#afe194c8e731e89bdd3fba18384c7fb13',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5fnoexcept',['STATICLIB_HTTPSERVER_NOEXCEPT',['../config_8hpp.html#add51f4f10ffc9625dfc2db5ec17cf247',1,'config.hpp']]],
+  ['staticlib_5fhttpserver_5fshutdown_5flogger',['STATICLIB_HTTPSERVER_SHUTDOWN_LOGGER',['../logger_8hpp.html#a71efa6bca75f383694a4e52e3ced1e9e',1,'logger.hpp']]],
+  ['staticlib_5fhttpserver_5ftribool_5fthird_5fstate',['STATICLIB_HTTPSERVER_TRIBOOL_THIRD_STATE',['../tribool_8hpp.html#acefee7df1570f67d808932c8ea5e3a35',1,'tribool.hpp']]],
+  ['staticlib_5fhttpserver_5fuse_5fostream_5flogging',['STATICLIB_HTTPSERVER_USE_OSTREAM_LOGGING',['../logger_8hpp.html#aa7293d771cb4de2d7ec453d62769c89f',1,'logger.hpp']]]
+];

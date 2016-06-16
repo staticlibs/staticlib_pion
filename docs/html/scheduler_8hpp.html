@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_httpserver: pion/scheduler.hpp File Reference</title>
+<title>staticlib_httpserver: staticlib/httpserver/scheduler.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.7</span>
+   &#160;<span id="projectnumber">5.0.7.10</span>
    </div>
   </td>
  </tr>
@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f19c414da8caafd0a855ffb01d90860.html">pion</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_c33d3ca81783b96de1fd366e75cb14d0.html">staticlib</a></li><li class="navelem"><a class="el" href="dir_05fdd8ed122623fd25bfabb888adb5b9.html">httpserver</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -103,29 +103,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;cassert&gt;</code><br/>
 <code>#include &lt;cstdint&gt;</code><br/>
 <code>#include &quot;asio.hpp&quot;</code><br/>
-<code>#include &quot;<a class="el" href="noncopyable_8hpp_source.html">pion/noncopyable.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="config_8hpp_source.html">pion/config.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="logger_8hpp_source.html">pion/logger.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="noncopyable_8hpp_source.html">staticlib/httpserver/noncopyable.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="config_8hpp_source.html">staticlib/httpserver/config.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="logger_8hpp_source.html">staticlib/httpserver/logger.hpp</a>&quot;</code><br/>
 </div>
 <p><a href="scheduler_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1scheduler.html">pion::scheduler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.  <a href="classpion_1_1scheduler.html#details">More...</a><br/></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1multi__thread__scheduler.html">pion::multi_thread_scheduler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses a pool of threads to perform work.  <a href="classpion_1_1multi__thread__scheduler.html#details">More...</a><br/></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpion_1_1single__service__scheduler.html">pion::single_service_scheduler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses a single IO service to schedule work.  <a href="classpion_1_1single__service__scheduler.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1scheduler.html">staticlib::httpserver::scheduler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.  <a href="classstaticlib_1_1httpserver_1_1scheduler.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html">staticlib::httpserver::multi_thread_scheduler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses a pool of threads to perform work.  <a href="classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html">staticlib::httpserver::single_service_scheduler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses a single IO service to schedule work.  <a href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html#details">More...</a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespacepion"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepion.html">pion</a></td></tr>
+<tr class="memitem:namespacestaticlib"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib.html">staticlib</a></td></tr>
+<tr class="memitem:namespacestaticlib_1_1httpserver"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1httpserver.html">staticlib::httpserver</a></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 4 2015 21:12:21 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

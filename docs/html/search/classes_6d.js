@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['message',['message',['../classpion_1_1http_1_1message.html',1,'pion::http']]],
-  ['multi_5fthread_5fscheduler',['multi_thread_scheduler',['../classpion_1_1multi__thread__scheduler.html',1,'pion']]]
+  ['multi_5fthread_5fscheduler',['multi_thread_scheduler',['../classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html',1,'staticlib::httpserver']]]
 ];

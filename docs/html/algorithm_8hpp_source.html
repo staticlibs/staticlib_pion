@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_httpserver: pion/algorithm.hpp Source File</title>
+<title>staticlib_httpserver: staticlib/httpserver/algorithm.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.7</span>
+   &#160;<span id="projectnumber">5.0.7.10</span>
    </div>
   </td>
  </tr>
@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f19c414da8caafd0a855ffb01d90860.html">pion</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_c33d3ca81783b96de1fd366e75cb14d0.html">staticlib</a></li><li class="navelem"><a class="el" href="dir_05fdd8ed122623fd25bfabb888adb5b9.html">httpserver</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -115,68 +115,70 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// See http://www.boost.org/LICENSE_1_0.txt</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef __PION_ALGORITHM_HEADER__</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define __PION_ALGORITHM_HEADER__</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef STATICLIB_HTTPSERVER_ALGORITHM_HPP</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define STATICLIB_HTTPSERVER_ALGORITHM_HPP</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config_8hpp.html">pion/config.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config_8hpp.html">staticlib/httpserver/config.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="code" href="namespacepion.html">   36</a></span>&#160;<span class="keyword">namespace </span>pion {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="code" href="namespacepion_1_1algorithm.html">   42</a></span>&#160;<span class="keyword">namespace </span>algorithm {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">// http://stackoverflow.com/a/2595226</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="code" href="namespacepion_1_1algorithm.html#a93b8e5cbbf40640bfed15c302087c696">   53</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="namespacepion_1_1algorithm.html#a93b8e5cbbf40640bfed15c302087c696" title="Called repeatedly to incrementally create a hash value from several variables.">hash_combine</a>(std::size_t&amp; seed, <span class="keyword">const</span> T&amp; v) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::hash&lt;T&gt; hasher;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        seed ^= hasher(v) + 0x9e3779b9 + (seed &lt;&lt; 6) + (seed &gt;&gt; 2);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="code" href="namespacepion_1_1algorithm.html#adc5569ed106b95911bc9760e2b9e86a2">   66</a></span>&#160;    <span class="keyword">static</span> std::string <a class="code" href="namespacepion_1_1algorithm.html#adc5569ed106b95911bc9760e2b9e86a2" title="Implementation of C++11 &quot;std::to_string&quot; function for the compilers that do not support it...">to_string</a>(T t) {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        std::stringstream ss{};</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        ss &lt;&lt; t;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">return</span> ss.str();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment">// http://stackoverflow.com/a/27813</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespacepion_1_1algorithm.html#ab3890a45e50036c1265288868c64d34c" title="Case insensitive byte-to-byte string comparison, does not support Unicode.">iequals</a>(<span class="keyword">const</span> std::string&amp; str1, <span class="keyword">const</span> std::string&amp; str2);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="namespacepion_1_1algorithm.html#ab8beb476564abb736574cabcfab2542b" title="Parse &quot;size_t&quot; integer from specified string.">parse_sizet</a>(<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    uint16_t <a class="code" href="namespacepion_1_1algorithm.html#a320c4e7e0228a641ff33675734fc39bf" title="Parse &quot;uint16_t&quot; integer from specified string.">parse_uint16</a>(<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    std::string <a class="code" href="namespacepion_1_1algorithm.html#a59d012ae614925f1b31ee9596c3b6f6a" title="Trims specified string from left and from right using &quot;std::isspace&quot; to check empty bytes...">trim</a>(<span class="keyword">const</span> std::string&amp; s);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    std::string <a class="code" href="namespacepion_1_1algorithm.html#a440bd54b07a24c80bc939fdb03583721" title="Unescapes specified URL-encoded string (a%20value+with%20spaces)">url_decode</a>(<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    std::string <a class="code" href="namespacepion_1_1algorithm.html#aa4eaedaecac95a638cedf5c4884de1b8" title="Encodes specified string so that it is safe for URLs (with%20spaces)">url_encode</a>(<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    std::string <a class="code" href="namespacepion_1_1algorithm.html#a2177ca0d0f01e6ef6d4d3bceb73d82bb" title="Escapes specified string so it is safe to use inside XML/HTML (2 &gt; 1)">xml_encode</a>(<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="comment">// http://www.boost.org/doc/libs/1_50_0/doc/html/unordered/hash_equality.html</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno"><a class="code" href="structpion_1_1algorithm_1_1iequal__to.html">  138</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structpion_1_1algorithm_1_1iequal__to.html" title="Case insensitive string equality predicate.">iequal_to</a> : std::binary_function&lt;std::string, std::string, bool&gt; {</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="structpion_1_1algorithm_1_1iequal__to.html#a2598d7c2b3aac5d432a2f79101f70a40" title="Case insensitive byte-to-byte string comparison, does not support Unicode.">operator()</a>(std::string <span class="keyword">const</span>&amp; x, std::string <span class="keyword">const</span>&amp; y) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    };</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="comment">// http://www.boost.org/doc/libs/1_50_0/doc/html/unordered/hash_equality.html</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno"><a class="code" href="structpion_1_1algorithm_1_1ihash.html">  153</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structpion_1_1algorithm_1_1ihash.html" title="Case insensitive hash generic function.">ihash</a> : std::unary_function&lt;std::string, std::size_t&gt; {</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        std::size_t <a class="code" href="structpion_1_1algorithm_1_1ihash.html#ac776283dbbdb84cccf4812348b655e4f" title="Computes hash over specified string.">operator()</a>(std::string <span class="keyword">const</span>&amp; x) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    };</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;} <span class="comment">// end namespace algorithm</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;} <span class="comment">// end namespace pion</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="preprocessor">#endif // __PION_ALGORITHM_HEADER__</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="code" href="namespacestaticlib.html">   36</a></span>&#160;<span class="keyword">namespace </span>staticlib { </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="code" href="namespacestaticlib_1_1httpserver.html">   37</a></span>&#160;<span class="keyword">namespace </span>httpserver {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html">   43</a></span>&#160;<span class="keyword">namespace </span>algorithm {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">// http://stackoverflow.com/a/2595226</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#af9899c3d69af142a666a82ff092b0454">   54</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#af9899c3d69af142a666a82ff092b0454" title="Called repeatedly to incrementally create a hash value from several variables.">hash_combine</a>(std::size_t&amp; seed, <span class="keyword">const</span> T&amp; v) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        std::hash&lt;T&gt; hasher;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        seed ^= hasher(v) + 0x9e3779b9 + (seed &lt;&lt; 6) + (seed &gt;&gt; 2);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a5059849f8a889f8e18004a63233f55df">   67</a></span>&#160;    <span class="keyword">static</span> std::string <a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a5059849f8a889f8e18004a63233f55df" title="Implementation of C++11 &quot;std::to_string&quot; function for the compilers that do not support it...">to_string</a>(T t) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        std::stringstream ss{};</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        ss &lt;&lt; t;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">return</span> ss.str();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="comment">// http://stackoverflow.com/a/27813</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a00377d9b49af4d94d9037e818759a9d5" title="Case insensitive byte-to-byte string comparison, does not support Unicode.">iequals</a>(<span class="keyword">const</span> std::string&amp; str1, <span class="keyword">const</span> std::string&amp; str2);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a839ee02a5435c0ea7169b30ebc3eda6e" title="Parse &quot;size_t&quot; integer from specified string.">parse_sizet</a>(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    uint16_t <a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a97dfab2557fb01f8d029474f37ff4295" title="Parse &quot;uint16_t&quot; integer from specified string.">parse_uint16</a>(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::string <a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a1cf29c2bfac9368c7f17c218441a7bb7" title="Trims specified string from left and from right using &quot;std::isspace&quot; to check empty bytes...">trim</a>(<span class="keyword">const</span> std::string&amp; s);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    std::string <a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a4e776b29c2b5167a9c9c27143e179d8b" title="Unescapes specified URL-encoded string (a%20value+with%20spaces)">url_decode</a>(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    std::string <a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a975099b17008eceb7f6f2fbaa0fbba17" title="Encodes specified string so that it is safe for URLs (with%20spaces)">url_encode</a>(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    std::string <a class="code" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a95e1027e7df9739aaa5a68534a00030f" title="Escapes specified string so it is safe to use inside XML/HTML (2 &gt; 1)">xml_encode</a>(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="comment">// http://www.boost.org/doc/libs/1_50_0/doc/html/unordered/hash_equality.html</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="code" href="structstaticlib_1_1httpserver_1_1algorithm_1_1iequal__to.html">  139</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structstaticlib_1_1httpserver_1_1algorithm_1_1iequal__to.html" title="Case insensitive string equality predicate.">iequal_to</a> : std::binary_function&lt;std::string, std::string, bool&gt; {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="structstaticlib_1_1httpserver_1_1algorithm_1_1iequal__to.html#a4e0509a4e5b11c799017c74afe8e4b3d" title="Case insensitive byte-to-byte string comparison, does not support Unicode.">operator()</a>(std::string <span class="keyword">const</span>&amp; x, std::string <span class="keyword">const</span>&amp; y) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    };</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="comment">// http://www.boost.org/doc/libs/1_50_0/doc/html/unordered/hash_equality.html</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="code" href="structstaticlib_1_1httpserver_1_1algorithm_1_1ihash.html">  154</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structstaticlib_1_1httpserver_1_1algorithm_1_1ihash.html" title="Case insensitive hash generic function.">ihash</a> : std::unary_function&lt;std::string, std::size_t&gt; {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        std::size_t <a class="code" href="structstaticlib_1_1httpserver_1_1algorithm_1_1ihash.html#abc1f8a859606613fef0dc8fc6f3936fe" title="Computes hash over specified string.">operator()</a>(std::string <span class="keyword">const</span>&amp; x) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    };</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;}</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="preprocessor">#endif // STATICLIB_HTTPSERVER_ALGORITHM_HPP</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 4 2015 21:12:21 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 16 2016 09:35:45 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

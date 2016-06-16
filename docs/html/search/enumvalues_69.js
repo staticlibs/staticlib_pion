@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['indeterminate_5fvalue',['indeterminate_value',['../classpion_1_1logic_1_1tribool.html#a3ecd041fc36b72b494e7657e607ad7fba8d54900069eb7dbf2804cb48cd44d5a0',1,'pion::logic::tribool']]]
+  ['indeterminate_5fvalue',['indeterminate_value',['../classstaticlib_1_1httpserver_1_1logic_1_1tribool.html#a0b2a2b500050742d273327247af89672a047ad362059df84c3fe648a947393271',1,'staticlib::httpserver::logic::tribool']]]
 ];

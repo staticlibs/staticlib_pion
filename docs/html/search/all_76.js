@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['value',['value',['../classpion_1_1logic_1_1tribool.html#a6345c00f1d80802a850478d755fc7de9',1,'pion::logic::tribool']]],
-  ['value_5ft',['value_t',['../classpion_1_1logic_1_1tribool.html#a3ecd041fc36b72b494e7657e607ad7fb',1,'pion::logic::tribool']]]
+  ['value',['value',['../classstaticlib_1_1httpserver_1_1logic_1_1tribool.html#af15b15c3a0350343c624eb70c17612c0',1,'staticlib::httpserver::logic::tribool']]],
+  ['value_5ft',['value_t',['../classstaticlib_1_1httpserver_1_1logic_1_1tribool.html#a0b2a2b500050742d273327247af89672',1,'staticlib::httpserver::logic::tribool']]]
 ];

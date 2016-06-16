@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['query_5fname_5fmax',['QUERY_NAME_MAX',['../classpion_1_1http_1_1parser.html#a5ed8564d3bd2781cfcd3b43e548aa532',1,'pion::http::parser']]],
-  ['query_5fstring_5fmax',['QUERY_STRING_MAX',['../classpion_1_1http_1_1parser.html#ab2b032660a71b745a47affab5ab61c12',1,'pion::http::parser']]],
-  ['query_5fvalue_5fmax',['QUERY_VALUE_MAX',['../classpion_1_1http_1_1parser.html#a8ec5de9a4c0ff61a32842fa645a099a3',1,'pion::http::parser']]]
+  ['query_5fname_5fmax',['QUERY_NAME_MAX',['../classstaticlib_1_1httpserver_1_1http__parser.html#aed3a81955a3c510f2ac238e5af74ab05',1,'staticlib::httpserver::http_parser']]],
+  ['query_5fstring_5fmax',['QUERY_STRING_MAX',['../classstaticlib_1_1httpserver_1_1http__parser.html#ad6e90e07d6f04b07589d425eabf66c6d',1,'staticlib::httpserver::http_parser']]],
+  ['query_5fvalue_5fmax',['QUERY_VALUE_MAX',['../classstaticlib_1_1httpserver_1_1http__parser.html#ab1a62a2282e018520167c0d2f3e8ba25',1,'staticlib::httpserver::http_parser']]]
 ];

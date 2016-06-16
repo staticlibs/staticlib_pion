@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eof',['eof',['../classpion_1_1http_1_1parser.html#a0391d615dfcdb782ff0c98d7e36c6cbf',1,'pion::http::parser']]]
+  ['eof',['eof',['../classstaticlib_1_1httpserver_1_1http__parser.html#a1a090648b32b06ce6bc81ccf835da756',1,'staticlib::httpserver::http_parser']]]
 ];
