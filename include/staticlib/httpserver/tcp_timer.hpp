@@ -102,7 +102,7 @@ public:
 /**
  * Shared pointer to a timer object
  */
-typedef std::shared_ptr<tcp_timer> tcp_timer_ptr;
+using tcp_timer_ptr = std::shared_ptr<tcp_timer>;
 
 
 } // namespace

@@ -55,12 +55,12 @@ private:
     /**
      * Function called after the HTTP message has been sent
      */
-    typedef std::function<void(const asio::error_code&)> finished_handler_t;
+    using finished_handler_t = std::function<void(const asio::error_code&)>;
 
     /**
      * Data type for a function that handles write operations
      */
-    typedef std::function<void(const asio::error_code&, std::size_t)> write_handler_type;    
+    using write_handler_type = std::function<void(const asio::error_code&, std::size_t)>;
     
     /**
      * Used to cache binary data included within the payload content
@@ -443,7 +443,7 @@ private:
 /**
  * Data type for a response_writer pointer
  */
-typedef std::shared_ptr<http_response_writer> http_response_writer_ptr;
+using http_response_writer_ptr = std::shared_ptr<http_response_writer>;
 
 /**
  * Override operator shift for convenience

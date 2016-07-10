@@ -68,28 +68,28 @@ public:
     /**
      * Data type for a function that handles TCP connection objects
      */
-    typedef std::function<void(std::shared_ptr<tcp_connection>&)> connection_handler;
+    using connection_handler = std::function<void(std::shared_ptr<tcp_connection>&)>;
     
     /**
      * Data type for an I/O read buffer
      */
-    typedef std::array<char, READ_BUFFER_SIZE> read_buffer_type;
+    using read_buffer_type = std::array<char, READ_BUFFER_SIZE>;
     
     /**
      * Data type for a socket connection
      */
-    typedef asio::ip::tcp::socket socket_type;
+    using socket_type = asio::ip::tcp::socket;
 
 #ifdef STATICLIB_HTTPSERVER_HAVE_SSL
     /**
      * Data type for an SSL socket connection
      */
-    typedef asio::ssl::stream<asio::ip::tcp::socket> ssl_socket_type;
+    using ssl_socket_type = asio::ssl::stream<asio::ip::tcp::socket>;
 
     /**
      * Data type for SSL configuration context
      */
-    typedef asio::ssl::context ssl_context_type;
+    using ssl_context_type asio::ssl::context;
 #else
     /**
      * Proxy data type for an SSL-like socket connection in non-SSL environment
@@ -109,7 +109,7 @@ public:
     /**
      * Dummy data type for SSL configuration context in non-SSL environment
      */
-    typedef int ssl_context_type;
+    using ssl_context_type = int;
 #endif    
     
 private:
@@ -541,7 +541,7 @@ protected:
 /**
  * Data type for a connection pointer
  */
-typedef std::shared_ptr<tcp_connection> tcp_connection_ptr;
+using tcp_connection_ptr = std::shared_ptr<tcp_connection>;
 
 } // namespace
 }

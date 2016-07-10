@@ -51,14 +51,14 @@ public:
     /**
      * Function called after the HTTP message has been parsed
      */
-    typedef std::function<void(http_request_ptr, tcp_connection_ptr&,
-            const asio::error_code&)> finished_handler_type;
+    using finished_handler_type = std::function<void(http_request_ptr, tcp_connection_ptr&,
+            const asio::error_code&)>;
 
     /**
      * Function called after the HTTP message has been parsed
      */
-    typedef std::function<void(http_request_ptr, tcp_connection_ptr&,
-            const asio::error_code&, staticlib::httpserver::tribool& rc)> headers_parsing_finished_handler_type;    
+    using headers_parsing_finished_handler_type = std::function<void(http_request_ptr, 
+            tcp_connection_ptr&, const asio::error_code&, staticlib::httpserver::tribool& rc)>;    
     
 private:
 
@@ -201,7 +201,7 @@ private:
 /**
  * Data type for a request_reader pointer
  */
-typedef std::shared_ptr<http_request_reader> reader_ptr;
+using reader_ptr = std::shared_ptr<http_request_reader>;
 
 } // namespace
 }

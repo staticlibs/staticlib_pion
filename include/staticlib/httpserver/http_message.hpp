@@ -57,12 +57,12 @@ public:
     /**
      * Data type for I/O write buffers (these wrap existing data to be sent)
      */
-    typedef std::vector<asio::const_buffer> write_buffers_type;
+    using write_buffers_type = std::vector<asio::const_buffer>;
 
     /**
      * Used to cache chunked data
      */
-    typedef std::vector<char> chunk_cache_t; 
+    using chunk_cache_t = std::vector<char>; 
     
     /**
      * Defines message data integrity status codes

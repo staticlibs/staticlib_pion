@@ -39,7 +39,7 @@
         /**
          * Log4cplus logger, log4cplus must be initialized explicitely before using
          */
-        typedef log4cplus::Logger logger;
+        using logger = log4cplus::Logger;
     } // namespace
     }
 

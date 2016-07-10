@@ -59,7 +59,7 @@ public:
     /**
      * Callback type used to consume payload content
      */
-    typedef std::function<void(const char *, std::size_t)> payload_handler_type;
+    using payload_handler_type = std::function<void(const char *, std::size_t)>;
     
     
     /**

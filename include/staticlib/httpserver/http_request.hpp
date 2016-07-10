@@ -275,7 +275,7 @@ protected:
 /**
  * Data type for a HTTP request pointer
  */
-typedef std::shared_ptr<http_request> http_request_ptr;
+using http_request_ptr = std::shared_ptr<http_request>;
 
 
 } // namespace

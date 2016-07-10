@@ -54,38 +54,38 @@ protected:
     /**
      * Type of function that is used to handle requests
      */
-    typedef std::function<void(http_request_ptr&, tcp_connection_ptr&)> request_handler_type;
+    using request_handler_type = std::function<void(http_request_ptr&, tcp_connection_ptr&)>;
 
     /**
      * Handler for requests that result in "500 Server Error"
      */
-    typedef std::function<void(http_request_ptr&, tcp_connection_ptr&,
-            const std::string&)> error_handler_type;
+    using error_handler_type = std::function<void(http_request_ptr&, tcp_connection_ptr&,
+            const std::string&)> ;
 
     /**
      * Type of function that is used to create payload handlers
      */
-    typedef std::function<http_parser::payload_handler_type(http_request_ptr&)> payload_handler_creator_type;
+    using payload_handler_creator_type = std::function<http_parser::payload_handler_type(http_request_ptr&)>;
 
     /**
      * Type for filters
      */
-    typedef std::function<void(http_request_ptr&, tcp_connection_ptr&, http_filter_chain&)> request_filter_type;
+    using request_filter_type = std::function<void(http_request_ptr&, tcp_connection_ptr&, http_filter_chain&)>;
     
     /**
      * Data type for a map of resources to request handlers
      */
-    typedef std::unordered_map<std::string, request_handler_type> handlers_map_type;
+    using handlers_map_type = std::unordered_map<std::string, request_handler_type>;
     
     /**
      * Data type for a map of resources to request handlers
      */
-    typedef std::unordered_map<std::string, payload_handler_creator_type> payloads_map_type; 
+    using payloads_map_type = std::unordered_map<std::string, payload_handler_creator_type>; 
     
     /**
      * Data type for a multi map of filters
      */
-    typedef std::unordered_multimap<std::string, request_filter_type, algorithm::ihash, algorithm::iequal_to> filter_map_type;
+    using filter_map_type = std::unordered_multimap<std::string, request_filter_type, algorithm::ihash, algorithm::iequal_to>;
     
     /**
      * Collection of GET handlers that are recognized by this HTTP server
