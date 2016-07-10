@@ -1314,7 +1314,7 @@ bool http_parser::parse_multipart_form_data(std::unordered_multimap<std::string,
 
 
 
-tribool http_parser::parse_chunks(http_message::chunk_cache_t& chunks, asio::error_code& ec) {
+tribool http_parser::parse_chunks(http_message::chunk_cache_type& chunks, asio::error_code& ec) {
     //
     // note that tribool may have one of THREE states:
     //
@@ -1523,7 +1523,7 @@ tribool http_parser::consume_content(http_message& http_msg,
     return rc;
 }
 
-std::size_t http_parser::consume_content_as_next_chunk(http_message::chunk_cache_t& chunks)
+std::size_t http_parser::consume_content_as_next_chunk(http_message::chunk_cache_type& chunks)
 {
     if (bytes_available() == 0) {
         m_bytes_last_read = 0;
@@ -1610,7 +1610,7 @@ void http_parser::finish(http_message& http_msg) const
 
 void http_parser::compute_msg_status(http_message& http_msg, bool msg_parsed_ok )
 {
-    http_message::data_status_t st = http_message::STATUS_NONE;
+    http_message::data_status_type st = http_message::STATUS_NONE;
 
     if(http_msg.has_missing_packets()) {
         st = http_msg.has_data_after_missing_packets() ?

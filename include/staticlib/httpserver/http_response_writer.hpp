@@ -55,7 +55,7 @@ private:
     /**
      * Function called after the HTTP message has been sent
      */
-    using finished_handler_t = std::function<void(const asio::error_code&)>;
+    using finished_handler_type = std::function<void(const asio::error_code&)>;
 
     /**
      * Data type for a function that handles write operations
@@ -145,7 +145,7 @@ private:
     /**
      * Function called after the HTTP message has been sent
      */
-    finished_handler_t m_finished;
+    finished_handler_type m_finished;
 
     /**
      * The response that will be sent
@@ -181,7 +181,7 @@ public:
      *         the new writer object that was created
      */
     static std::shared_ptr<http_response_writer> create(tcp_connection_ptr& tcp_conn,
-            const http_request& http_request, finished_handler_t handler);
+            const http_request& http_request, finished_handler_type handler);
 
     /**
      * Returns a non-const reference to the response that will be sent
@@ -378,7 +378,7 @@ private:
      * @param handler function called after the request has been sent
      */
     http_response_writer(tcp_connection_ptr& tcp_conn, const http_request& http_request,
-            finished_handler_t handler);
+            finished_handler_type handler);
 
     /**
      * Initializes a vector of write buffers with the HTTP message information

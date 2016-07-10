@@ -29,7 +29,7 @@ namespace staticlib {
 namespace httpserver {
 
 http_response_writer::http_response_writer(tcp_connection_ptr& tcp_conn, const http_request& http_request,
-        finished_handler_t handler) :
+        finished_handler_type handler) :
 m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.http_response_writer")),
 m_tcp_conn(tcp_conn),
 m_content_length(0),
@@ -51,7 +51,7 @@ std::shared_ptr<http_response_writer> http_response_writer::create(http_request_
 }
 
 std::shared_ptr<http_response_writer> http_response_writer::create(tcp_connection_ptr& tcp_conn,
-        const http_request& http_request, finished_handler_t handler) {
+        const http_request& http_request, finished_handler_type handler) {
     return std::shared_ptr<http_response_writer>(new http_response_writer(tcp_conn, http_request, handler));
 }
 

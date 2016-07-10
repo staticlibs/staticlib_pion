@@ -258,7 +258,7 @@ const char* http_message::get_content() const {
     return m_content_buf.get();
 }
 
-http_message::chunk_cache_t& http_message::get_chunk_cache() {
+http_message::chunk_cache_type& http_message::get_chunk_cache() {
     return m_chunk_cache;
 }
 
@@ -353,11 +353,11 @@ void http_message::set_do_not_send_content_length() {
     m_do_not_send_content_length = true;
 }
 
-http_message::data_status_t http_message::get_status() const {
+http_message::data_status_type http_message::get_status() const {
     return m_status;
 }
 
-void http_message::set_status(data_status_t newVal) {
+void http_message::set_status(data_status_type newVal) {
     m_status = newVal;
 }
 

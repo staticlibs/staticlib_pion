@@ -62,12 +62,12 @@ public:
     /**
      * Used to cache chunked data
      */
-    using chunk_cache_t = std::vector<char>; 
+    using chunk_cache_type = std::vector<char>; 
     
     /**
      * Defines message data integrity status codes
      */
-    enum data_status_t {
+    enum data_status_type {
         /**
          * No data received (i.e. all lost)
          */
@@ -309,7 +309,7 @@ private:
     /**
      * Buffers for holding chunked data
      */
-    chunk_cache_t m_chunk_cache;
+    chunk_cache_type m_chunk_cache;
 
     /**
      * HTTP message headers
@@ -324,7 +324,7 @@ private:
     /**
      * Message data integrity status
      */
-    data_status_t m_status;
+    data_status_type m_status;
 
     /**
      * Missing packet indicator
@@ -444,7 +444,7 @@ public:
     /**
      * Returns a reference to the chunk cache
      */
-    chunk_cache_t& get_chunk_cache();
+    chunk_cache_type& get_chunk_cache();
 
     /**
      * Returns a value for the header if any are defined; otherwise, an empty string
@@ -604,14 +604,14 @@ public:
      * 
      * @return data receival status
      */
-    data_status_t get_status() const;
+    data_status_type get_status() const;
 
     /**
      * Sets data receival status
      * 
      * @param newVal data receival status
      */
-    void set_status(data_status_t newVal);
+    void set_status(data_status_type newVal);
 
     /**
      * Sets the length of the payload content using the Content-Length header
