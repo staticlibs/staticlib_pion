@@ -3,7 +3,6 @@ var searchData=
   ['eof',['eof',['../classstaticlib_1_1httpserver_1_1http__parser.html#a1a090648b32b06ce6bc81ccf835da756',1,'staticlib::httpserver::http_parser']]],
   ['error_5fcategory_5ft',['error_category_t',['../classstaticlib_1_1httpserver_1_1http__parser_1_1error__category__t.html',1,'staticlib::httpserver::http_parser']]],
   ['error_5fchunk_5fchar',['ERROR_CHUNK_CHAR',['../classstaticlib_1_1httpserver_1_1http__parser.html#ac84abcb369b2f6a1b4cb011be0d833e4aa9ac1ff67dcab6631f4770c9e011bdcd',1,'staticlib::httpserver::http_parser']]],
-  ['error_5fhandler_5ftype',['error_handler_type',['../classstaticlib_1_1httpserver_1_1http__server.html#abc4efe5568ed927c1be1c8ec67f75373',1,'staticlib::httpserver::http_server']]],
   ['error_5fheader_5fchar',['ERROR_HEADER_CHAR',['../classstaticlib_1_1httpserver_1_1http__parser.html#ac84abcb369b2f6a1b4cb011be0d833e4a79fcea7e0d8c8d189470f43cfc5107ea',1,'staticlib::httpserver::http_parser']]],
   ['error_5fheader_5fname_5fsize',['ERROR_HEADER_NAME_SIZE',['../classstaticlib_1_1httpserver_1_1http__parser.html#ac84abcb369b2f6a1b4cb011be0d833e4a3c9e6e07b0fa9375ece1a2a9eaa1956e',1,'staticlib::httpserver::http_parser']]],
   ['error_5fheader_5fvalue_5fsize',['ERROR_HEADER_VALUE_SIZE',['../classstaticlib_1_1httpserver_1_1http__parser.html#ac84abcb369b2f6a1b4cb011be0d833e4a7475b5f6b482e4d9029432fd9fd38d44',1,'staticlib::httpserver::http_parser']]],

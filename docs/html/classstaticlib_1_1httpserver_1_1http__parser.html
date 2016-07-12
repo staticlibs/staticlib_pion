@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.10</span>
+   &#160;<span id="projectnumber">5.0.7-11</span>
    </div>
   </td>
  </tr>
@@ -152,9 +152,6 @@ Public Types</h2></td></tr>
 <br/>
  }</td></tr>
 <tr class="memdesc:ac84abcb369b2f6a1b4cb011be0d833e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class-specific error code values.  <a href="classstaticlib_1_1httpserver_1_1http__parser.html#ac84abcb369b2f6a1b4cb011be0d833e4">More...</a><br/></td></tr>
-<tr class="memitem:aa5ee4936b3f345263a445eb7e84975d5"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(const <br class="typebreak"/>
-char *, std::size_t)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa5ee4936b3f345263a445eb7e84975d5">payload_handler_type</a></td></tr>
-<tr class="memdesc:aa5ee4936b3f345263a445eb7e84975d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type used to consume payload content.  <a href="#aa5ee4936b3f345263a445eb7e84975d5"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -200,7 +197,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a890609a71235681ce5b5fc746e8741a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the parser is being used to parse an HTTP request.  <a href="#a890609a71235681ce5b5fc746e8741a7"></a><br/></td></tr>
 <tr class="memitem:a9073daf56f4df3a2fa14ea37988b73a5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#a9073daf56f4df3a2fa14ea37988b73a5">is_parsing_response</a> () const </td></tr>
 <tr class="memdesc:a9073daf56f4df3a2fa14ea37988b73a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the parser is being used to parse an HTTP response.  <a href="#a9073daf56f4df3a2fa14ea37988b73a5"></a><br/></td></tr>
-<tr class="memitem:a4720fe4ac0cab2a70ea177aed6a3b51b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#a4720fe4ac0cab2a70ea177aed6a3b51b">set_payload_handler</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa5ee4936b3f345263a445eb7e84975d5">payload_handler_type</a> &amp;h)</td></tr>
+<tr class="memitem:a4720fe4ac0cab2a70ea177aed6a3b51b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#a4720fe4ac0cab2a70ea177aed6a3b51b">set_payload_handler</a> (payload_handler_type &amp;h)</td></tr>
 <tr class="memdesc:a4720fe4ac0cab2a70ea177aed6a3b51b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a callback function to be used for consuming payload content.  <a href="#a4720fe4ac0cab2a70ea177aed6a3b51b"></a><br/></td></tr>
 <tr class="memitem:a58ecf81542ef320ce9e5916cbc1eab11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#a58ecf81542ef320ce9e5916cbc1eab11">set_max_content_length</a> (std::size_t n)</td></tr>
 <tr class="memdesc:a58ecf81542ef320ce9e5916cbc1eab11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum length for HTTP payload content.  <a href="#a58ecf81542ef320ce9e5916cbc1eab11"></a><br/></td></tr>
@@ -249,12 +246,12 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:a15729df12be3d3a9ca5142123767e34e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses an HTTP message up to the end of the headers using bytes available in the read buffer.  <a href="#a15729df12be3d3a9ca5142123767e34e"></a><br/></td></tr>
 <tr class="memitem:a733d93d997d19129e78690be5a5a0069"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#a733d93d997d19129e78690be5a5a0069">update_message_with_header_data</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html">http_message</a> &amp;http_msg) const </td></tr>
 <tr class="memdesc:a733d93d997d19129e78690be5a5a0069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates an <a href="http::message">http::message</a> object with data obtained from parsing headers.  <a href="#a733d93d997d19129e78690be5a5a0069"></a><br/></td></tr>
-<tr class="memitem:a44742e92f33844e8ab9aed84c943cefb"><td class="memItemLeft" align="right" valign="top">staticlib::httpserver::tribool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#a44742e92f33844e8ab9aed84c943cefb">parse_chunks</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a481e384267345c8279148bee034f9384">http_message::chunk_cache_t</a> &amp;chunk_buffers, asio::error_code &amp;ec)</td></tr>
-<tr class="memdesc:a44742e92f33844e8ab9aed84c943cefb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a chunked HTTP message-body using bytes available in the read buffer.  <a href="#a44742e92f33844e8ab9aed84c943cefb"></a><br/></td></tr>
+<tr class="memitem:a225871ddf184f4509383ae561a0202c8"><td class="memItemLeft" align="right" valign="top">staticlib::httpserver::tribool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#a225871ddf184f4509383ae561a0202c8">parse_chunks</a> (http_message::chunk_cache_type &amp;chunk_buffers, asio::error_code &amp;ec)</td></tr>
+<tr class="memdesc:a225871ddf184f4509383ae561a0202c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a chunked HTTP message-body using bytes available in the read buffer.  <a href="#a225871ddf184f4509383ae561a0202c8"></a><br/></td></tr>
 <tr class="memitem:abe742eae3b5a036b83734a5779c31243"><td class="memItemLeft" align="right" valign="top">staticlib::httpserver::tribool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#abe742eae3b5a036b83734a5779c31243">consume_content</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html">http_message</a> &amp;http_msg, asio::error_code &amp;ec)</td></tr>
 <tr class="memdesc:abe742eae3b5a036b83734a5779c31243"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consumes payload content in the parser's read buffer.  <a href="#abe742eae3b5a036b83734a5779c31243"></a><br/></td></tr>
-<tr class="memitem:ad30bcfff5912a89f264c13dd16be9b33"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#ad30bcfff5912a89f264c13dd16be9b33">consume_content_as_next_chunk</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a481e384267345c8279148bee034f9384">http_message::chunk_cache_t</a> &amp;chunk_buffers)</td></tr>
-<tr class="memdesc:ad30bcfff5912a89f264c13dd16be9b33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consume the bytes available in the read buffer, converting them into the next chunk for the HTTP message.  <a href="#ad30bcfff5912a89f264c13dd16be9b33"></a><br/></td></tr>
+<tr class="memitem:aa1dd2c6d66c77b21abf0f50336836d72"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa1dd2c6d66c77b21abf0f50336836d72">consume_content_as_next_chunk</a> (http_message::chunk_cache_type &amp;chunk_buffers)</td></tr>
+<tr class="memdesc:aa1dd2c6d66c77b21abf0f50336836d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consume the bytes available in the read buffer, converting them into the next chunk for the HTTP message.  <a href="#aa1dd2c6d66c77b21abf0f50336836d72"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
@@ -310,22 +307,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Parses HTTP messages. </p>
-</div><h2>Member Typedef Documentation</h2>
-<a class="anchor" id="aa5ee4936b3f345263a445eb7e84975d5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::function&lt;void(const char *, std::size_t)&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa5ee4936b3f345263a445eb7e84975d5">staticlib::httpserver::http_parser::payload_handler_type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Callback type used to consume payload content. </p>
-
-</div>
-</div>
-<h2>Member Enumeration Documentation</h2>
+</div><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="ac84abcb369b2f6a1b4cb011be0d833e4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -573,7 +555,7 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad30bcfff5912a89f264c13dd16be9b33"></a>
+<a class="anchor" id="aa1dd2c6d66c77b21abf0f50336836d72"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -583,7 +565,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">std::size_t staticlib::httpserver::http_parser::consume_content_as_next_chunk </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a481e384267345c8279148bee034f9384">http_message::chunk_cache_t</a> &amp;&#160;</td>
+          <td class="paramtype">http_message::chunk_cache_type &amp;&#160;</td>
           <td class="paramname"><em>chunk_buffers</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1181,7 +1163,7 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a44742e92f33844e8ab9aed84c943cefb"></a>
+<a class="anchor" id="a225871ddf184f4509383ae561a0202c8"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1191,7 +1173,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">staticlib::httpserver::tribool staticlib::httpserver::http_parser::parse_chunks </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a481e384267345c8279148bee034f9384">http_message::chunk_cache_t</a> &amp;&#160;</td>
+          <td class="paramtype">http_message::chunk_cache_type &amp;&#160;</td>
           <td class="paramname"><em>chunk_buffers</em>, </td>
         </tr>
         <tr>
@@ -1858,7 +1840,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void staticlib::httpserver::http_parser::set_payload_handler </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa5ee4936b3f345263a445eb7e84975d5">payload_handler_type</a> &amp;&#160;</td>
+          <td class="paramtype">payload_handler_type &amp;&#160;</td>
           <td class="paramname"><em>h</em></td><td>)</td>
           <td></td>
         </tr>
@@ -2327,7 +2309,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 12 2016 13:11:56 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

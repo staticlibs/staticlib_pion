@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.10</span>
+   &#160;<span id="projectnumber">5.0.7-11</span>
    </div>
   </td>
  </tr>
@@ -90,7 +90,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
@@ -120,17 +119,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a82b80f92c7fbc19be612b40d3975c1f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a82b80f92c7fbc19be612b40d3975c1f3">~http_server</a> () <a class="el" href="config_8hpp.html#add51f4f10ffc9625dfc2db5ec17cf247">STATICLIB_HTTPSERVER_NOEXCEPT</a></td></tr>
 <tr class="memitem:ae36db9036e3970adf4abf48ddcf2b5ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ae36db9036e3970adf4abf48ddcf2b5ed">http_server</a> (uint32_t number_of_threads, uint16_t port, asio::ip::address_v4 ip_address=asio::ip::address_v4::any())</td></tr>
 <tr class="memdesc:ae36db9036e3970adf4abf48ddcf2b5ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new server object.  <a href="#ae36db9036e3970adf4abf48ddcf2b5ed"></a><br/></td></tr>
-<tr class="memitem:ac601f37465883d38e452817604ca722a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ac601f37465883d38e452817604ca722a">add_handler</a> (const std::string &amp;method, const std::string &amp;resource, <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a> request_handler)</td></tr>
+<tr class="memitem:ac601f37465883d38e452817604ca722a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ac601f37465883d38e452817604ca722a">add_handler</a> (const std::string &amp;method, const std::string &amp;resource, request_handler_type request_handler)</td></tr>
 <tr class="memdesc:ac601f37465883d38e452817604ca722a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new web service to the HTTP server.  <a href="#ac601f37465883d38e452817604ca722a"></a><br/></td></tr>
-<tr class="memitem:ab7e019135ebdcee3687ece8dac4c696c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ab7e019135ebdcee3687ece8dac4c696c">set_bad_request_handler</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a> handler)</td></tr>
+<tr class="memitem:ab7e019135ebdcee3687ece8dac4c696c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ab7e019135ebdcee3687ece8dac4c696c">set_bad_request_handler</a> (request_handler_type handler)</td></tr>
 <tr class="memdesc:ab7e019135ebdcee3687ece8dac4c696c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the function that handles bad HTTP requests.  <a href="#ab7e019135ebdcee3687ece8dac4c696c"></a><br/></td></tr>
-<tr class="memitem:a51be51550cae5e16e41aa237a8499c1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a51be51550cae5e16e41aa237a8499c1b">set_not_found_handler</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a> handler)</td></tr>
+<tr class="memitem:a51be51550cae5e16e41aa237a8499c1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a51be51550cae5e16e41aa237a8499c1b">set_not_found_handler</a> (request_handler_type handler)</td></tr>
 <tr class="memdesc:a51be51550cae5e16e41aa237a8499c1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the function that handles requests which match no other web services.  <a href="#a51be51550cae5e16e41aa237a8499c1b"></a><br/></td></tr>
-<tr class="memitem:aed6453f58aefd136de7fb9e9ad6da0fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#aed6453f58aefd136de7fb9e9ad6da0fa">set_error_handler</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#abc4efe5568ed927c1be1c8ec67f75373">error_handler_type</a> handler)</td></tr>
+<tr class="memitem:aed6453f58aefd136de7fb9e9ad6da0fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#aed6453f58aefd136de7fb9e9ad6da0fa">set_error_handler</a> (error_handler_type handler)</td></tr>
 <tr class="memdesc:aed6453f58aefd136de7fb9e9ad6da0fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the function that handles requests which match no other web services.  <a href="#aed6453f58aefd136de7fb9e9ad6da0fa"></a><br/></td></tr>
-<tr class="memitem:a1986df8f15d7994e181323287c77c208"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a1986df8f15d7994e181323287c77c208">add_payload_handler</a> (const std::string &amp;method, const std::string &amp;resource, <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ae2076268b0373bdca22bf59b955b6758">payload_handler_creator_type</a> payload_handler)</td></tr>
+<tr class="memitem:a1986df8f15d7994e181323287c77c208"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a1986df8f15d7994e181323287c77c208">add_payload_handler</a> (const std::string &amp;method, const std::string &amp;resource, payload_handler_creator_type payload_handler)</td></tr>
 <tr class="memdesc:a1986df8f15d7994e181323287c77c208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new payload_handler to the HTTP server.  <a href="#a1986df8f15d7994e181323287c77c208"></a><br/></td></tr>
-<tr class="memitem:a78af1c06244dd363ec90e39684f866bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a78af1c06244dd363ec90e39684f866bd">add_filter</a> (const std::string &amp;method, const std::string &amp;resource, <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a02f27760a33572d046c3c9af1816dfd3">request_filter_type</a> filter)</td></tr>
+<tr class="memitem:a78af1c06244dd363ec90e39684f866bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a78af1c06244dd363ec90e39684f866bd">add_filter</a> (const std::string &amp;method, const std::string &amp;resource, request_filter_type filter)</td></tr>
 <tr class="memdesc:a78af1c06244dd363ec90e39684f866bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new filter to the HTTP server.  <a href="#a78af1c06244dd363ec90e39684f866bd"></a><br/></td></tr>
 <tr class="inherit_header pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classstaticlib_1_1httpserver_1_1tcp__server')"><img src="closed.png" alt="-"/>&nbsp;Public Member Functions inherited from <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html">staticlib::httpserver::tcp_server</a></td></tr>
 <tr class="memitem:aca3d5560f8e12cc0b97fb06b6ffd1aec inherit pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#aca3d5560f8e12cc0b97fb06b6ffd1aec">~tcp_server</a> () <a class="el" href="config_8hpp.html#add51f4f10ffc9625dfc2db5ec17cf247">STATICLIB_HTTPSERVER_NOEXCEPT</a></td></tr>
@@ -161,7 +160,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aab252134f65b8b128d8b48d1f7b08217 inherit pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the server uses SSL to encrypt connections.  <a href="#aab252134f65b8b128d8b48d1f7b08217"></a><br/></td></tr>
 <tr class="memitem:a95085462b6493b2fdd21d9150d9c2940 inherit pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a95085462b6493b2fdd21d9150d9c2940">set_ssl_flag</a> (bool b=true)</td></tr>
 <tr class="memdesc:a95085462b6493b2fdd21d9150d9c2940 inherit pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets value of SSL flag (true if the server uses SSL to encrypt connections)  <a href="#a95085462b6493b2fdd21d9150d9c2940"></a><br/></td></tr>
-<tr class="memitem:ad2b539663469172959894a2eac54aedd inherit pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">tcp_connection::ssl_context_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad2b539663469172959894a2eac54aedd">get_ssl_context_type</a> ()</td></tr>
+<tr class="memitem:ad2b539663469172959894a2eac54aedd inherit pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td class="memItemLeft" align="right" valign="top">tcp_connection::ssl_context_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad2b539663469172959894a2eac54aedd">get_ssl_context_type</a> ()</td></tr>
 <tr class="memdesc:ad2b539663469172959894a2eac54aedd inherit pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SSL context for configuration.  <a href="#ad2b539663469172959894a2eac54aedd"></a><br/></td></tr>
 <tr class="memitem:a87008fdbb3c5bd2b64f0a8e7c50adc21 inherit pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a87008fdbb3c5bd2b64f0a8e7c50adc21">is_listening</a> () const </td></tr>
 <tr class="memdesc:a87008fdbb3c5bd2b64f0a8e7c50adc21 inherit pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the server is listening for connections.  <a href="#a87008fdbb3c5bd2b64f0a8e7c50adc21"></a><br/></td></tr>
@@ -190,83 +189,51 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a80838ddb49b970a08f37ebebfebce42b inherit pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1scheduler.html">scheduler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a80838ddb49b970a08f37ebebfebce42b">get_active_scheduler</a> ()</td></tr>
 <tr class="memdesc:a80838ddb49b970a08f37ebebfebce42b inherit pub_methods_classstaticlib_1_1httpserver_1_1tcp__server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return active scheduler.  <a href="#a80838ddb49b970a08f37ebebfebce42b"></a><br/></td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="pro-types"></a>
-Protected Types</h2></td></tr>
-<tr class="memitem:a4f1836cdaf008d232f4f90aca01766bc"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(<a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a> <br class="typebreak"/>
-&amp;, <a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a></td></tr>
-<tr class="memdesc:a4f1836cdaf008d232f4f90aca01766bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of function that is used to handle requests.  <a href="#a4f1836cdaf008d232f4f90aca01766bc"></a><br/></td></tr>
-<tr class="memitem:abc4efe5568ed927c1be1c8ec67f75373"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(<a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a> <br class="typebreak"/>
-&amp;, <a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a> &amp;, const <br class="typebreak"/>
-std::string &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#abc4efe5568ed927c1be1c8ec67f75373">error_handler_type</a></td></tr>
-<tr class="memdesc:abc4efe5568ed927c1be1c8ec67f75373"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler for requests that result in "500 Server Error".  <a href="#abc4efe5568ed927c1be1c8ec67f75373"></a><br/></td></tr>
-<tr class="memitem:ae2076268b0373bdca22bf59b955b6758"><td class="memItemLeft" align="right" valign="top">typedef std::function<br class="typebreak"/>
-&lt; <a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa5ee4936b3f345263a445eb7e84975d5">http_parser::payload_handler_type</a>(<a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ae2076268b0373bdca22bf59b955b6758">payload_handler_creator_type</a></td></tr>
-<tr class="memdesc:ae2076268b0373bdca22bf59b955b6758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of function that is used to create payload handlers.  <a href="#ae2076268b0373bdca22bf59b955b6758"></a><br/></td></tr>
-<tr class="memitem:a02f27760a33572d046c3c9af1816dfd3"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(<a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a> <br class="typebreak"/>
-&amp;, <a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a> <br class="typebreak"/>
-&amp;, <a class="el" href="classstaticlib_1_1httpserver_1_1http__filter__chain.html">http_filter_chain</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a02f27760a33572d046c3c9af1816dfd3">request_filter_type</a></td></tr>
-<tr class="memdesc:a02f27760a33572d046c3c9af1816dfd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type for filters.  <a href="#a02f27760a33572d046c3c9af1816dfd3"></a><br/></td></tr>
-<tr class="memitem:a9657ce953b52a8285d307c2a00f1ee58"><td class="memItemLeft" align="right" valign="top">typedef std::unordered_map<br class="typebreak"/>
-&lt; std::string, <br class="typebreak"/>
-<a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a9657ce953b52a8285d307c2a00f1ee58">handlers_map_type</a></td></tr>
-<tr class="memdesc:a9657ce953b52a8285d307c2a00f1ee58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for a map of resources to request handlers.  <a href="#a9657ce953b52a8285d307c2a00f1ee58"></a><br/></td></tr>
-<tr class="memitem:a401c27dde5bab5d6223ae5ad6db7edbe"><td class="memItemLeft" align="right" valign="top">typedef std::unordered_map<br class="typebreak"/>
-&lt; std::string, <br class="typebreak"/>
-<a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ae2076268b0373bdca22bf59b955b6758">payload_handler_creator_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a401c27dde5bab5d6223ae5ad6db7edbe">payloads_map_type</a></td></tr>
-<tr class="memdesc:a401c27dde5bab5d6223ae5ad6db7edbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for a map of resources to request handlers.  <a href="#a401c27dde5bab5d6223ae5ad6db7edbe"></a><br/></td></tr>
-<tr class="memitem:a85d65295186e04bfb059757cd2b519be"><td class="memItemLeft" align="right" valign="top">typedef <br class="typebreak"/>
-std::unordered_multimap<br class="typebreak"/>
-&lt; std::string, <br class="typebreak"/>
-<a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a02f27760a33572d046c3c9af1816dfd3">request_filter_type</a>, <br class="typebreak"/>
-<a class="el" href="structstaticlib_1_1httpserver_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <br class="typebreak"/>
-<a class="el" href="structstaticlib_1_1httpserver_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a85d65295186e04bfb059757cd2b519be">filter_map_type</a></td></tr>
-<tr class="memdesc:a85d65295186e04bfb059757cd2b519be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for a multi map of filters.  <a href="#a85d65295186e04bfb059757cd2b519be"></a><br/></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:aff1241e307eaf3a82aa00c2cd2269782"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#aff1241e307eaf3a82aa00c2cd2269782">handle_connection</a> (<a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a> &amp;conn) override</td></tr>
+<tr class="memitem:aff1241e307eaf3a82aa00c2cd2269782"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#aff1241e307eaf3a82aa00c2cd2269782">handle_connection</a> (tcp_connection_ptr &amp;conn) override</td></tr>
 <tr class="memdesc:aff1241e307eaf3a82aa00c2cd2269782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a new TCP connection.  <a href="#aff1241e307eaf3a82aa00c2cd2269782"></a><br/></td></tr>
-<tr class="memitem:a6fa94706d1f3da8a99e0b27ef22b105c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a6fa94706d1f3da8a99e0b27ef22b105c">handle_request_after_headers_parsed</a> (<a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a> request, <a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a> &amp;conn, const asio::error_code &amp;ec, staticlib::httpserver::tribool &amp;rc)</td></tr>
+<tr class="memitem:a6fa94706d1f3da8a99e0b27ef22b105c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a6fa94706d1f3da8a99e0b27ef22b105c">handle_request_after_headers_parsed</a> (http_request_ptr request, tcp_connection_ptr &amp;conn, const asio::error_code &amp;ec, staticlib::httpserver::tribool &amp;rc)</td></tr>
 <tr class="memdesc:a6fa94706d1f3da8a99e0b27ef22b105c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a new HTTP request.  <a href="#a6fa94706d1f3da8a99e0b27ef22b105c"></a><br/></td></tr>
-<tr class="memitem:a1a29fed7cdc567fb7dde9d6334748f96"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a1a29fed7cdc567fb7dde9d6334748f96">handle_request</a> (<a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a> request, <a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a> &amp;conn, const asio::error_code &amp;ec)</td></tr>
+<tr class="memitem:a1a29fed7cdc567fb7dde9d6334748f96"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a1a29fed7cdc567fb7dde9d6334748f96">handle_request</a> (http_request_ptr request, tcp_connection_ptr &amp;conn, const asio::error_code &amp;ec)</td></tr>
 <tr class="memdesc:a1a29fed7cdc567fb7dde9d6334748f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a new HTTP request.  <a href="#a1a29fed7cdc567fb7dde9d6334748f96"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a57710bfa9844ca7e88fa2babc2f316d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a9657ce953b52a8285d307c2a00f1ee58">handlers_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a57710bfa9844ca7e88fa2babc2f316d4">get_handlers</a></td></tr>
+<tr class="memitem:a57710bfa9844ca7e88fa2babc2f316d4"><td class="memItemLeft" align="right" valign="top">handlers_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a57710bfa9844ca7e88fa2babc2f316d4">get_handlers</a></td></tr>
 <tr class="memdesc:a57710bfa9844ca7e88fa2babc2f316d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of GET handlers that are recognized by this HTTP server.  <a href="#a57710bfa9844ca7e88fa2babc2f316d4"></a><br/></td></tr>
-<tr class="memitem:a0ecce226ff5c45732a12c29e4725ddd7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a9657ce953b52a8285d307c2a00f1ee58">handlers_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a0ecce226ff5c45732a12c29e4725ddd7">post_handlers</a></td></tr>
+<tr class="memitem:a0ecce226ff5c45732a12c29e4725ddd7"><td class="memItemLeft" align="right" valign="top">handlers_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a0ecce226ff5c45732a12c29e4725ddd7">post_handlers</a></td></tr>
 <tr class="memdesc:a0ecce226ff5c45732a12c29e4725ddd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of POST handlers that are recognized by this HTTP server.  <a href="#a0ecce226ff5c45732a12c29e4725ddd7"></a><br/></td></tr>
-<tr class="memitem:ad14ea138db90abc42250a4fd1526caad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a9657ce953b52a8285d307c2a00f1ee58">handlers_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ad14ea138db90abc42250a4fd1526caad">put_handlers</a></td></tr>
+<tr class="memitem:ad14ea138db90abc42250a4fd1526caad"><td class="memItemLeft" align="right" valign="top">handlers_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ad14ea138db90abc42250a4fd1526caad">put_handlers</a></td></tr>
 <tr class="memdesc:ad14ea138db90abc42250a4fd1526caad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of PUT handlers that are recognized by this HTTP server.  <a href="#ad14ea138db90abc42250a4fd1526caad"></a><br/></td></tr>
-<tr class="memitem:adb67de1682e6ecccc5a068292be01244"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a9657ce953b52a8285d307c2a00f1ee58">handlers_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#adb67de1682e6ecccc5a068292be01244">delete_handlers</a></td></tr>
+<tr class="memitem:adb67de1682e6ecccc5a068292be01244"><td class="memItemLeft" align="right" valign="top">handlers_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#adb67de1682e6ecccc5a068292be01244">delete_handlers</a></td></tr>
 <tr class="memdesc:adb67de1682e6ecccc5a068292be01244"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of DELETE handlers that are recognized by this HTTP server.  <a href="#adb67de1682e6ecccc5a068292be01244"></a><br/></td></tr>
-<tr class="memitem:a76e5733308e10f57815a910c6924c1ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a76e5733308e10f57815a910c6924c1ee">bad_request_handler</a></td></tr>
+<tr class="memitem:a76e5733308e10f57815a910c6924c1ee"><td class="memItemLeft" align="right" valign="top">request_handler_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a76e5733308e10f57815a910c6924c1ee">bad_request_handler</a></td></tr>
 <tr class="memdesc:a76e5733308e10f57815a910c6924c1ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Points to a function that handles bad HTTP requests.  <a href="#a76e5733308e10f57815a910c6924c1ee"></a><br/></td></tr>
-<tr class="memitem:a2adaf1405942e318b6f03c1908785916"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a2adaf1405942e318b6f03c1908785916">not_found_handler</a></td></tr>
+<tr class="memitem:a2adaf1405942e318b6f03c1908785916"><td class="memItemLeft" align="right" valign="top">request_handler_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a2adaf1405942e318b6f03c1908785916">not_found_handler</a></td></tr>
 <tr class="memdesc:a2adaf1405942e318b6f03c1908785916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Points to a function that handles requests which match no web services.  <a href="#a2adaf1405942e318b6f03c1908785916"></a><br/></td></tr>
-<tr class="memitem:af7759c4a292f2eb8a56fae3981661ae3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#abc4efe5568ed927c1be1c8ec67f75373">error_handler_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#af7759c4a292f2eb8a56fae3981661ae3">server_error_handler</a></td></tr>
+<tr class="memitem:af7759c4a292f2eb8a56fae3981661ae3"><td class="memItemLeft" align="right" valign="top">error_handler_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#af7759c4a292f2eb8a56fae3981661ae3">server_error_handler</a></td></tr>
 <tr class="memdesc:af7759c4a292f2eb8a56fae3981661ae3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Points to the function that handles server errors.  <a href="#af7759c4a292f2eb8a56fae3981661ae3"></a><br/></td></tr>
-<tr class="memitem:ad04294b848f162f00443653eb8c4b9f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a401c27dde5bab5d6223ae5ad6db7edbe">payloads_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ad04294b848f162f00443653eb8c4b9f7">get_payloads</a></td></tr>
+<tr class="memitem:ad04294b848f162f00443653eb8c4b9f7"><td class="memItemLeft" align="right" valign="top">payloads_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ad04294b848f162f00443653eb8c4b9f7">get_payloads</a></td></tr>
 <tr class="memdesc:ad04294b848f162f00443653eb8c4b9f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of payload handlers GET resources that are recognized by this HTTP server.  <a href="#ad04294b848f162f00443653eb8c4b9f7"></a><br/></td></tr>
-<tr class="memitem:a11cc7c30eb29863074beed0edb8f343b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a401c27dde5bab5d6223ae5ad6db7edbe">payloads_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a11cc7c30eb29863074beed0edb8f343b">post_payloads</a></td></tr>
+<tr class="memitem:a11cc7c30eb29863074beed0edb8f343b"><td class="memItemLeft" align="right" valign="top">payloads_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a11cc7c30eb29863074beed0edb8f343b">post_payloads</a></td></tr>
 <tr class="memdesc:a11cc7c30eb29863074beed0edb8f343b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of payload handlers POST resources that are recognized by this HTTP server.  <a href="#a11cc7c30eb29863074beed0edb8f343b"></a><br/></td></tr>
-<tr class="memitem:a8def175373ed776606a95447e3d4994a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a401c27dde5bab5d6223ae5ad6db7edbe">payloads_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a8def175373ed776606a95447e3d4994a">put_payloads</a></td></tr>
+<tr class="memitem:a8def175373ed776606a95447e3d4994a"><td class="memItemLeft" align="right" valign="top">payloads_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a8def175373ed776606a95447e3d4994a">put_payloads</a></td></tr>
 <tr class="memdesc:a8def175373ed776606a95447e3d4994a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of payload handlers PUT resources that are recognized by this HTTP server.  <a href="#a8def175373ed776606a95447e3d4994a"></a><br/></td></tr>
-<tr class="memitem:af4ac75e664318ad2829ba324b17369ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a401c27dde5bab5d6223ae5ad6db7edbe">payloads_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#af4ac75e664318ad2829ba324b17369ca">delete_payloads</a></td></tr>
+<tr class="memitem:af4ac75e664318ad2829ba324b17369ca"><td class="memItemLeft" align="right" valign="top">payloads_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#af4ac75e664318ad2829ba324b17369ca">delete_payloads</a></td></tr>
 <tr class="memdesc:af4ac75e664318ad2829ba324b17369ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of payload handlers DELETE resources that are recognized by this HTTP server.  <a href="#af4ac75e664318ad2829ba324b17369ca"></a><br/></td></tr>
-<tr class="memitem:a047e741413fd8328ec9fcda7ad285f1b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a85d65295186e04bfb059757cd2b519be">filter_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a047e741413fd8328ec9fcda7ad285f1b">get_filters</a></td></tr>
+<tr class="memitem:a047e741413fd8328ec9fcda7ad285f1b"><td class="memItemLeft" align="right" valign="top">filter_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a047e741413fd8328ec9fcda7ad285f1b">get_filters</a></td></tr>
 <tr class="memdesc:a047e741413fd8328ec9fcda7ad285f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of GET filters.  <a href="#a047e741413fd8328ec9fcda7ad285f1b"></a><br/></td></tr>
-<tr class="memitem:ae896ff3d53e869093a89ec4ebd799104"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a85d65295186e04bfb059757cd2b519be">filter_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ae896ff3d53e869093a89ec4ebd799104">post_filters</a></td></tr>
+<tr class="memitem:ae896ff3d53e869093a89ec4ebd799104"><td class="memItemLeft" align="right" valign="top">filter_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ae896ff3d53e869093a89ec4ebd799104">post_filters</a></td></tr>
 <tr class="memdesc:ae896ff3d53e869093a89ec4ebd799104"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of POST filters.  <a href="#ae896ff3d53e869093a89ec4ebd799104"></a><br/></td></tr>
-<tr class="memitem:a7a00693674444df860962e1dd9ab8546"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a85d65295186e04bfb059757cd2b519be">filter_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a7a00693674444df860962e1dd9ab8546">put_filters</a></td></tr>
+<tr class="memitem:a7a00693674444df860962e1dd9ab8546"><td class="memItemLeft" align="right" valign="top">filter_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a7a00693674444df860962e1dd9ab8546">put_filters</a></td></tr>
 <tr class="memdesc:a7a00693674444df860962e1dd9ab8546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of PUT filters.  <a href="#a7a00693674444df860962e1dd9ab8546"></a><br/></td></tr>
-<tr class="memitem:a89ac87aae764a7816d192349b70757b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a85d65295186e04bfb059757cd2b519be">filter_map_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a89ac87aae764a7816d192349b70757b4">delete_filters</a></td></tr>
+<tr class="memitem:a89ac87aae764a7816d192349b70757b4"><td class="memItemLeft" align="right" valign="top">filter_map_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a89ac87aae764a7816d192349b70757b4">delete_filters</a></td></tr>
 <tr class="memdesc:a89ac87aae764a7816d192349b70757b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of DELETE filters.  <a href="#a89ac87aae764a7816d192349b70757b4"></a><br/></td></tr>
 <tr class="inherit_header pro_attribs_classstaticlib_1_1httpserver_1_1tcp__server"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classstaticlib_1_1httpserver_1_1tcp__server')"><img src="closed.png" alt="-"/>&nbsp;Protected Attributes inherited from <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html">staticlib::httpserver::tcp_server</a></td></tr>
 <tr class="memitem:a22b37d96cc902b4b456d5f02a0c7e7b2 inherit pro_attribs_classstaticlib_1_1httpserver_1_1tcp__server"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaticlib_1_1httpserver_1_1logger.html">logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a22b37d96cc902b4b456d5f02a0c7e7b2">m_logger</a></td></tr>
 <tr class="memdesc:a22b37d96cc902b4b456d5f02a0c7e7b2 inherit pro_attribs_classstaticlib_1_1httpserver_1_1tcp__server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary logging interface used by this class.  <a href="#a22b37d96cc902b4b456d5f02a0c7e7b2"></a><br/></td></tr>
-<tr class="memitem:ad6417aff6f5c786788cf7006100700a4 inherit pro_attribs_classstaticlib_1_1httpserver_1_1tcp__server"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">tcp_connection::ssl_context_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad6417aff6f5c786788cf7006100700a4">m_ssl_context</a></td></tr>
+<tr class="memitem:ad6417aff6f5c786788cf7006100700a4 inherit pro_attribs_classstaticlib_1_1httpserver_1_1tcp__server"><td class="memItemLeft" align="right" valign="top">tcp_connection::ssl_context_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad6417aff6f5c786788cf7006100700a4">m_ssl_context</a></td></tr>
 <tr class="memdesc:ad6417aff6f5c786788cf7006100700a4 inherit pro_attribs_classstaticlib_1_1httpserver_1_1tcp__server"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context used for SSL configuration.  <a href="#ad6417aff6f5c786788cf7006100700a4"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="friends"></a>
@@ -275,162 +242,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Server extension that supports streaming requests of arbitrary size (file upload) </p>
-</div><h2>Member Typedef Documentation</h2>
-<a class="anchor" id="abc4efe5568ed927c1be1c8ec67f75373"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::function&lt;void(<a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a>&amp;, <a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a>&amp;, const std::string&amp;)&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#abc4efe5568ed927c1be1c8ec67f75373">staticlib::httpserver::http_server::error_handler_type</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Handler for requests that result in "500 Server Error". </p>
-
-</div>
-</div>
-<a class="anchor" id="a85d65295186e04bfb059757cd2b519be"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::unordered_multimap&lt;std::string, <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a02f27760a33572d046c3c9af1816dfd3">request_filter_type</a>, <a class="el" href="structstaticlib_1_1httpserver_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1httpserver_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a>&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a85d65295186e04bfb059757cd2b519be">staticlib::httpserver::http_server::filter_map_type</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Data type for a multi map of filters. </p>
-
-</div>
-</div>
-<a class="anchor" id="a9657ce953b52a8285d307c2a00f1ee58"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::unordered_map&lt;std::string, <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a>&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a9657ce953b52a8285d307c2a00f1ee58">staticlib::httpserver::http_server::handlers_map_type</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Data type for a map of resources to request handlers. </p>
-
-</div>
-</div>
-<a class="anchor" id="ae2076268b0373bdca22bf59b955b6758"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::function&lt;<a class="el" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa5ee4936b3f345263a445eb7e84975d5">http_parser::payload_handler_type</a>(<a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a>&amp;)&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ae2076268b0373bdca22bf59b955b6758">staticlib::httpserver::http_server::payload_handler_creator_type</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Type of function that is used to create payload handlers. </p>
-
-</div>
-</div>
-<a class="anchor" id="a401c27dde5bab5d6223ae5ad6db7edbe"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::unordered_map&lt;std::string, <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ae2076268b0373bdca22bf59b955b6758">payload_handler_creator_type</a>&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a401c27dde5bab5d6223ae5ad6db7edbe">staticlib::httpserver::http_server::payloads_map_type</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Data type for a map of resources to request handlers. </p>
-
-</div>
-</div>
-<a class="anchor" id="a02f27760a33572d046c3c9af1816dfd3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::function&lt;void(<a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a>&amp;, <a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a>&amp;, <a class="el" href="classstaticlib_1_1httpserver_1_1http__filter__chain.html">http_filter_chain</a>&amp;)&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a02f27760a33572d046c3c9af1816dfd3">staticlib::httpserver::http_server::request_filter_type</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Type for filters. </p>
-
-</div>
-</div>
-<a class="anchor" id="a4f1836cdaf008d232f4f90aca01766bc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::function&lt;void(<a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a>&amp;, <a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a>&amp;)&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">staticlib::httpserver::http_server::request_handler_type</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Type of function that is used to handle requests. </p>
-
-</div>
-</div>
-<h2>Constructor &amp; Destructor Documentation</h2>
+</div><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a82b80f92c7fbc19be612b40d3975c1f3"></a>
 <div class="memitem">
 <div class="memproto">
@@ -520,7 +332,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a02f27760a33572d046c3c9af1816dfd3">request_filter_type</a>&#160;</td>
+          <td class="paramtype">request_filter_type&#160;</td>
           <td class="paramname"><em>filter</em>&#160;</td>
         </tr>
         <tr>
@@ -562,7 +374,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a>&#160;</td>
+          <td class="paramtype">request_handler_type&#160;</td>
           <td class="paramname"><em>request_handler</em>&#160;</td>
         </tr>
         <tr>
@@ -604,7 +416,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#ae2076268b0373bdca22bf59b955b6758">payload_handler_creator_type</a>&#160;</td>
+          <td class="paramtype">payload_handler_creator_type&#160;</td>
           <td class="paramname"><em>payload_handler</em>&#160;</td>
         </tr>
         <tr>
@@ -637,7 +449,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">virtual void staticlib::httpserver::http_server::handle_connection </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a> &amp;&#160;</td>
+          <td class="paramtype">tcp_connection_ptr &amp;&#160;</td>
           <td class="paramname"><em>conn</em></td><td>)</td>
           <td></td>
         </tr>
@@ -671,13 +483,13 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">virtual void staticlib::httpserver::http_server::handle_request </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a>&#160;</td>
+          <td class="paramtype">http_request_ptr&#160;</td>
           <td class="paramname"><em>request</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a> &amp;&#160;</td>
+          <td class="paramtype">tcp_connection_ptr &amp;&#160;</td>
           <td class="paramname"><em>conn</em>, </td>
         </tr>
         <tr>
@@ -721,13 +533,13 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">virtual void staticlib::httpserver::http_server::handle_request_after_headers_parsed </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e">http_request_ptr</a>&#160;</td>
+          <td class="paramtype">http_request_ptr&#160;</td>
           <td class="paramname"><em>request</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a> &amp;&#160;</td>
+          <td class="paramtype">tcp_connection_ptr &amp;&#160;</td>
           <td class="paramname"><em>conn</em>, </td>
         </tr>
         <tr>
@@ -775,7 +587,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void staticlib::httpserver::http_server::set_bad_request_handler </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a>&#160;</td>
+          <td class="paramtype">request_handler_type&#160;</td>
           <td class="paramname"><em>handler</em></td><td>)</td>
           <td></td>
         </tr>
@@ -799,7 +611,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void staticlib::httpserver::http_server::set_error_handler </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#abc4efe5568ed927c1be1c8ec67f75373">error_handler_type</a>&#160;</td>
+          <td class="paramtype">error_handler_type&#160;</td>
           <td class="paramname"><em>handler</em></td><td>)</td>
           <td></td>
         </tr>
@@ -823,7 +635,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void staticlib::httpserver::http_server::set_not_found_handler </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a>&#160;</td>
+          <td class="paramtype">request_handler_type&#160;</td>
           <td class="paramname"><em>handler</em></td><td>)</td>
           <td></td>
         </tr>
@@ -870,7 +682,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a> staticlib::httpserver::http_server::bad_request_handler</td>
+          <td class="memname">request_handler_type staticlib::httpserver::http_server::bad_request_handler</td>
         </tr>
       </table>
   </td>
@@ -892,7 +704,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a85d65295186e04bfb059757cd2b519be">filter_map_type</a> staticlib::httpserver::http_server::delete_filters</td>
+          <td class="memname">filter_map_type staticlib::httpserver::http_server::delete_filters</td>
         </tr>
       </table>
   </td>
@@ -914,7 +726,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a9657ce953b52a8285d307c2a00f1ee58">handlers_map_type</a> staticlib::httpserver::http_server::delete_handlers</td>
+          <td class="memname">handlers_map_type staticlib::httpserver::http_server::delete_handlers</td>
         </tr>
       </table>
   </td>
@@ -936,7 +748,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a401c27dde5bab5d6223ae5ad6db7edbe">payloads_map_type</a> staticlib::httpserver::http_server::delete_payloads</td>
+          <td class="memname">payloads_map_type staticlib::httpserver::http_server::delete_payloads</td>
         </tr>
       </table>
   </td>
@@ -958,7 +770,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a85d65295186e04bfb059757cd2b519be">filter_map_type</a> staticlib::httpserver::http_server::get_filters</td>
+          <td class="memname">filter_map_type staticlib::httpserver::http_server::get_filters</td>
         </tr>
       </table>
   </td>
@@ -980,7 +792,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a9657ce953b52a8285d307c2a00f1ee58">handlers_map_type</a> staticlib::httpserver::http_server::get_handlers</td>
+          <td class="memname">handlers_map_type staticlib::httpserver::http_server::get_handlers</td>
         </tr>
       </table>
   </td>
@@ -1002,7 +814,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a401c27dde5bab5d6223ae5ad6db7edbe">payloads_map_type</a> staticlib::httpserver::http_server::get_payloads</td>
+          <td class="memname">payloads_map_type staticlib::httpserver::http_server::get_payloads</td>
         </tr>
       </table>
   </td>
@@ -1024,7 +836,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc">request_handler_type</a> staticlib::httpserver::http_server::not_found_handler</td>
+          <td class="memname">request_handler_type staticlib::httpserver::http_server::not_found_handler</td>
         </tr>
       </table>
   </td>
@@ -1046,7 +858,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a85d65295186e04bfb059757cd2b519be">filter_map_type</a> staticlib::httpserver::http_server::post_filters</td>
+          <td class="memname">filter_map_type staticlib::httpserver::http_server::post_filters</td>
         </tr>
       </table>
   </td>
@@ -1068,7 +880,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a9657ce953b52a8285d307c2a00f1ee58">handlers_map_type</a> staticlib::httpserver::http_server::post_handlers</td>
+          <td class="memname">handlers_map_type staticlib::httpserver::http_server::post_handlers</td>
         </tr>
       </table>
   </td>
@@ -1090,7 +902,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a401c27dde5bab5d6223ae5ad6db7edbe">payloads_map_type</a> staticlib::httpserver::http_server::post_payloads</td>
+          <td class="memname">payloads_map_type staticlib::httpserver::http_server::post_payloads</td>
         </tr>
       </table>
   </td>
@@ -1112,7 +924,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a85d65295186e04bfb059757cd2b519be">filter_map_type</a> staticlib::httpserver::http_server::put_filters</td>
+          <td class="memname">filter_map_type staticlib::httpserver::http_server::put_filters</td>
         </tr>
       </table>
   </td>
@@ -1134,7 +946,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a9657ce953b52a8285d307c2a00f1ee58">handlers_map_type</a> staticlib::httpserver::http_server::put_handlers</td>
+          <td class="memname">handlers_map_type staticlib::httpserver::http_server::put_handlers</td>
         </tr>
       </table>
   </td>
@@ -1156,7 +968,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#a401c27dde5bab5d6223ae5ad6db7edbe">payloads_map_type</a> staticlib::httpserver::http_server::put_payloads</td>
+          <td class="memname">payloads_map_type staticlib::httpserver::http_server::put_payloads</td>
         </tr>
       </table>
   </td>
@@ -1178,7 +990,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__server.html#abc4efe5568ed927c1be1c8ec67f75373">error_handler_type</a> staticlib::httpserver::http_server::server_error_handler</td>
+          <td class="memname">error_handler_type staticlib::httpserver::http_server::server_error_handler</td>
         </tr>
       </table>
   </td>
@@ -1198,7 +1010,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 12 2016 13:11:56 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

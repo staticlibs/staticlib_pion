@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.10</span>
+   &#160;<span id="projectnumber">5.0.7-11</span>
    </div>
   </td>
  </tr>
@@ -139,170 +139,173 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00050"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html">   50</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html" title="Sends HTTP data asynchronously.">http_response_writer</a> : <span class="keyword">public</span> std::enable_shared_from_this&lt;http_response_writer&gt;, </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">private</span> <a class="code" href="classstaticlib_1_1httpserver_1_1noncopyable___1_1noncopyable.html">staticlib::httpserver::noncopyable</a> {</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">typedef</span> std::function&lt;void(const asio::error_code&amp;)&gt; finished_handler_t;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">using</span> finished_handler_type = std::function&lt;void(const asio::error_code&amp;)&gt;;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">typedef</span> std::function&lt;void(const asio::error_code&amp;, std::size_t)&gt; write_handler_type;    </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">class </span>binary_cache_t : <span class="keyword">public</span> std::vector&lt;std::pair&lt;const char *, size_t&gt;&gt; {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        ~binary_cache_t();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        asio::const_buffer add(<span class="keyword">const</span> <span class="keywordtype">void</span> *ptr, <span class="keyword">const</span> <span class="keywordtype">size_t</span> size);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    };</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a> m_logger;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a> m_tcp_conn;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__message.html#ab59d14431315cb768a593c455f9c4e97" title="Data type for I/O write buffers (these wrap existing data to be sent)">http_message::write_buffers_type</a> m_content_buffers;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    binary_cache_t m_binary_cache;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::list&lt;std::string&gt; m_text_cache;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    std::vector&lt;std::string&gt; m_moved_cache;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    std::ostringstream m_content_stream;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">size_t</span> m_content_length;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">bool</span> m_stream_is_empty;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">bool</span> m_client_supports_chunks;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">bool</span> m_sending_chunks;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">bool</span> m_sent_headers;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    finished_handler_t m_finished;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    std::unique_ptr&lt;http_response&gt; m_http_response;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    std::string m_response_line;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">static</span> std::shared_ptr&lt;http_response_writer&gt; <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a52194fdaf096283d94addfcb2cca7bbb" title="Creates new response_writer objects.">create</a>(<a class="code" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e" title="Data type for a HTTP request pointer.">http_request_ptr</a>&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html" title="Container for HTTP request information.">http_request</a>, <a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; tcp_conn);</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    </div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keyword">static</span> std::shared_ptr&lt;http_response_writer&gt; <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a52194fdaf096283d94addfcb2cca7bbb" title="Creates new response_writer objects.">create</a>(<a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; tcp_conn,</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            <span class="keyword">const</span> http_request&amp; http_request, finished_handler_t handler);</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__response.html" title="Container for HTTP response information.">http_response</a>&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a912faf0fe687ba7c56215de6ff56b8bf" title="Returns a non-const reference to the response that will be sent.">get_response</a>();</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a139dca9ecd9fae1ba8c7c289be1663de" title="Clears out all of the memory buffers used to cache payload content data.">clear</a>();</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;</div>
-<div class="line"><a name="l00203"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a1a6fa639f3419d2643467d53f0f47f99">  203</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a1a6fa639f3419d2643467d53f0f47f99" title="Write text (non-binary) payload content.">write</a>(<span class="keyword">const</span> T&amp; data) {</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        m_content_stream &lt;&lt; data;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keywordflow">if</span> (m_stream_is_empty) m_stream_is_empty = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    }</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a1a6fa639f3419d2643467d53f0f47f99" title="Write text (non-binary) payload content.">write</a>(std::ostream&amp; (*iomanip)(std::ostream&amp;));</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a1a6fa639f3419d2643467d53f0f47f99" title="Write text (non-binary) payload content.">write</a>(<span class="keyword">const</span> <span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length);</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    </div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a4213ea6d0702ea664bbb8740e587478e" title="Write text (non-binary) payload content; the data written is not copied, and therefore must persist u...">write_no_copy</a>(<span class="keyword">const</span> std::string&amp; data);</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    </div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a4213ea6d0702ea664bbb8740e587478e" title="Write text (non-binary) payload content; the data written is not copied, and therefore must persist u...">write_no_copy</a>(<span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length);</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a1e06fe3d95c220a66e9a75b4af32fd47" title="Write binary payload content using r-value string.">write_move</a>(std::string&amp;&amp; data);</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    </div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a71cb4d614e951c762bea80a4e59d00ea" title="Sends all data buffered as a single HTTP message (without chunking).">send</a>();</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    </div>
-<div class="line"><a name="l00265"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a089df5bf6d3708f48b3270c03fa9af6b">  265</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> SendHandler&gt; <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a089df5bf6d3708f48b3270c03fa9af6b" title="Sends all data buffered as a single HTTP message (without chunking).">send</a>(SendHandler send_handler) {</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        send_more_data(<span class="keyword">false</span>, send_handler);</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    }</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    </div>
-<div class="line"><a name="l00279"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a93a046134d1dafd580869eb1b588459b">  279</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> SendHandler&gt; <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a93a046134d1dafd580869eb1b588459b" title="Sends all data buffered as a single HTTP chunk.">send_chunk</a>(SendHandler send_handler) {</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        m_sending_chunks = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a07398e8320603594d42e92c698aabffb" title="Returns true if the client supports chunked messages.">supports_chunked_messages</a>()) {</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;            <span class="comment">// sending data in chunks, but the client does not support chunking;</span></div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;            <span class="comment">// make sure that the connection will be closed when we are all done</span></div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;            m_tcp_conn-&gt;set_lifecycle(<a class="code" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a34f52d3bb70c101adbb91cbfba883f62a0be9978ba39523e021ded48d16114e24">tcp_connection::LIFECYCLE_CLOSE</a>);</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        }</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="comment">// send more data</span></div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        send_more_data(<span class="keyword">false</span>, send_handler);</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    }</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;</div>
-<div class="line"><a name="l00301"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a9bcf60c753a7b53ecde19bf7f70aa633">  301</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> SendHandler&gt; <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a9bcf60c753a7b53ecde19bf7f70aa633" title="Sends all data buffered (if any) and also sends the final HTTP chunk.">send_final_chunk</a>(SendHandler send_handler) {</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        m_sending_chunks = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        send_more_data(<span class="keyword">true</span>, send_handler);</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    }</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    </div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a017248e51a0f5a45be7a887310787394" title="Sends all data buffered (if any) and also sends the final HTTP chunk.">send_final_chunk</a>();</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    </div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a29f0d73bf06eea7a2bfdba7d7bd93c76" title="Returns a shared pointer to the TCP connection.">get_connection</a>();</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a07c5ae65ef255f7f34c76bdb00401d59" title="Returns the length of the payload content (in bytes)">get_content_length</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a07398e8320603594d42e92c698aabffb" title="Returns true if the client supports chunked messages.">supports_chunked_messages</a>(<span class="keywordtype">bool</span> b);</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    </div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a07398e8320603594d42e92c698aabffb" title="Returns true if the client supports chunked messages.">supports_chunked_messages</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#ac8bf09dc85e4d99535424398fcd44b01" title="Returns true if we are sending a chunked message to the client.">sending_chunked_message</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    </div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a6f3494109c75d6706a3675e4db4222aa" title="Sets the logger to be used.">set_logger</a>(<a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a> log_ptr);</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    </div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a72da7dcc845f7b3c2cfcd3801a02fec4" title="Returns the logger currently in use.">get_logger</a>();</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <span class="keywordtype">void</span> finished_writing(<span class="keyword">const</span> asio::error_code&amp; ec);</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html" title="Sends HTTP data asynchronously.">http_response_writer</a>(<a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; tcp_conn, <span class="keyword">const</span> http_request&amp; http_request,</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;            finished_handler_t handler);</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <span class="keywordtype">void</span> prepare_buffers_for_send(<a class="code" href="classstaticlib_1_1httpserver_1_1http__message.html#ab59d14431315cb768a593c455f9c4e97" title="Data type for I/O write buffers (these wrap existing data to be sent)">http_message::write_buffers_type</a>&amp; write_buffers);</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    write_handler_type bind_to_write_handler();</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <span class="keywordtype">void</span> handle_write(<span class="keyword">const</span> asio::error_code&amp; write_error, std::size_t bytes_written);</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    </div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> SendHandler&gt;</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <span class="keywordtype">void</span> send_more_data(<span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a017248e51a0f5a45be7a887310787394" title="Sends all data buffered (if any) and also sends the final HTTP chunk.">send_final_chunk</a>, SendHandler send_handler) {</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        <span class="comment">// make sure that we did not lose the TCP connection</span></div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        <span class="keywordflow">if</span> (m_tcp_conn-&gt;is_open()) {</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;            <span class="comment">// make sure that the content-length is up-to-date</span></div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;            flush_content_stream();</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            <span class="comment">// prepare the write buffers to be sent</span></div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;            <a class="code" href="classstaticlib_1_1httpserver_1_1http__message.html#ab59d14431315cb768a593c455f9c4e97" title="Data type for I/O write buffers (these wrap existing data to be sent)">http_message::write_buffers_type</a> write_buffers;</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;            prepare_write_buffers(write_buffers, send_final_chunk);</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;            <span class="comment">// send data in the write buffers</span></div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;            m_tcp_conn-&gt;async_write(write_buffers, send_handler);</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;            finished_writing(asio::error::connection_reset);</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        }</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    }</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    </div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <span class="keywordtype">void</span> prepare_write_buffers(<a class="code" href="classstaticlib_1_1httpserver_1_1http__message.html#ab59d14431315cb768a593c455f9c4e97" title="Data type for I/O write buffers (these wrap existing data to be sent)">http_message::write_buffers_type</a> &amp;write_buffers, </div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">bool</span> send_final_chunk);</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    </div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    <span class="keywordtype">void</span> flush_content_stream();</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    </div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;};</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;</div>
-<div class="line"><a name="l00446"></a><span class="lineno"><a class="code" href="namespacestaticlib_1_1httpserver.html#a48d8bd29abc0f3bf5bb14af3746125dc">  446</a></span>&#160;<span class="keyword">typedef</span> std::shared_ptr&lt;http_response_writer&gt; <a class="code" href="namespacestaticlib_1_1httpserver.html#a48d8bd29abc0f3bf5bb14af3746125dc" title="Data type for a response_writer pointer.">http_response_writer_ptr</a>;</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00457"></a><span class="lineno"><a class="code" href="namespacestaticlib_1_1httpserver.html#ae3d325ead646a233c881b904cea77b44">  457</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="namespacestaticlib_1_1httpserver.html#a48d8bd29abc0f3bf5bb14af3746125dc" title="Data type for a response_writer pointer.">http_response_writer_ptr</a>&amp; <a class="code" href="namespacestaticlib_1_1httpserver.html#ae3d325ead646a233c881b904cea77b44" title="Override operator shift for convenience.">operator&lt;&lt;</a>(<span class="keyword">const</span> <a class="code" href="namespacestaticlib_1_1httpserver.html#a48d8bd29abc0f3bf5bb14af3746125dc" title="Data type for a response_writer pointer.">http_response_writer_ptr</a>&amp; writer, <span class="keyword">const</span> T&amp; data) {</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    writer-&gt;write(data);</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="keywordflow">return</span> writer;</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;}</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;</div>
-<div class="line"><a name="l00469"></a><span class="lineno"><a class="code" href="namespacestaticlib_1_1httpserver.html#ab4aab2ed0b11f887d93c28bdff2beb0e">  469</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="namespacestaticlib_1_1httpserver.html#a48d8bd29abc0f3bf5bb14af3746125dc" title="Data type for a response_writer pointer.">http_response_writer_ptr</a>&amp; <a class="code" href="namespacestaticlib_1_1httpserver.html#ae3d325ead646a233c881b904cea77b44" title="Override operator shift for convenience.">operator&lt;&lt;</a>(<span class="keyword">const</span> <a class="code" href="namespacestaticlib_1_1httpserver.html#a48d8bd29abc0f3bf5bb14af3746125dc" title="Data type for a response_writer pointer.">http_response_writer_ptr</a>&amp; writer, std::ostream&amp; (*iomanip)(std::ostream&amp;)) {</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;    writer-&gt;write(iomanip);</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;    <span class="keywordflow">return</span> writer;</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;}</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">private</span>:    </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">using</span> write_handler_type = std::function&lt;void(const asio::error_code&amp;, std::size_t)&gt;;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">class </span>binary_cache_t : <span class="keyword">public</span> std::vector&lt;std::pair&lt;const char *, size_t&gt;&gt; {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        ~binary_cache_t();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        asio::const_buffer add(<span class="keyword">const</span> <span class="keywordtype">void</span> *ptr, <span class="keyword">const</span> <span class="keywordtype">size_t</span> size);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    };</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a> m_logger;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    tcp_connection_ptr m_tcp_conn;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    http_message::write_buffers_type m_content_buffers;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    binary_cache_t m_binary_cache;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::list&lt;std::string&gt; m_text_cache;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    std::vector&lt;std::string&gt; m_moved_cache;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    std::ostringstream m_content_stream;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">size_t</span> m_content_length;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">bool</span> m_stream_is_empty;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">bool</span> m_client_supports_chunks;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordtype">bool</span> m_sending_chunks;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordtype">bool</span> m_sent_headers;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    finished_handler_type m_finished;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    std::unique_ptr&lt;http_response&gt; m_http_response;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    std::string m_response_line;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keyword">static</span> std::shared_ptr&lt;http_response_writer&gt; <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#ac02ff2bf7652e3aa4379f451bcd70806" title="Creates new response_writer objects.">create</a>(tcp_connection_ptr&amp; tcp_conn,</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            <span class="keyword">const</span> http_request_ptr&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html" title="Container for HTTP request information.">http_request</a>);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    </div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keyword">static</span> std::shared_ptr&lt;http_response_writer&gt; <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#ac02ff2bf7652e3aa4379f451bcd70806" title="Creates new response_writer objects.">create</a>(tcp_connection_ptr&amp; tcp_conn,</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            <span class="keyword">const</span> http_request_ptr&amp; http_request, finished_handler_type handler);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__response.html" title="Container for HTTP response information.">http_response</a>&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a912faf0fe687ba7c56215de6ff56b8bf" title="Returns a non-const reference to the response that will be sent.">get_response</a>();</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a139dca9ecd9fae1ba8c7c289be1663de" title="Clears out all of the memory buffers used to cache payload content data.">clear</a>();</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
+<div class="line"><a name="l00206"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a1a6fa639f3419d2643467d53f0f47f99">  206</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a1a6fa639f3419d2643467d53f0f47f99" title="Write text (non-binary) payload content.">write</a>(<span class="keyword">const</span> T&amp; data) {</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        m_content_stream &lt;&lt; data;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">if</span> (m_stream_is_empty) m_stream_is_empty = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    }</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a1a6fa639f3419d2643467d53f0f47f99" title="Write text (non-binary) payload content.">write</a>(std::ostream&amp; (*iomanip)(std::ostream&amp;));</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a1a6fa639f3419d2643467d53f0f47f99" title="Write text (non-binary) payload content.">write</a>(<span class="keyword">const</span> <span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a4213ea6d0702ea664bbb8740e587478e" title="Write text (non-binary) payload content; the data written is not copied, and therefore must persist u...">write_no_copy</a>(<span class="keyword">const</span> std::string&amp; data);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a4213ea6d0702ea664bbb8740e587478e" title="Write text (non-binary) payload content; the data written is not copied, and therefore must persist u...">write_no_copy</a>(<span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length);</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a1e06fe3d95c220a66e9a75b4af32fd47" title="Write binary payload content using r-value string.">write_move</a>(std::string&amp;&amp; data);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a71cb4d614e951c762bea80a4e59d00ea" title="Sends all data buffered as a single HTTP message (without chunking).">send</a>();</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    </div>
+<div class="line"><a name="l00268"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a089df5bf6d3708f48b3270c03fa9af6b">  268</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> SendHandler&gt; <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a089df5bf6d3708f48b3270c03fa9af6b" title="Sends all data buffered as a single HTTP message (without chunking).">send</a>(SendHandler send_handler) {</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        send_more_data(<span class="keyword">false</span>, send_handler);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    }</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    </div>
+<div class="line"><a name="l00282"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a93a046134d1dafd580869eb1b588459b">  282</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> SendHandler&gt; <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a93a046134d1dafd580869eb1b588459b" title="Sends all data buffered as a single HTTP chunk.">send_chunk</a>(SendHandler send_handler) {</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        m_sending_chunks = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a07398e8320603594d42e92c698aabffb" title="Returns true if the client supports chunked messages.">supports_chunked_messages</a>()) {</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;            <span class="comment">// sending data in chunks, but the client does not support chunking;</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;            <span class="comment">// make sure that the connection will be closed when we are all done</span></div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;            m_tcp_conn-&gt;set_lifecycle(<a class="code" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a34f52d3bb70c101adbb91cbfba883f62a0be9978ba39523e021ded48d16114e24">tcp_connection::LIFECYCLE_CLOSE</a>);</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        }</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        <span class="comment">// send more data</span></div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        send_more_data(<span class="keyword">false</span>, send_handler);</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    }</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;</div>
+<div class="line"><a name="l00304"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a9bcf60c753a7b53ecde19bf7f70aa633">  304</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> SendHandler&gt; <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a9bcf60c753a7b53ecde19bf7f70aa633" title="Sends all data buffered (if any) and also sends the final HTTP chunk.">send_final_chunk</a>(SendHandler send_handler) {</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        m_sending_chunks = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        send_more_data(<span class="keyword">true</span>, send_handler);</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    }</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    </div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a017248e51a0f5a45be7a887310787394" title="Sends all data buffered (if any) and also sends the final HTTP chunk.">send_final_chunk</a>();</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    </div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    tcp_connection_ptr&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a29f0d73bf06eea7a2bfdba7d7bd93c76" title="Returns a shared pointer to the TCP connection.">get_connection</a>();</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a07c5ae65ef255f7f34c76bdb00401d59" title="Returns the length of the payload content (in bytes)">get_content_length</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a07398e8320603594d42e92c698aabffb" title="Returns true if the client supports chunked messages.">supports_chunked_messages</a>(<span class="keywordtype">bool</span> b);</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    </div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a07398e8320603594d42e92c698aabffb" title="Returns true if the client supports chunked messages.">supports_chunked_messages</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#ac8bf09dc85e4d99535424398fcd44b01" title="Returns true if we are sending a chunked message to the client.">sending_chunked_message</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    </div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a6f3494109c75d6706a3675e4db4222aa" title="Sets the logger to be used.">set_logger</a>(<a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a> log_ptr);</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    </div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a72da7dcc845f7b3c2cfcd3801a02fec4" title="Returns the logger currently in use.">get_logger</a>();</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keywordtype">void</span> finished_writing(<span class="keyword">const</span> asio::error_code&amp; ec);</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html" title="Sends HTTP data asynchronously.">http_response_writer</a>(tcp_connection_ptr&amp; tcp_conn, <span class="keyword">const</span> http_request&amp; http_request,</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            finished_handler_type handler);</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <span class="keywordtype">void</span> prepare_buffers_for_send(http_message::write_buffers_type&amp; write_buffers);</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    write_handler_type bind_to_write_handler();</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    <span class="keywordtype">void</span> handle_write(<span class="keyword">const</span> asio::error_code&amp; write_error, std::size_t bytes_written);</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    </div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> SendHandler&gt;</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keywordtype">void</span> send_more_data(<span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__response__writer.html#a017248e51a0f5a45be7a887310787394" title="Sends all data buffered (if any) and also sends the final HTTP chunk.">send_final_chunk</a>, SendHandler send_handler) {</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        <span class="comment">// make sure that we did not lose the TCP connection</span></div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        <span class="keywordflow">if</span> (m_tcp_conn-&gt;is_open()) {</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;            <span class="comment">// make sure that the content-length is up-to-date</span></div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;            flush_content_stream();</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;            <span class="comment">// prepare the write buffers to be sent</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;            http_message::write_buffers_type write_buffers;</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;            prepare_write_buffers(write_buffers, send_final_chunk);</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;            <span class="comment">// send data in the write buffers</span></div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;            m_tcp_conn-&gt;async_write(write_buffers, send_handler);</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;            finished_writing(asio::error::connection_reset);</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        }</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    }</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    </div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keywordtype">void</span> prepare_write_buffers(http_message::write_buffers_type &amp;write_buffers, </div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">bool</span> send_final_chunk);</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    </div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    <span class="keywordtype">void</span> flush_content_stream();</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    </div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;};</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="keyword">using</span> http_response_writer_ptr = std::shared_ptr&lt;http_response_writer&gt;;</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00460"></a><span class="lineno"><a class="code" href="namespacestaticlib_1_1httpserver.html#ae3d325ead646a233c881b904cea77b44">  460</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> http_response_writer_ptr&amp; <a class="code" href="namespacestaticlib_1_1httpserver.html#ae3d325ead646a233c881b904cea77b44" title="Override operator shift for convenience.">operator&lt;&lt;</a>(<span class="keyword">const</span> http_response_writer_ptr&amp; writer, <span class="keyword">const</span> T&amp; data) {</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    writer-&gt;write(data);</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keywordflow">return</span> writer;</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;}</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;</div>
+<div class="line"><a name="l00472"></a><span class="lineno"><a class="code" href="namespacestaticlib_1_1httpserver.html#ab4aab2ed0b11f887d93c28bdff2beb0e">  472</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> http_response_writer_ptr&amp; <a class="code" href="namespacestaticlib_1_1httpserver.html#ae3d325ead646a233c881b904cea77b44" title="Override operator shift for convenience.">operator&lt;&lt;</a>(<span class="keyword">const</span> http_response_writer_ptr&amp; writer, std::ostream&amp; (*iomanip)(std::ostream&amp;)) {</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;    writer-&gt;write(iomanip);</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    <span class="keywordflow">return</span> writer;</div>
 <div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;}</div>
 <div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;<span class="preprocessor">#endif // STATICLIB_HTTPSERVER_HTTP_RESPONSE_WRITER_HPP</span></div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;}</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;<span class="preprocessor">#endif // STATICLIB_HTTPSERVER_HTTP_RESPONSE_WRITER_HPP</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 12 2016 13:11:56 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.10</span>
+   &#160;<span id="projectnumber">5.0.7-11</span>
    </div>
   </td>
  </tr>
@@ -126,17 +126,12 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:abcf5827e66605e1e68fb921767c4867d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867d">data_status_t</a> { <a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867da28a48b50e5f021eea111cf479ae86e08">STATUS_NONE</a>, 
-<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867da085701e484a8abe588a8e247222672b0">STATUS_TRUNCATED</a>, 
-<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867dab2502b722d79f7d812f664d87083ccf7">STATUS_PARTIAL</a>, 
-<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867dabe616016f1c771603f85ca7cc5ea5e72">STATUS_OK</a>
+<tr class="memitem:a8e76f2703ef73d03af42ca3c462cffbf"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbf">data_status_type</a> { <a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbfa28a48b50e5f021eea111cf479ae86e08">STATUS_NONE</a>, 
+<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbfa085701e484a8abe588a8e247222672b0">STATUS_TRUNCATED</a>, 
+<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbfab2502b722d79f7d812f664d87083ccf7">STATUS_PARTIAL</a>, 
+<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbfabe616016f1c771603f85ca7cc5ea5e72">STATUS_OK</a>
  }</td></tr>
-<tr class="memdesc:abcf5827e66605e1e68fb921767c4867d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines message data integrity status codes.  <a href="classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867d">More...</a><br/></td></tr>
-<tr class="memitem:ab59d14431315cb768a593c455f9c4e97"><td class="memItemLeft" align="right" valign="top">typedef std::vector<br class="typebreak"/>
-&lt; asio::const_buffer &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#ab59d14431315cb768a593c455f9c4e97">write_buffers_type</a></td></tr>
-<tr class="memdesc:ab59d14431315cb768a593c455f9c4e97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for I/O write buffers (these wrap existing data to be sent)  <a href="#ab59d14431315cb768a593c455f9c4e97"></a><br/></td></tr>
-<tr class="memitem:a481e384267345c8279148bee034f9384"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a481e384267345c8279148bee034f9384">chunk_cache_t</a></td></tr>
-<tr class="memdesc:a481e384267345c8279148bee034f9384"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to cache chunked data.  <a href="#a481e384267345c8279148bee034f9384"></a><br/></td></tr>
+<tr class="memdesc:a8e76f2703ef73d03af42ca3c462cffbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines message data integrity status codes.  <a href="classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbf">More...</a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -176,8 +171,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a94242ce717b3f996fbb5901af9e254ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the payload content, or empty string if there is none.  <a href="#a94242ce717b3f996fbb5901af9e254ad"></a><br/></td></tr>
 <tr class="memitem:a7937fef471c8c7c214372ec3d996199f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a7937fef471c8c7c214372ec3d996199f">get_content</a> () const </td></tr>
 <tr class="memdesc:a7937fef471c8c7c214372ec3d996199f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const pointer to the payload content, or empty string if there is none.  <a href="#a7937fef471c8c7c214372ec3d996199f"></a><br/></td></tr>
-<tr class="memitem:a08fd9d03e03c5ac04e809642e3c81a41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a481e384267345c8279148bee034f9384">chunk_cache_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a08fd9d03e03c5ac04e809642e3c81a41">get_chunk_cache</a> ()</td></tr>
-<tr class="memdesc:a08fd9d03e03c5ac04e809642e3c81a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the chunk cache.  <a href="#a08fd9d03e03c5ac04e809642e3c81a41"></a><br/></td></tr>
+<tr class="memitem:ac31741ff200b9b8840cf6c2e0ee3fb70"><td class="memItemLeft" align="right" valign="top">chunk_cache_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#ac31741ff200b9b8840cf6c2e0ee3fb70">get_chunk_cache</a> ()</td></tr>
+<tr class="memdesc:ac31741ff200b9b8840cf6c2e0ee3fb70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the chunk cache.  <a href="#ac31741ff200b9b8840cf6c2e0ee3fb70"></a><br/></td></tr>
 <tr class="memitem:a36c2806dabfc0321eb79db66d6c5ee4c"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a36c2806dabfc0321eb79db66d6c5ee4c">get_header</a> (const std::string &amp;key) const </td></tr>
 <tr class="memdesc:a36c2806dabfc0321eb79db66d6c5ee4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a value for the header if any are defined; otherwise, an empty string.  <a href="#a36c2806dabfc0321eb79db66d6c5ee4c"></a><br/></td></tr>
 <tr class="memitem:a00120088ab2133c6065fd567c6139001"><td class="memItemLeft" align="right" valign="top">std::unordered_multimap<br class="typebreak"/>
@@ -226,10 +221,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1e5376df27bf92c2fe934bc9fb305492"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the length of the payload content (in bytes)  <a href="#a1e5376df27bf92c2fe934bc9fb305492"></a><br/></td></tr>
 <tr class="memitem:a5321e51872ade8562cce1ce77d4271ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a5321e51872ade8562cce1ce77d4271ed">set_do_not_send_content_length</a> ()</td></tr>
 <tr class="memdesc:a5321e51872ade8562cce1ce77d4271ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">If called, the content-length will not be sent in the HTTP headers.  <a href="#a5321e51872ade8562cce1ce77d4271ed"></a><br/></td></tr>
-<tr class="memitem:a1259fb26d9bccdae745887615ac6c184"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867d">data_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a1259fb26d9bccdae745887615ac6c184">get_status</a> () const </td></tr>
-<tr class="memdesc:a1259fb26d9bccdae745887615ac6c184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the data receival status.  <a href="#a1259fb26d9bccdae745887615ac6c184"></a><br/></td></tr>
-<tr class="memitem:a3b4792c7040eab2a769d8f3ff707dd72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a3b4792c7040eab2a769d8f3ff707dd72">set_status</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867d">data_status_t</a> newVal)</td></tr>
-<tr class="memdesc:a3b4792c7040eab2a769d8f3ff707dd72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets data receival status.  <a href="#a3b4792c7040eab2a769d8f3ff707dd72"></a><br/></td></tr>
+<tr class="memitem:a9802b3a77d074ce74b59f5adf5451f2a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbf">data_status_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a9802b3a77d074ce74b59f5adf5451f2a">get_status</a> () const </td></tr>
+<tr class="memdesc:a9802b3a77d074ce74b59f5adf5451f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the data receival status.  <a href="#a9802b3a77d074ce74b59f5adf5451f2a"></a><br/></td></tr>
+<tr class="memitem:a2754917d29a230c15259bc26c4a7427b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a2754917d29a230c15259bc26c4a7427b">set_status</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbf">data_status_type</a> newVal)</td></tr>
+<tr class="memdesc:a2754917d29a230c15259bc26c4a7427b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets data receival status.  <a href="#a2754917d29a230c15259bc26c4a7427b"></a><br/></td></tr>
 <tr class="memitem:ad8970fa47052a9717bcefbe77cc3a906"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#ad8970fa47052a9717bcefbe77cc3a906">update_content_length_using_header</a> ()</td></tr>
 <tr class="memdesc:ad8970fa47052a9717bcefbe77cc3a906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the length of the payload content using the Content-Length header.  <a href="#ad8970fa47052a9717bcefbe77cc3a906"></a><br/></td></tr>
 <tr class="memitem:a5b032d21013ada5f7cb61d1ea608c019"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a5b032d21013ada5f7cb61d1ea608c019">update_transfer_encoding_using_header</a> ()</td></tr>
@@ -250,7 +245,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:adf6559c283d32c9a0c8816dcf771d71f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all values for the HTTP header named key.  <a href="#adf6559c283d32c9a0c8816dcf771d71f"></a><br/></td></tr>
 <tr class="memitem:aaa9cd039220a9290535ce71c94ce5c9f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#aaa9cd039220a9290535ce71c94ce5c9f">check_keep_alive</a> () const </td></tr>
 <tr class="memdesc:aaa9cd039220a9290535ce71c94ce5c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the HTTP connection may be kept alive.  <a href="#aaa9cd039220a9290535ce71c94ce5c9f"></a><br/></td></tr>
-<tr class="memitem:a1bb097d267951250526c36f4823b118b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a1bb097d267951250526c36f4823b118b">prepare_buffers_for_send</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#ab59d14431315cb768a593c455f9c4e97">write_buffers_type</a> &amp;write_buffers, const bool keep_alive, const bool using_chunks)</td></tr>
+<tr class="memitem:a1bb097d267951250526c36f4823b118b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a1bb097d267951250526c36f4823b118b">prepare_buffers_for_send</a> (write_buffers_type &amp;write_buffers, const bool keep_alive, const bool using_chunks)</td></tr>
 <tr class="memdesc:a1bb097d267951250526c36f4823b118b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a vector of write buffers with the HTTP message information.  <a href="#a1bb097d267951250526c36f4823b118b"></a><br/></td></tr>
 <tr class="memitem:a7403e49233a608984a5f25d5bc0d8f6e"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a7403e49233a608984a5f25d5bc0d8f6e">send</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html">tcp_connection</a> &amp;tcp_conn, asio::error_code &amp;ec, bool headers_only=false)</td></tr>
 <tr class="memdesc:a7403e49233a608984a5f25d5bc0d8f6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the message over a TCP connection (blocks until finished)  <a href="#a7403e49233a608984a5f25d5bc0d8f6e"></a><br/></td></tr>
@@ -341,7 +336,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:aaee6db066a4d36f6a78650ab2c20448d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a "Set-Cookie" header.  <a href="#aaee6db066a4d36f6a78650ab2c20448d"></a><br/></td></tr>
 <tr class="memitem:a1615d659891fc0efc997298c727fb04a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a1615d659891fc0efc997298c727fb04a">prepare_headers_for_send</a> (const bool keep_alive, const bool using_chunks)</td></tr>
 <tr class="memdesc:a1615d659891fc0efc997298c727fb04a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares HTTP headers for a send operation.  <a href="#a1615d659891fc0efc997298c727fb04a"></a><br/></td></tr>
-<tr class="memitem:a54c04e48118d667b8f8c4362d03aeb3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a54c04e48118d667b8f8c4362d03aeb3c">append_headers</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#ab59d14431315cb768a593c455f9c4e97">write_buffers_type</a> &amp;write_buffers)</td></tr>
+<tr class="memitem:a54c04e48118d667b8f8c4362d03aeb3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a54c04e48118d667b8f8c4362d03aeb3c">append_headers</a> (write_buffers_type &amp;write_buffers)</td></tr>
 <tr class="memdesc:a54c04e48118d667b8f8c4362d03aeb3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the message's HTTP headers to a vector of write buffers.  <a href="#a54c04e48118d667b8f8c4362d03aeb3c"></a><br/></td></tr>
 <tr class="memitem:a6eaf03335a65ac1c4c489670f33526c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a6eaf03335a65ac1c4c489670f33526c7">append_cookie_headers</a> ()</td></tr>
 <tr class="memdesc:a6eaf03335a65ac1c4c489670f33526c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends HTTP headers for any cookies defined by the <a href="http::message">http::message</a>.  <a href="#a6eaf03335a65ac1c4c489670f33526c7"></a><br/></td></tr>
@@ -369,59 +364,30 @@ Protected Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Base container for HTTP messages. </p>
-</div><h2>Member Typedef Documentation</h2>
-<a class="anchor" id="a481e384267345c8279148bee034f9384"></a>
+</div><h2>Member Enumeration Documentation</h2>
+<a class="anchor" id="a8e76f2703ef73d03af42ca3c462cffbf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::vector&lt;char&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a481e384267345c8279148bee034f9384">staticlib::httpserver::http_message::chunk_cache_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Used to cache chunked data. </p>
-
-</div>
-</div>
-<a class="anchor" id="ab59d14431315cb768a593c455f9c4e97"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::vector&lt;asio::const_buffer&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#ab59d14431315cb768a593c455f9c4e97">staticlib::httpserver::http_message::write_buffers_type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Data type for I/O write buffers (these wrap existing data to be sent) </p>
-
-</div>
-</div>
-<h2>Member Enumeration Documentation</h2>
-<a class="anchor" id="abcf5827e66605e1e68fb921767c4867d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867d">staticlib::httpserver::http_message::data_status_t</a></td>
+          <td class="memname">enum <a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbf">staticlib::httpserver::http_message::data_status_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Defines message data integrity status codes. </p>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="abcf5827e66605e1e68fb921767c4867da28a48b50e5f021eea111cf479ae86e08"></a>STATUS_NONE</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="a8e76f2703ef73d03af42ca3c462cffbfa28a48b50e5f021eea111cf479ae86e08"></a>STATUS_NONE</em>&nbsp;</td><td>
 <p>No data received (i.e. </p>
 <p>all lost) </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="abcf5827e66605e1e68fb921767c4867da085701e484a8abe588a8e247222672b0"></a>STATUS_TRUNCATED</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="a8e76f2703ef73d03af42ca3c462cffbfa085701e484a8abe588a8e247222672b0"></a>STATUS_TRUNCATED</em>&nbsp;</td><td>
 <p>One or more missing packets at the end. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="abcf5827e66605e1e68fb921767c4867dab2502b722d79f7d812f664d87083ccf7"></a>STATUS_PARTIAL</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="a8e76f2703ef73d03af42ca3c462cffbfab2502b722d79f7d812f664d87083ccf7"></a>STATUS_PARTIAL</em>&nbsp;</td><td>
 <p>One or more missing packets but NOT at the end. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="abcf5827e66605e1e68fb921767c4867dabe616016f1c771603f85ca7cc5ea5e72"></a>STATUS_OK</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="a8e76f2703ef73d03af42ca3c462cffbfabe616016f1c771603f85ca7cc5ea5e72"></a>STATUS_OK</em>&nbsp;</td><td>
 <p>No missing packets. </p>
 </td></tr>
 </table>
@@ -599,7 +565,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void staticlib::httpserver::http_message::append_headers </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#ab59d14431315cb768a593c455f9c4e97">write_buffers_type</a> &amp;&#160;</td>
+          <td class="paramtype">write_buffers_type &amp;&#160;</td>
           <td class="paramname"><em>write_buffers</em></td><td>)</td>
           <td></td>
         </tr>
@@ -961,12 +927,12 @@ template&lt;typename DictionaryType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a08fd9d03e03c5ac04e809642e3c81a41"></a>
+<a class="anchor" id="ac31741ff200b9b8840cf6c2e0ee3fb70"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a481e384267345c8279148bee034f9384">chunk_cache_t</a>&amp; staticlib::httpserver::http_message::get_chunk_cache </td>
+          <td class="memname">chunk_cache_type&amp; staticlib::httpserver::http_message::get_chunk_cache </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1212,12 +1178,12 @@ template&lt;typename DictionaryType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a1259fb26d9bccdae745887615ac6c184"></a>
+<a class="anchor" id="a9802b3a77d074ce74b59f5adf5451f2a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867d">data_status_t</a> staticlib::httpserver::http_message::get_status </td>
+          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbf">data_status_type</a> staticlib::httpserver::http_message::get_status </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1627,7 +1593,7 @@ template&lt;typename DictionaryType &gt; </div>
         <tr>
           <td class="memname">void staticlib::httpserver::http_message::prepare_buffers_for_send </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#ab59d14431315cb768a593c455f9c4e97">write_buffers_type</a> &amp;&#160;</td>
+          <td class="paramtype">write_buffers_type &amp;&#160;</td>
           <td class="paramname"><em>write_buffers</em>, </td>
         </tr>
         <tr>
@@ -2145,14 +2111,14 @@ template&lt;typename DictionaryType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a3b4792c7040eab2a769d8f3ff707dd72"></a>
+<a class="anchor" id="a2754917d29a230c15259bc26c4a7427b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::httpserver::http_message::set_status </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867d">data_status_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbf">data_status_type</a>&#160;</td>
           <td class="paramname"><em>newVal</em></td><td>)</td>
           <td></td>
         </tr>
@@ -3571,7 +3537,7 @@ template&lt;typename DictionaryType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 12 2016 13:11:56 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

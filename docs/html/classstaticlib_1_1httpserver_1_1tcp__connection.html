@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.10</span>
+   &#160;<span id="projectnumber">5.0.7-11</span>
    </div>
   </td>
  </tr>
@@ -129,16 +129,6 @@ Public Types</h2></td></tr>
 <tr class="memitem:a722627d7e3647e68b3b5bac0f0cfe961"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a722627d7e3647e68b3b5bac0f0cfe961ae0c6e7819e6d85898e5ae5217ff432b4">READ_BUFFER_SIZE</a> =  8192
  }</td></tr>
 <tr class="memdesc:a722627d7e3647e68b3b5bac0f0cfe961"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the read buffer.  <a href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a722627d7e3647e68b3b5bac0f0cfe961">More...</a><br/></td></tr>
-<tr class="memitem:af9b7d0561f8cfeb0ea6a34faf07bcba0"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(std::shared_ptr<br class="typebreak"/>
-&lt; <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html">tcp_connection</a> &gt; &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#af9b7d0561f8cfeb0ea6a34faf07bcba0">connection_handler</a></td></tr>
-<tr class="memdesc:af9b7d0561f8cfeb0ea6a34faf07bcba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for a function that handles TCP connection objects.  <a href="#af9b7d0561f8cfeb0ea6a34faf07bcba0"></a><br/></td></tr>
-<tr class="memitem:a2e2fdb71f5f75ec449402d8658228bb5"><td class="memItemLeft" align="right" valign="top">typedef std::array&lt; char, <br class="typebreak"/>
-<a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a722627d7e3647e68b3b5bac0f0cfe961ae0c6e7819e6d85898e5ae5217ff432b4">READ_BUFFER_SIZE</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a2e2fdb71f5f75ec449402d8658228bb5">read_buffer_type</a></td></tr>
-<tr class="memdesc:a2e2fdb71f5f75ec449402d8658228bb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for an I/O read buffer.  <a href="#a2e2fdb71f5f75ec449402d8658228bb5"></a><br/></td></tr>
-<tr class="memitem:a2e232af3c3d216bb3d3fadc1428a175f"><td class="memItemLeft" align="right" valign="top">typedef asio::ip::tcp::socket&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a2e232af3c3d216bb3d3fadc1428a175f">socket_type</a></td></tr>
-<tr class="memdesc:a2e232af3c3d216bb3d3fadc1428a175f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for a socket connection.  <a href="#a2e232af3c3d216bb3d3fadc1428a175f"></a><br/></td></tr>
-<tr class="memitem:ae0445cb223ff80d9afb7b08375460574"><td class="memItemLeft" align="right" valign="top">typedef int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">ssl_context_type</a></td></tr>
-<tr class="memdesc:ae0445cb223ff80d9afb7b08375460574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy data type for SSL configuration context in non-SSL environment.  <a href="#ae0445cb223ff80d9afb7b08375460574"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -197,7 +187,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab09505f344ebb68239415a48208a5cff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the connection should be kept alive.  <a href="#ab09505f344ebb68239415a48208a5cff"></a><br/></td></tr>
 <tr class="memitem:acbd451cbed3234db2df283d26c694481"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#acbd451cbed3234db2df283d26c694481">get_pipelined</a> () const </td></tr>
 <tr class="memdesc:acbd451cbed3234db2df283d26c694481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the HTTP requests are pipelined.  <a href="#acbd451cbed3234db2df283d26c694481"></a><br/></td></tr>
-<tr class="memitem:aca991a2ad9d130d5e7b30b17a031545d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a2e2fdb71f5f75ec449402d8658228bb5">read_buffer_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#aca991a2ad9d130d5e7b30b17a031545d">get_read_buffer</a> ()</td></tr>
+<tr class="memitem:aca991a2ad9d130d5e7b30b17a031545d"><td class="memItemLeft" align="right" valign="top">read_buffer_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#aca991a2ad9d130d5e7b30b17a031545d">get_read_buffer</a> ()</td></tr>
 <tr class="memdesc:aca991a2ad9d130d5e7b30b17a031545d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the buffer used for reading data from the TCP connection.  <a href="#aca991a2ad9d130d5e7b30b17a031545d"></a><br/></td></tr>
 <tr class="memitem:a14e9524689a99523eb5f0137269f38a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a14e9524689a99523eb5f0137269f38a5">save_read_pos</a> (const char *read_ptr, const char *read_end_ptr)</td></tr>
 <tr class="memdesc:a14e9524689a99523eb5f0137269f38a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves a read position bookmark.  <a href="#a14e9524689a99523eb5f0137269f38a5"></a><br/></td></tr>
@@ -211,11 +201,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab515494500c0408a3df8a9117ddf6f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the client's port number.  <a href="#ab515494500c0408a3df8a9117ddf6f11"></a><br/></td></tr>
 <tr class="memitem:a5206d1971512d0cdf69fb07ba38da765"><td class="memItemLeft" align="right" valign="top">asio::io_service &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a5206d1971512d0cdf69fb07ba38da765">get_io_service</a> ()</td></tr>
 <tr class="memdesc:a5206d1971512d0cdf69fb07ba38da765"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns reference to the io_service used for async operations.  <a href="#a5206d1971512d0cdf69fb07ba38da765"></a><br/></td></tr>
-<tr class="memitem:aa6357225a5fb30c0e0695669b48647be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a2e232af3c3d216bb3d3fadc1428a175f">socket_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#aa6357225a5fb30c0e0695669b48647be">get_socket</a> ()</td></tr>
+<tr class="memitem:aa6357225a5fb30c0e0695669b48647be"><td class="memItemLeft" align="right" valign="top">socket_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#aa6357225a5fb30c0e0695669b48647be">get_socket</a> ()</td></tr>
 <tr class="memdesc:aa6357225a5fb30c0e0695669b48647be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns non-const reference to underlying TCP socket object.  <a href="#aa6357225a5fb30c0e0695669b48647be"></a><br/></td></tr>
 <tr class="memitem:a5ef54fe05277a6067c972a1712c0a906"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection_1_1ssl__socket__type.html">ssl_socket_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a5ef54fe05277a6067c972a1712c0a906">get_ssl_socket</a> ()</td></tr>
 <tr class="memdesc:a5ef54fe05277a6067c972a1712c0a906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns non-const reference to underlying SSL socket object.  <a href="#a5ef54fe05277a6067c972a1712c0a906"></a><br/></td></tr>
-<tr class="memitem:a07f85d2ed4c8eeba7c14f6de4246df70"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a2e232af3c3d216bb3d3fadc1428a175f">socket_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a07f85d2ed4c8eeba7c14f6de4246df70">get_socket</a> () const </td></tr>
+<tr class="memitem:a07f85d2ed4c8eeba7c14f6de4246df70"><td class="memItemLeft" align="right" valign="top">const socket_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a07f85d2ed4c8eeba7c14f6de4246df70">get_socket</a> () const </td></tr>
 <tr class="memdesc:a07f85d2ed4c8eeba7c14f6de4246df70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns const reference to underlying TCP socket object.  <a href="#a07f85d2ed4c8eeba7c14f6de4246df70"></a><br/></td></tr>
 <tr class="memitem:a4cd7d24513441763e4b4a78c92c83064"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection_1_1ssl__socket__type.html">ssl_socket_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a4cd7d24513441763e4b4a78c92c83064">get_ssl_socket</a> () const </td></tr>
 <tr class="memdesc:a4cd7d24513441763e4b4a78c92c83064"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns const reference to underlying SSL socket object.  <a href="#a4cd7d24513441763e4b4a78c92c83064"></a><br/></td></tr>
@@ -223,12 +213,12 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a40f79f0b2edeea34e2837f72b7886d85"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr<br class="typebreak"/>
-&lt; <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html">tcp_connection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a40f79f0b2edeea34e2837f72b7886d85">create</a> (asio::io_service &amp;io_service, <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">ssl_context_type</a> &amp;ssl_context, const bool ssl_flag, <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#af9b7d0561f8cfeb0ea6a34faf07bcba0">connection_handler</a> finished_handler)</td></tr>
+&lt; <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html">tcp_connection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a40f79f0b2edeea34e2837f72b7886d85">create</a> (asio::io_service &amp;io_service, ssl_context_type &amp;ssl_context, const bool ssl_flag, connection_handler finished_handler)</td></tr>
 <tr class="memdesc:a40f79f0b2edeea34e2837f72b7886d85"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates new shared connection objects  <a href="#a40f79f0b2edeea34e2837f72b7886d85"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a27bc7685abc92ffbbceb33a2cbdf21f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a27bc7685abc92ffbbceb33a2cbdf21f7">tcp_connection</a> (asio::io_service &amp;io_service, <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">ssl_context_type</a> &amp;ssl_context, const bool ssl_flag, <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#af9b7d0561f8cfeb0ea6a34faf07bcba0">connection_handler</a> finished_handler)</td></tr>
+<tr class="memitem:a27bc7685abc92ffbbceb33a2cbdf21f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a27bc7685abc92ffbbceb33a2cbdf21f7">tcp_connection</a> (asio::io_service &amp;io_service, ssl_context_type &amp;ssl_context, const bool ssl_flag, connection_handler finished_handler)</td></tr>
 <tr class="memdesc:a27bc7685abc92ffbbceb33a2cbdf21f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">protected constructor restricts creation of objects (use <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a40f79f0b2edeea34e2837f72b7886d85" title="creates new shared connection objects">create()</a>)  <a href="#a27bc7685abc92ffbbceb33a2cbdf21f7"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="inherited"></a>
@@ -236,64 +226,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Represents a single tcp connection. </p>
-</div><h2>Member Typedef Documentation</h2>
-<a class="anchor" id="af9b7d0561f8cfeb0ea6a34faf07bcba0"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::function&lt;void(std::shared_ptr&lt;<a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html">tcp_connection</a>&gt;&amp;)&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#af9b7d0561f8cfeb0ea6a34faf07bcba0">staticlib::httpserver::tcp_connection::connection_handler</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Data type for a function that handles TCP connection objects. </p>
-
-</div>
-</div>
-<a class="anchor" id="a2e2fdb71f5f75ec449402d8658228bb5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::array&lt;char, <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a722627d7e3647e68b3b5bac0f0cfe961ae0c6e7819e6d85898e5ae5217ff432b4">READ_BUFFER_SIZE</a>&gt; <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a2e2fdb71f5f75ec449402d8658228bb5">staticlib::httpserver::tcp_connection::read_buffer_type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Data type for an I/O read buffer. </p>
-
-</div>
-</div>
-<a class="anchor" id="a2e232af3c3d216bb3d3fadc1428a175f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef asio::ip::tcp::socket <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a2e232af3c3d216bb3d3fadc1428a175f">staticlib::httpserver::tcp_connection::socket_type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Data type for a socket connection. </p>
-
-</div>
-</div>
-<a class="anchor" id="ae0445cb223ff80d9afb7b08375460574"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef int <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">staticlib::httpserver::tcp_connection::ssl_context_type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Dummy data type for SSL configuration context in non-SSL environment. </p>
-
-</div>
-</div>
-<h2>Member Enumeration Documentation</h2>
+</div><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="a722627d7e3647e68b3b5bac0f0cfe961"></a>
 <div class="memitem">
 <div class="memproto">
@@ -380,7 +313,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">ssl_context_type</a> &amp;&#160;</td>
+          <td class="paramtype">ssl_context_type &amp;&#160;</td>
           <td class="paramname"><em>ssl_context</em>, </td>
         </tr>
         <tr>
@@ -392,7 +325,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#af9b7d0561f8cfeb0ea6a34faf07bcba0">connection_handler</a>&#160;</td>
+          <td class="paramtype">connection_handler&#160;</td>
           <td class="paramname"><em>finished_handler</em>&#160;</td>
         </tr>
         <tr>
@@ -779,7 +712,7 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">ssl_context_type</a> &amp;&#160;</td>
+          <td class="paramtype">ssl_context_type &amp;&#160;</td>
           <td class="paramname"><em>ssl_context</em>, </td>
         </tr>
         <tr>
@@ -791,7 +724,7 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#af9b7d0561f8cfeb0ea6a34faf07bcba0">connection_handler</a>&#160;</td>
+          <td class="paramtype">connection_handler&#160;</td>
           <td class="paramname"><em>finished_handler</em>&#160;</td>
         </tr>
         <tr>
@@ -914,7 +847,7 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a2e2fdb71f5f75ec449402d8658228bb5">read_buffer_type</a>&amp; staticlib::httpserver::tcp_connection::get_read_buffer </td>
+          <td class="memname">read_buffer_type&amp; staticlib::httpserver::tcp_connection::get_read_buffer </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -986,7 +919,7 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a2e232af3c3d216bb3d3fadc1428a175f">socket_type</a>&amp; staticlib::httpserver::tcp_connection::get_socket </td>
+          <td class="memname">socket_type&amp; staticlib::httpserver::tcp_connection::get_socket </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1004,7 +937,7 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#a2e232af3c3d216bb3d3fadc1428a175f">socket_type</a>&amp; staticlib::httpserver::tcp_connection::get_socket </td>
+          <td class="memname">const socket_type&amp; staticlib::httpserver::tcp_connection::get_socket </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1410,7 +1343,7 @@ template&lt;typename ConstBufferSequence &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 12 2016 13:11:56 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['data_5fstatus_5ft',['data_status_t',['../classstaticlib_1_1httpserver_1_1http__message.html#abcf5827e66605e1e68fb921767c4867d',1,'staticlib::httpserver::http_message']]],
+  ['data_5fstatus_5ftype',['data_status_type',['../classstaticlib_1_1httpserver_1_1http__message.html#a8e76f2703ef73d03af42ca3c462cffbf',1,'staticlib::httpserver::http_message']]],
   ['default_5fcontent_5fmax',['DEFAULT_CONTENT_MAX',['../classstaticlib_1_1httpserver_1_1http__parser.html#acab8e6b7a77cc16eaabcc569c3931296',1,'staticlib::httpserver::http_parser']]],
   ['default_5fnum_5fthreads',['DEFAULT_NUM_THREADS',['../classstaticlib_1_1httpserver_1_1scheduler.html#af3ccda92da2a42bebb2fcdeb3dbc9277',1,'staticlib::httpserver::scheduler']]],
   ['delete_5fcookie',['delete_cookie',['../classstaticlib_1_1httpserver_1_1http__message.html#a30be1b7c41dcb18ae6b3590e9282dbb8',1,'staticlib::httpserver::http_message::delete_cookie()'],['../classstaticlib_1_1httpserver_1_1http__response.html#a3afb3bf4e27ea8002a57aeb2fa05962d',1,'staticlib::httpserver::http_response::delete_cookie(const std::string &amp;name)'],['../classstaticlib_1_1httpserver_1_1http__response.html#a3f72db04d0e89f667d7c792d6ec9d5ca',1,'staticlib::httpserver::http_response::delete_cookie(const std::string &amp;name, const std::string &amp;path)']]],

@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.10</span>
+   &#160;<span id="projectnumber">5.0.7-11</span>
    </div>
   </td>
  </tr>
@@ -142,7 +142,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aab252134f65b8b128d8b48d1f7b08217"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the server uses SSL to encrypt connections.  <a href="#aab252134f65b8b128d8b48d1f7b08217"></a><br/></td></tr>
 <tr class="memitem:a95085462b6493b2fdd21d9150d9c2940"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a95085462b6493b2fdd21d9150d9c2940">set_ssl_flag</a> (bool b=true)</td></tr>
 <tr class="memdesc:a95085462b6493b2fdd21d9150d9c2940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets value of SSL flag (true if the server uses SSL to encrypt connections)  <a href="#a95085462b6493b2fdd21d9150d9c2940"></a><br/></td></tr>
-<tr class="memitem:ad2b539663469172959894a2eac54aedd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">tcp_connection::ssl_context_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad2b539663469172959894a2eac54aedd">get_ssl_context_type</a> ()</td></tr>
+<tr class="memitem:ad2b539663469172959894a2eac54aedd"><td class="memItemLeft" align="right" valign="top">tcp_connection::ssl_context_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad2b539663469172959894a2eac54aedd">get_ssl_context_type</a> ()</td></tr>
 <tr class="memdesc:ad2b539663469172959894a2eac54aedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SSL context for configuration.  <a href="#ad2b539663469172959894a2eac54aedd"></a><br/></td></tr>
 <tr class="memitem:a87008fdbb3c5bd2b64f0a8e7c50adc21"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a87008fdbb3c5bd2b64f0a8e7c50adc21">is_listening</a> () const </td></tr>
 <tr class="memdesc:a87008fdbb3c5bd2b64f0a8e7c50adc21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the server is listening for connections.  <a href="#a87008fdbb3c5bd2b64f0a8e7c50adc21"></a><br/></td></tr>
@@ -162,7 +162,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae051e0fa48420c513034e5ae1a716df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor so that only derived objects may be created.  <a href="#ae051e0fa48420c513034e5ae1a716df7"></a><br/></td></tr>
 <tr class="memitem:aeeefa1418ee75df61007628acd89dcd1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#aeeefa1418ee75df61007628acd89dcd1">tcp_server</a> (<a class="el" href="classstaticlib_1_1httpserver_1_1scheduler.html">scheduler</a> &amp;sched, const asio::ip::tcp::endpoint &amp;endpoint)</td></tr>
 <tr class="memdesc:aeeefa1418ee75df61007628acd89dcd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor so that only derived objects may be created.  <a href="#aeeefa1418ee75df61007628acd89dcd1"></a><br/></td></tr>
-<tr class="memitem:a135e47085c7e640016a33c2902136020"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a135e47085c7e640016a33c2902136020">handle_connection</a> (<a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a> &amp;tcp_conn)</td></tr>
+<tr class="memitem:a135e47085c7e640016a33c2902136020"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a135e47085c7e640016a33c2902136020">handle_connection</a> (tcp_connection_ptr &amp;tcp_conn)</td></tr>
 <tr class="memdesc:a135e47085c7e640016a33c2902136020"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a new TCP connection; derived classes SHOULD override this since the default behavior does nothing.  <a href="#a135e47085c7e640016a33c2902136020"></a><br/></td></tr>
 <tr class="memitem:a245f38affb0405721b27b57fef76e050"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a245f38affb0405721b27b57fef76e050">before_starting</a> ()</td></tr>
 <tr class="memdesc:a245f38affb0405721b27b57fef76e050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called before the TCP server starts listening for new connections.  <a href="#a245f38affb0405721b27b57fef76e050"></a><br/></td></tr>
@@ -177,7 +177,7 @@ Public Member Functions</h2></td></tr>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a22b37d96cc902b4b456d5f02a0c7e7b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaticlib_1_1httpserver_1_1logger.html">logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a22b37d96cc902b4b456d5f02a0c7e7b2">m_logger</a></td></tr>
 <tr class="memdesc:a22b37d96cc902b4b456d5f02a0c7e7b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary logging interface used by this class.  <a href="#a22b37d96cc902b4b456d5f02a0c7e7b2"></a><br/></td></tr>
-<tr class="memitem:ad6417aff6f5c786788cf7006100700a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">tcp_connection::ssl_context_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad6417aff6f5c786788cf7006100700a4">m_ssl_context</a></td></tr>
+<tr class="memitem:ad6417aff6f5c786788cf7006100700a4"><td class="memItemLeft" align="right" valign="top">tcp_connection::ssl_context_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad6417aff6f5c786788cf7006100700a4">m_ssl_context</a></td></tr>
 <tr class="memdesc:ad6417aff6f5c786788cf7006100700a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context used for SSL configuration.  <a href="#ad6417aff6f5c786788cf7006100700a4"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="inherited"></a>
@@ -570,7 +570,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">tcp_connection::ssl_context_type</a>&amp; staticlib::httpserver::tcp_server::get_ssl_context_type </td>
+          <td class="memname">tcp_connection::ssl_context_type&amp; staticlib::httpserver::tcp_server::get_ssl_context_type </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -611,7 +611,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">virtual void staticlib::httpserver::tcp_server::handle_connection </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8">tcp_connection_ptr</a> &amp;&#160;</td>
+          <td class="paramtype">tcp_connection_ptr &amp;&#160;</td>
           <td class="paramname"><em>tcp_conn</em></td><td>)</td>
           <td></td>
         </tr>
@@ -886,7 +886,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574">tcp_connection::ssl_context_type</a> staticlib::httpserver::tcp_server::m_ssl_context</td>
+          <td class="memname">tcp_connection::ssl_context_type staticlib::httpserver::tcp_server::m_ssl_context</td>
         </tr>
       </table>
   </td>
@@ -906,7 +906,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 12 2016 13:11:56 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

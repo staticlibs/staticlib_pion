@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.10</span>
+   &#160;<span id="projectnumber">5.0.7-11</span>
    </div>
   </td>
  </tr>
@@ -131,14 +131,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00045"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__filter__chain.html">   45</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstaticlib_1_1httpserver_1_1http__filter__chain.html" title="A number of filters that executes sequentially.">http_filter_chain</a> : <a class="code" href="classstaticlib_1_1httpserver_1_1noncopyable___1_1noncopyable.html">staticlib::httpserver::noncopyable</a> {</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">private</span>:  </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::vector&lt;std::reference_wrapper&lt;http_server::request_filter_type&gt;&gt; filters;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc" title="Type of function that is used to handle requests.">http_server::request_handler_type</a> request_handler;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    http_server::request_handler_type request_handler;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::atomic_size_t idx;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__filter__chain.html#a0c0e2614f2534c819d33fae4fa2830a3" title="Constructor.">http_filter_chain</a>(std::vector&lt;std::reference_wrapper&lt;http_server::request_filter_type&gt;&gt; filters, </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <a class="code" href="classstaticlib_1_1httpserver_1_1http__server.html#a4f1836cdaf008d232f4f90aca01766bc" title="Type of function that is used to handle requests.">http_server::request_handler_type</a> request_handler);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            http_server::request_handler_type request_handler);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__filter__chain.html#a6dac2050bd048a60b622efcdefabee79" title="Applies current filter and gives it the ability to continue filter chain execution by calling this me...">do_filter</a>(<a class="code" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e" title="Data type for a HTTP request pointer.">http_request_ptr</a>&amp; request, <a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; conn);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__filter__chain.html#a6dac2050bd048a60b622efcdefabee79" title="Applies current filter and gives it the ability to continue filter chain execution by calling this me...">do_filter</a>(http_request_ptr&amp; request, tcp_connection_ptr&amp; conn);</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
@@ -150,7 +150,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 16 2016 09:35:45 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 12 2016 13:11:56 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

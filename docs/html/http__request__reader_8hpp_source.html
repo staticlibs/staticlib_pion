@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.10</span>
+   &#160;<span id="projectnumber">5.0.7-11</span>
    </div>
   </td>
  </tr>
@@ -137,44 +137,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">typedef</span> std::function&lt;void(<a class="code" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e" title="Data type for a HTTP request pointer.">http_request_ptr</a>, <a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp;,</div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#a93ec0705cd75440de78d0558f28222d5">   55</a></span>&#160;            <span class="keyword">const</span> asio::error_code&amp;)&gt; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#a93ec0705cd75440de78d0558f28222d5" title="Function called after the HTTP message has been parsed.">finished_handler_type</a>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">using</span> finished_handler_type = std::function&lt;void(http_request_ptr, tcp_connection_ptr&amp;,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keyword">const</span> asio::error_code&amp;)&gt;;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">typedef</span> std::function&lt;void(<a class="code" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e" title="Data type for a HTTP request pointer.">http_request_ptr</a>, <a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp;,</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#ab859285b1acf419033791260d3fef01f">   61</a></span>&#160;            <span class="keyword">const</span> asio::error_code&amp;, staticlib::httpserver::tribool&amp; rc)&gt; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#ab859285b1acf419033791260d3fef01f" title="Function called after the HTTP message has been parsed.">headers_parsing_finished_handler_type</a>;    </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">using</span> headers_parsing_finished_handler_type = std::function&lt;void(http_request_ptr, </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            tcp_connection_ptr&amp;, <span class="keyword">const</span> asio::error_code&amp;, staticlib::httpserver::tribool&amp; rc)&gt;;    </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> uint32_t DEFAULT_READ_TIMEOUT;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a> m_tcp_conn;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    tcp_connection_ptr m_tcp_conn;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="namespacestaticlib_1_1httpserver.html#a8f0a0deb3d54e23ff3873311a8e4e0a0" title="Shared pointer to a timer object.">tcp_timer_ptr</a> m_timer_ptr;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    tcp_timer_ptr m_timer_ptr;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    uint32_t m_read_timeout;    </div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="namespacestaticlib_1_1httpserver.html#a791e71e419864224906b544f6f97dd9e" title="Data type for a HTTP request pointer.">http_request_ptr</a> m_http_msg;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    http_request_ptr m_http_msg;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#a93ec0705cd75440de78d0558f28222d5" title="Function called after the HTTP message has been parsed.">finished_handler_type</a> m_finished;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    finished_handler_type m_finished;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#ab859285b1acf419033791260d3fef01f" title="Function called after the HTTP message has been parsed.">headers_parsing_finished_handler_type</a> m_parsed_headers;    </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    headers_parsing_finished_handler_type m_parsed_headers;    </div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    </div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">static</span> std::shared_ptr&lt;http_request_reader&gt; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#a1a567ef230c9f5b023d178d7e931abd3" title="Creates new request_reader objects.">create</a>(<a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; tcp_conn, </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#a93ec0705cd75440de78d0558f28222d5" title="Function called after the HTTP message has been parsed.">finished_handler_type</a> handler);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">static</span> std::shared_ptr&lt;http_request_reader&gt; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#a1a567ef230c9f5b023d178d7e931abd3" title="Creates new request_reader objects.">create</a>(tcp_connection_ptr&amp; tcp_conn, </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            finished_handler_type handler);</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#a055fb715b331be6ebc6174fdd7e493f5" title="Incrementally reads &amp; parses the HTTP message.">receive</a>();</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#a182021c1c36dcdb68374dd6b42bf2240" title="Returns a shared pointer to the TCP connection.">get_connection</a>();</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    tcp_connection_ptr&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#a182021c1c36dcdb68374dd6b42bf2240" title="Returns a shared pointer to the TCP connection.">get_connection</a>();</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#ad343e81d2c09876e460ceb369ca9adcb" title="Sets the maximum number of seconds for read operations.">set_timeout</a>(uint32_t seconds);</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#a9add2ac8df21678e4ed893fddc9de25c" title="Sets a function to be called after HTTP headers have been parsed.">set_headers_parsed_callback</a>(<a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#ab859285b1acf419033791260d3fef01f" title="Function called after the HTTP message has been parsed.">headers_parsing_finished_handler_type</a>&amp; h);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#af15e41ae9ead2f62de7e3228da059571" title="Sets a function to be called after HTTP headers have been parsed.">set_headers_parsed_callback</a>(headers_parsing_finished_handler_type h);</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    </div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html" title="Asynchronously reads and parses HTTP requests.">http_request_reader</a>(<a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; tcp_conn, <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html#a93ec0705cd75440de78d0558f28222d5" title="Function called after the HTTP message has been parsed.">finished_handler_type</a> handler);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__request__reader.html" title="Asynchronously reads and parses HTTP requests.">http_request_reader</a>(tcp_connection_ptr&amp; tcp_conn, finished_handler_type handler);</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">void</span> consume_bytes(<span class="keyword">const</span> asio::error_code&amp; read_error, std::size_t bytes_read);</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
@@ -194,7 +194,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;};</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
-<div class="line"><a name="l00204"></a><span class="lineno"><a class="code" href="namespacestaticlib_1_1httpserver.html#aac85fb7c3f2402ed905477c2fd6a3b6c">  204</a></span>&#160;<span class="keyword">typedef</span> std::shared_ptr&lt;http_request_reader&gt; <a class="code" href="namespacestaticlib_1_1httpserver.html#aac85fb7c3f2402ed905477c2fd6a3b6c" title="Data type for a request_reader pointer.">reader_ptr</a>;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="keyword">using</span> reader_ptr = std::shared_ptr&lt;http_request_reader&gt;;</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;} <span class="comment">// namespace</span></div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;}</div>
@@ -203,7 +203,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 12 2016 13:11:56 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

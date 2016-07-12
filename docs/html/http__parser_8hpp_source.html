@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.10</span>
+   &#160;<span id="projectnumber">5.0.7-11</span>
    </div>
   </td>
  </tr>
@@ -142,7 +142,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
 <div class="line"><a name="l00057"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#acab8e6b7a77cc16eaabcc569c3931296">   57</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> std::size_t <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#acab8e6b7a77cc16eaabcc569c3931296" title="Maximum length for HTTP payload content (for non-streaming server)">DEFAULT_CONTENT_MAX</a>;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa5ee4936b3f345263a445eb7e84975d5">   62</a></span>&#160;    <span class="keyword">typedef</span> std::function&lt;void(const char *, std::size_t)&gt; <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa5ee4936b3f345263a445eb7e84975d5" title="Callback type used to consume payload content.">payload_handler_type</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">using</span> payload_handler_type = std::function&lt;void(const char *, std::size_t)&gt;;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    </div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    </div>
 <div class="line"><a name="l00068"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#ac84abcb369b2f6a1b4cb011be0d833e4">   68</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#ac84abcb369b2f6a1b4cb011be0d833e4" title="Class-specific error code values.">error_value_t</a> {</div>
@@ -260,7 +260,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    chunk_parse_state_type m_chunked_content_parse_state;</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa5ee4936b3f345263a445eb7e84975d5" title="Callback type used to consume payload content.">payload_handler_type</a>* m_payload_handler = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    payload_handler_type* m_payload_handler = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;</div>
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    uint16_t m_status_code;</div>
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;</div>
@@ -346,7 +346,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;</div>
 <div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#a9073daf56f4df3a2fa14ea37988b73a5" title="Returns true if the parser is being used to parse an HTTP response.">is_parsing_response</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;</div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#a4720fe4ac0cab2a70ea177aed6a3b51b" title="Defines a callback function to be used for consuming payload content.">set_payload_handler</a>(<a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa5ee4936b3f345263a445eb7e84975d5" title="Callback type used to consume payload content.">payload_handler_type</a>&amp; h);</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#a4720fe4ac0cab2a70ea177aed6a3b51b" title="Defines a callback function to be used for consuming payload content.">set_payload_handler</a>(payload_handler_type&amp; h);</div>
 <div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;</div>
 <div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#a58ecf81542ef320ce9e5916cbc1eab11" title="Sets the maximum length for HTTP payload content.">set_max_content_length</a>(std::size_t n);</div>
 <div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;</div>
@@ -394,11 +394,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;</div>
 <div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#a733d93d997d19129e78690be5a5a0069" title="Updates an http::message object with data obtained from parsing headers.">update_message_with_header_data</a>(http_message&amp; http_msg) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;</div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;    staticlib::httpserver::tribool <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#a44742e92f33844e8ab9aed84c943cefb" title="Parses a chunked HTTP message-body using bytes available in the read buffer.">parse_chunks</a>(<a class="code" href="classstaticlib_1_1httpserver_1_1http__message.html#a481e384267345c8279148bee034f9384" title="Used to cache chunked data.">http_message::chunk_cache_t</a>&amp; chunk_buffers, asio::error_code&amp; ec);</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;    staticlib::httpserver::tribool <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#a225871ddf184f4509383ae561a0202c8" title="Parses a chunked HTTP message-body using bytes available in the read buffer.">parse_chunks</a>(http_message::chunk_cache_type&amp; chunk_buffers, asio::error_code&amp; ec);</div>
 <div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;</div>
 <div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;    staticlib::httpserver::tribool <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#abe742eae3b5a036b83734a5779c31243" title="Consumes payload content in the parser&#39;s read buffer.">consume_content</a>(http_message&amp; http_msg, asio::error_code&amp; ec);</div>
 <div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;    std::size_t <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#ad30bcfff5912a89f264c13dd16be9b33" title="Consume the bytes available in the read buffer, converting them into the next chunk for the HTTP mess...">consume_content_as_next_chunk</a>(<a class="code" href="classstaticlib_1_1httpserver_1_1http__message.html#a481e384267345c8279148bee034f9384" title="Used to cache chunked data.">http_message::chunk_cache_t</a>&amp; chunk_buffers);</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;    std::size_t <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#aa1dd2c6d66c77b21abf0f50336836d72" title="Consume the bytes available in the read buffer, converting them into the next chunk for the HTTP mess...">consume_content_as_next_chunk</a>(http_message::chunk_cache_type&amp; chunk_buffers);</div>
 <div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;</div>
 <div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html#a53e18b694389e3f791c752c3dad1b44f" title="Compute and sets a HTTP Message data integrity status.">compute_msg_status</a>(http_message&amp; http_msg, <span class="keywordtype">bool</span> msg_parsed_ok);</div>
 <div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;</div>
@@ -476,7 +476,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 12 2016 13:11:56 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

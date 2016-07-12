@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7.10</span>
+   &#160;<span id="projectnumber">5.0.7-11</span>
    </div>
   </td>
  </tr>
@@ -148,7 +148,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    asio::ip::tcp::acceptor m_tcp_acceptor;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad6417aff6f5c786788cf7006100700a4">   77</a></span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1tcp__connection.html#ae0445cb223ff80d9afb7b08375460574" title="Dummy data type for SSL configuration context in non-SSL environment.">tcp_connection::ssl_context_type</a> <a class="code" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad6417aff6f5c786788cf7006100700a4" title="Context used for SSL configuration.">m_ssl_context</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad6417aff6f5c786788cf7006100700a4">   77</a></span>&#160;    tcp_connection::ssl_context_type <a class="code" href="classstaticlib_1_1httpserver_1_1tcp__server.html#ad6417aff6f5c786788cf7006100700a4" title="Context used for SSL configuration.">m_ssl_context</a>;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    std::condition_variable m_server_has_stopped;</div>
@@ -215,7 +215,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    </div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1tcp__server.html" title="Multi-threaded, asynchronous TCP server.">tcp_server</a>(<a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a>&amp; sched, const asio::ip::tcp::endpoint&amp; endpoint);</div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    </div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    virtual <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a135e47085c7e640016a33c2902136020" title="Handles a new TCP connection; derived classes SHOULD override this since the default behavior does no...">handle_connection</a>(<a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; tcp_conn);</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    virtual <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a135e47085c7e640016a33c2902136020" title="Handles a new TCP connection; derived classes SHOULD override this since the default behavior does no...">handle_connection</a>(tcp_connection_ptr&amp; tcp_conn);</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    </div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    virtual <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1tcp__server.html#a245f38affb0405721b27b57fef76e050" title="Called before the TCP server starts listening for new connections.">before_starting</a>();</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;</div>
@@ -231,11 +231,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    </div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keywordtype">void</span> listen();</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordtype">void</span> handle_accept(<a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; tcp_conn, const asio::error_code&amp; accept_error);</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordtype">void</span> handle_accept(tcp_connection_ptr&amp; tcp_conn, const asio::error_code&amp; accept_error);</div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keywordtype">void</span> handle_ssl_handshake(<a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; tcp_conn, const asio::error_code&amp; handshake_error);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keywordtype">void</span> handle_ssl_handshake(tcp_connection_ptr&amp; tcp_conn, const asio::error_code&amp; handshake_error);</div>
 <div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    </div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keywordtype">void</span> finish_connection(<a class="code" href="namespacestaticlib_1_1httpserver.html#a48c205ff487e7955addf5564ad37aea8" title="Data type for a connection pointer.">tcp_connection_ptr</a>&amp; tcp_conn);</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keywordtype">void</span> finish_connection(tcp_connection_ptr&amp; tcp_conn);</div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    </div>
 <div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    std::<span class="keywordtype">size_t</span> prune_connections();</div>
 <div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    </div>
@@ -248,7 +248,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 16 2016 09:35:46 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 12 2016 13:11:56 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
