@@ -71,31 +71,38 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2016-07-12**
+
+ * version 5.0.7-11
+ * cleanup type aliases usage
+ * replace `std::bind` with lambdas
+ * minor `http_response_writer` API cleanup
+
 **2016-03-09**
 
- * version 5.0.7.10
+ * version 5.0.7-10
  * major namespaces and classes renaming
  * original Pion `http::server` removed in favour of a `streaming` one
 
 **2016-01-22**
 
- * version 5.0.7.9
+ * version 5.0.7-9
  * minor CMake changes
 
 **2015-12-03**
 
- * version 5.0.7.8
+ * version 5.0.7-8
  * fix type in cmake workaround for newer clang
 
 **2015-12-03**
 
- * version 5.0.7.7
+ * version 5.0.7-7
  * deplibs cache support
  * minor cmake cleanup
 
 **2015-10-20**
 
- * version 5.0.7.6
+ * version 5.0.7-6
  * `pkg-config` integration
  * filters support
  * `shared_ptr` cleanup
@@ -104,29 +111,29 @@ Changelog
 
 **2015-09-05**
 
- * version 5.0.7.5
+ * version 5.0.7-5
  * minor build changes
 
 **2015-07-12**
 
- * version 5.0.7.4
+ * version 5.0.7-4
  * support for HTTPS with client certificate auth to `streaming_server`
 
 **2015-07-05**
 
- * version 5.0.7.3
+ * version 5.0.7-3
  * toolchains update
  * clang 3.6+ fix with ASIO
 
 **2015-07-02**
 
- * version 5.0.7.2
+ * version 5.0.7-2
  * locking fixes (use `lock_guards`)
  * suppress "no payload handler for GET" log warning
 
 **2015-07-01**
 
- * version 5.0.7.1 - toolchains update, minor cmake fixes
+ * version 5.0.7-1 - toolchains update, minor cmake fixes
 
 **2015-06-04**
 
