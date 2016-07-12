@@ -70,7 +70,7 @@ void handle_bad_request(http_request_ptr& request, tcp_connection_ptr& conn) {
     "message": "Bad Request",
     "description": "Your browser sent a request that this server could not understand."
 })";
-    http_response_writer_ptr writer{http_response_writer::create(request, conn)};
+    http_response_writer_ptr writer{http_response_writer::create(conn, request)};
     writer->get_response().set_status_code(http_message::RESPONSE_CODE_BAD_REQUEST);
     writer->get_response().set_status_message(http_message::RESPONSE_MESSAGE_BAD_REQUEST);
     writer->write_no_copy(BAD_REQUEST_MSG);
@@ -84,7 +84,7 @@ void handle_not_found_request(http_request_ptr& request, tcp_connection_ptr& con
     "description": "The requested URL: [)";
     static const std::string NOT_FOUND_MSG_FINISH = R"(] was not found on this server."
 })";
-    http_response_writer_ptr writer{http_response_writer::create(request, conn)};
+    http_response_writer_ptr writer{http_response_writer::create(conn, request)};
     writer->get_response().set_status_code(http_message::RESPONSE_CODE_NOT_FOUND);
     writer->get_response().set_status_message(http_message::RESPONSE_MESSAGE_NOT_FOUND);
     writer->write_no_copy(NOT_FOUND_MSG_START);
@@ -95,7 +95,7 @@ void handle_not_found_request(http_request_ptr& request, tcp_connection_ptr& con
     writer->send();
 }
 
-void handle_server_error(http_request_ptr& http_request_ptr, tcp_connection_ptr& tcp_conn,
+void handle_server_error(http_request_ptr& request, tcp_connection_ptr& tcp_conn,
         const std::string& error_msg) {
     static const std::string SERVER_ERROR_MSG_START = R"({
     "code": 404,
@@ -103,8 +103,7 @@ void handle_server_error(http_request_ptr& http_request_ptr, tcp_connection_ptr&
     "description": ")";
     static const std::string SERVER_ERROR_MSG_FINISH = R"("
 })";
-    http_response_writer_ptr writer(http_response_writer::create(tcp_conn, *http_request_ptr,
-            std::bind(&tcp_connection::finish, tcp_conn)));
+    http_response_writer_ptr writer(http_response_writer::create(tcp_conn, request));
     writer->get_response().set_status_code(http_message::RESPONSE_CODE_SERVER_ERROR);
     writer->get_response().set_status_message(http_message::RESPONSE_MESSAGE_SERVER_ERROR);
     writer->write_no_copy(SERVER_ERROR_MSG_START);
@@ -229,13 +228,16 @@ void http_server::add_filter(const std::string& method, const std::string& resou
 }
 
 void http_server::handle_connection(tcp_connection_ptr& conn) {
-    reader_ptr my_reader_ptr = http_request_reader::create(conn, std::bind(
-            &http_server::handle_request, this,
-            std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
-    http_request_reader::headers_parsing_finished_handler_type fun = std::bind(
-            &http_server::handle_request_after_headers_parsed, this,
-            std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
-    my_reader_ptr->set_headers_parsed_callback(fun);
+    http_request_reader::finished_handler_type fh = [this] (http_request_ptr request, 
+            tcp_connection_ptr& conn, const asio::error_code& ec) {
+        this->handle_request(request, conn, ec);
+    };
+    reader_ptr my_reader_ptr = http_request_reader::create(conn, std::move(fh));
+    http_request_reader::headers_parsing_finished_handler_type hpfh = [this](http_request_ptr request,
+            tcp_connection_ptr& conn, const asio::error_code& ec, tribool & rc) {
+        this->handle_request_after_headers_parsed(request, conn, ec, rc);
+    };
+    my_reader_ptr->set_headers_parsed_callback(std::move(hpfh));
     my_reader_ptr->receive();
 }
 

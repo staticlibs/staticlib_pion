@@ -50,13 +50,15 @@ namespace httpserver {
 class http_response_writer : public std::enable_shared_from_this<http_response_writer>, 
         private staticlib::httpserver::noncopyable {
 
-private:
+public:
     
     /**
      * Function called after the HTTP message has been sent
      */
     using finished_handler_type = std::function<void(const asio::error_code&)>;
 
+private:    
+    
     /**
      * Data type for a function that handles write operations
      */
@@ -168,7 +170,8 @@ public:
      * @return std::shared_ptr<response_writer> shared pointer to
      *         the new writer object that was created
      */
-    static std::shared_ptr<http_response_writer> create(http_request_ptr& http_request, tcp_connection_ptr& tcp_conn);
+    static std::shared_ptr<http_response_writer> create(tcp_connection_ptr& tcp_conn,
+            const http_request_ptr& http_request);
     
     /**
      * Creates new response_writer objects
@@ -181,7 +184,7 @@ public:
      *         the new writer object that was created
      */
     static std::shared_ptr<http_response_writer> create(tcp_connection_ptr& tcp_conn,
-            const http_request& http_request, finished_handler_type handler);
+            const http_request_ptr& http_request, finished_handler_type handler);
 
     /**
      * Returns a non-const reference to the response that will be sent

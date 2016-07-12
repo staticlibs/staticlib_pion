@@ -132,7 +132,7 @@ public:
      * 
      * @param h function pointer
      */
-    void set_headers_parsed_callback(headers_parsing_finished_handler_type& h);
+    void set_headers_parsed_callback(headers_parsing_finished_handler_type h);
     
 private:
 

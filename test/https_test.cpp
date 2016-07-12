@@ -22,8 +22,10 @@
  */
 
 #include <iostream>
-#include <thread>
+
 #include <chrono>
+#include <memory>
+#include <thread>
 
 #include "asio.hpp"
 
@@ -52,8 +54,7 @@ void test_https() {
     sh::http_server server(2, TCP_PORT, asio::ip::address_v4::any(), certpath, pwdcb, capath, verifier);
     server.add_handler("GET", "/", 
             [] (sh::http_request_ptr& http_request_ptr, sh::tcp_connection_ptr& tcp_conn) {
-                auto finfun = std::bind(&sh::tcp_connection::finish, tcp_conn);
-                auto writer = sh::http_response_writer::create(tcp_conn, *http_request_ptr, finfun);
+                auto writer = sh::http_response_writer::create(tcp_conn, http_request_ptr);
                 writer << "Hello pion\n";
                 writer->send();
             });

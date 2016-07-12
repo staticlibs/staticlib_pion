@@ -168,7 +168,7 @@ std::shared_ptr<http_request_reader> http_request_reader::create(tcp_connection_
     return std::shared_ptr<http_request_reader>(new http_request_reader(tcp_conn, handler));
 }
 
-void http_request_reader::set_headers_parsed_callback(headers_parsing_finished_handler_type& h) {
+void http_request_reader::set_headers_parsed_callback(headers_parsing_finished_handler_type h) {
     m_parsed_headers = h;
 }
 

@@ -89,7 +89,7 @@ public:
     /**
      * Data type for SSL configuration context
      */
-    using ssl_context_type asio::ssl::context;
+    using ssl_context_type = asio::ssl::context;
 #else
     /**
      * Proxy data type for an SSL-like socket connection in non-SSL environment
@@ -407,6 +407,8 @@ public:
      * This function should be called when a server has finished handling the connection
      */
     void finish();
+    
+    
 
     /**
      * Returns true if the connection is encrypted using SSL

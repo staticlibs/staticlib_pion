@@ -160,8 +160,9 @@ void tcp_server::stop(bool wait_until_finished) {
         
         if (! wait_until_finished) {
             // this terminates any other open connections
-            std::for_each(m_conn_pool.begin(), m_conn_pool.end(),
-                          std::bind(&tcp_connection::close, std::placeholders::_1));
+            for (tcp_connection_ptr conn : m_conn_pool) {
+                conn->close();
+            }
         }
     
         // wait for all pending connections to complete
@@ -211,10 +212,11 @@ void tcp_server::listen() {
     
     if (m_is_listening) {
         // create a new TCP connection object
-        tcp_connection_ptr new_connection(tcp_connection::create(get_io_service(),
-                                                              m_ssl_context, m_ssl_flag,
-                                                              std::bind(&tcp_server::finish_connection, 
-                                                              this, std::placeholders::_1)));
+        tcp_connection::connection_handler fc = [this](std::shared_ptr<tcp_connection>& conn) {
+            this->finish_connection(conn);
+        };
+        tcp_connection_ptr new_connection = tcp_connection::create(get_io_service(),
+                m_ssl_context, m_ssl_flag, std::move(fc));
         
         // prune connections that finished uncleanly
         prune_connections();
@@ -223,10 +225,10 @@ void tcp_server::listen() {
         m_conn_pool.insert(new_connection);
         
         // use the object to accept a new connection
-        new_connection->async_accept(m_tcp_acceptor,
-                                     std::bind(&tcp_server::handle_accept,
-                                                 this, new_connection,
-                                                 std::placeholders::_1/* asio::placeholders::error */));
+        auto cb = [this, new_connection](const asio::error_code& ec) mutable {
+            this->handle_accept(new_connection, ec);
+        };
+        new_connection->async_accept(m_tcp_acceptor, std::move(cb));
     }
 }
 
@@ -251,9 +253,10 @@ void tcp_server::handle_accept(tcp_connection_ptr& tcp_conn, const asio::error_c
         // handle the new connection
 #ifdef STATICLIB_HTTPSERVER_HAVE_SSL
         if (tcp_conn->get_ssl_flag()) {
-            tcp_conn->async_handshake_server(std::bind(&tcp_server::handle_ssl_handshake,
-                                                         this, tcp_conn,
-                                                         std::placeholders::_1));
+            auto cb = [this, tcp_conn](const asio::error_code & ec) mutable {
+                this->handle_ssl_handshake(tcp_conn, ec);
+            };
+            tcp_conn->async_handshake_server(std::move(cb));
         } else
 #endif
             // not SSL -> call the handler immediately

@@ -46,13 +46,17 @@ m_http_response(new http_response(http_request)) {
 
 // writer member functions
 
-std::shared_ptr<http_response_writer> http_response_writer::create(http_request_ptr& http_request, tcp_connection_ptr& tcp_conn) {
-    return create(tcp_conn, *http_request, std::bind(&tcp_connection::finish, tcp_conn));
+std::shared_ptr<http_response_writer> http_response_writer::create(tcp_connection_ptr& tcp_conn,
+        const http_request_ptr& http_request) {
+    finished_handler_type fh = [tcp_conn](const asio::error_code&) {
+        tcp_conn->finish();
+    };
+    return create(tcp_conn, http_request, std::move(fh));
 }
 
 std::shared_ptr<http_response_writer> http_response_writer::create(tcp_connection_ptr& tcp_conn,
-        const http_request& http_request, finished_handler_type handler) {
-    return std::shared_ptr<http_response_writer>(new http_response_writer(tcp_conn, http_request, handler));
+        const http_request_ptr& http_request, finished_handler_type handler) {
+    return std::shared_ptr<http_response_writer>(new http_response_writer(tcp_conn, *http_request, handler));
 }
 
 void http_response_writer::prepare_write_buffers(http_message::write_buffers_type& write_buffers,
@@ -237,9 +241,10 @@ void http_response_writer::prepare_buffers_for_send(http_message::write_buffers_
 }
 
 http_response_writer::write_handler_type http_response_writer::bind_to_write_handler() {
-    return std::bind(&http_response_writer::handle_write, shared_from_this(),
-            std::placeholders::_1 /* asio::placeholders::error */,
-            std::placeholders::_2 /* asio::placeholders::bytes_transferred */);
+    auto self = shared_from_this();
+    return [self](const asio::error_code& ec, std::size_t bt) { 
+        self->handle_write(ec, bt); 
+    };
 }
 
 void http_response_writer::handle_write(const asio::error_code& write_error, std::size_t bytes_written) {

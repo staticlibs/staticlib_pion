@@ -38,8 +38,11 @@ void tcp_timer::start(const uint32_t seconds) {
     std::lock_guard<std::mutex> timer_lock(m_mutex);
     m_timer_active = true;
     m_timer.expires_from_now(std::chrono::seconds(seconds));
-    m_timer.async_wait(std::bind(&tcp_timer::timer_callback,
-        shared_from_this(), std::placeholders::_1));
+    auto self = shared_from_this();
+    auto cb = [self](const asio::error_code & ec) {
+        self->timer_callback(ec);
+    };
+    m_timer.async_wait(std::move(cb));
 }
 
 void tcp_timer::cancel(void) {

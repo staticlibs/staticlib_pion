@@ -60,15 +60,13 @@ log4cplus::SharedAppenderPtr create_console_appender() {
 namespace sh = staticlib::httpserver;
 
 void hello_service(sh::http_request_ptr& req, sh::tcp_connection_ptr& conn) {
-    auto finfun = std::bind(&sh::tcp_connection::finish, conn);
-    auto writer = sh::http_response_writer::create(conn, *req, finfun);
+    auto writer = sh::http_response_writer::create(conn, req);
     writer << "Hello World!\n";
     writer->send();
 }
 
 void hello_service_post(sh::http_request_ptr& req, sh::tcp_connection_ptr& conn) {
-    auto finfun = std::bind(&sh::tcp_connection::finish, conn);
-    auto writer = sh::http_response_writer::create(conn, *req, finfun);
+    auto writer = sh::http_response_writer::create(conn, req);
     writer << "Hello POST!\n";
     writer->send();
 }
@@ -133,15 +131,16 @@ public:
             writer->clear();
             writer->write_no_copy(buf.data(), static_cast<size_t>(stream.gcount()));
             if (stream) {
-                writer->send_chunk(std::bind(&FileSender::handle_write, shared_from_this(), 
-                        std::placeholders::_1, std::placeholders::_2));
+                auto self = shared_from_this();
+                writer->send_chunk([self](const asio::error_code& ec, size_t bt) {
+                    self->handle_write(ec, bt);
+                });
             } else {
                 writer->send_final_chunk();
             }
         } else {
             // make sure it will get closed
             writer->get_connection()->set_lifecycle(sh::tcp_connection::LIFECYCLE_CLOSE);
-            // log error
         }
     }
 };
@@ -153,8 +152,7 @@ void file_upload_resource(sh::http_request_ptr& req, sh::tcp_connection_ptr& con
     } else {
         std::cout << "No payload handler found in main handler" << std::endl;
     }
-    auto finfun = std::bind(&sh::tcp_connection::finish, conn);
-    auto writer = sh::http_response_writer::create(conn, *req, finfun);
+    auto writer = sh::http_response_writer::create(conn, req);
     auto fs = std::make_shared<FileSender>("uploaded.dat", writer);
     fs->send();
 }

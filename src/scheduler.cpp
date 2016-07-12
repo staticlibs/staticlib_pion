@@ -108,8 +108,10 @@ void scheduler::keep_running(asio::io_service& my_service, asio::steady_timer& m
     if (m_is_running) {
         // schedule this again to make sure the service doesn't complete
         my_timer.expires_from_now(std::chrono::seconds(KEEP_RUNNING_TIMER_SECONDS));
-        my_timer.async_wait(std::bind(&scheduler::keep_running, this,
-                                        std::ref(my_service), std::ref(my_timer)));
+        auto cb = [this, &my_service, &my_timer](const std::error_code&){
+            this->keep_running(my_service, my_timer);
+        };
+        my_timer.async_wait(std::move(cb));
     }
 }
 
@@ -206,8 +208,9 @@ void single_service_scheduler::startup() {
         
         // start multiple threads to handle async tasks
         for (uint32_t n = 0; n < m_num_threads; ++n) {
-            std::unique_ptr<std::thread> new_thread(new std::thread( std::bind(&scheduler::process_service_work,
-                                                                                       this, std::ref(m_service)) ));
+            std::unique_ptr<std::thread> new_thread(new std::thread([this]() {
+                this->process_service_work(this->m_service);
+            }));
             m_thread_pool.emplace_back(std::move(new_thread));
         }
     }
