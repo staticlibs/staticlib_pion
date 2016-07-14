@@ -137,6 +137,13 @@ public:
      * @return 
      */
     const std::string& get_status_message() const;
+    
+    /**
+     * Returns `true` if this response can have a body
+     * 
+     * @return `true` if this response can have a body
+     */
+    bool is_body_allowed() const;
 
     /**
      * Sets a cookie by adding a Set-Cookie header (see RFC 2109)

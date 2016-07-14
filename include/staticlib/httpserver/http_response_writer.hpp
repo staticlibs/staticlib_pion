@@ -49,7 +49,7 @@ namespace httpserver {
  */
 class http_response_writer : public std::enable_shared_from_this<http_response_writer>, 
         private staticlib::httpserver::noncopyable {
-
+    
 public:
     
     /**
@@ -204,8 +204,10 @@ public:
      * @param data the data to append to the payload content
      */
     template <typename T> void write(const T& data) {
-        m_content_stream << data;
-        if (m_stream_is_empty) m_stream_is_empty = false;
+        if (m_http_response->is_body_allowed()) {
+            m_content_stream << data;
+            if (m_stream_is_empty) m_stream_is_empty = false;
+        }
     }
 
     /**

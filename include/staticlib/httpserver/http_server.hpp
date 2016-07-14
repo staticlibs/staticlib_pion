@@ -91,7 +91,7 @@ protected:
      * Collection of GET handlers that are recognized by this HTTP server
      */
     handlers_map_type get_handlers;
-    
+
     /**
      * Collection of POST handlers that are recognized by this HTTP server
      */

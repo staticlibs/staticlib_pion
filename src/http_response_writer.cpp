@@ -114,7 +114,9 @@ void http_response_writer::prepare_write_buffers(http_message::write_buffers_typ
 }
 
 void http_response_writer::finished_writing(const asio::error_code& ec) {
-    if (m_finished) m_finished(ec);
+    if (m_http_response->is_body_allowed()) {
+        if (m_finished) m_finished(ec);
+    }
 }
 
 void http_response_writer::clear() {
@@ -127,12 +129,14 @@ void http_response_writer::clear() {
 }
 
 void http_response_writer::write(std::ostream& (*iomanip)(std::ostream&)) {
-    m_content_stream << iomanip;
-    if (m_stream_is_empty) m_stream_is_empty = false;
+    if (m_http_response->is_body_allowed()) {
+        m_content_stream << iomanip;
+        if (m_stream_is_empty) m_stream_is_empty = false;
+    }
 }
 
 void http_response_writer::write(const void *data, size_t length) {
-    if (length != 0) {
+    if (m_http_response->is_body_allowed() && length != 0) {
         flush_content_stream();
         m_content_buffers.push_back(m_binary_cache.add(data, length));
         m_content_length += length;
@@ -140,7 +144,7 @@ void http_response_writer::write(const void *data, size_t length) {
 }
 
 void http_response_writer::write_no_copy(const std::string& data) {
-    if (!data.empty()) {
+    if (m_http_response->is_body_allowed() && !data.empty()) {
         flush_content_stream();
         m_content_buffers.push_back(asio::buffer(data));
         m_content_length += data.size();
@@ -148,7 +152,7 @@ void http_response_writer::write_no_copy(const std::string& data) {
 }
 
 void http_response_writer::write_no_copy(void *data, size_t length) {
-    if (length > 0) {
+    if (m_http_response->is_body_allowed() && length > 0) {
         flush_content_stream();
         m_content_buffers.push_back(asio::buffer(data, length));
         m_content_length += length;
@@ -156,7 +160,7 @@ void http_response_writer::write_no_copy(void *data, size_t length) {
 }
 
 void http_response_writer::write_move(std::string&& data) {
-    if (!data.empty()) {
+    if (m_http_response->is_body_allowed() && !data.empty()) {
         m_moved_cache.emplace_back(std::move(data));
         std::string& dataref = m_moved_cache.back();
         flush_content_stream();

@@ -51,7 +51,7 @@ std::string strip_trailing_slash(const std::string& str) {
 
 template<typename T>
 T& choose_map_by_method(const std::string& method, T& get_map, T& post_map, T& put_map, T& delete_map) {
-    if (http_message::REQUEST_METHOD_GET == method) {
+    if (http_message::REQUEST_METHOD_GET == method || http_message::REQUEST_METHOD_HEAD == method) {
         return get_map;
     } else if (http_message::REQUEST_METHOD_POST == method) {
         return post_map;

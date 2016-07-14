@@ -90,6 +90,10 @@ const std::string& http_response::get_status_message() const {
     return m_status_message;
 }
 
+bool http_response::is_body_allowed() const {
+    return REQUEST_METHOD_HEAD != m_request_method;
+}
+
 void http_response::set_cookie(const std::string& name, const std::string& value) {
     std::string set_cookie_header(make_set_cookie_header(name, value, "/"));
     add_header(HEADER_SET_COOKIE, set_cookie_header);
