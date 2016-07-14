@@ -104,6 +104,7 @@ const std::string http_message::REQUEST_METHOD_GET("GET");
 const std::string http_message::REQUEST_METHOD_PUT("PUT");
 const std::string http_message::REQUEST_METHOD_POST("POST");
 const std::string http_message::REQUEST_METHOD_DELETE("DELETE");
+const std::string http_message::REQUEST_METHOD_OPTIONS("OPTIONS");
 
 // common HTTP response messages
 const std::string http_message::RESPONSE_MESSAGE_OK("OK");

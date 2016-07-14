@@ -50,7 +50,8 @@ std::string strip_trailing_slash(const std::string& str) {
 }
 
 template<typename T>
-T& choose_map_by_method(const std::string& method, T& get_map, T& post_map, T& put_map, T& delete_map) {
+T& choose_map_by_method(const std::string& method, T& get_map, T& post_map, T& put_map, 
+        T& delete_map, T& options_map) {
     if (http_message::REQUEST_METHOD_GET == method || http_message::REQUEST_METHOD_HEAD == method) {
         return get_map;
     } else if (http_message::REQUEST_METHOD_POST == method) {
@@ -59,6 +60,8 @@ T& choose_map_by_method(const std::string& method, T& get_map, T& post_map, T& p
         return put_map;
     } else if (http_message::REQUEST_METHOD_DELETE == method) {
         return delete_map;
+    } else if (http_message::REQUEST_METHOD_OPTIONS == method) {
+        return options_map;
     } else {
         throw httpserver_exception("Invalid HTTP method: [" + method + "]");
     } 
@@ -111,6 +114,12 @@ void handle_server_error(http_request_ptr& request, tcp_connection_ptr& tcp_conn
     std::replace(res.begin(), res.end(), '"', '\'');
     writer->write_move(std::move(res));
     writer->write_no_copy(SERVER_ERROR_MSG_FINISH);
+    writer->send();
+}
+
+void handle_root_options(http_request_ptr& request, tcp_connection_ptr& conn) {
+    auto writer = http_response_writer::create(conn, request);
+    writer->get_response().change_header("Allow", "HEAD, GET, POST, PUT, DELETE, OPTIONS");
     writer->send();
 }
 
@@ -191,7 +200,8 @@ server_error_handler(handle_server_error) {
 
 void http_server::add_handler(const std::string& method,
         const std::string& resource, request_handler_type request_handler) {
-    handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, delete_handlers);
+    handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, 
+            delete_handlers, options_handlers);
     const std::string clean_resource{strip_trailing_slash(resource)};
     STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Added handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
     auto it = map.emplace(std::move(clean_resource), std::move(request_handler));
@@ -212,7 +222,8 @@ void http_server::set_error_handler(error_handler_type handler) {
 
 void http_server::add_payload_handler(const std::string& method, const std::string& resource,
         payload_handler_creator_type payload_handler) {
-    payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, delete_payloads);
+    payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, 
+            delete_payloads, options_payloads);
     const std::string clean_resource{strip_trailing_slash(resource)};
     STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Added payload handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
     auto it = map.emplace(std::move(clean_resource), std::move(payload_handler));
@@ -221,7 +232,8 @@ void http_server::add_payload_handler(const std::string& method, const std::stri
 
 void http_server::add_filter(const std::string& method, const std::string& resource,
         request_filter_type filter) {
-    filter_map_type& map = choose_map_by_method(method, get_filters, post_filters, put_filters, delete_filters);
+    filter_map_type& map = choose_map_by_method(method, get_filters, post_filters, put_filters, 
+            delete_filters, options_filters);
     const std::string clean_resource{strip_trailing_slash(resource)};
     STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Added filter for HTTP resource: " << clean_resource << ", method: " << method);
     map.emplace(std::move(clean_resource), std::move(filter));
@@ -245,7 +257,8 @@ void http_server::handle_request_after_headers_parsed(http_request_ptr request,
         tcp_connection_ptr& /* conn */, const asio::error_code& ec, tribool& rc) {
     if (ec || !rc) return;
     auto& method = request->get_method();
-    payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, delete_payloads);
+    payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, 
+            delete_payloads, options_payloads);
     std::string path{strip_trailing_slash(request->get_resource())};
     auto it = find_submatch(map, path);
     if (map.end() != it) {
@@ -253,7 +266,10 @@ void http_server::handle_request_after_headers_parsed(http_request_ptr request,
         request->set_payload_handler(std::move(ha));
     } else {
         // let's not spam client about GET and DELETE unlikely payloads
-        if (http_message::REQUEST_METHOD_GET != method && http_message::REQUEST_METHOD_DELETE != method) {
+        if (http_message::REQUEST_METHOD_GET != method && 
+                http_message::REQUEST_METHOD_DELETE != method &&
+                http_message::REQUEST_METHOD_HEAD != method &&
+                http_message::REQUEST_METHOD_OPTIONS != method) {
             STATICLIB_HTTPSERVER_LOG_WARN(m_logger, "No payload handlers found for resource: " << path);
         }
         // ignore request body as no payload_handler found
@@ -286,15 +302,21 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
     }
     // handle request
     STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Received a valid HTTP request");
-    auto& method = request->get_method();
-    handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, delete_handlers);
     std::string path{strip_trailing_slash(request->get_resource())};
+    if (http_message::REQUEST_METHOD_OPTIONS == request->get_method() && ("*" == path || "/*" == path)) {
+        handle_root_options(request, conn);
+        return;
+    }    
+    auto& method = request->get_method();
+    handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, 
+            delete_handlers, options_handlers);    
     auto handlers_it = find_submatch(map, path);
     if (map.end() != handlers_it) {
         request_handler_type& handler = handlers_it->second;
         try {
             STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Found request handler for HTTP resource: " << path);
-            filter_map_type& filter_map = choose_map_by_method(method, get_filters, post_filters, put_filters, delete_filters);
+            filter_map_type& filter_map = choose_map_by_method(method, get_filters, post_filters, 
+                    put_filters, delete_filters, options_filters);
             std::vector<std::reference_wrapper<request_filter_type>> filters = find_submatch_filters(filter_map, path);
             http_filter_chain fc{std::move(filters), handler};
             fc.do_filter(request, conn);

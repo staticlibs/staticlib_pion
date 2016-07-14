@@ -108,6 +108,11 @@ protected:
     handlers_map_type delete_handlers;
 
     /**
+     * Collection of OPTIONS handlers that are recognized by this HTTP server
+     */
+    handlers_map_type options_handlers;
+
+    /**
      * Points to a function that handles bad HTTP requests
      */
     request_handler_type bad_request_handler;
@@ -146,6 +151,11 @@ protected:
     payloads_map_type delete_payloads;
 
     /**
+     * Collection of payload handlers OPTIONS resources that are recognized by this HTTP server
+     */
+    payloads_map_type options_payloads;
+
+    /**
      * Collection of GET filters
      */
     filter_map_type get_filters;
@@ -164,6 +174,11 @@ protected:
      * Collection of DELETE filters
      */
     filter_map_type delete_filters;
+
+    /**
+     * Collection of OPTIONS filters
+     */
+    filter_map_type options_filters;
 
 public:
     ~http_server() STATICLIB_HTTPSERVER_NOEXCEPT;

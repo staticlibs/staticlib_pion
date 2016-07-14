@@ -154,6 +154,7 @@ public:
     static const std::string REQUEST_METHOD_PUT;
     static const std::string REQUEST_METHOD_POST;
     static const std::string REQUEST_METHOD_DELETE;
+    static const std::string REQUEST_METHOD_OPTIONS;
 
     // common HTTP response messages
     static const std::string RESPONSE_MESSAGE_OK;
