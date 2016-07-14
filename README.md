@@ -8,12 +8,11 @@ project ([description](http://sourceforge.net/p/pion/mailman/message/32075645/))
 
  - all Boost dependencies removed in favour of C++11 with [standalone Asio](https://think-async.com/Asio/AsioStandalone)
  - some optional non-HTTP functionality removed (dynamic-load plugins, SPDY support)
- - added support for streaming requests  of arbitrary size (file upload)
+ - added support for streaming requests of arbitrary size (file upload)
+ - support for `HEAD` and `OPTIONS` (to allow [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)) methods
  - warnings cleanup to compile with `/W4 /WX` on MSVC and with `-Wall -Werror -Wextra` on GCC and Clang
+ - namespaces and classes renamed
  - Doxygen comments reformatted
- - namespaces and classes renaming (in `5.0.7.10`)
-
-All changes were done with an attempt to stay as close as possible to the original Pion implementation.
 
 Link to the [API documentation](http://staticlibs.github.io/staticlib_httpserver/docs/html/namespacestaticlib_1_1httpserver.html).
 
@@ -70,6 +69,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2016-07-14**
+
+ * version 5.0.7-12
+ * `HEAD` and `OPTIONS` methods support
 
 **2016-07-12**
 
