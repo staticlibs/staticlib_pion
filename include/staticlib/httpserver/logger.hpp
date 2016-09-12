@@ -66,7 +66,8 @@
 #elif defined(STATICLIB_HTTPSERVER_DISABLE_LOGGING)
 
     // Logging is disabled -> add do-nothing stubs for logging
-    namespace staticlib { namespace httpserver {
+    namespace staticlib { 
+    namespace httpserver {
         /**
          * No-op logger implementation
          */
@@ -83,6 +84,7 @@
              */
             operator bool() const;
         };
+    } // namespace
     }
 
     #define STATICLIB_HTTPSERVER_LOG_CONFIG_BASIC   {}
