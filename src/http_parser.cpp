@@ -222,6 +222,7 @@ tribool http_parser::parse(http_message& http_msg, asio::error_code& ec) {
                     rc = parse_chunks(http_msg.get_chunk_cache(), ec);
                     total_bytes_parsed += m_bytes_last_read;
                 } catch(const std::exception& e) {
+                    (void) e;
                     STATICLIB_HTTPSERVER_LOG_WARN(m_logger, "Chunks parsing failed: " << e.what());
                     rc = false;
                 }
