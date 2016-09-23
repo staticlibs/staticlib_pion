@@ -242,6 +242,7 @@ tribool http_parser::parse(http_message& http_msg, asio::error_code& ec) {
                     rc = consume_content(http_msg, ec);
                     total_bytes_parsed += m_bytes_last_read;
                 } catch (const std::exception& e) {
+                    (void) e;
                     STATICLIB_HTTPSERVER_LOG_WARN(m_logger, "Content parsing failed: " << e.what());
                     rc = false;
                 }
@@ -253,6 +254,7 @@ tribool http_parser::parse(http_message& http_msg, asio::error_code& ec) {
                     consume_content_as_next_chunk(http_msg.get_chunk_cache());
                     total_bytes_parsed += m_bytes_last_read;
                 } catch (const std::exception& e) {
+                    (void) e;
                     STATICLIB_HTTPSERVER_LOG_WARN(m_logger, "Content (without length) parsing failed: " << e.what());
                     rc = false;
                 }
