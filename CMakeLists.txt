@@ -70,20 +70,6 @@ endif ( )
 if ( ${PROJECT_NAME}_USE_LOG4CPLUS OR ${PROJECT_NAME}_USE_OPENSSL )
     staticlib_httpserver_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 endif ( )
-# patch ASIO if musl is used
-# https://github.com/voidlinux/void-packages/blob/4d4449033e3caa02bc9f9f978c30ef6a79b573c4/srcpkgs/asio/patches/musl_strerror_r.patch
-if ( STATICLIB_TOOLCHAIN MATCHES "alpine_[^_]+_[^_]+" AND ( NOT DEFINED ${PROJECT_NAME}_ASIO_MUSL_APPLIED ) )
-    message ( STATUS "Applying patch to ASIO to support musl" )
-    staticlib_apply_git_patch ( ${CMAKE_CURRENT_LIST_DIR}/asio
-            ${STATICLIB_CMAKE}/resources/musl/asio106_musl.patch )
-    set ( ${PROJECT_NAME}_ASIO_MUSL_APPLIED "" CACHE INTERNAL "" )
-# https://github.com/worldforge/hammer/blob/dd0c373f3c2063fa39771c91b2a1cb5d85ae9004/support/android_fix-boost.patch
-elseif ( STATICLIB_TOOLCHAIN MATCHES "android_i386_gcc" AND ( NOT DEFINED ${PROJECT_NAME}_ASIO_ANDROID_APPLIED ) )
-    message ( STATUS "Applying patch to ASIO to support android i386" )
-    staticlib_apply_git_patch ( ${CMAKE_CURRENT_LIST_DIR}/asio
-            ${STATICLIB_CMAKE}/resources/android/asio106_android_i386.patch )
-    set ( ${PROJECT_NAME}_ASIO_ANDROID_APPLIED "" CACHE INTERNAL "" )
-endif ( )
 
 # library
 file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
