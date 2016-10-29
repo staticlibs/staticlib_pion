@@ -70,6 +70,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2016-10-29**
+
+ * version 5.0.7-13
+ * use `asio` submodule from Fedora EPEL lookaside - it is thinner than upstream one and pre-patched for android_i386 and musl libc
+
 **2016-07-14**
 
  * version 5.0.7-12
