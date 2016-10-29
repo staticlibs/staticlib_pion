@@ -9,6 +9,7 @@ var searchData=
   ['request_5fmethod_5fdelete',['REQUEST_METHOD_DELETE',['../classstaticlib_1_1httpserver_1_1http__message.html#a774866d03faab381fceaf691d8a7c882',1,'staticlib::httpserver::http_message']]],
   ['request_5fmethod_5fget',['REQUEST_METHOD_GET',['../classstaticlib_1_1httpserver_1_1http__message.html#af67d29cb4c260af9f11446d24bd9c312',1,'staticlib::httpserver::http_message']]],
   ['request_5fmethod_5fhead',['REQUEST_METHOD_HEAD',['../classstaticlib_1_1httpserver_1_1http__message.html#a1c19a921a1a8152277eb55aa8317cd14',1,'staticlib::httpserver::http_message']]],
+  ['request_5fmethod_5foptions',['REQUEST_METHOD_OPTIONS',['../classstaticlib_1_1httpserver_1_1http__message.html#a471ffd09a6b8e286b14cc54f69568710',1,'staticlib::httpserver::http_message']]],
   ['request_5fmethod_5fpost',['REQUEST_METHOD_POST',['../classstaticlib_1_1httpserver_1_1http__message.html#ad5f857e1c1432814ad5234a6d299ba2b',1,'staticlib::httpserver::http_message']]],
   ['request_5fmethod_5fput',['REQUEST_METHOD_PUT',['../classstaticlib_1_1httpserver_1_1http__message.html#af12a43b9ad917b3013ef14b7e7306c48',1,'staticlib::httpserver::http_message']]],
   ['reset',['reset',['../classstaticlib_1_1httpserver_1_1http__parser.html#afea879f7f7f0e0e2d5b9d64c788f1886',1,'staticlib::httpserver::http_parser']]],

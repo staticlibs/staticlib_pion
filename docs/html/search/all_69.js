@@ -7,6 +7,7 @@ var searchData=
   ['indeterminate_5fkeyword_5ft',['indeterminate_keyword_t',['../namespacestaticlib_1_1httpserver_1_1logic.html#a808a6a398a2689f4901708addf49f84e',1,'staticlib::httpserver::logic']]],
   ['indeterminate_5ft',['indeterminate_t',['../structstaticlib_1_1httpserver_1_1logic_1_1detail_1_1indeterminate__t.html',1,'staticlib::httpserver::logic::detail']]],
   ['indeterminate_5fvalue',['indeterminate_value',['../classstaticlib_1_1httpserver_1_1logic_1_1tribool.html#a0b2a2b500050742d273327247af89672a047ad362059df84c3fe648a947393271',1,'staticlib::httpserver::logic::tribool']]],
+  ['is_5fbody_5fallowed',['is_body_allowed',['../classstaticlib_1_1httpserver_1_1http__response.html#a08bac45d1ab04b19404d18b2e64175cf',1,'staticlib::httpserver::http_response']]],
   ['is_5fchar',['is_char',['../classstaticlib_1_1httpserver_1_1http__parser.html#ac97558326a15ef7c425168b8c1570d39',1,'staticlib::httpserver::http_parser']]],
   ['is_5fchunked',['is_chunked',['../classstaticlib_1_1httpserver_1_1http__message.html#a6c64304061c3b5386e882bd0f60eebd4',1,'staticlib::httpserver::http_message']]],
   ['is_5fcontent_5fbuffer_5fallocated',['is_content_buffer_allocated',['../classstaticlib_1_1httpserver_1_1http__message.html#a4afbc0532f65a94c157bdf61d8f5e49c',1,'staticlib::httpserver::http_message']]],
