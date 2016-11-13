@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cmake_minimum_required ( VERSION 2.8.12 )
+cmake_minimum_required ( VERSION 2.8.11 )
 
 # project
 project ( staticlib_httpserver CXX )
@@ -127,7 +127,9 @@ target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE
         ${${PROJECT_NAME}_INCLUDES} 
         ${${PROJECT_NAME}_DEPS_PC_INCLUDE_DIRS} )
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_DEFINITIONS} )
-target_compile_options ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_OPTIONS} )
+foreach ( _opt ${${PROJECT_NAME}_OPTIONS} )
+    set_property ( TARGET ${PROJECT_NAME} APPEND_STRING PROPERTY COMPILE_FLAGS " ${_opt}" )
+endforeach ( )
 if ( TARGET external_log4cplus )
     add_dependencies ( ${PROJECT_NAME} external_log4cplus )
 endif ( )
