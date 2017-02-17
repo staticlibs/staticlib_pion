@@ -187,6 +187,9 @@ public:
     static const unsigned int RESPONSE_CODE_SERVER_ERROR;
     static const unsigned int RESPONSE_CODE_NOT_IMPLEMENTED;
     static const unsigned int RESPONSE_CODE_CONTINUE;
+    
+    // response to "Expect: 100-Continue" header
+    static const std::string RESPONSE_FULLMESSAGE_100_CONTINUE;
 
 protected:    
     

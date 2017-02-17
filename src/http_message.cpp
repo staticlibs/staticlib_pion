@@ -138,6 +138,10 @@ const unsigned int http_message::RESPONSE_CODE_SERVER_ERROR = 500;
 const unsigned int http_message::RESPONSE_CODE_NOT_IMPLEMENTED = 501;
 const unsigned int http_message::RESPONSE_CODE_CONTINUE = 100;
 
+// response to "Expect: 100-Continue" header
+// see https://groups.google.com/d/msg/mongoose-users/92fD1Elk5m4/Op6fPLZtlrEJ
+const std::string http_message::RESPONSE_FULLMESSAGE_100_CONTINUE("HTTP/1.1 100 Continue\r\n\r\n");
+
 const std::regex  http_message::REGEX_ICASE_CHUNKED(".*chunked.*", std::regex::icase);
 
 http_message::http_message() : 
