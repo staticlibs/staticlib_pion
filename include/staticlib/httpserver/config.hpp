@@ -22,15 +22,20 @@
 // Distributed under the Boost Software License, Version 1.0.
 // See http://www.boost.org/LICENSE_1_0.txt
 //
-
 #ifndef STATICLIB_HTTPSERVER_CONFIG_HPP
 #define STATICLIB_HTTPSERVER_CONFIG_HPP
 
 // http://stackoverflow.com/a/18387764/314015
+// Compliant C++11 compilers put noexcept specifiers on error_category
 #ifndef _MSC_VER
 #define STATICLIB_HTTPSERVER_NOEXCEPT noexcept
 #else
-#define STATICLIB_HTTPSERVER_NOEXCEPT
+# if (_MSC_VER >= 1900)
+#  define STATICLIB_HTTPSERVER_NOEXCEPT noexcept(true)
+# endif //(_MSC_VER >= 1900)
 #endif // _MSC_VER
+# if !defined(STATICLIB_HTTPSERVER_NOEXCEPT)
+#  define STATICLIB_HTTPSERVER_NOEXCEPT
+#endif //!defined(STATICLIB_HTTPSERVER_NOEXCEPT)
 
 #endif //STATICLIB_HTTPSERVER_CONFIG_HPP
