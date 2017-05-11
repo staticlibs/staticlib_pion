@@ -25,11 +25,12 @@
 
 #include "staticlib/httpserver/http_parser.hpp"
 
-#include <regex>
-#include <unordered_map>
 #include <cstdlib>
 #include <cstring>
-#include <cassert>
+#include <regex>
+#include <unordered_map>
+
+#include "staticlib/utils.hpp"
 
 #include "staticlib/httpserver/http_request.hpp"
 #include "staticlib/httpserver/http_response.hpp"
@@ -186,10 +187,10 @@ logger http_parser::get_logger(void) {
 }
 
 
-tribool http_parser::parse(http_message& http_msg, asio::error_code& ec) {
+sl::support::tribool http_parser::parse(http_message& http_msg, asio::error_code& ec) {
     assert(! eof() );
 
-    tribool rc = indeterminate;
+    sl::support::tribool rc = sl::support::indeterminate;
     std::size_t total_bytes_parsed = 0;
 
     if(http_msg.has_missing_packets()) {
@@ -232,7 +233,7 @@ tribool http_parser::parse(http_message& http_msg, asio::error_code& ec) {
                     
                     // Handle footers if present
                     rc = ((m_message_parse_state == PARSE_FOOTERS) ?
-                          indeterminate : (tribool)true);
+                          sl::support::indeterminate : (sl::support::tribool)true);
                 }
                 break;
 
@@ -281,7 +282,7 @@ tribool http_parser::parse(http_message& http_msg, asio::error_code& ec) {
     return rc;
 }
 
-tribool http_parser::parse_headers(http_message& http_msg,
+sl::support::tribool http_parser::parse_headers(http_message& http_msg,
     asio::error_code& ec)
 {
     //
@@ -728,7 +729,7 @@ tribool http_parser::parse_headers(http_message& http_msg,
 
     m_bytes_last_read = (m_read_ptr - read_start_ptr);
     m_bytes_total_read += m_bytes_last_read;
-    return indeterminate;
+    return sl::support::indeterminate;
 }
 
 void http_parser::update_message_with_header_data(http_message& http_msg) const
@@ -785,10 +786,8 @@ void http_parser::update_message_with_header_data(http_message& http_msg) const
     }
 }
 
-tribool http_parser::finish_header_parsing(http_message& http_msg,
-    asio::error_code& ec)
-{
-    tribool rc = indeterminate;
+sl::support::tribool http_parser::finish_header_parsing(http_message& http_msg, asio::error_code& ec) {
+    sl::support::tribool rc = sl::support::indeterminate;
 
     m_bytes_content_remaining = m_bytes_content_read = 0;
     http_msg.set_content_length(0);
@@ -910,7 +909,7 @@ bool http_parser::parse_uri(const std::string& uri, std::string& proto,
     // parse the port, if it's not empty
     if(port_pos != std::string::npos) {
         try {
-            port = algorithm::parse_uint16(t.substr(port_pos+1));
+            port = sl::utils::parse_uint16(t.substr(port_pos+1));
         } catch (std::runtime_error &) {
             return false;
         }
@@ -970,7 +969,7 @@ bool http_parser::parse_url_encoded(std::unordered_multimap<std::string, std::st
                 // if query name is empty, just skip it (i.e. "&&")
                 if (! query_name.empty()) {
                     // assume that "=" is missing -- it's OK if the value is empty
-                    dict.insert( std::make_pair(algorithm::url_decode(query_name), algorithm::url_decode(query_value)) );
+                    dict.insert( std::make_pair(sl::utils::url_decode(query_name), sl::utils::url_decode(query_value)) );
                     query_name.erase();
                 }
             } else if (*ptr == '\r' || *ptr == '\n' || *ptr == '\t') {
@@ -989,7 +988,7 @@ bool http_parser::parse_url_encoded(std::unordered_multimap<std::string, std::st
             if (*ptr == '&') {
                 // end of value found (OK if empty)
                 if (! query_name.empty()) {
-                    dict.insert( std::make_pair(algorithm::url_decode(query_name), algorithm::url_decode(query_value)) );
+                    dict.insert( std::make_pair(sl::utils::url_decode(query_name), sl::utils::url_decode(query_value)) );
                     query_name.erase();
                 }
                 query_value.erase();
@@ -997,7 +996,7 @@ bool http_parser::parse_url_encoded(std::unordered_multimap<std::string, std::st
             } else if (*ptr == ',') {
                 // end of value found in multi-value list (OK if empty)
                 if (! query_name.empty())
-                    dict.insert( std::make_pair(algorithm::url_decode(query_name), algorithm::url_decode(query_value)) );
+                    dict.insert( std::make_pair(sl::utils::url_decode(query_name), sl::utils::url_decode(query_value)) );
                 query_value.erase();
             } else if (*ptr == '\r' || *ptr == '\n' || *ptr == '\t') {
                 // ignore linefeeds, carriage return and tabs (normally within POST content)
@@ -1016,7 +1015,7 @@ bool http_parser::parse_url_encoded(std::unordered_multimap<std::string, std::st
 
     // handle last pair in string
     if (! query_name.empty())
-        dict.insert( std::make_pair(algorithm::url_decode(query_name), algorithm::url_decode(query_value)) );
+        dict.insert( std::make_pair(sl::utils::url_decode(query_name), sl::utils::url_decode(query_value)) );
 
     return true;
 }
@@ -1123,10 +1122,10 @@ bool http_parser::parse_multipart_form_data(std::unordered_multimap<std::string,
                 // parsing the value of a header
                 if (*ptr == '\r' || *ptr == '\n') {
                     // reached the end of the value -> check if it's important
-                    if (algorithm::iequals(header_name, http_message::HEADER_CONTENT_TYPE)) {
+                    if (sl::utils::iequals(header_name, http_message::HEADER_CONTENT_TYPE)) {
                         // only keep fields that have a text type or no type
-                        save_current_field = algorithm::iequals(header_value.substr(0, 5), "text/");
-                    } else if (algorithm::iequals(header_name, http_message::HEADER_CONTENT_DISPOSITION)) {
+                        save_current_field = sl::utils::iequals(header_value.substr(0, 5), "text/");
+                    } else if (sl::utils::iequals(header_name, http_message::HEADER_CONTENT_DISPOSITION)) {
                         // get current field from content-disposition header
                         std::size_t name_pos = header_value.find("name=\"");
                         if (name_pos != std::string::npos) {
@@ -1317,7 +1316,7 @@ bool http_parser::parse_multipart_form_data(std::unordered_multimap<std::string,
 
 
 
-tribool http_parser::parse_chunks(http_message::chunk_cache_type& chunks, asio::error_code& ec) {
+sl::support::tribool http_parser::parse_chunks(http_message::chunk_cache_type& chunks, asio::error_code& ec) {
     //
     // note that tribool may have one of THREE states:
     //
@@ -1478,15 +1477,15 @@ tribool http_parser::parse_chunks(http_message::chunk_cache_type& chunks, asio::
     m_bytes_last_read = (m_read_ptr - read_start_ptr);
     m_bytes_total_read += m_bytes_last_read;
     m_bytes_content_read += m_bytes_last_read;
-    return indeterminate;
+    return sl::support::indeterminate;
 }
 
-tribool http_parser::consume_content(http_message& http_msg,
+sl::support::tribool http_parser::consume_content(http_message& http_msg,
     asio::error_code& /* ec */)
 {
     size_t content_bytes_to_read;
     size_t content_bytes_available = bytes_available();
-    tribool rc = indeterminate;
+    sl::support::tribool rc = sl::support::indeterminate;
 
     if (m_bytes_content_remaining == 0) {
         // we have all of the remaining payload content
@@ -1674,13 +1673,13 @@ http_parser::error_category_t& http_parser::get_error_category() {
     return *m_error_category_ptr;
 }
 
-void http_parser::finished_parsing_headers(const asio::error_code& /* ec */, tribool& /* rc */) { }
+void http_parser::finished_parsing_headers(const asio::error_code& /* ec */, sl::support::tribool& /* rc */) { }
 
 void http_parser::set_error(asio::error_code& ec, error_value_t ev) {
     ec = asio::error_code(static_cast<int> (ev), get_error_category());
 }
 
-const char* http_parser::error_category_t::name() const STATICLIB_HTTPSERVER_NOEXCEPT {
+const char* http_parser::error_category_t::name() const STATICLIB_NOEXCEPT {
     return "parser";
 }
 
@@ -1724,6 +1723,55 @@ std::string http_parser::error_category_t::message(int ev) const {
         return "missing too much content";
     }
     return "parser error";
+}
+
+bool http_parser::is_char(int c) {
+    return (c >= 0 && c <= 127);
+}
+
+bool http_parser::is_control(int c) {
+    return ( (c >= 0 && c <= 31) || c == 127);
+}
+
+bool http_parser::is_special(int c) {
+    switch (c) {
+    case '(': case ')': case '<': case '>': case '@':
+    case ',': case ';': case ':': case '\\': case '"':
+    case '/': case '[': case ']': case '?': case '=':
+    case '{': case '}': case ' ': case '\t':
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool http_parser::is_digit(int c) {
+    return (c >= '0' && c <= '9');
+}
+
+bool http_parser::is_hex_digit(int c) {
+    return ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'));
+}
+
+bool http_parser::is_cookie_attribute(const std::string& name, bool set_cookie_header) {
+    return (name.empty() || name[0] == '$' || (set_cookie_header &&
+            (
+            // This is needed because of a very lenient determination in parse_cookie_header() of what
+            // qualifies as a cookie-pair in a Set-Cookie header.
+            // According to RFC 6265, everything after the first semicolon is a cookie attribute, but RFC 2109,
+            // which is obsolete, allowed multiple comma separated cookies.
+            // parse_cookie_header() is very conservatively assuming that any <name>=<value> pair in a
+            // Set-Cookie header is a cookie-pair unless <name> is a known cookie attribute.
+            sl::utils::iequals(name, "Comment")
+            || sl::utils::iequals(name, "Domain")
+            || sl::utils::iequals(name, "Max-Age")
+            || sl::utils::iequals(name, "Path")
+            || sl::utils::iequals(name, "Secure")
+            || sl::utils::iequals(name, "Version")
+            || sl::utils::iequals(name, "Expires")
+            || sl::utils::iequals(name, "HttpOnly")
+            )
+            ));
 }
 
 } // namespace

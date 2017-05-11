@@ -30,9 +30,7 @@
 
 #include "asio.hpp"
 
-#include "staticlib/httpserver/config.hpp"
 #include "staticlib/httpserver/logger.hpp"
-#include "staticlib/httpserver/noncopyable.hpp"
 #include "staticlib/httpserver/scheduler.hpp"
 #include "staticlib/httpserver/tcp_connection.hpp"
 
@@ -41,7 +39,7 @@ namespace httpserver {
     
 // tcp::server member functions
 
-tcp_server::~tcp_server() STATICLIB_HTTPSERVER_NOEXCEPT {
+tcp_server::~tcp_server() STATICLIB_NOEXCEPT {
     if (m_is_listening) {
         try {
             stop(false);

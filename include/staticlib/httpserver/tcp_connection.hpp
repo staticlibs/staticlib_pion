@@ -36,9 +36,9 @@
     #include "asio/ssl.hpp"
 #endif
 
+#include "staticlib/config.hpp"
+
 #include "staticlib/httpserver/algorithm.hpp"
-#include "staticlib/httpserver/config.hpp"
-#include "staticlib/httpserver/noncopyable.hpp"
 
 namespace staticlib { 
 namespace httpserver {
@@ -46,8 +46,7 @@ namespace httpserver {
 /**
  * Represents a single tcp connection
  */
-class tcp_connection : public std::enable_shared_from_this<tcp_connection>, 
-        private staticlib::httpserver::noncopyable {    
+class tcp_connection : public std::enable_shared_from_this<tcp_connection> {    
     
 public:
 
@@ -157,6 +156,16 @@ public:
      */
     static std::shared_ptr<tcp_connection> create(asio::io_service& io_service,
             ssl_context_type& ssl_context, const bool ssl_flag, connection_handler finished_handler);
+
+    /**
+     * Deleted copy constructor
+     */
+    tcp_connection(const tcp_connection&) = delete;
+
+    /**
+     * Deleted copy assignment operator
+     */
+    tcp_connection& operator=(const tcp_connection&) = delete;
     
     /**
      * Virtual destructor

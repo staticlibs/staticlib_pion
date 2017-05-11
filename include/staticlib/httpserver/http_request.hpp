@@ -29,7 +29,8 @@
 #include <functional>
 #include <string>
 
-#include "staticlib/httpserver/config.hpp"
+#include "staticlib/config.hpp"
+
 #include "staticlib/httpserver/http_message.hpp"
 #include "staticlib/httpserver/http_parser.hpp"
 

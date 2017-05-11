@@ -26,6 +26,8 @@
 #ifndef STATICLIB_HTTPSERVER_SCHEDULER_HPP
 #define STATICLIB_HTTPSERVER_SCHEDULER_HPP
 
+#include <cassert>
+#include <cstdint>
 #include <chrono>
 #include <condition_variable>
 #include <functional>
@@ -33,13 +35,11 @@
 #include <mutex>
 #include <thread>
 #include <vector>
-#include <cassert>
-#include <cstdint>
 
 #include "asio.hpp"
 
-#include "staticlib/httpserver/noncopyable.hpp"
-#include "staticlib/httpserver/config.hpp"
+#include "staticlib/config.hpp"
+
 #include "staticlib/httpserver/logger.hpp"
 
 namespace staticlib { 
@@ -48,7 +48,7 @@ namespace httpserver {
 /**
  * Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads
  */
-class scheduler : private staticlib::httpserver::noncopyable {
+class scheduler {
     
 protected:
 
@@ -113,6 +113,16 @@ public:
      * Constructor
      */
     scheduler();
+    
+    /**
+     * Deleted copy constructor
+     */
+    scheduler(const scheduler&) = delete;
+
+    /**
+     * Deleted copy assignment operator
+     */
+    scheduler& operator=(const scheduler&) = delete;
     
     /**
      * Virtual destructor

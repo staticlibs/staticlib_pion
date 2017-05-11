@@ -91,7 +91,7 @@ void handle_not_found_request(http_request_ptr& request, tcp_connection_ptr& con
     writer->get_response().set_status_code(http_message::RESPONSE_CODE_NOT_FOUND);
     writer->get_response().set_status_message(http_message::RESPONSE_MESSAGE_NOT_FOUND);
     writer->write_no_copy(NOT_FOUND_MSG_START);
-    auto res = algorithm::xml_encode(request->get_resource());
+    auto res = request->get_resource();
     std::replace(res.begin(), res.end(), '"', '\'');
     writer->write_move(std::move(res));
     writer->write_no_copy(NOT_FOUND_MSG_FINISH);
@@ -110,9 +110,9 @@ void handle_server_error(http_request_ptr& request, tcp_connection_ptr& tcp_conn
     writer->get_response().set_status_code(http_message::RESPONSE_CODE_SERVER_ERROR);
     writer->get_response().set_status_message(http_message::RESPONSE_MESSAGE_SERVER_ERROR);
     writer->write_no_copy(SERVER_ERROR_MSG_START);
-    auto res = algorithm::xml_encode(error_msg);
-    std::replace(res.begin(), res.end(), '"', '\'');
-    writer->write_move(std::move(res));
+    auto err = std::string(error_msg.data(), error_msg.length());
+    std::replace(err.begin(), err.end(), '"', '\'');
+    writer->write_move(std::move(err));
     writer->write_no_copy(SERVER_ERROR_MSG_FINISH);
     writer->send();
 }
@@ -159,7 +159,7 @@ std::vector<std::reference_wrapper<T>> find_submatch_filters(
 
 } // namespace
 
-http_server::~http_server() STATICLIB_HTTPSERVER_NOEXCEPT { }
+http_server::~http_server() STATICLIB_NOEXCEPT { }
 
 http_server::http_server(uint32_t number_of_threads, uint16_t port,
         asio::ip::address_v4 ip_address
@@ -246,7 +246,7 @@ void http_server::handle_connection(tcp_connection_ptr& conn) {
     };
     reader_ptr my_reader_ptr = http_request_reader::create(conn, std::move(fh));
     http_request_reader::headers_parsing_finished_handler_type hpfh = [this](http_request_ptr request,
-            tcp_connection_ptr& conn, const asio::error_code& ec, tribool & rc) {
+            tcp_connection_ptr& conn, const asio::error_code& ec, sl::support::tribool & rc) {
         this->handle_request_after_headers_parsed(request, conn, ec, rc);
     };
     my_reader_ptr->set_headers_parsed_callback(std::move(hpfh));
@@ -254,7 +254,7 @@ void http_server::handle_connection(tcp_connection_ptr& conn) {
 }
 
 void http_server::handle_request_after_headers_parsed(http_request_ptr request,
-        tcp_connection_ptr& conn, const asio::error_code& ec, tribool& rc) {
+        tcp_connection_ptr& conn, const asio::error_code& ec, sl::support::tribool& rc) {
     if (ec || !rc) return;
     // http://stackoverflow.com/a/17390776/314015
     if ("100-continue" == request->get_header("Expect")) {

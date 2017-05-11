@@ -32,9 +32,9 @@
 
 #include "asio.hpp"
 
-#include "staticlib/httpserver/config.hpp"
+#include "staticlib/config.hpp"
+
 #include "staticlib/httpserver/logger.hpp"
-#include "staticlib/httpserver/noncopyable.hpp"
 #include "staticlib/httpserver/scheduler.hpp"
 #include "staticlib/httpserver/tcp_connection.hpp"
 
@@ -44,7 +44,7 @@ namespace httpserver {
 /**
  * Multi-threaded, asynchronous TCP server
  */
-class tcp_server : private staticlib::httpserver::noncopyable {
+class tcp_server {
 
 protected:
 
@@ -115,9 +115,19 @@ private:
 public:
 
     /**
+     * Deleted copy constructor
+     */
+    tcp_server(const tcp_server&) = delete;
+
+    /**
+     * Deleted copy assignment operator
+     */
+    tcp_server& operator=(const tcp_server&) = delete;
+
+    /**
      * Virtual destructor
      */
-    virtual ~tcp_server() STATICLIB_HTTPSERVER_NOEXCEPT;
+    virtual ~tcp_server() STATICLIB_NOEXCEPT;
     
     /**
      * Starts listening for new connections

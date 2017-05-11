@@ -31,11 +31,11 @@
 #include <string>
 #include <cstdint>
 
+#include "staticlib/config.hpp"
+#include "staticlib/support.hpp"
+
 #include "staticlib/httpserver/algorithm.hpp"
-#include "staticlib/httpserver/config.hpp"
 #include "staticlib/httpserver/logger.hpp"
-#include "staticlib/httpserver/noncopyable.hpp"
-#include "staticlib/httpserver/tribool.hpp"
 #include "staticlib/httpserver/http_message.hpp"
 
 namespace staticlib { 
@@ -48,7 +48,7 @@ class http_response;
 /**
  * Parses HTTP messages
  */
-class http_parser : private staticlib::httpserver::noncopyable {
+class http_parser {
 public:
 
     /**
@@ -96,7 +96,7 @@ public:
          * 
          * @return error category name
          */
-        const char *name() const STATICLIB_HTTPSERVER_NOEXCEPT;
+        const char *name() const STATICLIB_NOEXCEPT;
         
         /**
          * Returns error message for specified code
@@ -373,6 +373,16 @@ public:
     http_parser(const bool is_request, std::size_t max_content_length = DEFAULT_CONTENT_MAX);
 
     /**
+     * Deleted copy constructor
+     */
+    http_parser(const http_parser&) = delete;
+
+    /**
+     * Deleted copy assignment operator
+     */
+    http_parser& operator=(const http_parser&) = delete;
+    
+    /**
      * Default destructor
      */
     virtual ~http_parser();
@@ -388,7 +398,7 @@ public:
      *                        true = finished parsing HTTP message,
      *                        indeterminate = not yet finished parsing HTTP message
      */
-    staticlib::httpserver::tribool parse(http_message& http_msg, asio::error_code& ec);
+    sl::support::tribool parse(http_message& http_msg, asio::error_code& ec);
 
     /**
      * Finishes parsing an HTTP response message
@@ -664,7 +674,7 @@ public:
      *                        true = finished parsing HTTP message (no content),
      *                        indeterminate = payload content is available to be parsed
      */
-    staticlib::httpserver::tribool finish_header_parsing(http_message& http_msg, asio::error_code& ec);
+    sl::support::tribool finish_header_parsing(http_message& http_msg, asio::error_code& ec);
 
     /**
      * Parses an X-Forwarded-For HTTP header, and extracts from it an IP
@@ -692,7 +702,7 @@ protected:
      * @param 
      * @param 
      */
-    virtual void finished_parsing_headers(const asio::error_code& /* ec */, staticlib::httpserver::tribool& /* rc */);
+    virtual void finished_parsing_headers(const asio::error_code& /* ec */, sl::support::tribool& /* rc */);
     
     /**
      * Parses an HTTP message up to the end of the headers using bytes 
@@ -706,7 +716,7 @@ protected:
      *                        true = finished parsing HTTP headers,
      *                        indeterminate = not yet finished parsing HTTP headers
      */
-    staticlib::httpserver::tribool parse_headers(http_message& http_msg, asio::error_code& ec);
+    sl::support::tribool parse_headers(http_message& http_msg, asio::error_code& ec);
 
     /**
      * Updates an http::message object with data obtained from parsing headers
@@ -726,7 +736,7 @@ protected:
      *                        true = finished parsing message,
      *                        indeterminate = message is not yet finished
      */
-    staticlib::httpserver::tribool parse_chunks(http_message::chunk_cache_type& chunk_buffers, asio::error_code& ec);
+    sl::support::tribool parse_chunks(http_message::chunk_cache_type& chunk_buffers, asio::error_code& ec);
 
     /**
      * Consumes payload content in the parser's read buffer 
@@ -739,7 +749,7 @@ protected:
      *                        true = finished parsing message,
      *                        indeterminate = message is not yet finished
      */
-    staticlib::httpserver::tribool consume_content(http_message& http_msg, asio::error_code& ec);
+    sl::support::tribool consume_content(http_message& http_msg, asio::error_code& ec);
 
     /**
      * Consume the bytes available in the read buffer, converting them into
@@ -772,66 +782,19 @@ protected:
 
     // misc functions used by the parsing functions
     
-    inline static bool is_char(int c);
-    inline static bool is_control(int c);
-    inline static bool is_special(int c);
-    inline static bool is_digit(int c);
-    inline static bool is_hex_digit(int c);
-    inline static bool is_cookie_attribute(const std::string& name, bool set_cookie_header);
+    static bool is_char(int c);
+    
+    static bool is_control(int c);
+    
+    static bool is_special(int c);
+    
+    static bool is_digit(int c);
+    
+    static bool is_hex_digit(int c);
+    
+    static bool is_cookie_attribute(const std::string& name, bool set_cookie_header);
 
 };
-
-
-// inline functions for parser
-
-inline bool http_parser::is_char(int c) {
-    return(c >= 0 && c <= 127);
-}
-
-inline bool http_parser::is_control(int c) {
-    return( (c >= 0 && c <= 31) || c == 127);
-}
-
-inline bool http_parser::is_special(int c) {
-    switch (c) {
-    case '(': case ')': case '<': case '>': case '@':
-    case ',': case ';': case ':': case '\\': case '"':
-    case '/': case '[': case ']': case '?': case '=':
-    case '{': case '}': case ' ': case '\t':
-        return true;
-    default:
-        return false;
-    }
-}
-
-inline bool http_parser::is_digit(int c) {
-    return(c >= '0' && c <= '9');
-}
-
-inline bool http_parser::is_hex_digit(int c) {
-    return((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'));
-}
-
-inline bool http_parser::is_cookie_attribute(const std::string& name, bool set_cookie_header) {
-    return (name.empty() || name[0] == '$' || (set_cookie_header &&
-        (
-            // This is needed because of a very lenient determination in parse_cookie_header() of what
-            // qualifies as a cookie-pair in a Set-Cookie header.
-            // According to RFC 6265, everything after the first semicolon is a cookie attribute, but RFC 2109,
-            // which is obsolete, allowed multiple comma separated cookies.
-            // parse_cookie_header() is very conservatively assuming that any <name>=<value> pair in a
-            // Set-Cookie header is a cookie-pair unless <name> is a known cookie attribute.
-               algorithm::iequals(name, "Comment")
-            || algorithm::iequals(name, "Domain")
-            || algorithm::iequals(name, "Max-Age")
-            || algorithm::iequals(name, "Path")
-            || algorithm::iequals(name, "Secure")
-            || algorithm::iequals(name, "Version")
-            || algorithm::iequals(name, "Expires")
-            || algorithm::iequals(name, "HttpOnly")
-        )
-    ));
-}
 
 } // namespace
 }

@@ -26,19 +26,20 @@
 #ifndef STATICLIB_HTTPSERVER_HTTP_MESSAGE_HPP
 #define STATICLIB_HTTPSERVER_HTTP_MESSAGE_HPP
 
+#include <cstring>
+#include <cstdint>
 #include <iosfwd>
 #include <memory>
 #include <regex>
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <cstring>
-#include <cstdint>
 
 #include "asio.hpp"
 
+#include "staticlib/config.hpp"
+
 #include "staticlib/httpserver/algorithm.hpp"
-#include "staticlib/httpserver/config.hpp"
 
 namespace staticlib { 
 namespace httpserver {
@@ -96,14 +97,14 @@ public:
         /**
          * Destructor
          */
-        virtual ~receive_error_t() STATICLIB_HTTPSERVER_NOEXCEPT;
+        virtual ~receive_error_t() STATICLIB_NOEXCEPT;
 
         /**
          * Returns error category name
          * 
          * @return error category name
          */
-        virtual const char* name() const STATICLIB_HTTPSERVER_NOEXCEPT;
+        virtual const char* name() const STATICLIB_NOEXCEPT;
 
         /**
          * Returns error message for specified code

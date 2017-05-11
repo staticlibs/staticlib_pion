@@ -25,17 +25,18 @@
 
 #include "staticlib/httpserver/http_message.hpp"
 
-#include <iostream>
-#include <algorithm>
-#include <mutex>
-#include <cassert>
 #include <cstdlib>
 #include <cstdio>
 #include <ctime>
+#include <iostream>
+#include <algorithm>
+#include <mutex>
 
 #include "asio.hpp"
 
-#include "staticlib/httpserver/tribool.hpp"
+#include "staticlib/support.hpp"
+#include "staticlib/utils.hpp"
+
 #include "staticlib/httpserver/http_request.hpp"
 #include "staticlib/httpserver/http_parser.hpp"
 #include "staticlib/httpserver/tcp_connection.hpp"
@@ -43,9 +44,9 @@
 namespace staticlib { 
 namespace httpserver {
 
-http_message::receive_error_t::~receive_error_t() STATICLIB_HTTPSERVER_NOEXCEPT { }
+http_message::receive_error_t::~receive_error_t() STATICLIB_NOEXCEPT { }
 
-const char* http_message::receive_error_t::name() const STATICLIB_HTTPSERVER_NOEXCEPT {
+const char* http_message::receive_error_t::name() const STATICLIB_NOEXCEPT {
     return "receive_error_t";
 }
 
@@ -233,9 +234,9 @@ uint16_t http_message::get_version_minor() const {
 
 std::string http_message::get_version_string() const {
     std::string http_version(STRING_HTTP_VERSION);
-    http_version += algorithm::to_string(get_version_major());
+    http_version += sl::support::to_string(get_version_major());
     http_version += '.';
-    http_version += algorithm::to_string(get_version_minor());
+    http_version += sl::support::to_string(get_version_minor());
     return http_version;
 }
 
@@ -373,8 +374,8 @@ void http_message::update_content_length_using_header() {
         m_content_length = 0;
     } else {
         std::string trimmed_length(i->second);
-        algorithm::trim(trimmed_length);
-        m_content_length = algorithm::parse_sizet(trimmed_length);
+        sl::utils::trim(trimmed_length);
+        m_content_length = static_cast<size_t>(sl::utils::parse_uint64(trimmed_length));
     }
 }
 
@@ -452,9 +453,9 @@ std::string http_message::make_query_string(const std::unordered_multimap<std::s
         if (i != query_params.begin()) {
             query_string += '&';
         }
-        query_string += algorithm::url_encode(i->first);
+        query_string += sl::utils::url_encode(i->first);
         query_string += '=';
-        query_string += algorithm::url_encode(i->second);
+        query_string += sl::utils::url_encode(i->second);
     }
     return query_string;
 }
@@ -472,7 +473,7 @@ std::string http_message::make_set_cookie_header(const std::string& name, const 
     }
     if (has_max_age) {
         set_cookie_header += "; Max-Age=";
-        set_cookie_header += algorithm::to_string(max_age);
+        set_cookie_header += sl::support::to_string(max_age);
     }
     return set_cookie_header;
 }
@@ -526,13 +527,13 @@ std::size_t http_message::receive(tcp_connection& tcp_conn,
         // read buffer is empty (not pipelined) -> read some bytes from the connection
         last_bytes_read = tcp_conn.read_some(ec);
         if (ec) return 0;
-        assert(last_bytes_read > 0);
+        // assert(last_bytes_read > 0);
         http_parser.set_read_buffer(tcp_conn.get_read_buffer().data(), last_bytes_read);
     }
 
     // incrementally read and parse bytes from the connection
     bool force_connection_closed = false;
-    tribool parse_result;
+    sl::support::tribool parse_result;
     for (;;) {
         // parse bytes available in the read buffer
         parse_result = http_parser.parse(*this, ec);
@@ -644,7 +645,7 @@ std::size_t http_message::read(std::istream& in,
     ec.clear();
     
     // parse data from file one byte at a time
-    tribool parse_result;
+    sl::support::tribool parse_result;
     char c;
     while (in) {
         in.read(&c, 1);
@@ -759,7 +760,7 @@ void http_message::prepare_headers_for_send(const bool keep_alive, const bool us
             change_header(HEADER_TRANSFER_ENCODING, "chunked");
         }
     } else if (!m_do_not_send_content_length) {
-        change_header(HEADER_CONTENT_LENGTH, algorithm::to_string(get_content_length()));
+        change_header(HEADER_CONTENT_LENGTH, sl::support::to_string(get_content_length()));
     }
 }
 

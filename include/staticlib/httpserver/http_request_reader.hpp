@@ -31,7 +31,8 @@
 
 #include "asio.hpp"
 
-#include "staticlib/httpserver/config.hpp"
+#include "staticlib/config.hpp"
+
 #include "staticlib/httpserver/http_parser.hpp"
 #include "staticlib/httpserver/http_request.hpp"
 #include "staticlib/httpserver/tcp_connection.hpp"
@@ -58,7 +59,7 @@ public:
      * Function called after the HTTP message has been parsed
      */
     using headers_parsing_finished_handler_type = std::function<void(http_request_ptr, 
-            tcp_connection_ptr&, const asio::error_code&, staticlib::httpserver::tribool& rc)>;    
+            tcp_connection_ptr&, const asio::error_code&, sl::support::tribool& rc)>;    
     
 private:
 
@@ -175,7 +176,7 @@ private:
      * @param ec error code reference
      * @param rc result code reference
      */
-    void finished_parsing_headers(const asio::error_code& ec, staticlib::httpserver::tribool& rc);
+    void finished_parsing_headers(const asio::error_code& ec, sl::support::tribool& rc);
 
     /**
      * Reads more bytes from the TCP connection

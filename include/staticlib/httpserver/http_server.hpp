@@ -24,15 +24,16 @@
 #ifndef STATICLIB_HTTPSERVER_HTTP_SERVER_HPP
 #define	STATICLIB_HTTPSERVER_HTTP_SERVER_HPP
 
+#include <cstdint>
 #include <vector>
 #include <unordered_map>
 #include <utility>
-#include <cstdint>
 
 #include "asio.hpp"
 
-#include "staticlib/httpserver/config.hpp"
-#include "staticlib/httpserver/tribool.hpp"
+#include "staticlib/config.hpp"
+#include "staticlib/support.hpp"
+
 #include "staticlib/httpserver/http_parser.hpp"
 #include "staticlib/httpserver/http_request.hpp"
 #include "staticlib/httpserver/tcp_connection.hpp"
@@ -181,7 +182,7 @@ protected:
     filter_map_type options_filters;
 
 public:
-    ~http_server() STATICLIB_HTTPSERVER_NOEXCEPT;
+    ~http_server() STATICLIB_NOEXCEPT;
     
     /**
      * Creates a new server object
@@ -279,7 +280,7 @@ protected:
      * @param rc parsing result code, false: abort, true: ignore_body, indeterminate: continue
      */
     virtual void handle_request_after_headers_parsed(http_request_ptr request,
-            tcp_connection_ptr& conn, const asio::error_code& ec, staticlib::httpserver::tribool& rc);
+            tcp_connection_ptr& conn, const asio::error_code& ec, sl::support::tribool& rc);
 
     /**
      * Handles a new HTTP request

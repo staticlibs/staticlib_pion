@@ -26,7 +26,7 @@
 #ifndef STATICLIB_HTTPSERVER_LOGGER_HPP
 #define STATICLIB_HTTPSERVER_LOGGER_HPP
 
-#include "staticlib/httpserver/config.hpp"
+#include "staticlib/config.hpp"
 
 #if defined(STATICLIB_HTTPSERVER_USE_LOG4CPLUS)
 

@@ -80,7 +80,7 @@ void http_request_reader::consume_bytes() {
     // indeterminate: parsed bytes, but the message is not yet finished
     //
     asio::error_code ec;
-    tribool result = parse(get_message(), ec);
+    sl::support::tribool result = parse(get_message(), ec);
 
     if (gcount() > 0) {
         // parsed > 0 bytes in HTTP headers
@@ -191,7 +191,7 @@ void http_request_reader::read_bytes(void) {
     });
 }
 
-void http_request_reader::finished_parsing_headers(const asio::error_code& ec, tribool& rc) {
+void http_request_reader::finished_parsing_headers(const asio::error_code& ec, sl::support::tribool& rc) {
     // call the finished headers handler with the HTTP message
     if (m_parsed_headers) m_parsed_headers(m_http_msg, get_connection(), ec, rc);
 }

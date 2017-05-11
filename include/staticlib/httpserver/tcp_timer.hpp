@@ -26,14 +26,15 @@
 #ifndef STATICLIB_HTTPSERVER_TCP_TIMER_HPP
 #define STATICLIB_HTTPSERVER_TCP_TIMER_HPP
 
+#include <cstdint>
 #include <functional>
 #include <memory>
 #include <mutex>
-#include <cstdint>
 
 #include "asio.hpp"
 
-#include "staticlib/httpserver/config.hpp"
+#include "staticlib/config.hpp"
+
 #include "staticlib/httpserver/tcp_connection.hpp"
 
 namespace staticlib { 

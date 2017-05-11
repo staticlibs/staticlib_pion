@@ -32,7 +32,6 @@
 
 #include "asio.hpp"
 
-#include "staticlib/httpserver/config.hpp"
 #include "staticlib/httpserver/logger.hpp"
 #include "staticlib/httpserver/http_response_writer.hpp"
 #include "staticlib/httpserver/http_server.hpp"

@@ -34,9 +34,9 @@
 
 #include "asio.hpp"
 
-#include "staticlib/httpserver/config.hpp"
+#include "staticlib/config.hpp"
+
 #include "staticlib/httpserver/logger.hpp"
-#include "staticlib/httpserver/noncopyable.hpp"
 #include "staticlib/httpserver/http_message.hpp"
 #include "staticlib/httpserver/http_response.hpp"
 #include "staticlib/httpserver/tcp_connection.hpp"
@@ -47,8 +47,7 @@ namespace httpserver {
 /**
  * Sends HTTP data asynchronously
  */
-class http_response_writer : public std::enable_shared_from_this<http_response_writer>, 
-        private staticlib::httpserver::noncopyable {
+class http_response_writer : public std::enable_shared_from_this<http_response_writer> {
     
 public:
     
@@ -160,6 +159,16 @@ private:
     std::string m_response_line;
         
 public:
+
+    /**
+     * Deleted copy constructor
+     */
+    http_response_writer(const http_response_writer&) = delete;
+
+    /**
+     * Deleted copy assignment operator
+     */
+    http_response_writer& operator=(const http_response_writer&) = delete;
 
     /**
      * Creates new response_writer objects

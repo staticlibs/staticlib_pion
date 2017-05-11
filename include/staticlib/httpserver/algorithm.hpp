@@ -26,12 +26,12 @@
 #ifndef STATICLIB_HTTPSERVER_ALGORITHM_HPP
 #define STATICLIB_HTTPSERVER_ALGORITHM_HPP
 
-#include <functional>
-#include <sstream>
-#include <string>
 #include <cstdint>
+#include <functional>
+#include <string>
 
-#include "staticlib/httpserver/config.hpp"
+#include "staticlib/config.hpp"
+#include "staticlib/utils.hpp"
 
 namespace staticlib { 
 namespace httpserver {
@@ -54,83 +54,7 @@ namespace algorithm {
     static void hash_combine(std::size_t& seed, const T& v) {
         std::hash<T> hasher;
         seed ^= hasher(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-    }
-    
-    /**
-     * Implementation of C++11 "std::to_string" function for the compilers
-     * that do not support it. Uses "std::stringstream".
-     * 
-     * @param t value to stringify
-     * @return string representation of specified value
-     */
-    template<typename T>
-    static std::string to_string(T t) {
-        std::stringstream ss{};
-        ss << t;
-        return ss.str();
-    }
-
-    /**
-     * Case insensitive byte-to-byte string comparison, does not support Unicode
-     * 
-     * @param str1 first string
-     * @param str2 seconds string
-     * @return true if strings equal ignoring case, false otherwise
-     */
-    // http://stackoverflow.com/a/27813
-    bool iequals(const std::string& str1, const std::string& str2);
-    
-    /**
-     * Parse "size_t" integer from specified string
-     * 
-     * @param str string containing integer
-     * @return parsed value
-     * @throws std::runtime_error on parse error
-     */
-    size_t parse_sizet(const std::string& str);
-
-    /**
-     * Parse "uint16_t" integer from specified string
-     * 
-     * @param str string containing integer
-     * @return parsed value
-     * @throws std::runtime_error on parse error
-     */
-    uint16_t parse_uint16(const std::string& str);
-    
-    /**
-     * Trims specified string from left and from right using "std::isspace"
-     * to check empty bytes, does not support Unicode
-     * 
-     * @param s string to trim
-     * @return trimmed string
-     */
-    std::string trim(const std::string& s);
-    
-    /**
-     * Unescapes specified URL-encoded string (a%20value+with%20spaces)
-     * 
-     * @param str URL-encoded string
-     * @return unescaped (plain) string
-     */
-    std::string url_decode(const std::string& str);
-
-    /**
-     * Encodes specified string so that it is safe for URLs (with%20spaces)
-     * 
-     * @param str string to encode
-     * @return escaped string
-     */
-    std::string url_encode(const std::string& str);
-
-    /**
-     * Escapes specified string so it is safe to use inside XML/HTML (2 &gt; 1)
-     * 
-     * @param str string to escape
-     * @return escaped string
-     */
-    std::string xml_encode(const std::string& str);
-    
+    }         
 
     /**
      * Case insensitive string equality predicate
@@ -144,7 +68,9 @@ namespace algorithm {
          * @param y seconds string
          * @return true if strings equal ignoring case, false otherwise
          */
-        bool operator()(std::string const& x, std::string const& y) const;
+        bool operator()(std::string const& x, std::string const& y) const {
+            return sl::utils::iequals(x, y);
+        }
     };
 
     /**
@@ -158,7 +84,14 @@ namespace algorithm {
          * @param x string to compute hash on
          * @return hash value
          */
-        std::size_t operator()(std::string const& x) const;
+        std::size_t operator()(std::string const& x) const {
+            std::size_t seed = 0;
+            std::locale locale;
+            for (std::string::const_iterator it = x.begin(); it != x.end(); ++it) {
+                algorithm::hash_combine(seed, std::toupper(*it, locale));
+            }
+            return seed;
+        }
     };
     
 } // namespace

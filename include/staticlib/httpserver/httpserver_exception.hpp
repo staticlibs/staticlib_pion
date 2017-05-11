@@ -27,7 +27,7 @@
 #include <exception>
 #include <string>
 
-#include "staticlib/httpserver/config.hpp"
+#include "staticlib/config.hpp"
 
 namespace staticlib { 
 namespace httpserver {
@@ -61,7 +61,7 @@ public:
      * 
      * @return error message
      */
-    virtual const char* what() const STATICLIB_HTTPSERVER_NOEXCEPT override {
+    virtual const char* what() const STATICLIB_NOEXCEPT override {
         return message.c_str();
     }
 };

@@ -28,8 +28,9 @@
 
 #include <memory>
 
+#include "staticlib/config.hpp"
+
 #include "staticlib/httpserver/algorithm.hpp"
-#include "staticlib/httpserver/config.hpp"
 #include "staticlib/httpserver/http_message.hpp"
 #include "staticlib/httpserver/http_request.hpp"
 

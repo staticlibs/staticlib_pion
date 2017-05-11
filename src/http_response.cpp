@@ -16,6 +16,8 @@
 
 #include "staticlib/httpserver/http_response.hpp"
 
+#include "staticlib/support.hpp"
+
 #include "staticlib/httpserver/algorithm.hpp"
 
 namespace staticlib {
@@ -135,7 +137,7 @@ void http_response::update_first_line() const {
     m_first_line = get_version_string();
     m_first_line += ' ';
     // append the response status code
-    m_first_line += algorithm::to_string(m_status_code);
+    m_first_line += sl::support::to_string(m_status_code);
     m_first_line += ' ';
     // append the response status message
     m_first_line += m_status_message;

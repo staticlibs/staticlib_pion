@@ -30,7 +30,6 @@
 #include <vector>
 #include <cstdint>
 
-#include "staticlib/httpserver/noncopyable.hpp"
 #include "staticlib/httpserver/http_server.hpp"
 
 namespace staticlib { 
@@ -42,7 +41,7 @@ namespace httpserver {
  * 'filter_chain.do_filter(...)'. In that case filter itself should handle the request.
  * Filter must not write anything to response if it won't going to stop filter chain.
  */
-class http_filter_chain : staticlib::httpserver::noncopyable {
+class http_filter_chain {
 private:  
     /**
      * A list of filters to apply sequentially
@@ -66,6 +65,16 @@ public:
      */
     http_filter_chain(std::vector<std::reference_wrapper<http_server::request_filter_type>> filters, 
             http_server::request_handler_type request_handler);
+
+    /**
+     * Deleted copy constructor
+     */
+    http_filter_chain(const http_filter_chain&) = delete;
+
+    /**
+     * Deleted copy assignment operator
+     */
+    http_filter_chain& operator=(const http_filter_chain&) = delete;
     
     /**
      * Applies current filter and gives it the ability to continue filter chain
