@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cmake_minimum_required ( VERSION 2.8.11 )
+cmake_minimum_required ( VERSION 2.8.12 )
 
 # enhanced version of pkg_check_modules macro with PKG_CONFIG_PATH logic
 # PKG_CONFIG_PATH handling through CMAKE_PREFIX_PATH was added in newer versions of CMake
