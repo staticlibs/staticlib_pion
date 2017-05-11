@@ -50,38 +50,43 @@ if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
 endif ( )
 if ( NOT DEFINED STATICLIB_TOOLCHAIN )
     if ( NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux" )
+        staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_asio )
         if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
             staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_log4cplus )
         endif ( )
         if ( ${PROJECT_NAME}_USE_OPENSSL )
             staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_openssl )
         endif ( )
+        staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_config )
+        staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_support )
     endif (  )
 endif ( )
 
 # dependencies
-set ( ${PROJECT_NAME}_DEPS "" )
+set ( ${PROJECT_NAME}_DEPS staticlib_config staticlib_support asio )
 if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
     set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} log4cplus )
 endif ( )
 if ( ${PROJECT_NAME}_USE_OPENSSL )
     set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} openssl )
 endif ( )
-if ( ${PROJECT_NAME}_USE_LOG4CPLUS OR ${PROJECT_NAME}_USE_OPENSSL )
-    staticlib_httpserver_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
-endif ( )
+staticlib_httpserver_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 
 # library
 file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
 file ( GLOB_RECURSE ${PROJECT_NAME}_HEADERS ${CMAKE_CURRENT_LIST_DIR}/include/*.hpp )
+
 add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} ${${PROJECT_NAME}_HEADERS} )
 source_group ( "src" FILES ${${PROJECT_NAME}_SRC} )
 source_group ( "include" FILES ${${PROJECT_NAME}_HEADERS} )
+
 set ( ${PROJECT_NAME}_DEFINITIONS
         -DASIO_STANDALONE
         -DASIO_HAS_STD_CHRONO )
+
 set ( ${PROJECT_NAME}_OPTIONS "" )
 set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_DEFINITIONS} )
+
 if ( ${CMAKE_CXX_COMPILER_ID}x MATCHES "MSVCx" )    
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS}
             -D_CRT_SECURE_NO_WARNINGS
@@ -93,18 +98,22 @@ if ( ${CMAKE_CXX_COMPILER_ID}x MATCHES "MSVCx" )
             -D_WIN32_WINNT=0x0501
             -DWIN32_LEAN_AND_MEAN )
 endif ( )
+
 if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_HTTPSERVER_USE_LOG4CPLUS )
     set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_HTTPSERVER_USE_LOG4CPLUS )
 endif ( )
+
 if ( ${PROJECT_NAME}_USE_OPENSSL )
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_HTTPSERVER_HAVE_SSL )
     set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_HTTPSERVER_HAVE_SSL )
 endif ( )
+
 if ( ${PROJECT_NAME}_DISABLE_LOGGING ) 
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_HTTPSERVER_DISABLE_LOGGING )
     set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_HTTPSERVER_DISABLE_LOGGING )
 endif ( )
+
 if ( ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" )
     execute_process( COMMAND ${CMAKE_CXX_COMPILER} --version OUTPUT_VARIABLE CLANG_FULL_VERSION_STRING )
     string (REGEX REPLACE "^(Apple LLVM version|clang version) ([0-9]+\\.[0-9]+).*" "\\2" CLANG_VERSION_STRING ${CLANG_FULL_VERSION_STRING})
@@ -115,33 +124,26 @@ if ( ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" )
         set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -Wno-unused-local-typedef )
     endif ( )
 endif ( )
+
 if ( ${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" )
     # asio warnings with openssl on
     set ( ${PROJECT_NAME}_OPTIONS ${${PROJECT_NAME}_OPTIONS} -Wno-unused-variable )
     set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -Wno-unused-variable )
 endif ( )
-set ( ${PROJECT_NAME}_INCLUDES
-        ${CMAKE_CURRENT_LIST_DIR}/include
-        ${CMAKE_CURRENT_LIST_DIR}/asio/asio/include )
+
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE 
-        ${${PROJECT_NAME}_INCLUDES} 
+        ${CMAKE_CURRENT_LIST_DIR}/include
         ${${PROJECT_NAME}_DEPS_PC_INCLUDE_DIRS} )
+
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_DEFINITIONS} )
-target_compile_options ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_OPTIONS} )
-if ( TARGET external_log4cplus )
-    add_dependencies ( ${PROJECT_NAME} external_log4cplus )
-endif ( )
-if ( TARGET external_openssl )
-    add_dependencies ( ${PROJECT_NAME} external_openssl )
-endif ( )
-if ( TARGET external_icu )
-    add_dependencies ( ${PROJECT_NAME} external_icu )
-endif ( )
+
+target_compile_options ( ${PROJECT_NAME} PRIVATE 
+    ${${PROJECT_NAME}_OPTIONS}
+    ${${PROJECT_NAME}_DEPS_PC_CFLAGS_OTHER} )
 
 # pkg-config
-staticlib_httpserver_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_INC "-I" ${PROJECT_NAME}_INCLUDES )
 staticlib_httpserver_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_OTHER "" ${PROJECT_NAME}_CFLAGS_PUBLIC )
-set ( ${PROJECT_NAME}_PC_CFLAGS "${${PROJECT_NAME}_PC_CFLAGS_INC}${${PROJECT_NAME}_PC_CFLAGS_OTHER}" )
+set ( ${PROJECT_NAME}_PC_CFLAGS "-I${CMAKE_CURRENT_LIST_DIR}/include ${${PROJECT_NAME}_PC_CFLAGS_OTHER}" )
 set ( ${PROJECT_NAME}_PC_LIBS "-L${CMAKE_LIBRARY_OUTPUT_DIRECTORY} -l${PROJECT_NAME}" )
 if ( CMAKE_SYSTEM_NAME STREQUAL "Linux" )
     set ( ${PROJECT_NAME}_PC_LIBS "${${PROJECT_NAME}_PC_LIBS} -lpthread" )
