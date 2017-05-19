@@ -23,8 +23,8 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#ifndef STATICLIB_HTTPSERVER_SCHEDULER_HPP
-#define STATICLIB_HTTPSERVER_SCHEDULER_HPP
+#ifndef STATICLIB_PION_SCHEDULER_HPP
+#define STATICLIB_PION_SCHEDULER_HPP
 
 #include <cassert>
 #include <cstdint>
@@ -40,10 +40,10 @@
 
 #include "staticlib/config.hpp"
 
-#include "staticlib/httpserver/logger.hpp"
+#include "staticlib/pion/logger.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 /**
  * Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads
@@ -366,4 +366,4 @@ protected:
 } // namespace
 }
 
-#endif // STATICLIB_HTTPSERVER_SCHEDULER_HPP
+#endif // STATICLIB_PION_SCHEDULER_HPP

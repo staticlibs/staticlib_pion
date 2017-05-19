@@ -21,19 +21,19 @@
  * Created on September 22, 2015, 11:26 AM
  */
 
-#ifndef STATICLIB_HTTPSERVER_HTTP_FILTER_CHAIN_HPP
-#define	STATICLIB_HTTPSERVER_HTTP_FILTER_CHAIN_HPP
+#ifndef STATICLIB_PION_HTTP_FILTER_CHAIN_HPP
+#define	STATICLIB_PION_HTTP_FILTER_CHAIN_HPP
 
+#include <cstdint>
 #include <atomic>
 #include <functional>
 #include <memory>
 #include <vector>
-#include <cstdint>
 
-#include "staticlib/httpserver/http_server.hpp"
+#include "staticlib/pion/http_server.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 /**
  * A number of filters that executes sequentially. Request handler is executed after
@@ -91,5 +91,5 @@ public:
 } // namespace
 }
 
-#endif	/* STATICLIB_HTTPSERVER_HTTP_FILTER_CHAIN_HPP */
+#endif	/* STATICLIB_PION_HTTP_FILTER_CHAIN_HPP */
 

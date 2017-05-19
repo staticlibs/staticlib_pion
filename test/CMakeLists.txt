@@ -22,22 +22,22 @@ endif ( )
 set ( CMAKE_TOOLCHAIN_FILE ${STATICLIB_CMAKE}/toolchains/${STATICLIB_TOOLCHAIN}.cmake CACHE INTERNAL "" )
 
 # project
-project ( staticlib_httpserver_test CXX )
+project ( staticlib_pion_test CXX )
 include ( ${STATICLIB_CMAKE}/staticlibs_common.cmake )
 
 # dependencies
 # options, use SET ( OPTNAME ON CACHE BOOL "") in parent to override
-set ( staticlib_httpserver_USE_LOG4CPLUS ON CACHE BOOL "" )
-set ( staticlib_httpserver_USE_OPENSSL ON CACHE BOOL "" )
+set ( staticlib_pion_USE_LOG4CPLUS ON CACHE BOOL "" )
+set ( staticlib_pion_USE_OPENSSL ON CACHE BOOL "" )
 if ( NOT DEFINED STATICLIB_DEPS )
     set ( STATICLIB_DEPS ${CMAKE_CURRENT_LIST_DIR}/../../ CACHE INTERNAL "" )    
 endif ( )
 if ( NOT STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_[^_]+" )
     staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_asio )
-    if ( staticlib_httpserver_USE_LOG4CPLUS )
+    if ( staticlib_pion_USE_LOG4CPLUS )
         staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_log4cplus )
     endif ( )
-    if ( staticlib_httpserver_USE_OPENSSL AND ( NOT STATICLIB_TOOLCHAIN MATCHES "alpine_[^_]+_[^_]+" ) )
+    if ( staticlib_pion_USE_OPENSSL AND ( NOT STATICLIB_TOOLCHAIN MATCHES "alpine_[^_]+_[^_]+" ) )
         staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_openssl )
     endif ( )
 endif ( )
@@ -45,8 +45,8 @@ staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_config )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_support )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_concurrent )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_utils )
-staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_httpserver )
-set ( ${PROJECT_NAME}_DEPS staticlib_httpserver )
+staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_pion )
+set ( ${PROJECT_NAME}_DEPS staticlib_pion )
 staticlib_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 
 # tests

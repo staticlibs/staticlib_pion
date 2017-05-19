@@ -23,8 +23,8 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#ifndef STATICLIB_HTTPSERVER_HTTP_MESSAGE_HPP
-#define STATICLIB_HTTPSERVER_HTTP_MESSAGE_HPP
+#ifndef STATICLIB_PION_HTTP_MESSAGE_HPP
+#define STATICLIB_PION_HTTP_MESSAGE_HPP
 
 #include <cstring>
 #include <cstdint>
@@ -39,10 +39,10 @@
 
 #include "staticlib/config.hpp"
 
-#include "staticlib/httpserver/algorithm.hpp"
+#include "staticlib/pion/algorithm.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 	
 // forward declaration for class used by send() and receive()
 class tcp_connection;
@@ -901,4 +901,4 @@ protected:
 } // namespace
 }
 
-#endif // STATICLIB_HTTPSERVER_HTTP_MESSAGE_HPP
+#endif // STATICLIB_PION_HTTP_MESSAGE_HPP

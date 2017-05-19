@@ -14,9 +14,9 @@ project ([description](http://sourceforge.net/p/pion/mailman/message/32075645/))
  - namespaces and classes renamed
  - Doxygen comments reformatted
 
-Link to the [API documentation](http://staticlibs.github.io/staticlib_httpserver/docs/html/namespacestaticlib_1_1httpserver.html).
+Link to the [API documentation](http://staticlibs.github.io/staticlib_pion/docs/html/namespacestaticlib_1_1httpserver.html).
 
-Usage [example](https://github.com/staticlibs/staticlib_httpserver/blob/master/test/pion_test.cpp).
+Usage [example](https://github.com/staticlibs/staticlib_pion/blob/master/test/pion_test.cpp).
 
 How to build
 ------------
@@ -27,12 +27,16 @@ To build the library on Windows using Visual Studio 2013 Express run the followi
 Visual Studio development command prompt 
 (`C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\Shortcuts\VS2013 x86 Native Tools Command Prompt`):
 
-    git clone --recursive https://github.com/staticlibs/staticlib_httpserver.git
-    cd staticlib_httpserver
+    git clone https://github.com/staticlibs/staticlib_config.git
+    git clone https://github.com/staticlibs/staticlib_support.git
+    git clone https://github.com/staticlibs/staticlib_concurrent.git
+    git clone https://github.com/staticlibs/staticlib_utils.git
+    git clone https://github.com/staticlibs/staticlib_pion.git
+    cd staticlib_pion
     mkdir build
     cd build
     cmake ..
-    msbuild staticlib_httpserver.sln
+    msbuild staticlib_pion.sln
 
 To build on other platforms using GCC or Clang with GNU Make:
 
@@ -49,7 +53,7 @@ This project has optional support for `OpenSSL` library to enable HTTPS and for 
 for logging. On Linux development versions of these libraries must be installed. 
 For other platforms - see notes about `pkg-config` below. To configure build with these dependencies run:
 
-    cmake .. -Dstaticlib_httpserver_USE_LOG4CPLUS=ON -Dstaticlib_httpserver_USE_OPENSSL=ON
+    cmake .. -Dstaticlib_pion_USE_LOG4CPLUS=ON -Dstaticlib_pion_USE_OPENSSL=ON
 
 [pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config/) utility is used for dependency management.
 For Windows users ready-to-use binary version of `pkg-config` can be obtained from [tools_windows_pkgconfig](https://github.com/staticlibs/tools_windows_pkgconfig) repository.
@@ -60,7 +64,7 @@ To build this project with `OpenSSL` and `log4cplus` support manually on
 platforms without corresponding system libraries you can use 
 [external_openssl](https://github.com/staticlibs/external_openssl) and 
 [external_log4cplus](https://github.com/staticlibs/external_log4cplus) projects - checkout
-these projects (using `--recursive` flag) next to staticlib_httpserver sources before running CMake command above.
+these projects (using `--recursive` flag) next to staticlib_pion sources before running CMake command above.
 
 License information
 -------------------
@@ -69,6 +73,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2017-05-19**
+
+ * version 5.0.7-14
+ * rename back to `pion`
 
 **2016-10-29**
 

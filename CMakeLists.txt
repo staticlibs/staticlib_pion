@@ -15,10 +15,10 @@
 cmake_minimum_required ( VERSION 2.8.12 )
 
 # project
-project ( staticlib_httpserver CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7-13 )
+project ( staticlib_pion CXX )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7-14 )
 set ( ${PROJECT_NAME}_DESCRIPTION "Embedded async HTTP 1.1 server based on a source code from https://github.com/splunk/pion" )
-set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_httpserver )
+set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_pion )
 include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
 
 # docs
@@ -50,17 +50,17 @@ if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
 endif ( )
 if ( NOT DEFINED STATICLIB_TOOLCHAIN )
     if ( NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux" )
-        staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_asio )
+        staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_asio )
         if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
-            staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_log4cplus )
+            staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_log4cplus )
         endif ( )
         if ( ${PROJECT_NAME}_USE_OPENSSL )
-            staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_openssl )
+            staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_openssl )
         endif ( )
-        staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_config )
-        staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_support )
-        staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_concurrent )
-        staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_utils )
+        staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_config )
+        staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_support )
+        staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_concurrent )
+        staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_utils )
     endif (  )
 endif ( )
 
@@ -77,7 +77,7 @@ endif ( )
 if ( ${PROJECT_NAME}_USE_OPENSSL )
     set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} openssl )
 endif ( )
-staticlib_httpserver_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
+staticlib_pion_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 
 # library
 file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
@@ -101,25 +101,25 @@ if ( ${CMAKE_CXX_COMPILER_ID}x MATCHES "MSVCx" )
             -D_SCL_SECURE_NO_WARNINGS
             -D_WIN32_WINNT=0x0501 
             -DWIN32_LEAN_AND_MEAN
-            -DSTATICLIB_HTTPSERVER_CMAKE_BUILD)
+            -DSTATICLIB_PION_CMAKE_BUILD )
     set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} 
             -D_WIN32_WINNT=0x0501
             -DWIN32_LEAN_AND_MEAN )
 endif ( )
 
 if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
-    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_HTTPSERVER_USE_LOG4CPLUS )
-    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_HTTPSERVER_USE_LOG4CPLUS )
+    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_PION_USE_LOG4CPLUS )
+    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_PION_USE_LOG4CPLUS )
 endif ( )
 
 if ( ${PROJECT_NAME}_USE_OPENSSL )
-    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_HTTPSERVER_HAVE_SSL )
-    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_HTTPSERVER_HAVE_SSL )
+    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_PION_HAVE_SSL )
+    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_PION_HAVE_SSL )
 endif ( )
 
 if ( ${PROJECT_NAME}_DISABLE_LOGGING ) 
-    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_HTTPSERVER_DISABLE_LOGGING )
-    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_HTTPSERVER_DISABLE_LOGGING )
+    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_PION_DISABLE_LOGGING )
+    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_PION_DISABLE_LOGGING )
 endif ( )
 
 if ( ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" )
@@ -150,12 +150,12 @@ target_compile_options ( ${PROJECT_NAME} PRIVATE
     ${${PROJECT_NAME}_DEPS_PC_CFLAGS_OTHER} )
 
 # pkg-config
-staticlib_httpserver_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_OTHER "" ${PROJECT_NAME}_CFLAGS_PUBLIC )
+staticlib_pion_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_OTHER "" ${PROJECT_NAME}_CFLAGS_PUBLIC )
 set ( ${PROJECT_NAME}_PC_CFLAGS "-I${CMAKE_CURRENT_LIST_DIR}/include ${${PROJECT_NAME}_PC_CFLAGS_OTHER}" )
 set ( ${PROJECT_NAME}_PC_LIBS "-L${CMAKE_LIBRARY_OUTPUT_DIRECTORY} -l${PROJECT_NAME}" )
 if ( CMAKE_SYSTEM_NAME STREQUAL "Linux" )
     set ( ${PROJECT_NAME}_PC_LIBS "${${PROJECT_NAME}_PC_LIBS} -lpthread" )
 endif ( )
-staticlib_httpserver_list_to_string ( ${PROJECT_NAME}_PC_REQUIRES "" ${PROJECT_NAME}_DEPS )
+staticlib_pion_list_to_string ( ${PROJECT_NAME}_PC_REQUIRES "" ${PROJECT_NAME}_DEPS )
 configure_file ( ${CMAKE_CURRENT_LIST_DIR}/resources/pkg-config.in 
         ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pkgconfig/${PROJECT_NAME}.pc )

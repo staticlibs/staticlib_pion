@@ -23,8 +23,8 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#ifndef STATICLIB_HTTPSERVER_HTTP_REQUEST_READER_HPP
-#define STATICLIB_HTTPSERVER_HTTP_REQUEST_READER_HPP
+#ifndef STATICLIB_PION_HTTP_REQUEST_READER_HPP
+#define STATICLIB_PION_HTTP_REQUEST_READER_HPP
 
 #include <chrono>
 #include <functional>
@@ -35,12 +35,12 @@
 #include "staticlib/config.hpp"
 #include "staticlib/concurrent.hpp"
 
-#include "staticlib/httpserver/http_parser.hpp"
-#include "staticlib/httpserver/http_request.hpp"
-#include "staticlib/httpserver/tcp_connection.hpp"
+#include "staticlib/pion/http_parser.hpp"
+#include "staticlib/pion/http_request.hpp"
+#include "staticlib/pion/tcp_connection.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 /**
  * Asynchronously reads and parses HTTP requests
@@ -208,4 +208,4 @@ using reader_ptr = std::shared_ptr<http_request_reader>;
 } // namespace
 }
 
-#endif // STATICLIB_HTTPSERVER_HTTP_REQUEST_READER_HPP
+#endif // STATICLIB_PION_HTTP_REQUEST_READER_HPP

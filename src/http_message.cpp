@@ -23,7 +23,7 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include "staticlib/httpserver/http_message.hpp"
+#include "staticlib/pion/http_message.hpp"
 
 #include <cstdlib>
 #include <cstdio>
@@ -37,12 +37,12 @@
 #include "staticlib/support.hpp"
 #include "staticlib/utils.hpp"
 
-#include "staticlib/httpserver/http_request.hpp"
-#include "staticlib/httpserver/http_parser.hpp"
-#include "staticlib/httpserver/tcp_connection.hpp"
+#include "staticlib/pion/http_request.hpp"
+#include "staticlib/pion/http_parser.hpp"
+#include "staticlib/pion/tcp_connection.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 http_message::receive_error_t::~receive_error_t() STATICLIB_NOEXCEPT { }
 

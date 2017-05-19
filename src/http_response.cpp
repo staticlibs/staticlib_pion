@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-#include "staticlib/httpserver/http_response.hpp"
+#include "staticlib/pion/http_response.hpp"
 
 #include "staticlib/support.hpp"
 
-#include "staticlib/httpserver/algorithm.hpp"
+#include "staticlib/pion/algorithm.hpp"
 
 namespace staticlib {
-namespace httpserver {
+namespace pion {
 
 http_response::http_response(const http_request& http_request_ptr) : 
 m_status_code(RESPONSE_CODE_OK),

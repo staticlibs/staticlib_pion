@@ -23,13 +23,13 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include "staticlib/httpserver/scheduler.hpp"
+#include "staticlib/pion/scheduler.hpp"
 
-#include <chrono>
 #include <cstdint>
+#include <chrono>
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 // members of scheduler
     
@@ -39,7 +39,7 @@ const uint32_t   scheduler::MICROSEC_IN_SECOND = 1000000;    // (10^6)
 const uint32_t   scheduler::KEEP_RUNNING_TIMER_SECONDS = 5;
 
 scheduler::scheduler() :
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.scheduler")),
+m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.scheduler")),
 m_num_threads(DEFAULT_NUM_THREADS),
 m_active_users(0),
 m_is_running(false) { }
@@ -54,11 +54,11 @@ void scheduler::shutdown(void) {
     
     if (m_is_running) {
         
-        STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "Shutting down the thread scheduler");
+        STATICLIB_PION_LOG_INFO(m_logger, "Shutting down the thread scheduler");
         
         while (m_active_users > 0) {
             // first, wait for any active users to exit
-            STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "Waiting for " << m_active_users << " scheduler users to finish");
+            STATICLIB_PION_LOG_INFO(m_logger, "Waiting for " << m_active_users << " scheduler users to finish");
             m_no_more_active_users.wait(scheduler_lock);
         }
 
@@ -69,7 +69,7 @@ void scheduler::shutdown(void) {
         finish_services();
         finish_threads();
         
-        STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "The thread scheduler has shutdown");
+        STATICLIB_PION_LOG_INFO(m_logger, "The thread scheduler has shutdown");
 
         // Make sure anyone waiting on shutdown gets notified
         m_scheduler_has_stopped.notify_all();
@@ -154,9 +154,9 @@ void scheduler::process_service_work(asio::io_service& service) {
             service.run();
         } catch (std::exception& e) {
             (void) e;
-            STATICLIB_HTTPSERVER_LOG_ERROR(m_logger, e.what());
+            STATICLIB_PION_LOG_ERROR(m_logger, e.what());
         } catch (...) {
-            STATICLIB_HTTPSERVER_LOG_ERROR(m_logger, "caught unrecognized exception");
+            STATICLIB_PION_LOG_ERROR(m_logger, "caught unrecognized exception");
         }
     }   
 }
@@ -178,7 +178,7 @@ multi_thread_scheduler::~multi_thread_scheduler() { }
 
 void multi_thread_scheduler::stop_threads() {
     if (!m_thread_pool.empty()) {
-        STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Waiting for threads to shutdown");
+        STATICLIB_PION_LOG_DEBUG(m_logger, "Waiting for threads to shutdown");
 
         // wait until all threads in the pool have stopped
         auto current_id = std::this_thread::get_id();
@@ -215,7 +215,7 @@ void single_service_scheduler::startup() {
     std::lock_guard<std::mutex> scheduler_lock(m_mutex);
     
     if (! m_is_running) {
-        STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "Starting thread scheduler");
+        STATICLIB_PION_LOG_INFO(m_logger, "Starting thread scheduler");
         m_is_running = true;
         
         // schedule a work item to make sure that the service doesn't complete

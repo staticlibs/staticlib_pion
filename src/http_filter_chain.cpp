@@ -21,10 +21,10 @@
  * Created on September 22, 2015, 11:26 AM
  */
 
-#include "staticlib/httpserver/http_filter_chain.hpp"
+#include "staticlib/pion/http_filter_chain.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 http_filter_chain::http_filter_chain(std::vector<std::reference_wrapper<http_server::request_filter_type>> filters, 
         http_server::request_handler_type request_handler) :

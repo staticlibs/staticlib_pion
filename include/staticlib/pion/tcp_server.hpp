@@ -23,8 +23,8 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#ifndef STATICLIB_HTTPSERVER_TCP_SERVER_HPP
-#define STATICLIB_HTTPSERVER_TCP_SERVER_HPP
+#ifndef STATICLIB_PION_TCP_SERVER_HPP
+#define STATICLIB_PION_TCP_SERVER_HPP
 
 #include <condition_variable>
 #include <mutex>
@@ -34,12 +34,12 @@
 
 #include "staticlib/config.hpp"
 
-#include "staticlib/httpserver/logger.hpp"
-#include "staticlib/httpserver/scheduler.hpp"
-#include "staticlib/httpserver/tcp_connection.hpp"
+#include "staticlib/pion/logger.hpp"
+#include "staticlib/pion/scheduler.hpp"
+#include "staticlib/pion/tcp_connection.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 /**
  * Multi-threaded, asynchronous TCP server
@@ -369,4 +369,4 @@ private:
 } // namespace
 }
 
-#endif // STATICLIB_HTTPSERVER_TCP_SERVER_HPP
+#endif // STATICLIB_PION_TCP_SERVER_HPP

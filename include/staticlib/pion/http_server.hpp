@@ -21,8 +21,8 @@
  * Created on March 23, 2015, 8:10 PM
  */
 
-#ifndef STATICLIB_HTTPSERVER_HTTP_SERVER_HPP
-#define	STATICLIB_HTTPSERVER_HTTP_SERVER_HPP
+#ifndef STATICLIB_PION_HTTP_SERVER_HPP
+#define	STATICLIB_PION_HTTP_SERVER_HPP
 
 #include <cstdint>
 #include <vector>
@@ -34,13 +34,13 @@
 #include "staticlib/config.hpp"
 #include "staticlib/support.hpp"
 
-#include "staticlib/httpserver/http_parser.hpp"
-#include "staticlib/httpserver/http_request.hpp"
-#include "staticlib/httpserver/tcp_connection.hpp"
-#include "staticlib/httpserver/tcp_server.hpp"
+#include "staticlib/pion/http_parser.hpp"
+#include "staticlib/pion/http_request.hpp"
+#include "staticlib/pion/tcp_connection.hpp"
+#include "staticlib/pion/tcp_server.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 // forward declaration
 class http_filter_chain;
@@ -200,7 +200,7 @@ public:
      */
     explicit http_server(uint32_t number_of_threads, uint16_t port,
             asio::ip::address_v4 ip_address = asio::ip::address_v4::any()
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
             ,
             const std::string& ssl_key_file = std::string(),
             std::function<std::string(std::size_t, asio::ssl::context::password_purpose)> ssl_key_password_callback = 
@@ -208,7 +208,7 @@ public:
             const std::string& ssl_verify_file = std::string(),
             std::function<bool(bool, asio::ssl::verify_context&)> ssl_verify_callback = 
                     [](bool, asio::ssl::verify_context&) { return true; }
-#endif // STATICLIB_HTTPSERVER_HAVE_SSL
+#endif // STATICLIB_PION_HAVE_SSL
             );
         
     /**
@@ -298,5 +298,5 @@ protected:
 } // namespace
 }
 
-#endif	/* STATICLIB_HTTPSERVER_HTTP_SERVER_HPP */
+#endif	/* STATICLIB_PION_HTTP_SERVER_HPP */
 

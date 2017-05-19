@@ -23,19 +23,19 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#ifndef STATICLIB_HTTPSERVER_HTTP_RESPONSE_HPP
-#define STATICLIB_HTTPSERVER_HTTP_RESPONSE_HPP
+#ifndef STATICLIB_PION_HTTP_RESPONSE_HPP
+#define STATICLIB_PION_HTTP_RESPONSE_HPP
 
 #include <memory>
 
 #include "staticlib/config.hpp"
 
-#include "staticlib/httpserver/algorithm.hpp"
-#include "staticlib/httpserver/http_message.hpp"
-#include "staticlib/httpserver/http_request.hpp"
+#include "staticlib/pion/algorithm.hpp"
+#include "staticlib/pion/http_message.hpp"
+#include "staticlib/pion/http_request.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
     
 /**
  * Container for HTTP response information
@@ -224,4 +224,4 @@ protected:
 } // namespace
 }
 
-#endif // STATICLIB_HTTPSERVER_HTTP_RESPONSE_HPP
+#endif // STATICLIB_PION_HTTP_RESPONSE_HPP

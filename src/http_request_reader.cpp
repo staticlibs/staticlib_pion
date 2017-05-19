@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-#include "staticlib/httpserver/http_request_reader.hpp"
+#include "staticlib/pion/http_request_reader.hpp"
 
 #include "asio.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 const uint32_t http_request_reader::DEFAULT_READ_TIMEOUT_MILLIS = 10000;
 
@@ -59,7 +59,7 @@ void http_request_reader::consume_bytes(const asio::error_code& read_error, std:
         return;
     }
 
-    STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Read " << bytes_read << " bytes from HTTP "
+    STATICLIB_PION_LOG_DEBUG(m_logger, "Read " << bytes_read << " bytes from HTTP "
             << (is_parsing_request() ? "request" : "response"));
 
     // set pointers for new HTTP header data to be consumed
@@ -82,7 +82,7 @@ void http_request_reader::consume_bytes() {
 
     if (gcount() > 0) {
         // parsed > 0 bytes in HTTP headers
-        STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Parsed " << gcount() << " HTTP bytes");
+        STATICLIB_PION_LOG_DEBUG(m_logger, "Parsed " << gcount() << " HTTP bytes");
     }
 
     if (result == true) {
@@ -102,7 +102,7 @@ void http_request_reader::consume_bytes() {
                 // message has been handled
                 m_tcp_conn->save_read_pos(m_read_ptr, m_read_end_ptr);
 
-                STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "HTTP pipelined "
+                STATICLIB_PION_LOG_DEBUG(m_logger, "HTTP pipelined "
                         << (is_parsing_request() ? "request (" : "response (")
                         << bytes_available() << " bytes available)");
             }
@@ -154,10 +154,10 @@ void http_request_reader::handle_read_error(const asio::error_code& read_error) 
         if (read_error == asio::error::operation_aborted) {
             // if the operation was aborted, the acceptor was stopped,
             // which means another thread is shutting-down the server
-            STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "HTTP " << (is_parsing_request() ? "request" : "response")
+            STATICLIB_PION_LOG_INFO(m_logger, "HTTP " << (is_parsing_request() ? "request" : "response")
                     << " parsing aborted (shutting down)");
         } else {
-            STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "HTTP " << (is_parsing_request() ? "request" : "response")
+            STATICLIB_PION_LOG_INFO(m_logger, "HTTP " << (is_parsing_request() ? "request" : "response")
                     << " parsing aborted (" << read_error.message() << ')');
         }
     }
@@ -182,7 +182,7 @@ m_http_msg(new http_request),
 m_finished(handler) {
     m_http_msg->set_remote_ip(tcp_conn->get_remote_ip());
     m_http_msg->set_request_reader(this);
-    set_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.http_request_reader"));
+    set_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_request_reader"));
 }
 
 void http_request_reader::read_bytes(void) {

@@ -23,8 +23,8 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#ifndef STATICLIB_HTTPSERVER_ALGORITHM_HPP
-#define STATICLIB_HTTPSERVER_ALGORITHM_HPP
+#ifndef STATICLIB_PION_ALGORITHM_HPP
+#define STATICLIB_PION_ALGORITHM_HPP
 
 #include <cstdint>
 #include <functional>
@@ -34,7 +34,7 @@
 #include "staticlib/utils.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 /**
  * Contains some common algorithms
@@ -98,4 +98,4 @@ namespace algorithm {
 }
 }
 
-#endif // STATICLIB_HTTPSERVER_ALGORITHM_HPP
+#endif // STATICLIB_PION_ALGORITHM_HPP

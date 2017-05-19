@@ -23,14 +23,14 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include "staticlib/httpserver/http_response_writer.hpp"
+#include "staticlib/pion/http_response_writer.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 http_response_writer::http_response_writer(tcp_connection_ptr& tcp_conn, const http_request& http_request,
         finished_handler_type handler) :
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.http_response_writer")),
+m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_response_writer")),
 m_tcp_conn(tcp_conn),
 m_content_length(0),
 m_stream_is_empty(true),
@@ -39,7 +39,7 @@ m_sending_chunks(false),
 m_sent_headers(false),
 m_finished(handler),
 m_http_response(new http_response(http_request)) {
-    set_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.http_response_writer"));
+    set_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_response_writer"));
     // set whether or not the client supports chunks
     supports_chunked_messages(m_http_response->get_chunks_supported());
 }
@@ -257,9 +257,9 @@ void http_response_writer::handle_write(const asio::error_code& write_error, std
     if (!write_error) {
         // response sent OK
         if (sending_chunked_message()) {
-            STATICLIB_HTTPSERVER_LOG_DEBUG(log_ptr, "Sent HTTP response chunk of " << bytes_written << " bytes");
+            STATICLIB_PION_LOG_DEBUG(log_ptr, "Sent HTTP response chunk of " << bytes_written << " bytes");
         } else {
-            STATICLIB_HTTPSERVER_LOG_DEBUG(log_ptr, "Sent HTTP response of " << bytes_written << " bytes ("
+            STATICLIB_PION_LOG_DEBUG(log_ptr, "Sent HTTP response of " << bytes_written << " bytes ("
                     << (get_connection()->get_keep_alive() ? "keeping alive)" : "closing)"));
         }
     }

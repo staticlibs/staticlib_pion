@@ -23,8 +23,8 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#ifndef STATICLIB_HTTPSERVER_TCP_CONNECTION_HPP
-#define STATICLIB_HTTPSERVER_TCP_CONNECTION_HPP
+#ifndef STATICLIB_PION_TCP_CONNECTION_HPP
+#define STATICLIB_PION_TCP_CONNECTION_HPP
 
 #include <array>
 #include <functional>
@@ -32,16 +32,16 @@
 #include <string>
 
 #include "asio.hpp"
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
     #include "asio/ssl.hpp"
 #endif
 
 #include "staticlib/config.hpp"
 
-#include "staticlib/httpserver/algorithm.hpp"
+#include "staticlib/pion/algorithm.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 /**
  * Represents a single tcp connection
@@ -79,7 +79,7 @@ public:
      */
     using socket_type = asio::ip::tcp::socket;
 
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
     /**
      * Data type for an SSL socket connection
      */
@@ -211,7 +211,7 @@ public:
      */
     template <typename SSLHandshakeHandler>
     void async_handshake_server(SSLHandshakeHandler handler) {
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
         m_ssl_socket.async_handshake(asio::ssl::stream_base::server, handler);
         m_ssl_flag = true;
 #else
@@ -228,7 +228,7 @@ public:
      */
     template <typename ReadHandler>
     void async_read_some(ReadHandler handler) {
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             m_ssl_socket.async_read_some(asio::buffer(m_read_buffer),
                                          handler);
@@ -247,7 +247,7 @@ public:
      */
     template <typename ReadBufferType, typename ReadHandler>
     void async_read_some(ReadBufferType read_buffer, ReadHandler handler) {
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             m_ssl_socket.async_read_some(read_buffer, handler);
         else
@@ -276,7 +276,7 @@ public:
      */
     template <typename ReadBufferType>
     std::size_t read_some(ReadBufferType read_buffer, asio::error_code& ec) {
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             return m_ssl_socket.read_some(read_buffer, ec);
         else
@@ -295,7 +295,7 @@ public:
      */
     template <typename CompletionCondition, typename ReadHandler>
     void async_read(CompletionCondition completion_condition, ReadHandler handler) {
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             asio::async_read(m_ssl_socket, asio::buffer(m_read_buffer),
                                     completion_condition, handler);
@@ -318,7 +318,7 @@ public:
     template <typename MutableBufferSequence, typename CompletionCondition, typename ReadHandler>
     void async_read(const MutableBufferSequence& buffers, CompletionCondition completion_condition,
             ReadHandler handler) {
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             asio::async_read(m_ssl_socket, buffers,
                                     completion_condition, handler);
@@ -340,7 +340,7 @@ public:
      */
     template <typename CompletionCondition>
     std::size_t read(CompletionCondition completion_condition, asio::error_code& ec) {
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             return asio::async_read(m_ssl_socket, asio::buffer(m_read_buffer),
                                            completion_condition, ec);
@@ -364,7 +364,7 @@ public:
     template <typename MutableBufferSequence, typename CompletionCondition>
     std::size_t read(const MutableBufferSequence& buffers, CompletionCondition completion_condition,
             asio::error_code& ec) {
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             return asio::read(m_ssl_socket, buffers,
                                      completion_condition, ec);
@@ -384,7 +384,7 @@ public:
      */
     template <typename ConstBufferSequence, typename write_handler_t>
     void async_write(const ConstBufferSequence& buffers, write_handler_t handler) {
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             asio::async_write(m_ssl_socket, buffers, handler);
         else
@@ -403,7 +403,7 @@ public:
      */
     template <typename ConstBufferSequence>
     std::size_t write(const ConstBufferSequence& buffers, asio::error_code& ec) {
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             return asio::write(m_ssl_socket, buffers,
                                       asio::transfer_all(), ec);
@@ -557,4 +557,4 @@ using tcp_connection_ptr = std::shared_ptr<tcp_connection>;
 } // namespace
 }
 
-#endif // STATICLIB_HTTPSERVER_TCP_CONNECTION_HPP
+#endif // STATICLIB_PION_TCP_CONNECTION_HPP

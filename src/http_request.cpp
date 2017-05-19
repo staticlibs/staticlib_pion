@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-#include "staticlib/httpserver/http_request.hpp"
+#include "staticlib/pion/http_request.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 http_request::http_request(const std::string& resource) : 
 m_method(REQUEST_METHOD_GET), 

@@ -23,19 +23,19 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#include "staticlib/httpserver/tcp_server.hpp"
+#include "staticlib/pion/tcp_server.hpp"
 
 #include <functional>
 #include <memory>
 
 #include "asio.hpp"
 
-#include "staticlib/httpserver/logger.hpp"
-#include "staticlib/httpserver/scheduler.hpp"
-#include "staticlib/httpserver/tcp_connection.hpp"
+#include "staticlib/pion/logger.hpp"
+#include "staticlib/pion/scheduler.hpp"
+#include "staticlib/pion/tcp_connection.hpp"
 
 namespace staticlib {
-namespace httpserver {
+namespace pion {
     
 // tcp::server member functions
 
@@ -45,16 +45,16 @@ tcp_server::~tcp_server() STATICLIB_NOEXCEPT {
             stop(false);
         } catch (const std::exception& e) {
             (void) e;
-//            STATICLIB_HTTPSERVER_LOG_WARN("Exception thrown in tcp::server destructor: " << e.message());
+//            STATICLIB_PION_LOG_WARN("Exception thrown in tcp::server destructor: " << e.message());
         }
     }
 }
 
 tcp_server::tcp_server(scheduler& sched, const unsigned int tcp_port) : 
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.tcp_server")),
+m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.tcp_server")),
 m_active_scheduler(sched),
 m_tcp_acceptor(m_active_scheduler.get_io_service()),
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
 m_ssl_context(asio::ssl::context::sslv23),
 #else
 m_ssl_context(0),
@@ -64,10 +64,10 @@ m_ssl_flag(false),
 m_is_listening(false) { }
     
 tcp_server::tcp_server(scheduler& sched, const asio::ip::tcp::endpoint& endpoint) : 
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.tcp_server")),
+m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.tcp_server")),
 m_active_scheduler(sched),
 m_tcp_acceptor(m_active_scheduler.get_io_service()),
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
 m_ssl_context(asio::ssl::context::sslv23),
 #else
 m_ssl_context(0),
@@ -76,11 +76,11 @@ m_endpoint(endpoint),
 m_ssl_flag(false), m_is_listening(false) { }
 
 tcp_server::tcp_server(const unsigned int tcp_port) : 
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.tcp_server")),
+m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.tcp_server")),
 m_default_scheduler(), 
 m_active_scheduler(m_default_scheduler),
 m_tcp_acceptor(m_active_scheduler.get_io_service()),
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
 m_ssl_context(asio::ssl::context::sslv23),
 #else
 m_ssl_context(0),
@@ -89,11 +89,11 @@ m_endpoint(asio::ip::tcp::v4(), static_cast<unsigned short>(tcp_port)),
 m_ssl_flag(false), m_is_listening(false) { }
 
 tcp_server::tcp_server(const asio::ip::tcp::endpoint& endpoint) : 
-m_logger(STATICLIB_HTTPSERVER_GET_LOGGER("staticlib.httpserver.tcp_server")),
+m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.tcp_server")),
 m_default_scheduler(),
 m_active_scheduler(m_default_scheduler),
 m_tcp_acceptor(m_active_scheduler.get_io_service()),
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
 m_ssl_context(asio::ssl::context::sslv23),
 #else
 m_ssl_context(0),
@@ -107,7 +107,7 @@ void tcp_server::start() {
     std::unique_lock<std::mutex> server_lock(m_mutex);
 
     if (! m_is_listening) {
-        STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "Starting server on port " << get_port());
+        STATICLIB_PION_LOG_INFO(m_logger, "Starting server on port " << get_port());
         
         before_starting();
 
@@ -129,7 +129,7 @@ void tcp_server::start() {
             m_tcp_acceptor.listen();
         } catch (std::exception& e) {
             (void) e;
-            STATICLIB_HTTPSERVER_LOG_ERROR(m_logger, "Unable to bind to port " << get_port() << ": " << e.what());
+            STATICLIB_PION_LOG_ERROR(m_logger, "Unable to bind to port " << get_port() << ": " << e.what());
             throw;
         }
 
@@ -149,7 +149,7 @@ void tcp_server::stop(bool wait_until_finished) {
     std::unique_lock<std::mutex> server_lock(m_mutex);
 
     if (m_is_listening) {
-        STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "Shutting down server on port " << get_port());
+        STATICLIB_PION_LOG_INFO(m_logger, "Shutting down server on port " << get_port());
     
         m_is_listening = false;
 
@@ -169,7 +169,7 @@ void tcp_server::stop(bool wait_until_finished) {
             if (prune_connections() == 0)
                 break;  // if no more left, then we can stop waiting
             // sleep for up to a quarter second to give open connections a chance to finish
-            STATICLIB_HTTPSERVER_LOG_INFO(m_logger, "Waiting for open connections to finish");
+            STATICLIB_PION_LOG_INFO(m_logger, "Waiting for open connections to finish");
             scheduler::sleep(m_no_more_connections, server_lock, 0, 250000000);
         }
         
@@ -193,7 +193,7 @@ void tcp_server::join(void) {
 void tcp_server::set_ssl_key_file(const std::string& pem_key_file) {
     // configure server for SSL
     set_ssl_flag(true);
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
     m_ssl_context.set_options(asio::ssl::context::default_workarounds
                               | asio::ssl::context::no_sslv2
                               | asio::ssl::context::single_dh_use);
@@ -236,12 +236,12 @@ void tcp_server::handle_accept(tcp_connection_ptr& tcp_conn, const asio::error_c
         // this happens when the server is being shut down
         if (m_is_listening) {
             listen();   // schedule acceptance of another connection
-            STATICLIB_HTTPSERVER_LOG_WARN(m_logger, "Accept error on port " << get_port() << ": " << accept_error.message());
+            STATICLIB_PION_LOG_WARN(m_logger, "Accept error on port " << get_port() << ": " << accept_error.message());
         }
         finish_connection(tcp_conn);
     } else {
         // got a new TCP connection
-        STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "New" << (tcp_conn->get_ssl_flag() ? " SSL " : " ")
+        STATICLIB_PION_LOG_DEBUG(m_logger, "New" << (tcp_conn->get_ssl_flag() ? " SSL " : " ")
                        << "connection on port " << get_port());
 
         // schedule the acceptance of another new connection
@@ -249,7 +249,7 @@ void tcp_server::handle_accept(tcp_connection_ptr& tcp_conn, const asio::error_c
         if (m_is_listening) listen();
         
         // handle the new connection
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
         if (tcp_conn->get_ssl_flag()) {
             auto cb = [this, tcp_conn](const asio::error_code & ec) mutable {
                 this->handle_ssl_handshake(tcp_conn, ec);
@@ -266,12 +266,12 @@ void tcp_server::handle_ssl_handshake(tcp_connection_ptr& tcp_conn,
                                    const asio::error_code& handshake_error) {
     if (handshake_error) {
         // an error occured while trying to establish the SSL connection
-        STATICLIB_HTTPSERVER_LOG_WARN(m_logger, "SSL handshake failed on port " << get_port()
+        STATICLIB_PION_LOG_WARN(m_logger, "SSL handshake failed on port " << get_port()
                       << " (" << handshake_error.message() << ')');
         finish_connection(tcp_conn);
     } else {
         // handle the new connection
-        STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "SSL handshake succeeded on port " << get_port());
+        STATICLIB_PION_LOG_DEBUG(m_logger, "SSL handshake succeeded on port " << get_port());
         handle_connection(tcp_conn);
     }
 }
@@ -284,7 +284,7 @@ void tcp_server::finish_connection(tcp_connection_ptr& tcp_conn) {
         handle_connection(tcp_conn);
 
     } else {
-        STATICLIB_HTTPSERVER_LOG_DEBUG(m_logger, "Closing connection on port " << get_port());
+        STATICLIB_PION_LOG_DEBUG(m_logger, "Closing connection on port " << get_port());
         
         // remove the connection from the server's management pool
         std::set<tcp_connection_ptr>::iterator conn_itr = m_conn_pool.find(tcp_conn);
@@ -302,7 +302,7 @@ std::size_t tcp_server::prune_connections() {
     std::set<tcp_connection_ptr>::iterator conn_itr = m_conn_pool.begin();
     while (conn_itr != m_conn_pool.end()) {
         if (conn_itr->unique()) {
-            STATICLIB_HTTPSERVER_LOG_WARN(m_logger, "Closing orphaned connection on port " << get_port());
+            STATICLIB_PION_LOG_WARN(m_logger, "Closing orphaned connection on port " << get_port());
             std::set<tcp_connection_ptr>::iterator erase_itr = conn_itr;
             ++conn_itr;
             (*erase_itr)->close();

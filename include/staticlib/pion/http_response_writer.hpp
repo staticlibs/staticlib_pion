@@ -23,8 +23,8 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#ifndef STATICLIB_HTTPSERVER_HTTP_RESPONSE_WRITER_HPP
-#define STATICLIB_HTTPSERVER_HTTP_RESPONSE_WRITER_HPP
+#ifndef STATICLIB_PION_HTTP_RESPONSE_WRITER_HPP
+#define STATICLIB_PION_HTTP_RESPONSE_WRITER_HPP
 
 #include <functional>
 #include <list>
@@ -36,13 +36,13 @@
 
 #include "staticlib/config.hpp"
 
-#include "staticlib/httpserver/logger.hpp"
-#include "staticlib/httpserver/http_message.hpp"
-#include "staticlib/httpserver/http_response.hpp"
-#include "staticlib/httpserver/tcp_connection.hpp"
+#include "staticlib/pion/logger.hpp"
+#include "staticlib/pion/http_message.hpp"
+#include "staticlib/pion/http_response.hpp"
+#include "staticlib/pion/tcp_connection.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 /**
  * Sends HTTP data asynchronously
@@ -488,4 +488,4 @@ inline const http_response_writer_ptr& operator<<(const http_response_writer_ptr
 } // namespace
 }
 
-#endif // STATICLIB_HTTPSERVER_HTTP_RESPONSE_WRITER_HPP
+#endif // STATICLIB_PION_HTTP_RESPONSE_WRITER_HPP

@@ -23,19 +23,19 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#ifndef STATICLIB_HTTPSERVER_HTTP_REQUEST_HPP
-#define STATICLIB_HTTPSERVER_HTTP_REQUEST_HPP
+#ifndef STATICLIB_PION_HTTP_REQUEST_HPP
+#define STATICLIB_PION_HTTP_REQUEST_HPP
 
 #include <functional>
 #include <string>
 
 #include "staticlib/config.hpp"
 
-#include "staticlib/httpserver/http_message.hpp"
-#include "staticlib/httpserver/http_parser.hpp"
+#include "staticlib/pion/http_message.hpp"
+#include "staticlib/pion/http_parser.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 /**
  * Container for HTTP request information
@@ -282,4 +282,4 @@ using http_request_ptr = std::shared_ptr<http_request>;
 } // namespace
 }
 
-#endif // STATICLIB_HTTPSERVER_HTTP_REQUEST_HPP
+#endif // STATICLIB_PION_HTTP_REQUEST_HPP

@@ -15,20 +15,22 @@
  */
 
 /* 
- * File:   httpserver.h
+ * File:   pion.hpp
  * Author: alex
  *
  * Created on May 7, 2016, 12:04 PM
  */
 
-#ifndef STATICLIB_HTTPSERVER_HPP
-#define	STATICLIB_HTTPSERVER_HPP
+#ifndef STATICLIB_PION_HPP
+#define	STATICLIB_PION_HPP
 
-#include "staticlib/httpserver/http_request.hpp"
-#include "staticlib/httpserver/http_response.hpp"
-#include "staticlib/httpserver/http_response_writer.hpp"
-#include "staticlib/httpserver/http_server.hpp"
-#include "staticlib/httpserver/tcp_connection.hpp"
+#include "staticlib/config.hpp"
 
-#endif	/* STATICLIB_HTTPSERVER_HPP */
+#include "staticlib/pion/http_request.hpp"
+#include "staticlib/pion/http_response.hpp"
+#include "staticlib/pion/http_response_writer.hpp"
+#include "staticlib/pion/http_server.hpp"
+#include "staticlib/pion/tcp_connection.hpp"
+
+#endif	/* STATICLIB_PION_HPP */
 

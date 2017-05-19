@@ -23,23 +23,23 @@
 // See http://www.boost.org/LICENSE_1_0.txt
 //
 
-#ifndef STATICLIB_HTTPSERVER_HTTP_PARSER_HPP
-#define STATICLIB_HTTPSERVER_HTTP_PARSER_HPP
+#ifndef STATICLIB_PION_HTTP_PARSER_HPP
+#define STATICLIB_PION_HTTP_PARSER_HPP
 
+#include <cstdint>
 #include <functional>
 #include <mutex>
 #include <string>
-#include <cstdint>
 
 #include "staticlib/config.hpp"
 #include "staticlib/support.hpp"
 
-#include "staticlib/httpserver/algorithm.hpp"
-#include "staticlib/httpserver/logger.hpp"
-#include "staticlib/httpserver/http_message.hpp"
+#include "staticlib/pion/algorithm.hpp"
+#include "staticlib/pion/logger.hpp"
+#include "staticlib/pion/http_message.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 // forward declarations used for finishing HTTP messages
 class http_request;
@@ -799,4 +799,4 @@ protected:
 } // namespace
 }
 
-#endif // STATICLIB_HTTPSERVER_HTTP_PARSER_HPP
+#endif // STATICLIB_PION_HTTP_PARSER_HPP

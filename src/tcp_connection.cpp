@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-#include "staticlib/httpserver/tcp_connection.hpp"
+#include "staticlib/pion/tcp_connection.hpp"
 
 #include "asio.hpp"
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
-#ifdef STATICLIB_HTTPSERVER_XCODE
+#ifdef STATICLIB_PION_HAVE_SSL
+#ifdef STATICLIB_PION_XCODE
 // ignore openssl warnings if building with XCode
 #pragma GCC system_header
 #endif
@@ -26,7 +26,7 @@
 #endif
 
 namespace staticlib {
-namespace httpserver {
+namespace pion {
 
 std::shared_ptr<tcp_connection> tcp_connection::create(asio::io_service& io_service,
         ssl_context_type& ssl_context,
@@ -38,7 +38,7 @@ std::shared_ptr<tcp_connection> tcp_connection::create(asio::io_service& io_serv
 
 tcp_connection::tcp_connection(asio::io_service& io_service, ssl_context_type& ssl_context,
         const bool ssl_flag, connection_handler finished_handler) :
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
 m_ssl_socket(io_service, ssl_context), 
 m_ssl_flag(ssl_flag),
 #else
@@ -47,7 +47,7 @@ m_ssl_flag(false),
 #endif
 m_lifecycle(LIFECYCLE_CLOSE),
 m_finished_handler(finished_handler) {
-#ifndef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifndef STATICLIB_PION_HAVE_SSL
     (void) ssl_context;
     (void) ssl_flag;
 #endif            
@@ -93,7 +93,7 @@ void tcp_connection::cancel() {
 }
 
 std::size_t tcp_connection::read_some(asio::error_code& ec) {
-#ifdef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifdef STATICLIB_PION_HAVE_SSL
     if (get_ssl_flag())
         return m_ssl_socket.read_some(asio::buffer(m_read_buffer), ec);
     else
@@ -179,7 +179,7 @@ const tcp_connection::ssl_socket_type& tcp_connection::get_ssl_socket() const {
     return m_ssl_socket;
 }
 
-#ifndef STATICLIB_HTTPSERVER_HAVE_SSL
+#ifndef STATICLIB_PION_HAVE_SSL
 
 tcp_connection::ssl_socket_type::ssl_socket_type(asio::io_service& io_service) : 
 m_socket(io_service) { }
@@ -202,7 +202,7 @@ const tcp_connection::socket_type::lowest_layer_type& tcp_connection::ssl_socket
 
 void tcp_connection::ssl_socket_type::shutdown() { }
 
-#endif // STATICLIB_HTTPSERVER_HAVE_SSL
+#endif // STATICLIB_PION_HAVE_SSL
 
 } // namespace
 }

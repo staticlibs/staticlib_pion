@@ -15,14 +15,14 @@
  */
 
 /* 
- * File:   httpserver_exception.hpp
+ * File:   pion_exception.hpp
  * Author: alex
  *
  * Created on September 24, 2015, 1:38 PM
  */
 
-#ifndef STATICLIB_HTTPSERVER_HTTPSERVER_EXCEPTION_HPP
-#define	STATICLIB_HTTPSERVER_HTTPSERVER_EXCEPTION_HPP
+#ifndef STATICLIB_PION_PION_EXCEPTION_HPP
+#define	STATICLIB_PION_PION_EXCEPTION_HPP
 
 #include <exception>
 #include <string>
@@ -30,24 +30,24 @@
 #include "staticlib/support/exception.hpp"
 
 namespace staticlib { 
-namespace httpserver {
+namespace pion {
 
 /**
  * Base exception class for business exceptions in staticlib modules
  */
-class httpserver_exception : public sl::support::exception {
+class pion_exception : public sl::support::exception {
 public:
     /**
      * Default constructor
      */
-    httpserver_exception() = default;
+    pion_exception() = default;
 
     /**
      * Constructor with message
      * 
      * @param msg error message
      */
-    httpserver_exception(const std::string& msg) :
+    pion_exception(const std::string& msg) :
     sl::support::exception(msg) { }
 
 };
@@ -55,5 +55,5 @@ public:
 } // namespace
 }
 
-#endif	/* STATICLIB_HTTPSERVER_HTTPSERVER_EXCEPTION_HPP */
+#endif	/* STATICLIB_PION_PION_EXCEPTION_HPP */
 
