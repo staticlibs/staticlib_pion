@@ -223,14 +223,14 @@ void tcp_server::listen() {
         m_conn_pool.insert(new_connection);
         
         // use the object to accept a new connection
-        auto cb = [this, new_connection](const asio::error_code& ec) mutable {
+        auto cb = [this, new_connection](const std::error_code& ec) mutable {
             this->handle_accept(new_connection, ec);
         };
         new_connection->async_accept(m_tcp_acceptor, std::move(cb));
     }
 }
 
-void tcp_server::handle_accept(tcp_connection_ptr& tcp_conn, const asio::error_code& accept_error) {
+void tcp_server::handle_accept(tcp_connection_ptr& tcp_conn, const std::error_code& accept_error) {
     if (accept_error) {
         // an error occured while trying to a accept a new connection
         // this happens when the server is being shut down
@@ -251,7 +251,7 @@ void tcp_server::handle_accept(tcp_connection_ptr& tcp_conn, const asio::error_c
         // handle the new connection
 #ifdef STATICLIB_PION_HAVE_SSL
         if (tcp_conn->get_ssl_flag()) {
-            auto cb = [this, tcp_conn](const asio::error_code & ec) mutable {
+            auto cb = [this, tcp_conn](const std::error_code & ec) mutable {
                 this->handle_ssl_handshake(tcp_conn, ec);
             };
             tcp_conn->async_handshake_server(std::move(cb));
@@ -263,7 +263,7 @@ void tcp_server::handle_accept(tcp_connection_ptr& tcp_conn, const asio::error_c
 }
 
 void tcp_server::handle_ssl_handshake(tcp_connection_ptr& tcp_conn,
-                                   const asio::error_code& handshake_error) {
+                                   const std::error_code& handshake_error) {
     if (handshake_error) {
         // an error occured while trying to establish the SSL connection
         STATICLIB_PION_LOG_WARN(m_logger, "SSL handshake failed on port " << get_port()

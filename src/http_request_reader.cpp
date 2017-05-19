@@ -46,7 +46,7 @@ void http_request_reader::receive() {
     }
 }
 
-void http_request_reader::consume_bytes(const asio::error_code& read_error, std::size_t bytes_read) {
+void http_request_reader::consume_bytes(const std::error_code& read_error, std::size_t bytes_read) {
     // cancel read timer if operation didn't time-out
     if (m_timer_ptr) {
         m_timer_ptr->cancel();
@@ -77,7 +77,7 @@ void http_request_reader::consume_bytes() {
     // true: finished successfully parsing the message
     // indeterminate: parsed bytes, but the message is not yet finished
     //
-    asio::error_code ec;
+    std::error_code ec;
     sl::support::tribool result = parse(get_message(), ec);
 
     if (gcount() > 0) {
@@ -138,13 +138,13 @@ void http_request_reader::read_bytes_with_timeout() {
     read_bytes();
 }
 
-void http_request_reader::handle_read_error(const asio::error_code& read_error) {
+void http_request_reader::handle_read_error(const std::error_code& read_error) {
     // close the connection, forcing the client to establish a new one
     m_tcp_conn->set_lifecycle(tcp_connection::LIFECYCLE_CLOSE); // make sure it will get closed
 
     // check if this is just a message with unknown content length
     if (!check_premature_eof(get_message())) {
-        asio::error_code ec; // clear error code
+        std::error_code ec; // clear error code
         finished_reading(ec);
         return;
     }
@@ -187,18 +187,18 @@ m_finished(handler) {
 
 void http_request_reader::read_bytes(void) {
     auto reader = shared_from_this();
-    get_connection()->async_read_some([reader](const asio::error_code& read_error, 
+    get_connection()->async_read_some([reader](const std::error_code& read_error, 
             std::size_t bytes_read) {
         reader->consume_bytes(read_error, bytes_read);
     });
 }
 
-void http_request_reader::finished_parsing_headers(const asio::error_code& ec, sl::support::tribool& rc) {
+void http_request_reader::finished_parsing_headers(const std::error_code& ec, sl::support::tribool& rc) {
     // call the finished headers handler with the HTTP message
     if (m_parsed_headers) m_parsed_headers(m_http_msg, get_connection(), ec, rc);
 }
 
-void http_request_reader::finished_reading(const asio::error_code& ec) {
+void http_request_reader::finished_reading(const std::error_code& ec) {
     // call the finished handler with the finished HTTP message
     if (m_finished) m_finished(m_http_msg, get_connection(), ec);
 }

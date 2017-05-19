@@ -54,14 +54,14 @@ public:
     /**
      * Function called after the HTTP message has been sent
      */
-    using finished_handler_type = std::function<void(const asio::error_code&)>;
+    using finished_handler_type = std::function<void(const std::error_code&)>;
 
 private:    
     
     /**
      * Data type for a function that handles write operations
      */
-    using write_handler_type = std::function<void(const asio::error_code&, std::size_t)>;
+    using write_handler_type = std::function<void(const std::error_code&, std::size_t)>;
     
     /**
      * Used to cache binary data included within the payload content
@@ -382,7 +382,7 @@ private:
      * 
      * @param ec
      */
-    void finished_writing(const asio::error_code& ec);
+    void finished_writing(const std::error_code& ec);
 
     /**
      * Protected constructor restricts creation of objects (use create())
@@ -414,7 +414,7 @@ private:
      * @param write_error error status from the last write operation
      * @param bytes_written number of bytes sent by the last write operation
      */
-    void handle_write(const asio::error_code& write_error, std::size_t bytes_written);
+    void handle_write(const std::error_code& write_error, std::size_t bytes_written);
     
     /**
      * Sends all of the buffered data to the client

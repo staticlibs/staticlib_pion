@@ -495,7 +495,7 @@ void http_message::prepare_buffers_for_send(write_buffers_type& write_buffers, c
 // message member functions
 
 std::size_t http_message::send(tcp_connection& tcp_conn,
-                          asio::error_code& ec, bool headers_only) {
+                          std::error_code& ec, bool headers_only) {
     // initialize write buffers for send operation using HTTP headers
     write_buffers_type write_buffers;
     prepare_buffers_for_send(write_buffers, tcp_conn.get_keep_alive(), false);
@@ -509,7 +509,7 @@ std::size_t http_message::send(tcp_connection& tcp_conn,
 }
 
 std::size_t http_message::receive(tcp_connection& tcp_conn,
-                             asio::error_code& ec,
+                             std::error_code& ec,
                              http_parser& http_parser) {
     std::size_t last_bytes_read = 0;
 
@@ -603,7 +603,7 @@ std::size_t http_message::receive(tcp_connection& tcp_conn,
 }
 
 std::size_t http_message::receive(tcp_connection& tcp_conn,
-                             asio::error_code& ec,
+                             std::error_code& ec,
                              bool headers_only,
                              std::size_t max_content_length) {
     http_parser http_parser(dynamic_cast<http_request*>(this) != NULL);
@@ -613,7 +613,7 @@ std::size_t http_message::receive(tcp_connection& tcp_conn,
 }
 
 std::size_t http_message::write(std::ostream& out,
-    asio::error_code& ec, bool headers_only) {
+    std::error_code& ec, bool headers_only) {
     // reset error_code
     ec.clear();
 
@@ -638,7 +638,7 @@ std::size_t http_message::write(std::ostream& out,
 }
 
 std::size_t http_message::read(std::istream& in,
-                          asio::error_code& ec,
+                          std::error_code& ec,
                           http_parser& http_parser) {
     // make sure that we start out with an empty message & clear error_code
     clear();
@@ -676,7 +676,7 @@ std::size_t http_message::read(std::istream& in,
 }
 
 std::size_t http_message::read(std::istream& in,
-                          asio::error_code& ec,
+                          std::error_code& ec,
                           bool headers_only,
                           std::size_t max_content_length) {
     http_parser http_parser(dynamic_cast<http_request*>(this) != NULL);

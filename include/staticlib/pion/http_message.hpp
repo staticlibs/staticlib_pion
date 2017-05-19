@@ -704,7 +704,7 @@ public:
      *
      * @return std::size_t number of bytes written to the connection
      */
-    std::size_t send(tcp_connection& tcp_conn, asio::error_code& ec, bool headers_only = false);
+    std::size_t send(tcp_connection& tcp_conn, std::error_code& ec, bool headers_only = false);
 
     /**
      * Receives a new message from a TCP connection (blocks until finished)
@@ -715,7 +715,7 @@ public:
      *
      * @return std::size_t number of bytes read from the connection
      */
-    std::size_t receive(tcp_connection& tcp_conn, asio::error_code& ec, http_parser& http_parser);
+    std::size_t receive(tcp_connection& tcp_conn, std::error_code& ec, http_parser& http_parser);
     
     /**
      * Receives a new message from a TCP connection (blocks until finished)
@@ -727,7 +727,7 @@ public:
      *
      * @return std::size_t number of bytes read from the connection
      */
-    std::size_t receive(tcp_connection& tcp_conn, asio::error_code& ec, bool headers_only = false,
+    std::size_t receive(tcp_connection& tcp_conn, std::error_code& ec, bool headers_only = false,
             std::size_t max_content_length = static_cast<size_t>(-1));
 
     /**
@@ -739,7 +739,7 @@ public:
      *
      * @return std::size_t number of bytes written to the connection
      */
-    std::size_t write(std::ostream& out, asio::error_code& ec, bool headers_only = false);
+    std::size_t write(std::ostream& out, std::error_code& ec, bool headers_only = false);
 
     /**
      * Reads a new message from a std::istream (blocks until finished)
@@ -750,7 +750,7 @@ public:
      *
      * @return std::size_t number of bytes read from the connection
      */
-    std::size_t read(std::istream& in, asio::error_code& ec, http_parser& http_parser);
+    std::size_t read(std::istream& in, std::error_code& ec, http_parser& http_parser);
     
     /**
      * Reads a new message from a std::istream (blocks until finished)
@@ -762,7 +762,7 @@ public:
      *
      * @return std::size_t number of bytes read from the connection
      */
-    std::size_t read(std::istream& in, asio::error_code& ec, bool headers_only = false,
+    std::size_t read(std::istream& in, std::error_code& ec, bool headers_only = false,
             std::size_t max_content_length = static_cast<size_t>(-1));
 
     /**

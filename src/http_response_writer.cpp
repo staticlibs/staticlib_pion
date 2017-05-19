@@ -48,7 +48,7 @@ m_http_response(new http_response(http_request)) {
 
 std::shared_ptr<http_response_writer> http_response_writer::create(tcp_connection_ptr& tcp_conn,
         const http_request_ptr& http_request) {
-    finished_handler_type fh = [tcp_conn](const asio::error_code&) {
+    finished_handler_type fh = [tcp_conn](const std::error_code&) {
         tcp_conn->finish();
     };
     return create(tcp_conn, http_request, std::move(fh));
@@ -113,7 +113,7 @@ void http_response_writer::prepare_write_buffers(http_message::write_buffers_typ
     }
 }
 
-void http_response_writer::finished_writing(const asio::error_code& ec) {
+void http_response_writer::finished_writing(const std::error_code& ec) {
     if (m_http_response->is_body_allowed()) {
         if (m_finished) m_finished(ec);
     }
@@ -246,12 +246,12 @@ void http_response_writer::prepare_buffers_for_send(http_message::write_buffers_
 
 http_response_writer::write_handler_type http_response_writer::bind_to_write_handler() {
     auto self = shared_from_this();
-    return [self](const asio::error_code& ec, std::size_t bt) { 
+    return [self](const std::error_code& ec, std::size_t bt) { 
         self->handle_write(ec, bt); 
     };
 }
 
-void http_response_writer::handle_write(const asio::error_code& write_error, std::size_t bytes_written) {
+void http_response_writer::handle_write(const std::error_code& write_error, std::size_t bytes_written) {
     (void) bytes_written;
     logger log_ptr(get_logger());
     if (!write_error) {

@@ -398,7 +398,7 @@ public:
      *                        true = finished parsing HTTP message,
      *                        indeterminate = not yet finished parsing HTTP message
      */
-    sl::support::tribool parse(http_message& http_msg, asio::error_code& ec);
+    sl::support::tribool parse(http_message& http_msg, std::error_code& ec);
 
     /**
      * Finishes parsing an HTTP response message
@@ -674,7 +674,7 @@ public:
      *                        true = finished parsing HTTP message (no content),
      *                        indeterminate = payload content is available to be parsed
      */
-    sl::support::tribool finish_header_parsing(http_message& http_msg, asio::error_code& ec);
+    sl::support::tribool finish_header_parsing(http_message& http_msg, std::error_code& ec);
 
     /**
      * Parses an X-Forwarded-For HTTP header, and extracts from it an IP
@@ -702,7 +702,7 @@ protected:
      * @param 
      * @param 
      */
-    virtual void finished_parsing_headers(const asio::error_code& /* ec */, sl::support::tribool& /* rc */);
+    virtual void finished_parsing_headers(const std::error_code& /* ec */, sl::support::tribool& /* rc */);
     
     /**
      * Parses an HTTP message up to the end of the headers using bytes 
@@ -716,7 +716,7 @@ protected:
      *                        true = finished parsing HTTP headers,
      *                        indeterminate = not yet finished parsing HTTP headers
      */
-    sl::support::tribool parse_headers(http_message& http_msg, asio::error_code& ec);
+    sl::support::tribool parse_headers(http_message& http_msg, std::error_code& ec);
 
     /**
      * Updates an http::message object with data obtained from parsing headers
@@ -736,7 +736,7 @@ protected:
      *                        true = finished parsing message,
      *                        indeterminate = message is not yet finished
      */
-    sl::support::tribool parse_chunks(http_message::chunk_cache_type& chunk_buffers, asio::error_code& ec);
+    sl::support::tribool parse_chunks(http_message::chunk_cache_type& chunk_buffers, std::error_code& ec);
 
     /**
      * Consumes payload content in the parser's read buffer 
@@ -749,7 +749,7 @@ protected:
      *                        true = finished parsing message,
      *                        indeterminate = message is not yet finished
      */
-    sl::support::tribool consume_content(http_message& http_msg, asio::error_code& ec);
+    sl::support::tribool consume_content(http_message& http_msg, std::error_code& ec);
 
     /**
      * Consume the bytes available in the read buffer, converting them into
@@ -773,7 +773,7 @@ protected:
      * @param ec error code variable to define
      * @param ev error value to raise
      */
-    static void set_error(asio::error_code& ec, error_value_t ev);
+    static void set_error(std::error_code& ec, error_value_t ev);
 
     /**
      * Creates the unique parser error_category_t

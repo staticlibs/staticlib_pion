@@ -76,7 +76,7 @@ void tcp_connection::close() {
         } // ignore exceptions
 
         // close the underlying socket (ignore errors)
-        asio::error_code ec;
+        std::error_code ec;
         m_ssl_socket.next_layer().close(ec);
     }
 }
@@ -87,12 +87,12 @@ void tcp_connection::close() {
 // and the suggested #define statements cause WAY too much trouble and heartache
 void tcp_connection::cancel() {
 #if !defined(_MSC_VER) || (_WIN32_WINNT >= 0x0600)
-    asio::error_code ec;
+    std::error_code ec;
     m_ssl_socket.next_layer().cancel(ec);
 #endif
 }
 
-std::size_t tcp_connection::read_some(asio::error_code& ec) {
+std::size_t tcp_connection::read_some(std::error_code& ec) {
 #ifdef STATICLIB_PION_HAVE_SSL
     if (get_ssl_flag())
         return m_ssl_socket.read_some(asio::buffer(m_read_buffer), ec);

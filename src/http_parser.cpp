@@ -101,7 +101,7 @@ void http_parser::parse_headers_only(bool b) {
 }
 
 void http_parser::skip_header_parsing(http_message& http_msg) {
-    asio::error_code ec;
+    std::error_code ec;
     finish_header_parsing(http_msg, ec);
 }
 
@@ -187,7 +187,7 @@ logger http_parser::get_logger(void) {
 }
 
 
-sl::support::tribool http_parser::parse(http_message& http_msg, asio::error_code& ec) {
+sl::support::tribool http_parser::parse(http_message& http_msg, std::error_code& ec) {
     assert(! eof() );
 
     sl::support::tribool rc = sl::support::indeterminate;
@@ -283,7 +283,7 @@ sl::support::tribool http_parser::parse(http_message& http_msg, asio::error_code
 }
 
 sl::support::tribool http_parser::parse_headers(http_message& http_msg,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
     //
     // note that tribool may have one of THREE states:
@@ -786,7 +786,7 @@ void http_parser::update_message_with_header_data(http_message& http_msg) const
     }
 }
 
-sl::support::tribool http_parser::finish_header_parsing(http_message& http_msg, asio::error_code& ec) {
+sl::support::tribool http_parser::finish_header_parsing(http_message& http_msg, std::error_code& ec) {
     sl::support::tribool rc = sl::support::indeterminate;
 
     m_bytes_content_remaining = m_bytes_content_read = 0;
@@ -1316,7 +1316,7 @@ bool http_parser::parse_multipart_form_data(std::unordered_multimap<std::string,
 
 
 
-sl::support::tribool http_parser::parse_chunks(http_message::chunk_cache_type& chunks, asio::error_code& ec) {
+sl::support::tribool http_parser::parse_chunks(http_message::chunk_cache_type& chunks, std::error_code& ec) {
     //
     // note that tribool may have one of THREE states:
     //
@@ -1481,7 +1481,7 @@ sl::support::tribool http_parser::parse_chunks(http_message::chunk_cache_type& c
 }
 
 sl::support::tribool http_parser::consume_content(http_message& http_msg,
-    asio::error_code& /* ec */)
+    std::error_code& /* ec */)
 {
     size_t content_bytes_to_read;
     size_t content_bytes_available = bytes_available();
@@ -1673,10 +1673,10 @@ http_parser::error_category_t& http_parser::get_error_category() {
     return *m_error_category_ptr;
 }
 
-void http_parser::finished_parsing_headers(const asio::error_code& /* ec */, sl::support::tribool& /* rc */) { }
+void http_parser::finished_parsing_headers(const std::error_code& /* ec */, sl::support::tribool& /* rc */) { }
 
-void http_parser::set_error(asio::error_code& ec, error_value_t ev) {
-    ec = asio::error_code(static_cast<int> (ev), get_error_category());
+void http_parser::set_error(std::error_code& ec, error_value_t ev) {
+    ec = std::error_code(static_cast<int> (ev), get_error_category());
 }
 
 const char* http_parser::error_category_t::name() const STATICLIB_NOEXCEPT {

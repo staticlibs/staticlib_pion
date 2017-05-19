@@ -54,13 +54,13 @@ public:
      * Function called after the HTTP message has been parsed
      */
     using finished_handler_type = std::function<void(http_request_ptr, tcp_connection_ptr&,
-            const asio::error_code&)>;
+            const std::error_code&)>;
 
     /**
      * Function called after the HTTP message has been parsed
      */
     using headers_parsing_finished_handler_type = std::function<void(http_request_ptr, 
-            tcp_connection_ptr&, const asio::error_code&, sl::support::tribool& rc)>;    
+            tcp_connection_ptr&, const std::error_code&, sl::support::tribool& rc)>;    
     
 private:
 
@@ -152,7 +152,7 @@ private:
      * @param read_error error status from the last read operation
      * @param bytes_read number of bytes consumed by the last read operation
      */
-    void consume_bytes(const asio::error_code& read_error, std::size_t bytes_read);
+    void consume_bytes(const std::error_code& read_error, std::size_t bytes_read);
 
     /**
      * Consumes bytes that have been read using an HTTP parser
@@ -169,7 +169,7 @@ private:
      *
      * @param read_error error status from the last read operation
      */
-    void handle_read_error(const asio::error_code& read_error);
+    void handle_read_error(const std::error_code& read_error);
     
     /**
      * Called after we have finished parsing the HTTP message headers
@@ -177,7 +177,7 @@ private:
      * @param ec error code reference
      * @param rc result code reference
      */
-    void finished_parsing_headers(const asio::error_code& ec, sl::support::tribool& rc);
+    void finished_parsing_headers(const std::error_code& ec, sl::support::tribool& rc);
 
     /**
      * Reads more bytes from the TCP connection
@@ -189,7 +189,7 @@ private:
      * 
      * @param ec error code reference
      */
-    void finished_reading(const asio::error_code& ec);
+    void finished_reading(const std::error_code& ec);
     
     /**
      * Returns a reference to the HTTP message being parsed

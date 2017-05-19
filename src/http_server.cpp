@@ -241,12 +241,12 @@ void http_server::add_filter(const std::string& method, const std::string& resou
 
 void http_server::handle_connection(tcp_connection_ptr& conn) {
     http_request_reader::finished_handler_type fh = [this] (http_request_ptr request, 
-            tcp_connection_ptr& conn, const asio::error_code& ec) {
+            tcp_connection_ptr& conn, const std::error_code& ec) {
         this->handle_request(request, conn, ec);
     };
     reader_ptr my_reader_ptr = http_request_reader::create(conn, std::move(fh));
     http_request_reader::headers_parsing_finished_handler_type hpfh = [this](http_request_ptr request,
-            tcp_connection_ptr& conn, const asio::error_code& ec, sl::support::tribool & rc) {
+            tcp_connection_ptr& conn, const std::error_code& ec, sl::support::tribool & rc) {
         this->handle_request_after_headers_parsed(request, conn, ec, rc);
     };
     my_reader_ptr->set_headers_parsed_callback(std::move(hpfh));
@@ -254,14 +254,14 @@ void http_server::handle_connection(tcp_connection_ptr& conn) {
 }
 
 void http_server::handle_request_after_headers_parsed(http_request_ptr request,
-        tcp_connection_ptr& conn, const asio::error_code& ec, sl::support::tribool& rc) {
+        tcp_connection_ptr& conn, const std::error_code& ec, sl::support::tribool& rc) {
     if (ec || !rc) return;
     // http://stackoverflow.com/a/17390776/314015
     if ("100-continue" == request->get_header("Expect")) {
         http_message::write_buffers_type buf;
         buf.emplace_back(http_message::RESPONSE_FULLMESSAGE_100_CONTINUE.data(), 
                 http_message::RESPONSE_FULLMESSAGE_100_CONTINUE.length());
-        asio::error_code code;
+        std::error_code code;
         conn->write(buf, code);
         if (code) {
             STATICLIB_PION_LOG_WARN(m_logger, 
@@ -291,7 +291,7 @@ void http_server::handle_request_after_headers_parsed(http_request_ptr request,
 }
 
 void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& conn,
-        const asio::error_code& ec) {
+        const std::error_code& ec) {
     // handle error
     if (ec || !request->is_valid()) {
         conn->set_lifecycle(tcp_connection::LIFECYCLE_CLOSE); // make sure it will get closed
@@ -300,7 +300,7 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
             STATICLIB_PION_LOG_INFO(m_logger, "Invalid HTTP request (" << ec.message() << ")");
             bad_request_handler(request, conn);
         } else {
-            static const asio::error_code
+            static const std::error_code
             ERRCOND_CANCELED(asio::error::operation_aborted, asio::error::system_category),
                     ERRCOND_EOF(asio::error::eof, asio::error::misc_category);
             if (ec == ERRCOND_CANCELED || ec == ERRCOND_EOF) {

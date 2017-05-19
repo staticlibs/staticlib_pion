@@ -336,7 +336,7 @@ private:
      * @param tcp_conn the new TCP connection (if no error occurred)
      * @param accept_error true if an error occurred while accepting connections
      */
-    void handle_accept(tcp_connection_ptr& tcp_conn, const asio::error_code& accept_error);
+    void handle_accept(tcp_connection_ptr& tcp_conn, const std::error_code& accept_error);
 
     /**
      * Handles new connections following an SSL handshake (checks for errors)
@@ -344,7 +344,7 @@ private:
      * @param tcp_conn the new TCP connection (if no error occurred)
      * @param handshake_error true if an error occurred during the SSL handshake
      */
-    void handle_ssl_handshake(tcp_connection_ptr& tcp_conn, const asio::error_code& handshake_error);
+    void handle_ssl_handshake(tcp_connection_ptr& tcp_conn, const std::error_code& handshake_error);
     
     /**
      * This will be called by connection::finish() after a server has

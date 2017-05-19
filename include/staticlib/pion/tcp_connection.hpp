@@ -263,7 +263,7 @@ public:
      *
      * @see asio::basic_stream_socket::read_some()
      */
-    std::size_t read_some(asio::error_code& ec);
+    std::size_t read_some(std::error_code& ec);
     
     /**
      * reads some data into the connection's read buffer (blocks until finished)
@@ -275,7 +275,7 @@ public:
      * @see asio::basic_stream_socket::read_some()
      */
     template <typename ReadBufferType>
-    std::size_t read_some(ReadBufferType read_buffer, asio::error_code& ec) {
+    std::size_t read_some(ReadBufferType read_buffer, std::error_code& ec) {
 #ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             return m_ssl_socket.read_some(read_buffer, ec);
@@ -339,7 +339,7 @@ public:
      * @see asio::read()
      */
     template <typename CompletionCondition>
-    std::size_t read(CompletionCondition completion_condition, asio::error_code& ec) {
+    std::size_t read(CompletionCondition completion_condition, std::error_code& ec) {
 #ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             return asio::async_read(m_ssl_socket, asio::buffer(m_read_buffer),
@@ -363,7 +363,7 @@ public:
      */
     template <typename MutableBufferSequence, typename CompletionCondition>
     std::size_t read(const MutableBufferSequence& buffers, CompletionCondition completion_condition,
-            asio::error_code& ec) {
+            std::error_code& ec) {
 #ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             return asio::read(m_ssl_socket, buffers,
@@ -402,7 +402,7 @@ public:
      * @see asio::write()
      */
     template <typename ConstBufferSequence>
-    std::size_t write(const ConstBufferSequence& buffers, asio::error_code& ec) {
+    std::size_t write(const ConstBufferSequence& buffers, std::error_code& ec) {
 #ifdef STATICLIB_PION_HAVE_SSL
         if (get_ssl_flag())
             return asio::write(m_ssl_socket, buffers,

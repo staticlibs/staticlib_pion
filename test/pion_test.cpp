@@ -117,11 +117,11 @@ public:
     }
     
     void send() {
-        asio::error_code ec{};
+        std::error_code ec{};
         handle_write(ec, 0);
     }
     
-    void handle_write(const asio::error_code& ec, std::size_t /* bytes_written */) {
+    void handle_write(const std::error_code& ec, std::size_t /* bytes_written */) {
         std::lock_guard<std::mutex> lock{mutex};
         if (!ec) {
             stream.read(buf.data(), buf.size());
@@ -129,7 +129,7 @@ public:
             writer->write_no_copy(buf.data(), static_cast<size_t>(stream.gcount()));
             if (stream) {
                 auto self = shared_from_this();
-                writer->send_chunk([self](const asio::error_code& ec, size_t bt) {
+                writer->send_chunk([self](const std::error_code& ec, size_t bt) {
                     self->handle_write(ec, bt);
                 });
             } else {
