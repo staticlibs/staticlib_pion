@@ -27,6 +27,7 @@ To build the library on Windows using Visual Studio 2013 Express run the followi
 Visual Studio development command prompt 
 (`C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\Shortcuts\VS2013 x86 Native Tools Command Prompt`):
 
+    git clone https://github.com/staticlibs/external_asio.git
     git clone https://github.com/staticlibs/staticlib_config.git
     git clone https://github.com/staticlibs/staticlib_support.git
     git clone https://github.com/staticlibs/staticlib_concurrent.git
@@ -42,6 +43,8 @@ To build on other platforms using GCC or Clang with GNU Make:
 
     cmake .. -DCMAKE_CXX_FLAGS="--std=c++11"
     make
+
+Cloning of `external_asio` is not required on Linux - system libraries will be used instead.
 
 See [StaticlibsToolchains](https://github.com/staticlibs/wiki/wiki/StaticlibsToolchains) for 
 more information about the toolchain setup and cross-compilation.
