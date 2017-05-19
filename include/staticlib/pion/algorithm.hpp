@@ -28,6 +28,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <locale>
 #include <string>
 
 #include "staticlib/config.hpp"

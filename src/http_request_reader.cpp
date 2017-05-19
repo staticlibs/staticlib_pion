@@ -28,7 +28,7 @@ tcp_connection_ptr& http_request_reader::get_connection() {
 }
 
 void http_request_reader::set_timeout(std::chrono::milliseconds timeout) {
-    m_read_timeout_millis = timeout.count();
+    m_read_timeout_millis = static_cast<uint32_t> (timeout.count());
 }
 
 // reader member functions
