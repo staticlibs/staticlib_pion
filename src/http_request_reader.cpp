@@ -21,16 +21,14 @@
 namespace staticlib { 
 namespace httpserver {
 
-// reader static members
-
-const uint32_t http_request_reader::DEFAULT_READ_TIMEOUT = 10;
+const uint32_t http_request_reader::DEFAULT_READ_TIMEOUT_MILLIS = 10000;
 
 tcp_connection_ptr& http_request_reader::get_connection() {
     return m_tcp_conn;
 }
 
-void http_request_reader::set_timeout(uint32_t seconds) {
-    m_read_timeout = seconds;
+void http_request_reader::set_timeout(std::chrono::milliseconds timeout) {
+    m_read_timeout_millis = timeout.count();
 }
 
 // reader member functions
@@ -127,9 +125,13 @@ void http_request_reader::consume_bytes() {
 }
 
 void http_request_reader::read_bytes_with_timeout() {
-    if (m_read_timeout > 0) {
-        m_timer_ptr.reset(new tcp_timer(m_tcp_conn));
-        m_timer_ptr->start(m_read_timeout);
+    if (m_read_timeout_millis > 0) {
+        m_timer_ptr.reset(new sl::concurrent::cancelable_timer<asio::steady_timer>(
+                sl::support::make_unique<asio::steady_timer>(m_tcp_conn->get_io_service())));
+        auto conn = m_tcp_conn;
+        m_timer_ptr->start(std::chrono::milliseconds(m_read_timeout_millis), [conn] (const std::error_code&) {
+            conn->cancel();
+        });
     } else if (m_timer_ptr) {
         m_timer_ptr.reset();
     }
@@ -175,7 +177,7 @@ void http_request_reader::set_headers_parsed_callback(headers_parsing_finished_h
 http_request_reader::http_request_reader(tcp_connection_ptr& tcp_conn, finished_handler_type handler) :
 http_parser(true),
 m_tcp_conn(tcp_conn),
-m_read_timeout(DEFAULT_READ_TIMEOUT),
+m_read_timeout_millis(DEFAULT_READ_TIMEOUT_MILLIS),
 m_http_msg(new http_request),
 m_finished(handler) {
     m_http_msg->set_remote_ip(tcp_conn->get_remote_ip());

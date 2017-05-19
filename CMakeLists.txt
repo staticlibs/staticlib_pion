@@ -59,12 +59,18 @@ if ( NOT DEFINED STATICLIB_TOOLCHAIN )
         endif ( )
         staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_config )
         staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_support )
+        staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_concurrent )
         staticlib_httpserver_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_utils )
     endif (  )
 endif ( )
 
 # dependencies
-set ( ${PROJECT_NAME}_DEPS staticlib_config staticlib_support staticlib_utils asio )
+set ( ${PROJECT_NAME}_DEPS 
+        staticlib_config
+        staticlib_support
+        staticlib_concurrent
+        staticlib_utils
+        asio )
 if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
     set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} log4cplus )
 endif ( )
@@ -83,7 +89,8 @@ source_group ( "include" FILES ${${PROJECT_NAME}_HEADERS} )
 
 set ( ${PROJECT_NAME}_DEFINITIONS
         -DASIO_STANDALONE
-        -DASIO_HAS_STD_CHRONO )
+        -DASIO_HAS_STD_CHRONO
+        -DASIO_HAS_STD_SYSTEM_ERROR )
 
 set ( ${PROJECT_NAME}_OPTIONS "" )
 set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_DEFINITIONS} )

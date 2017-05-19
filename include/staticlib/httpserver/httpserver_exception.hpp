@@ -27,7 +27,7 @@
 #include <exception>
 #include <string>
 
-#include "staticlib/config.hpp"
+#include "staticlib/support/exception.hpp"
 
 namespace staticlib { 
 namespace httpserver {
@@ -35,13 +35,7 @@ namespace httpserver {
 /**
  * Base exception class for business exceptions in staticlib modules
  */
-class httpserver_exception : public std::exception {
-protected:
-    /**
-     * Error message
-     */
-    std::string message;
-
+class httpserver_exception : public sl::support::exception {
 public:
     /**
      * Default constructor
@@ -53,17 +47,9 @@ public:
      * 
      * @param msg error message
      */
-    httpserver_exception(std::string message) : 
-    message(message) { }
+    httpserver_exception(const std::string& msg) :
+    sl::support::exception(msg) { }
 
-    /**
-     * Returns error message
-     * 
-     * @return error message
-     */
-    virtual const char* what() const STATICLIB_NOEXCEPT override {
-        return message.c_str();
-    }
 };
 
 } // namespace

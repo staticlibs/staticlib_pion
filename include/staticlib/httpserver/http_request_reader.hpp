@@ -26,17 +26,18 @@
 #ifndef STATICLIB_HTTPSERVER_HTTP_REQUEST_READER_HPP
 #define STATICLIB_HTTPSERVER_HTTP_REQUEST_READER_HPP
 
+#include <chrono>
 #include <functional>
 #include <memory>
 
 #include "asio.hpp"
 
 #include "staticlib/config.hpp"
+#include "staticlib/concurrent.hpp"
 
 #include "staticlib/httpserver/http_parser.hpp"
 #include "staticlib/httpserver/http_request.hpp"
 #include "staticlib/httpserver/tcp_connection.hpp"
-#include "staticlib/httpserver/tcp_timer.hpp"
 
 namespace staticlib { 
 namespace httpserver {
@@ -64,9 +65,9 @@ public:
 private:
 
     /**
-     * Default maximum number of seconds for read operations
+     * Default maximum number of milliseconds for read operations
      */
-    static const uint32_t DEFAULT_READ_TIMEOUT;
+    static const uint32_t DEFAULT_READ_TIMEOUT_MILLIS;
 
     /**
      * The HTTP connection that has a new HTTP message to parse
@@ -76,12 +77,12 @@ private:
     /**
      * Pointer to a tcp_timer object if read timeouts are enabled
      */
-    tcp_timer_ptr m_timer_ptr;
+    std::shared_ptr<sl::concurrent::cancelable_timer<asio::steady_timer>> m_timer_ptr;
 
     /**
-     * Maximum number of seconds for read operations
+     * Maximum number of milliseconds for read operations
      */
-    uint32_t m_read_timeout;    
+    uint32_t m_read_timeout_millis;    
     
     /**
      * The new HTTP message container being created
@@ -124,9 +125,9 @@ public:
     /**
      * Sets the maximum number of seconds for read operations
      * 
-     * @param seconds maximum number of seconds for read operations
+     * @param seconds maximum number of milliseconds for read operations
      */
-    void set_timeout(uint32_t seconds);
+    void set_timeout(std::chrono::milliseconds timeout);
     
     /**
      * Sets a function to be called after HTTP headers have been parsed
