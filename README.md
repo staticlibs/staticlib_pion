@@ -1,5 +1,5 @@
-Staticlibs HTTP Server library
-==============================
+Pion HTTP Server build for Staticlibs
+=====================================
 
 This project is a part of [Staticlibs](http://staticlibs.net/).
 
