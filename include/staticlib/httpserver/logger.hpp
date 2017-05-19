@@ -75,14 +75,16 @@
             /**
              * Constructor
              */
-            logger(int /* glog */);
+            logger(int /* glog */) { }
             
             /**
              * Overloaded bool operator, always returns false
              * 
              * @return always returns false
              */
-            operator bool() const;
+            operator bool() const {
+                return false;
+            }
         };
     } // namespace
     }
@@ -141,31 +143,34 @@
             /**
              * Global priority for all loggers
              */
-            static log_priority_type m_priority;
+            log_priority_type& priority() {
+                static log_priority_type pr = logger::LOG_LEVEL_INFO;
+                return pr;
+            } 
             
             /**
              * Destructor
              */
-            ~logger();
+            ~logger() { }
             
             /**
              * Constructor, returns logger with name "pion"
              */
-            logger();
+            logger() : m_name("staticlib.httpserver") { }
             
             /**
              * Constructor, return logger with specified name
              * 
              * @param name logger name
              */
-            logger(const std::string& name);
+            logger(const std::string& name) : m_name(name) { }
             
             /**
              * Copy constructor
              * 
              * @param p logger instance
              */
-            logger(const logger& p);            
+            logger(const logger& p) : m_name(p.m_name) { }
         };
     } // namespace
     }
@@ -175,19 +180,19 @@
     #define STATICLIB_HTTPSERVER_GET_LOGGER(NAME)   staticlib::httpserver::logger(NAME)
     #define STATICLIB_HTTPSERVER_SHUTDOWN_LOGGER    {}
 
-    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DEBUG(LOG)    { LOG.m_priority = staticlib::httpserver::logger::LOG_LEVEL_DEBUG; }
-    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_INFO(LOG)     { LOG.m_priority = staticlib::httpserver::logger::LOG_LEVEL_INFO; }
-    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_WARN(LOG)     { LOG.m_priority = staticlib::httpserver::httpserver::logger::LOG_LEVEL_WARN; }
-    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_ERROR(LOG)    { LOG.m_priority = staticlib::httpserver::logger::LOG_LEVEL_ERROR; }
-    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_FATAL(LOG)    { LOG.m_priority = staticlib::httpserver::logger::LOG_LEVEL_FATAL; }
-    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_UP(LOG)       { ++LOG.m_priority; }
-    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DOWN(LOG)     { --LOG.m_priority; }
+    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DEBUG(LOG)    { LOG.priority() = staticlib::httpserver::logger::LOG_LEVEL_DEBUG; }
+    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_INFO(LOG)     { LOG.priority() = staticlib::httpserver::logger::LOG_LEVEL_INFO; }
+    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_WARN(LOG)     { LOG.priority() = staticlib::httpserver::httpserver::logger::LOG_LEVEL_WARN; }
+    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_ERROR(LOG)    { LOG.priority() = staticlib::httpserver::logger::LOG_LEVEL_ERROR; }
+    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_FATAL(LOG)    { LOG.priority() = staticlib::httpserver::logger::LOG_LEVEL_FATAL; }
+    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_UP(LOG)       { ++LOG.priority(); }
+    #define STATICLIB_HTTPSERVER_LOG_SETLEVEL_DOWN(LOG)     { --LOG.priority(); }
 
-    #define STATICLIB_HTTPSERVER_LOG_DEBUG(LOG, MSG)    if (LOG.m_priority <= staticlib::httpserver::logger::LOG_LEVEL_DEBUG) { std::cout << time(NULL) << " DEBUG " << LOG.m_name << ' ' << MSG << std::endl; }
-    #define STATICLIB_HTTPSERVER_LOG_INFO(LOG, MSG)     if (LOG.m_priority <= staticlib::httpserver::logger::LOG_LEVEL_INFO) { std::cout << time(NULL) << " INFO " << LOG.m_name << ' ' << MSG << std::endl; }
-    #define STATICLIB_HTTPSERVER_LOG_WARN(LOG, MSG)     if (LOG.m_priority <= staticlib::httpserver::logger::LOG_LEVEL_WARN) { std::cerr << time(NULL) << " WARN " << LOG.m_name << ' ' << MSG << std::endl; }
-    #define STATICLIB_HTTPSERVER_LOG_ERROR(LOG, MSG)    if (LOG.m_priority <= staticlib::httpserver::logger::LOG_LEVEL_ERROR) { std::cerr << time(NULL) << " ERROR " << LOG.m_name << ' ' << MSG << std::endl; }
-    #define STATICLIB_HTTPSERVER_LOG_FATAL(LOG, MSG)    if (LOG.m_priority <= staticlib::httpserver::logger::LOG_LEVEL_FATAL) { std::cerr << time(NULL) << " FATAL " << LOG.m_name << ' ' << MSG << std::endl; }
+    #define STATICLIB_HTTPSERVER_LOG_DEBUG(LOG, MSG)    if (LOG.priority() <= staticlib::httpserver::logger::LOG_LEVEL_DEBUG) { std::cout << time(NULL) << " DEBUG " << LOG.m_name << ' ' << MSG << std::endl; }
+    #define STATICLIB_HTTPSERVER_LOG_INFO(LOG, MSG)     if (LOG.priority() <= staticlib::httpserver::logger::LOG_LEVEL_INFO) { std::cout << time(NULL) << " INFO " << LOG.m_name << ' ' << MSG << std::endl; }
+    #define STATICLIB_HTTPSERVER_LOG_WARN(LOG, MSG)     if (LOG.priority() <= staticlib::httpserver::logger::LOG_LEVEL_WARN) { std::cerr << time(NULL) << " WARN " << LOG.m_name << ' ' << MSG << std::endl; }
+    #define STATICLIB_HTTPSERVER_LOG_ERROR(LOG, MSG)    if (LOG.priority() <= staticlib::httpserver::logger::LOG_LEVEL_ERROR) { std::cerr << time(NULL) << " ERROR " << LOG.m_name << ' ' << MSG << std::endl; }
+    #define STATICLIB_HTTPSERVER_LOG_FATAL(LOG, MSG)    if (LOG.priority() <= staticlib::httpserver::logger::LOG_LEVEL_FATAL) { std::cerr << time(NULL) << " FATAL " << LOG.m_name << ' ' << MSG << std::endl; }
 
 #endif
 
