@@ -184,7 +184,7 @@ public:
      * 
      * @return scheduler
      */
-    scheduler& get_active_scheduler();
+    scheduler& get_scheduler();
     
 private:
         

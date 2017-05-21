@@ -39,7 +39,8 @@ num_threads(number_of_threads),
 active_users(0),
 running(false),
 asio_service(),
-timer(asio_service) { }
+timer(asio_service),
+thread_stop_hook([](const std::thread::id&) STATICLIB_NOEXCEPT {}) { }
 
 scheduler::~scheduler() {
     shutdown();
@@ -69,7 +70,7 @@ void scheduler::startup() {
 
 void scheduler::shutdown(void) {
     // lock mutex for thread safety
-    std::unique_lock<std::mutex> scheduler_lock(mutex);
+    std::unique_lock<std::mutex> scheduler_lock{mutex};
     
     if (running) {
         
@@ -142,8 +143,9 @@ void scheduler::add_active_user() {
 
 void scheduler::remove_active_user() {
     std::lock_guard<std::mutex> scheduler_lock(mutex);
-    if (--active_users == 0)
+    if (--active_users == 0) {
         no_more_active_users.notify_all();
+    }
 }
 
 void scheduler::sleep(uint32_t sleep_sec, uint32_t sleep_nsec) {
@@ -164,6 +166,11 @@ void scheduler::process_service_work(asio::io_service& service) {
     }   
 }
 
+void scheduler::set_thread_stop_hook(std::function<void(const std::thread::id&) STATICLIB_NOEXCEPT> hook) {
+    std::unique_lock<std::mutex> scheduler_lock{mutex};
+    this->thread_stop_hook = hook;
+}
+
 void scheduler::stop_services() {
     asio_service.stop();
 }
@@ -177,9 +184,11 @@ void scheduler::stop_threads() {
         for (auto& th_ptr : thread_pool) {
             // make sure we do not call join() for the current thread,
             // since this may yield "undefined behavior"
-            if (th_ptr->get_id() != current_id) {
+            std::thread::id tid = th_ptr->get_id();
+            if (tid != current_id) {
                 th_ptr->join();
             }
+            thread_stop_hook(tid);
         }
     }
 }

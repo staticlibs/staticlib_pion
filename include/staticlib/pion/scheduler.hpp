@@ -97,7 +97,12 @@ class scheduler {
     /**
      * Timer used to periodically check for shutdown
      */
-    asio::steady_timer timer;    
+    asio::steady_timer timer;
+    
+    /**
+     * Hook function, that is called after each scheduled thread will exit
+     */
+    std::function<void(const std::thread::id&) STATICLIB_NOEXCEPT> thread_stop_hook;
     
 public:
 
@@ -208,8 +213,14 @@ public:
      */
     void process_service_work(asio::io_service& service);
 
+    /**
+     * Setter for hook function, that is called after each thread exit
+     * 
+     * @param hook hook function
+     */
+    void set_thread_stop_hook(std::function<void(const std::thread::id&) STATICLIB_NOEXCEPT> hook);
+    
 private:
-
     /**
      * Stops all services used to schedule work
      */

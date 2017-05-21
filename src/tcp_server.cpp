@@ -284,7 +284,7 @@ asio::io_service& tcp_server::get_io_service() {
     return active_scheduler.get_io_service();
 }
 
-scheduler& tcp_server::get_active_scheduler() {
+scheduler& tcp_server::get_scheduler() {
     return active_scheduler;
 }        
 
