@@ -50,48 +50,9 @@ tcp_server::~tcp_server() STATICLIB_NOEXCEPT {
     }
 }
 
-tcp_server::tcp_server(scheduler& sched, const unsigned int tcp_port) : 
+tcp_server::tcp_server(const asio::ip::tcp::endpoint& endpoint, uint32_t number_of_threads) : 
 m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.tcp_server")),
-m_active_scheduler(sched),
-m_tcp_acceptor(m_active_scheduler.get_io_service()),
-#ifdef STATICLIB_PION_HAVE_SSL
-m_ssl_context(asio::ssl::context::sslv23),
-#else
-m_ssl_context(0),
-#endif
-m_endpoint(asio::ip::tcp::v4(), static_cast<unsigned short>(tcp_port)), 
-m_ssl_flag(false), 
-m_is_listening(false) { }
-    
-tcp_server::tcp_server(scheduler& sched, const asio::ip::tcp::endpoint& endpoint) : 
-m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.tcp_server")),
-m_active_scheduler(sched),
-m_tcp_acceptor(m_active_scheduler.get_io_service()),
-#ifdef STATICLIB_PION_HAVE_SSL
-m_ssl_context(asio::ssl::context::sslv23),
-#else
-m_ssl_context(0),
-#endif
-m_endpoint(endpoint), 
-m_ssl_flag(false), m_is_listening(false) { }
-
-tcp_server::tcp_server(const unsigned int tcp_port) : 
-m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.tcp_server")),
-m_default_scheduler(), 
-m_active_scheduler(m_default_scheduler),
-m_tcp_acceptor(m_active_scheduler.get_io_service()),
-#ifdef STATICLIB_PION_HAVE_SSL
-m_ssl_context(asio::ssl::context::sslv23),
-#else
-m_ssl_context(0),
-#endif
-m_endpoint(asio::ip::tcp::v4(), static_cast<unsigned short>(tcp_port)), 
-m_ssl_flag(false), m_is_listening(false) { }
-
-tcp_server::tcp_server(const asio::ip::tcp::endpoint& endpoint) : 
-m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.tcp_server")),
-m_default_scheduler(),
-m_active_scheduler(m_default_scheduler),
+m_active_scheduler(number_of_threads),
 m_tcp_acceptor(m_active_scheduler.get_io_service()),
 #ifdef STATICLIB_PION_HAVE_SSL
 m_ssl_context(asio::ssl::context::sslv23),

@@ -171,11 +171,10 @@ http_server::http_server(uint32_t number_of_threads, uint16_t port,
         std::function<bool(bool, asio::ssl::verify_context&)> ssl_verify_callback
 #endif // STATICLIB_PION_HAVE_SSL
 ) : 
-tcp_server(asio::ip::tcp::endpoint(ip_address, port)),
+tcp_server(asio::ip::tcp::endpoint(ip_address, port), number_of_threads),
 bad_request_handler(handle_bad_request),
 not_found_handler(handle_not_found_request),
 server_error_handler(handle_server_error) {
-    get_active_scheduler().set_num_threads(number_of_threads);
 #ifdef STATICLIB_PION_HAVE_SSL
     if (!ssl_key_file.empty()) {
         set_ssl_flag(true);

@@ -33,46 +33,65 @@ namespace pion {
 
 // members of scheduler
     
-const uint32_t   scheduler::DEFAULT_NUM_THREADS = 8;
-const uint32_t   scheduler::NSEC_IN_SECOND = 1000000000; // (10^9)
-const uint32_t   scheduler::MICROSEC_IN_SECOND = 1000000;    // (10^6)
-const uint32_t   scheduler::KEEP_RUNNING_TIMER_SECONDS = 5;
+scheduler::scheduler(uint32_t number_of_threads) :
+log(STATICLIB_PION_GET_LOGGER("staticlib.pion.scheduler")),
+num_threads(number_of_threads),
+active_users(0),
+running(false),
+asio_service(),
+timer(asio_service) { }
 
-scheduler::scheduler() :
-m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.scheduler")),
-m_num_threads(DEFAULT_NUM_THREADS),
-m_active_users(0),
-m_is_running(false) { }
+scheduler::~scheduler() {
+    shutdown();
+}
 
-scheduler::~scheduler() { }
+void scheduler::startup() {
+    // lock mutex for thread safety
+    std::lock_guard<std::mutex> scheduler_lock(mutex);
 
-void scheduler::startup() { }
+    if (!running) {
+        STATICLIB_PION_LOG_INFO(log, "Starting thread scheduler");
+        running = true;
+
+        // schedule a work item to make sure that the service doesn't complete
+        asio_service.reset();
+        keep_running(asio_service, timer);
+
+        // start multiple threads to handle async tasks
+        for (uint32_t n = 0; n < num_threads; ++n) {
+            std::unique_ptr<std::thread> new_thread(new std::thread([this]() {
+                this->process_service_work(this->asio_service);
+            }));
+            thread_pool.emplace_back(std::move(new_thread));
+        }
+    }
+}
 
 void scheduler::shutdown(void) {
     // lock mutex for thread safety
-    std::unique_lock<std::mutex> scheduler_lock(m_mutex);
+    std::unique_lock<std::mutex> scheduler_lock(mutex);
     
-    if (m_is_running) {
+    if (running) {
         
-        STATICLIB_PION_LOG_INFO(m_logger, "Shutting down the thread scheduler");
+        STATICLIB_PION_LOG_INFO(log, "Shutting down the thread scheduler");
         
-        while (m_active_users > 0) {
+        while (active_users > 0) {
             // first, wait for any active users to exit
-            STATICLIB_PION_LOG_INFO(m_logger, "Waiting for " << m_active_users << " scheduler users to finish");
-            m_no_more_active_users.wait(scheduler_lock);
+            STATICLIB_PION_LOG_INFO(log, "Waiting for " << active_users << " scheduler users to finish");
+            no_more_active_users.wait(scheduler_lock);
         }
 
         // shut everything down
-        m_is_running = false;
+        running = false;
         stop_services();
         stop_threads();
         finish_services();
         finish_threads();
         
-        STATICLIB_PION_LOG_INFO(m_logger, "The thread scheduler has shutdown");
+        STATICLIB_PION_LOG_INFO(log, "The thread scheduler has shutdown");
 
         // Make sure anyone waiting on shutdown gets notified
-        m_scheduler_has_stopped.notify_all();
+        scheduler_has_stopped.notify_all();
         
     } else {
         
@@ -84,36 +103,20 @@ void scheduler::shutdown(void) {
         
         // Make sure anyone waiting on shutdown gets notified
         // even if the scheduler did not startup successfully
-        m_scheduler_has_stopped.notify_all();
+        scheduler_has_stopped.notify_all();
     }
 }
 
 void scheduler::join(void) {
-    std::unique_lock<std::mutex> scheduler_lock(m_mutex);
-    while (m_is_running) {
+    std::unique_lock<std::mutex> scheduler_lock(mutex);
+    while (running) {
         // sleep until scheduler_has_stopped condition is signaled
-        m_scheduler_has_stopped.wait(scheduler_lock);
+        scheduler_has_stopped.wait(scheduler_lock);
     }
 }
 
 bool scheduler::is_running() const {
-    return m_is_running;
-}
-
-void scheduler::set_num_threads(const uint32_t n) {
-    m_num_threads = n;
-}
-
-uint32_t scheduler::get_num_threads() const {
-    return m_num_threads;
-}
-
-void scheduler::set_logger(logger log_ptr) {
-    m_logger = log_ptr;
-}
-
-logger scheduler::get_logger(void) {
-    return m_logger;
+    return running;
 }
 
 void scheduler::post(std::function<void()> work_func) {
@@ -121,9 +124,9 @@ void scheduler::post(std::function<void()> work_func) {
 }
     
 void scheduler::keep_running(asio::io_service& my_service, asio::steady_timer& my_timer) {
-    if (m_is_running) {
+    if (running) {
         // schedule this again to make sure the service doesn't complete
-        my_timer.expires_from_now(std::chrono::seconds(KEEP_RUNNING_TIMER_SECONDS));
+        my_timer.expires_from_now(std::chrono::seconds(5));
         auto cb = [this, &my_service, &my_timer](const std::error_code&){
             this->keep_running(my_service, my_timer);
         };
@@ -132,15 +135,15 @@ void scheduler::keep_running(asio::io_service& my_service, asio::steady_timer& m
 }
 
 void scheduler::add_active_user() {
-    if (!m_is_running) startup();
-    std::lock_guard<std::mutex> scheduler_lock(m_mutex);
-    ++m_active_users;
+    if (!running) startup();
+    std::lock_guard<std::mutex> scheduler_lock(mutex);
+    ++active_users;
 }
 
 void scheduler::remove_active_user() {
-    std::lock_guard<std::mutex> scheduler_lock(m_mutex);
-    if (--m_active_users == 0)
-        m_no_more_active_users.notify_all();
+    std::lock_guard<std::mutex> scheduler_lock(mutex);
+    if (--active_users == 0)
+        no_more_active_users.notify_all();
 }
 
 void scheduler::sleep(uint32_t sleep_sec, uint32_t sleep_nsec) {
@@ -149,40 +152,29 @@ void scheduler::sleep(uint32_t sleep_sec, uint32_t sleep_nsec) {
 }
 
 void scheduler::process_service_work(asio::io_service& service) {
-    while (m_is_running) {
+    while (running) {
         try {
             service.run();
         } catch (std::exception& e) {
             (void) e;
-            STATICLIB_PION_LOG_ERROR(m_logger, e.what());
+            STATICLIB_PION_LOG_ERROR(log, e.what());
         } catch (...) {
-            STATICLIB_PION_LOG_ERROR(m_logger, "caught unrecognized exception");
+            STATICLIB_PION_LOG_ERROR(log, "caught unrecognized exception");
         }
     }   
 }
 
-void scheduler::stop_services() { }
+void scheduler::stop_services() {
+    asio_service.stop();
+}
 
-void scheduler::stop_threads() { }
-
-void scheduler::finish_services() { }
-
-void scheduler::finish_threads() { }
-
-
-// multi_thread_scheduler definitions
-
-multi_thread_scheduler::multi_thread_scheduler() { }
-
-multi_thread_scheduler::~multi_thread_scheduler() { }
-
-void multi_thread_scheduler::stop_threads() {
-    if (!m_thread_pool.empty()) {
-        STATICLIB_PION_LOG_DEBUG(m_logger, "Waiting for threads to shutdown");
+void scheduler::stop_threads() {
+    if (!thread_pool.empty()) {
+        STATICLIB_PION_LOG_DEBUG(log, "Waiting for threads to shutdown");
 
         // wait until all threads in the pool have stopped
         auto current_id = std::this_thread::get_id();
-        for (auto& th_ptr : m_thread_pool) {
+        for (auto& th_ptr : thread_pool) {
             // make sure we do not call join() for the current thread,
             // since this may yield "undefined behavior"
             if (th_ptr->get_id() != current_id) {
@@ -192,52 +184,16 @@ void multi_thread_scheduler::stop_threads() {
     }
 }
 
-void multi_thread_scheduler::finish_threads() {
-    m_thread_pool.clear();
+void scheduler::finish_services() {
+    asio_service.reset();
 }
 
-// single_service_scheduler member functions
-
-single_service_scheduler::single_service_scheduler() : 
-m_service(), 
-m_timer(m_service) { }
-
-single_service_scheduler::~single_service_scheduler() {
-    shutdown();
+void scheduler::finish_threads() {
+    thread_pool.clear();
 }
 
-asio::io_service& single_service_scheduler::get_io_service() {
-    return m_service;
-}
-
-void single_service_scheduler::startup() {
-    // lock mutex for thread safety
-    std::lock_guard<std::mutex> scheduler_lock(m_mutex);
-    
-    if (! m_is_running) {
-        STATICLIB_PION_LOG_INFO(m_logger, "Starting thread scheduler");
-        m_is_running = true;
-        
-        // schedule a work item to make sure that the service doesn't complete
-        m_service.reset();
-        keep_running(m_service, m_timer);
-        
-        // start multiple threads to handle async tasks
-        for (uint32_t n = 0; n < m_num_threads; ++n) {
-            std::unique_ptr<std::thread> new_thread(new std::thread([this]() {
-                this->process_service_work(this->m_service);
-            }));
-            m_thread_pool.emplace_back(std::move(new_thread));
-        }
-    }
-}
-
-void single_service_scheduler::stop_services() {
-    m_service.stop();
-}
-
-void single_service_scheduler::finish_services() {
-    m_service.reset();
+asio::io_service& scheduler::get_io_service() {
+    return asio_service;
 }
 
 } // namespace

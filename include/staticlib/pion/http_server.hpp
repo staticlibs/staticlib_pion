@@ -198,7 +198,7 @@ public:
      * @param ssl_verify_callback (optional) callback function that can be used to customize client
      *        certificate auth
      */
-    explicit http_server(uint32_t number_of_threads, uint16_t port,
+    http_server(uint32_t number_of_threads, uint16_t port,
             asio::ip::address_v4 ip_address = asio::ip::address_v4::any()
 #ifdef STATICLIB_PION_HAVE_SSL
             ,

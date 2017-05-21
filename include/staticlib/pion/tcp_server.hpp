@@ -47,23 +47,16 @@ namespace pion {
 class tcp_server {
 
 protected:
-
     /**
      * Primary logging interface used by this class
      */
     logger m_logger;
 
 private:
-    
-    /**
-     * The default scheduler object used to manage worker threads
-     */ 
-    single_service_scheduler m_default_scheduler;
-
     /**
      * Reference to the active scheduler object used to manage worker threads
      */
-    scheduler & m_active_scheduler;
+    scheduler m_active_scheduler;
 
     /**
      * Manages async TCP connections
@@ -259,33 +252,10 @@ public:
     /**
      * Protected constructor so that only derived objects may be created
      * 
-     * @param tcp_port port number used to listen for new connections (IPv4)
-     */
-    explicit tcp_server(const unsigned int tcp_port);
-    
-    /**
-     * Protected constructor so that only derived objects may be created
-     * 
      * @param endpoint TCP endpoint used to listen for new connections (see ASIO docs)
      */
-    explicit tcp_server(const asio::ip::tcp::endpoint& endpoint);
+    tcp_server(const asio::ip::tcp::endpoint& endpoint, uint32_t number_of_threads);
 
-    /**
-     * Protected constructor so that only derived objects may be created
-     * 
-     * @param sched the scheduler that will be used to manage worker threads
-     * @param tcp_port port number used to listen for new connections (IPv4)
-     */
-    explicit tcp_server(scheduler& sched, const unsigned int tcp_port = 0);
-    
-    /**
-     * Protected constructor so that only derived objects may be created
-     * 
-     * @param sched the scheduler that will be used to manage worker threads
-     * @param endpoint TCP endpoint used to listen for new connections (see ASIO docs)
-     */
-    tcp_server(scheduler& sched, const asio::ip::tcp::endpoint& endpoint);
-    
     /**
      * Handles a new TCP connection; derived classes SHOULD override this
      * since the default behavior does nothing

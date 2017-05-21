@@ -49,70 +49,62 @@ namespace pion {
  * Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads
  */
 class scheduler {
-    
-protected:
-
-    /**
-     * Default number of worker threads in the thread pool
-     */
-    static const uint32_t DEFAULT_NUM_THREADS;
-
-    /**
-     * Number of nanoseconds in one full second (10 ^ 9)
-     */
-    static const uint32_t NSEC_IN_SECOND;
-
-    /**
-     * Number of microseconds in one full second (10 ^ 6)
-     */
-    static const uint32_t MICROSEC_IN_SECOND;
-
-    /**
-     * Number of seconds a timer should wait for to keep the IO services running
-     */
-    static const uint32_t KEEP_RUNNING_TIMER_SECONDS;
-
     /**
      * Mutex to make class thread-safe
      */
-    std::mutex m_mutex;
+    std::mutex mutex;
 
     /**
      * Primary logging interface used by this class
      */
-    logger m_logger;
+    logger log;
 
     /**
      * Condition triggered when there are no more active users
      */
-    std::condition_variable m_no_more_active_users;
+    std::condition_variable no_more_active_users;
 
     /**
      * Condition triggered when the scheduler has stopped
      */
-    std::condition_variable m_scheduler_has_stopped;
+    std::condition_variable scheduler_has_stopped;
 
     /**
      * Total number of worker threads in the pool
      */
-    uint32_t m_num_threads;
+    uint32_t num_threads;
 
     /**
      * The scheduler will not shutdown until there are no more active users
      */
-    uint32_t m_active_users;
+    uint32_t active_users;
 
     /**
      * True if the thread scheduler is running
      */
-    bool m_is_running;    
+    bool running;
+
+    /**
+     * Pool of threads used to perform work
+     */
+    std::vector<std::unique_ptr<std::thread>> thread_pool;
+
+    /**
+     * Service used to manage async I/O events
+     */
+    asio::io_service asio_service;
+
+    /**
+     * Timer used to periodically check for shutdown
+     */
+    asio::steady_timer timer;    
     
 public:
 
     /**
      * Constructor
      */
-    scheduler();
+    scheduler(uint32_t number_of_threads);
     
     /**
      * Deleted copy constructor
@@ -125,19 +117,19 @@ public:
     scheduler& operator=(const scheduler&) = delete;
     
     /**
-     * Virtual destructor
+     * Destructor
      */
-    virtual ~scheduler();
+    ~scheduler();
 
     /**
      * Starts the thread scheduler (this is called automatically when necessary)
      */
-    virtual void startup();
+    void startup();
     
     /**
      * Stops the thread scheduler (this is called automatically when the program exits)
      */
-    virtual void shutdown();
+    void shutdown();
 
     /**
      * The calling thread will sleep until the scheduler has stopped
@@ -164,46 +156,18 @@ public:
     bool is_running() const;
     
     /**
-     * Sets the number of threads to be used (these are shared by all servers)
-     * 
-     * @param n number of threads
-     */
-    void set_num_threads(const uint32_t n);
-    
-    /**
-     * Returns the number of threads currently in use
-     * 
-     * @return number of threads
-     */
-    uint32_t get_num_threads() const;
-
-    /**
-     * Sets the logger to be used
-     * 
-     * @param log_ptr logger instance
-     */
-    void set_logger(logger log_ptr);
-
-    /**
-     * Returns the logger currently in use
-     * 
-     * @return logger instance
-     */
-    logger get_logger(void);
-    
-    /**
      * Returns an async I/O service used to schedule work
      * 
      * @return asio service
      */
-    virtual asio::io_service& get_io_service(void) = 0;
+    asio::io_service& get_io_service();
     
     /**
      * Schedules work to be performed by one of the pooled threads
      *
      * @param work_func work function to be executed
      */
-    virtual void post(std::function<void()> work_func);
+    void post(std::function<void()> work_func);
     
     /**
      * Thread function used to keep the io_service running
@@ -244,123 +208,28 @@ public:
      */
     void process_service_work(asio::io_service& service);
 
-protected:
+private:
 
     /**
      * Stops all services used to schedule work
      */
-    virtual void stop_services();
+    void stop_services();
     
     /**
      * Stops all threads used to perform work
      */
-    virtual void stop_threads();
+    void stop_threads();
 
     /**
      * Finishes all services used to schedule work
      */
-    virtual void finish_services();
+    void finish_services();
 
     /**
      * Finishes all threads used to perform work
      */
-    virtual void finish_threads();
+    void finish_threads();
     
-};
-
-    
-/**
- * Uses a pool of threads to perform work
- */
-class multi_thread_scheduler : public scheduler {
-    
-protected:
-
-    /**
-     * Pool of threads used to perform work
-     */
-    std::vector<std::unique_ptr<std::thread>> m_thread_pool;
-    
-public:
-    
-    /**
-     * Constructor
-     */
-    multi_thread_scheduler();
-    
-    /**
-     * Virtual destructor
-     */
-    virtual ~multi_thread_scheduler();
-
-    
-protected:
-    
-    /**
-     * Stops all threads used to perform work
-     */
-    virtual void stop_threads();
-
-    /**
-     * Finishes all threads used to perform work
-     */
-    virtual void finish_threads();
-};
-    
-    
-/**
- * Uses a single IO service to schedule work
- */
-class single_service_scheduler : public multi_thread_scheduler {
-    
-protected:
-
-    /**
-     * Service used to manage async I/O events
-     */
-    asio::io_service m_service;
-
-    /**
-     * Timer used to periodically check for shutdown
-     */
-    asio::steady_timer m_timer;    
-    
-public:
-    
-    /**
-     * Constructor
-     */
-    single_service_scheduler();
-    
-    /// virtual destructor
-    /**
-     * Virtual destructor, calls shutdown
-     */
-    virtual ~single_service_scheduler();
-    
-    /**
-     * Returns an async I/O service used to schedule work
-     * 
-     * @return asio service
-     */
-    virtual asio::io_service& get_io_service(void);
-    
-    /**
-     * Starts the thread scheduler (this is called automatically when necessary)
-     */
-    virtual void startup();
-    
-protected:
-    
-    /**
-     * Stops all services used to schedule work
-     */
-    virtual void stop_services();
-    
-    /**
-     * Finishes all services used to schedule work
-     */
-    virtual void finish_services();
 };
         
 } // namespace
