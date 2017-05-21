@@ -50,60 +50,57 @@ protected:
     /**
      * Primary logging interface used by this class
      */
-    logger m_logger;
+    logger log;
 
-private:
     /**
      * Reference to the active scheduler object used to manage worker threads
      */
-    scheduler m_active_scheduler;
+    scheduler active_scheduler;
 
     /**
      * Manages async TCP connections
      */
-    asio::ip::tcp::acceptor m_tcp_acceptor;
+    asio::ip::tcp::acceptor tcp_acceptor;
 
-protected:
     /**
      * Context used for SSL configuration
      */
-    tcp_connection::ssl_context_type m_ssl_context;
+    tcp_connection::ssl_context_type ssl_context;
 
-private:
     /**
      * Condition triggered when the server has stopped listening for connections
      */
-    std::condition_variable m_server_has_stopped;
+    std::condition_variable server_has_stopped;
 
     /**
      * Condition triggered when the connection pool is empty
      */
-    std::condition_variable m_no_more_connections;
+    std::condition_variable no_more_connections;
 
     /**
      * Pool of active connections associated with this server 
      */
-    std::set<tcp_connection_ptr> m_conn_pool;
+    std::set<tcp_connection_ptr> conn_pool;
 
     /**
      * TCP endpoint used to listen for new connections
      */
-    asio::ip::tcp::endpoint m_endpoint;
+    asio::ip::tcp::endpoint tcp_endpoint;
 
     /**
      * true if the server uses SSL to encrypt connections
      */
-    bool m_ssl_flag;
+    bool ssl_flag;
 
     /**
      * Set to true when the server is listening for new connections
      */
-    bool m_is_listening;
+    bool listening;
 
     /**
      * Mutex to make class thread-safe
      */
-    mutable std::mutex m_mutex;    
+    mutable std::mutex mutex;    
     
 public:
 
@@ -140,72 +137,11 @@ public:
     void join();
 
     /**
-     * Configures server for SSL using a PEM-encoded RSA private key file
-     *
-     * @param pem_key_file name of the file containing a PEM-encoded private key
-     */
-    void set_ssl_key_file(const std::string& pem_key_file);
-    
-    /**
-     * Returns the number of active tcp connections
-     * 
-     * @return number of active tcp connections
-     */
-    std::size_t get_connections() const;
-
-    /**
-     * Returns tcp port number that the server listens for connections on
-     */
-    unsigned int get_port() const;
-    
-    /**
-     * Sets tcp port number that the server listens for connections on
-     * 
-     * @param pport number
-     */
-    void set_port(unsigned int p);
-    
-    /**
-     * Returns IP address that the server listens for connections on
-     * 
-     * @return IP address
-     */
-    asio::ip::address get_address() const;
-    
-    /**
-     * Sets IP address that the server listens for connections on
-     * 
-     * @param addr IP address
-     */
-    void set_address(const asio::ip::address& addr);
-    
-    /**
      * Returns tcp endpoint that the server listens for connections on
      * 
      * @return tcp endpoint
      */
     const asio::ip::tcp::endpoint& get_endpoint() const;
-    
-    /**
-     * Sets tcp endpoint that the server listens for connections on
-     * 
-     * @param ep tcp endpoint
-     */
-    void set_endpoint(const asio::ip::tcp::endpoint& ep);
-
-    /**
-     * Returns true if the server uses SSL to encrypt connections
-     * 
-     * @return true if the server uses SSL to encrypt connections
-     */
-    bool get_ssl_flag() const;
-    
-    /**
-     * Sets value of SSL flag (true if the server uses SSL to encrypt connections)
-     * 
-     * @param b ssl flag
-     */
-    void set_ssl_flag(bool b = true);
     
     /**
      * Returns the SSL context for configuration
@@ -222,34 +158,6 @@ public:
     bool is_listening() const;
     
     /**
-     * Sets the logger to be used
-     * 
-     * @param log_ptr logger
-     */
-    void set_logger(logger log_ptr);
-    
-    /**
-     * Returns the logger currently in use
-     * 
-     * @return 
-     */
-    logger get_logger();
-    
-    /**
-     * Returns mutable reference to the TCP connection acceptor
-     * 
-     * @return TCP connection acceptor
-     */
-    asio::ip::tcp::acceptor& get_acceptor();
-
-    /**
-     * Returns const reference to the TCP connection acceptor
-     * 
-     * @return TCP connection acceptor
-     */
-    const asio::ip::tcp::acceptor& get_acceptor() const;   
-        
-    /**
      * Protected constructor so that only derived objects may be created
      * 
      * @param endpoint TCP endpoint used to listen for new connections (see ASIO docs)
@@ -263,16 +171,6 @@ public:
      * @param tcp_conn the new TCP connection to handle
      */
     virtual void handle_connection(tcp_connection_ptr& tcp_conn);
-    
-    /**
-     * Called before the TCP server starts listening for new connections
-     */
-    virtual void before_starting();
-
-    /**
-     * Called after the TCP server has stopped listing for new connections
-     */
-    virtual void after_stopping();
     
     /**
      * Returns an async I/O service used to schedule work

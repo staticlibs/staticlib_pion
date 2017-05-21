@@ -177,21 +177,21 @@ not_found_handler(handle_not_found_request),
 server_error_handler(handle_server_error) {
 #ifdef STATICLIB_PION_HAVE_SSL
     if (!ssl_key_file.empty()) {
-        set_ssl_flag(true);
-        this->m_ssl_context.set_options(asio::ssl::context::default_workarounds
+        this->ssl_flag = true;
+        this->ssl_context.set_options(asio::ssl::context::default_workarounds
                 | asio::ssl::context::no_compression
                 | asio::ssl::context::no_sslv2
                 | asio::ssl::context::single_dh_use);
-        this->m_ssl_context.set_password_callback(ssl_key_password_callback);
-        this->m_ssl_context.use_certificate_file(ssl_key_file, asio::ssl::context::pem);
-        this->m_ssl_context.use_private_key_file(ssl_key_file, asio::ssl::context::pem);
+        this->ssl_context.set_password_callback(ssl_key_password_callback);
+        this->ssl_context.use_certificate_file(ssl_key_file, asio::ssl::context::pem);
+        this->ssl_context.use_private_key_file(ssl_key_file, asio::ssl::context::pem);
         if (!ssl_verify_file.empty()) {
-            this->m_ssl_context.load_verify_file(ssl_verify_file);
-            this->m_ssl_context.set_verify_callback(ssl_verify_callback);
-            this->m_ssl_context.set_verify_mode(asio::ssl::verify_peer | asio::ssl::verify_fail_if_no_peer_cert);
+            this->ssl_context.load_verify_file(ssl_verify_file);
+            this->ssl_context.set_verify_callback(ssl_verify_callback);
+            this->ssl_context.set_verify_mode(asio::ssl::verify_peer | asio::ssl::verify_fail_if_no_peer_cert);
             // https://www.openssl.org/docs/manmaster/ssl/SSL_CTX_set_session_id_context.html#WARNINGS
 //            SSL_CTX_set_session_cache_mode(m_ssl_context.native_handle(), SSL_SESS_CACHE_OFF);
-            SSL_CTX_set_session_id_context(m_ssl_context.native_handle(), reinterpret_cast<const unsigned char*>("pion"), 4);
+            SSL_CTX_set_session_id_context(ssl_context.native_handle(), reinterpret_cast<const unsigned char*>("pion"), 4);
         }
     }
 #endif // STATICLIB_PION_HAVE_SSL
@@ -202,7 +202,7 @@ void http_server::add_handler(const std::string& method,
     handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, 
             delete_handlers, options_handlers);
     const std::string clean_resource{strip_trailing_slash(resource)};
-    STATICLIB_PION_LOG_DEBUG(m_logger, "Added handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
+    STATICLIB_PION_LOG_DEBUG(log, "Added handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
     auto it = map.emplace(std::move(clean_resource), std::move(request_handler));
     if (!it.second) throw pion_exception("Invalid duplicate handler path: [" + clean_resource + "], method: [" + method + "]");
 }
@@ -224,7 +224,7 @@ void http_server::add_payload_handler(const std::string& method, const std::stri
     payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, 
             delete_payloads, options_payloads);
     const std::string clean_resource{strip_trailing_slash(resource)};
-    STATICLIB_PION_LOG_DEBUG(m_logger, "Added payload handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
+    STATICLIB_PION_LOG_DEBUG(log, "Added payload handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
     auto it = map.emplace(std::move(clean_resource), std::move(payload_handler));
     if (!it.second) throw pion_exception("Invalid duplicate payload path: [" + clean_resource + "], method: [" + method + "]");
 }
@@ -234,7 +234,7 @@ void http_server::add_filter(const std::string& method, const std::string& resou
     filter_map_type& map = choose_map_by_method(method, get_filters, post_filters, put_filters, 
             delete_filters, options_filters);
     const std::string clean_resource{strip_trailing_slash(resource)};
-    STATICLIB_PION_LOG_DEBUG(m_logger, "Added filter for HTTP resource: " << clean_resource << ", method: " << method);
+    STATICLIB_PION_LOG_DEBUG(log, "Added filter for HTTP resource: " << clean_resource << ", method: " << method);
     map.emplace(std::move(clean_resource), std::move(filter));
 }
 
@@ -263,7 +263,7 @@ void http_server::handle_request_after_headers_parsed(http_request_ptr request,
         std::error_code code;
         conn->write(buf, code);
         if (code) {
-            STATICLIB_PION_LOG_WARN(m_logger, 
+            STATICLIB_PION_LOG_WARN(log, 
                     "'100 Continue' write failed for resource" << request->get_resource());
             return;
         }
@@ -282,7 +282,7 @@ void http_server::handle_request_after_headers_parsed(http_request_ptr request,
                 http_message::REQUEST_METHOD_DELETE != method &&
                 http_message::REQUEST_METHOD_HEAD != method &&
                 http_message::REQUEST_METHOD_OPTIONS != method) {
-            STATICLIB_PION_LOG_WARN(m_logger, "No payload handlers found for resource: " << path);
+            STATICLIB_PION_LOG_WARN(log, "No payload handlers found for resource: " << path);
         }
         // ignore request body as no payload_handler found
         rc = true;
@@ -296,7 +296,7 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
         conn->set_lifecycle(tcp_connection::LIFECYCLE_CLOSE); // make sure it will get closed
         if (conn->is_open() && (ec.category() == http_parser::get_error_category())) {
             // HTTP parser error
-            STATICLIB_PION_LOG_INFO(m_logger, "Invalid HTTP request (" << ec.message() << ")");
+            STATICLIB_PION_LOG_INFO(log, "Invalid HTTP request (" << ec.message() << ")");
             bad_request_handler(request, conn);
         } else {
             static const std::error_code
@@ -304,16 +304,16 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
                     ERRCOND_EOF(asio::error::eof, asio::error::misc_category);
             if (ec == ERRCOND_CANCELED || ec == ERRCOND_EOF) {
                 // don't spam the log with common (non-)errors that happen during normal operation
-                STATICLIB_PION_LOG_DEBUG(m_logger, "Lost connection on port " << get_port() << " (" << ec.message() << ")");
+                STATICLIB_PION_LOG_DEBUG(log, "Lost connection on port " << tcp_endpoint.port() << " (" << ec.message() << ")");
             } else {
-                STATICLIB_PION_LOG_INFO(m_logger, "Lost connection on port " << get_port() << " (" << ec.message() << ")");
+                STATICLIB_PION_LOG_INFO(log, "Lost connection on port " << tcp_endpoint.port() << " (" << ec.message() << ")");
             }
             conn->finish();
         }
         return;
     }
     // handle request
-    STATICLIB_PION_LOG_DEBUG(m_logger, "Received a valid HTTP request");
+    STATICLIB_PION_LOG_DEBUG(log, "Received a valid HTTP request");
     std::string path{strip_trailing_slash(request->get_resource())};
     if (http_message::REQUEST_METHOD_OPTIONS == request->get_method() && ("*" == path || "/*" == path)) {
         handle_root_options(request, conn);
@@ -326,7 +326,7 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
     if (map.end() != handlers_it) {
         request_handler_type& handler = handlers_it->second;
         try {
-            STATICLIB_PION_LOG_DEBUG(m_logger, "Found request handler for HTTP resource: " << path);
+            STATICLIB_PION_LOG_DEBUG(log, "Found request handler for HTTP resource: " << path);
             filter_map_type& filter_map = choose_map_by_method(method, get_filters, post_filters, 
                     put_filters, delete_filters, options_filters);
             std::vector<std::reference_wrapper<request_filter_type>> filters = find_submatch_filters(filter_map, path);
@@ -337,11 +337,11 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
             throw;
         } catch (std::exception& e) {
             // recover gracefully from other exceptions thrown by request handlers
-            STATICLIB_PION_LOG_ERROR(m_logger, "HTTP request handler: " << e.what());
+            STATICLIB_PION_LOG_ERROR(log, "HTTP request handler: " << e.what());
             server_error_handler(request, conn, e.what());
         }
     } else {
-        STATICLIB_PION_LOG_INFO(m_logger, "No HTTP request handlers found for resource: " << path);
+        STATICLIB_PION_LOG_INFO(log, "No HTTP request handlers found for resource: " << path);
         not_found_handler(request, conn);
     }    
 }
