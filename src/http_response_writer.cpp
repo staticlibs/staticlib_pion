@@ -39,7 +39,6 @@ m_sending_chunks(false),
 m_sent_headers(false),
 m_finished(handler),
 m_http_response(new http_response(http_request)) {
-    set_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_response_writer"));
     // set whether or not the client supports chunks
     supports_chunked_messages(m_http_response->get_chunks_supported());
 }
@@ -123,14 +122,14 @@ void http_response_writer::clear() {
     m_content_buffers.clear();
     m_binary_cache.clear();
     m_text_cache.clear();
-    m_content_stream.str("");
+    m_content_stream().str("");
     m_stream_is_empty = true;
     m_content_length = 0;
 }
 
 void http_response_writer::write(std::ostream& (*iomanip)(std::ostream&)) {
     if (m_http_response->is_body_allowed()) {
-        m_content_stream << iomanip;
+        m_content_stream() << iomanip;
         if (m_stream_is_empty) m_stream_is_empty = false;
     }
 }
@@ -208,9 +207,9 @@ logger http_response_writer::get_logger() {
 
 void http_response_writer::flush_content_stream() {
     if (!m_stream_is_empty) {
-        std::string string_to_add(m_content_stream.str());
+        std::string string_to_add(m_content_stream().str());
         if (!string_to_add.empty()) {
-            m_content_stream.str("");
+            m_content_stream().str("");
             m_content_length += string_to_add.size();
             m_text_cache.push_back(string_to_add);
             m_content_buffers.push_back(asio::buffer(m_text_cache.back()));

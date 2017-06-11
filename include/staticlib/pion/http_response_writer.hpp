@@ -29,6 +29,7 @@
 #include <functional>
 #include <list>
 #include <memory>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -116,7 +117,7 @@ private:
     /**
      * Incrementally creates strings of text data for the text_cache
      */
-    std::ostringstream m_content_stream;
+    std::unique_ptr<std::ostringstream> m_content_stream_ptr;
 
     /**
      * The length (in bytes) of the response content to be sent (Content-Length)
@@ -214,7 +215,7 @@ public:
      */
     template <typename T> void write(const T& data) {
         if (m_http_response->is_body_allowed()) {
-            m_content_stream << data;
+            m_content_stream() << data;
             if (m_stream_is_empty) m_stream_is_empty = false;
         }
     }
@@ -451,6 +452,13 @@ private:
      * Flushes any text data in the content stream after caching it in the text_cache_t
      */
     void flush_content_stream();
+    
+    inline std::ostringstream& m_content_stream() {
+        if (nullptr == m_content_stream_ptr) {
+             m_content_stream_ptr.reset(new std::ostringstream());
+        }
+        return *m_content_stream_ptr;
+    }
     
 };
 
