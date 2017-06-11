@@ -87,9 +87,9 @@ namespace algorithm {
          */
         std::size_t operator()(std::string const& x) const {
             std::size_t seed = 0;
-            std::locale locale;
             for (std::string::const_iterator it = x.begin(); it != x.end(); ++it) {
-                algorithm::hash_combine(seed, std::toupper(*it, locale));
+                // locale is expensive here
+                algorithm::hash_combine(seed, std::toupper(*it/*, locale*/));
             }
             return seed;
         }
