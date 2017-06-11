@@ -738,7 +738,7 @@ void http_parser::update_message_with_header_data(http_message& http_msg) const
 
         // finish an HTTP request message
 
-        http_request& req(dynamic_cast<http_request&>(http_msg));
+        http_request& req(reinterpret_cast<http_request&>(http_msg));
         req.set_method(m_method);
         req.set_resource(m_resource);
         req.set_query_string(m_query_string);
@@ -767,7 +767,7 @@ void http_parser::update_message_with_header_data(http_message& http_msg) const
 
         // finish an HTTP response message
 
-        http_response& resp(dynamic_cast<http_response&>(http_msg));
+        http_response& resp(reinterpret_cast<http_response&>(http_msg));
         resp.set_status_code(m_status_code);
         resp.set_status_message(m_status_message);
 
@@ -1589,7 +1589,7 @@ void http_parser::finish(http_message& http_msg) const
         // Parse query pairs from post content if content type is x-www-form-urlencoded.
         // Type could be followed by parameters (as defined in section 3.6 of RFC 2616)
         // e.g. Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-        http_request& req(dynamic_cast<http_request&>(http_msg));
+        http_request& req(reinterpret_cast<http_request&>(http_msg));
         const std::string& content_type_header = req.get_header(http_message::HEADER_CONTENT_TYPE);
         if (content_type_header.compare(0, http_message::CONTENT_TYPE_URLENCODED.length(),
                                         http_message::CONTENT_TYPE_URLENCODED) == 0)
