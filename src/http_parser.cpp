@@ -303,7 +303,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
         case PARSE_METHOD_START:
             // we have not yet started parsing the HTTP method string
             if (*m_read_ptr != ' ' && *m_read_ptr!='\r' && *m_read_ptr!='\n') { // ignore leading whitespace
-                if (!is_char(*m_read_ptr) || is_control(*m_read_ptr) || is_special(*m_read_ptr)) {
+                if (!algorithm::is_char(*m_read_ptr) || algorithm::is_control(*m_read_ptr) || algorithm::is_special(*m_read_ptr)) {
                     set_error(ec, ERROR_METHOD_CHAR);
                     return false;
                 }
@@ -318,7 +318,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
             if (*m_read_ptr == ' ') {
                 m_resource.erase();
                 m_headers_parse_state = PARSE_URI_STEM;
-            } else if (!is_char(*m_read_ptr) || is_control(*m_read_ptr) || is_special(*m_read_ptr)) {
+            } else if (!algorithm::is_char(*m_read_ptr) || algorithm::is_control(*m_read_ptr) || algorithm::is_special(*m_read_ptr)) {
                 set_error(ec, ERROR_METHOD_CHAR);
                 return false;
             } else if (m_method.size() >= METHOD_MAX) {
@@ -344,7 +344,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
                 http_msg.set_version_major(0);
                 http_msg.set_version_minor(0);
                 m_headers_parse_state = PARSE_EXPECTING_CR;
-            } else if (is_control(*m_read_ptr)) {
+            } else if (algorithm::is_control(*m_read_ptr)) {
                 set_error(ec, ERROR_URI_CHAR);
                 return false;
             } else if (m_resource.size() >= RESOURCE_MAX) {
@@ -367,7 +367,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
                 http_msg.set_version_major(0);
                 http_msg.set_version_minor(0);
                 m_headers_parse_state = PARSE_EXPECTING_CR;
-            } else if (is_control(*m_read_ptr)) {
+            } else if (algorithm::is_control(*m_read_ptr)) {
                 set_error(ec, ERROR_QUERY_CHAR);
                 return false;
             } else if (m_query_string.size() >= QUERY_STRING_MAX) {
@@ -541,7 +541,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
                 m_headers_parse_state = PARSE_EXPECTING_NEWLINE;
             } else if (*m_read_ptr == '\n') {
                 m_headers_parse_state = PARSE_EXPECTING_CR;
-            } else if (is_control(*m_read_ptr)) {
+            } else if (algorithm::is_control(*m_read_ptr)) {
                 set_error(ec, ERROR_STATUS_CHAR);
                 return false;
             } else if (m_status_message.size() >= STATUS_MESSAGE_MAX) {
@@ -575,7 +575,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
                 return true;
             } else if (*m_read_ptr == '\t' || *m_read_ptr == ' ') {
                 m_headers_parse_state = PARSE_HEADER_WHITESPACE;
-            } else if (!is_char(*m_read_ptr) || is_control(*m_read_ptr) || is_special(*m_read_ptr)) {
+            } else if (!algorithm::is_char(*m_read_ptr) || algorithm::is_control(*m_read_ptr) || algorithm::is_special(*m_read_ptr)) {
                 set_error(ec, ERROR_HEADER_CHAR);
                 return false;
             } else {
@@ -600,7 +600,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
                 return true;
             } else if (*m_read_ptr == '\t' || *m_read_ptr == ' ') {
                 m_headers_parse_state = PARSE_HEADER_WHITESPACE;
-            } else if (!is_char(*m_read_ptr) || is_control(*m_read_ptr) || is_special(*m_read_ptr)) {
+            } else if (!algorithm::is_char(*m_read_ptr) || algorithm::is_control(*m_read_ptr) || algorithm::is_special(*m_read_ptr)) {
                 set_error(ec, ERROR_HEADER_CHAR);
                 return false;
             } else {
@@ -618,7 +618,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
             } else if (*m_read_ptr == '\n') {
                 m_headers_parse_state = PARSE_EXPECTING_CR;
             } else if (*m_read_ptr != '\t' && *m_read_ptr != ' ') {
-                if (!is_char(*m_read_ptr) || is_control(*m_read_ptr) || is_special(*m_read_ptr)) {
+                if (!algorithm::is_char(*m_read_ptr) || algorithm::is_control(*m_read_ptr) || algorithm::is_special(*m_read_ptr)) {
                     set_error(ec, ERROR_HEADER_CHAR);
                     return false;
                 }
@@ -637,7 +637,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
                 m_headers_parse_state = PARSE_EXPECTING_FINAL_CR;
             } else if (*m_read_ptr == '\t' || *m_read_ptr == ' ') {
                 m_headers_parse_state = PARSE_HEADER_WHITESPACE;
-            } else if (!is_char(*m_read_ptr) || is_control(*m_read_ptr) || is_special(*m_read_ptr)) {
+            } else if (!algorithm::is_char(*m_read_ptr) || algorithm::is_control(*m_read_ptr) || algorithm::is_special(*m_read_ptr)) {
                 set_error(ec, ERROR_HEADER_CHAR);
                 return false;
             } else {
@@ -653,7 +653,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
             if (*m_read_ptr == ':') {
                 m_header_value.erase();
                 m_headers_parse_state = PARSE_SPACE_BEFORE_HEADER_VALUE;
-            } else if (!is_char(*m_read_ptr) || is_control(*m_read_ptr) || is_special(*m_read_ptr)) {
+            } else if (!algorithm::is_char(*m_read_ptr) || algorithm::is_control(*m_read_ptr) || algorithm::is_special(*m_read_ptr)) {
                 set_error(ec, ERROR_HEADER_CHAR);
                 return false;
             } else if (m_header_name.size() >= HEADER_NAME_MAX) {
@@ -675,7 +675,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
             } else if (*m_read_ptr == '\n') {
                 http_msg.add_header(m_header_name, m_header_value);
                 m_headers_parse_state = PARSE_EXPECTING_CR;
-            } else if (!is_char(*m_read_ptr) || is_control(*m_read_ptr) || is_special(*m_read_ptr)) {
+            } else if (!algorithm::is_char(*m_read_ptr) || algorithm::is_control(*m_read_ptr) || algorithm::is_special(*m_read_ptr)) {
                 set_error(ec, ERROR_HEADER_CHAR);
                 return false;
             } else {
@@ -693,7 +693,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
             } else if (*m_read_ptr == '\n') {
                 http_msg.add_header(m_header_name, m_header_value);
                 m_headers_parse_state = PARSE_EXPECTING_CR;
-            } else if (*m_read_ptr != '\t' && is_control(*m_read_ptr)) {
+            } else if (*m_read_ptr != '\t' && algorithm::is_control(*m_read_ptr)) {
                 // RFC 2616, 2.2 basic Rules.
                 // TEXT = <any OCTET except CTLs, but including LWS>
                 // LWS  = [CRLF] 1*( SP | HT )
@@ -974,7 +974,7 @@ bool http_parser::parse_url_encoded(std::unordered_multimap<std::string, std::st
                 }
             } else if (*ptr == '\r' || *ptr == '\n' || *ptr == '\t') {
                 // ignore linefeeds, carriage return and tabs (normally within POST content)
-            } else if (is_control(*ptr) || query_name.size() >= QUERY_NAME_MAX) {
+            } else if (algorithm::is_control(*ptr) || query_name.size() >= QUERY_NAME_MAX) {
                 // control character detected, or max sized exceeded
                 return false;
             } else {
@@ -1000,7 +1000,7 @@ bool http_parser::parse_url_encoded(std::unordered_multimap<std::string, std::st
                 query_value.erase();
             } else if (*ptr == '\r' || *ptr == '\n' || *ptr == '\t') {
                 // ignore linefeeds, carriage return and tabs (normally within POST content)
-            } else if (is_control(*ptr) || query_value.size() >= QUERY_VALUE_MAX) {
+            } else if (algorithm::is_control(*ptr) || query_value.size() >= QUERY_VALUE_MAX) {
                 // control character detected, or max sized exceeded
                 return false;
             } else {
@@ -1227,7 +1227,7 @@ bool http_parser::parse_cookie_header(std::unordered_multimap<std::string, std::
                 }
             } else if (*ptr != ' ') {   // ignore whitespace
                 // check if control character detected, or max sized exceeded
-                if (is_control(*ptr) || cookie_name.size() >= COOKIE_NAME_MAX)
+                if (algorithm::is_control(*ptr) || cookie_name.size() >= COOKIE_NAME_MAX)
                     return false;
                 // character is part of the name
                 cookie_name.push_back(*ptr);
@@ -1258,7 +1258,7 @@ bool http_parser::parse_cookie_header(std::unordered_multimap<std::string, std::
                     }
                 } else if (*ptr != ' ' || !cookie_value.empty()) {  // ignore leading unquoted whitespace
                     // check if control character detected, or max sized exceeded
-                    if (is_control(*ptr) || cookie_value.size() >= COOKIE_VALUE_MAX)
+                    if (algorithm::is_control(*ptr) || cookie_value.size() >= COOKIE_VALUE_MAX)
                         return false;
                     // character is part of the (unquoted) value
                     cookie_value.push_back(*ptr);
@@ -1723,26 +1723,6 @@ std::string http_parser::error_category_t::message(int ev) const {
         return "missing too much content";
     }
     return "parser error";
-}
-
-bool http_parser::is_char(int c) {
-    return (c >= 0 && c <= 127);
-}
-
-bool http_parser::is_control(int c) {
-    return ( (c >= 0 && c <= 31) || c == 127);
-}
-
-bool http_parser::is_special(int c) {
-    switch (c) {
-    case '(': case ')': case '<': case '>': case '@':
-    case ',': case ';': case ':': case '\\': case '"':
-    case '/': case '[': case ']': case '?': case '=':
-    case '{': case '}': case ' ': case '\t':
-        return true;
-    default:
-        return false;
-    }
 }
 
 bool http_parser::is_digit(int c) {

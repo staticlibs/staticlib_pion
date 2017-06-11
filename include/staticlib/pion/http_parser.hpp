@@ -782,12 +782,6 @@ protected:
 
     // misc functions used by the parsing functions
     
-    static bool is_char(int c);
-    
-    static bool is_control(int c);
-    
-    static bool is_special(int c);
-    
     static bool is_digit(int c);
     
     static bool is_hex_digit(int c);

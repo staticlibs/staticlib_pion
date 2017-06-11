@@ -42,7 +42,45 @@ namespace pion {
  * 
  */
 namespace algorithm {
-    
+
+    /**
+     * Detect char
+     * 
+     * @param c integer
+     * @return true if char, false otherwise
+     */
+    inline bool is_char(int c) {
+        return (c >= 0 && c <= 127);
+    }
+
+    /**
+     * Detect control char
+     * 
+     * @param c integer
+     * @return true if control char, false otherwise
+     */
+    inline bool is_control(int c) {
+        return ( (c >= 0 && c <= 31) || c == 127);
+    }
+
+    /**
+     * Detect special char
+     * 
+     * @param c integer
+     * @return true if special char, false otherwise
+     */
+    inline bool is_special(int c) {
+        switch (c) {
+        case '(': case ')': case '<': case '>': case '@':
+        case ',': case ';': case ':': case '\\': case '"':
+        case '/': case '[': case ']': case '?': case '=':
+        case '{': case '}': case ' ': case '\t':
+            return true;
+        default:
+            return false;
+        }
+    }
+
     /**
      * Called repeatedly to incrementally create a hash value from several variables.
      * 
