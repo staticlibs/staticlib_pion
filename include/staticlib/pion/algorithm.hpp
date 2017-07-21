@@ -26,6 +26,7 @@
 #ifndef STATICLIB_PION_ALGORITHM_HPP
 #define STATICLIB_PION_ALGORITHM_HPP
 
+#include <cctype>
 #include <cstdint>
 #include <functional>
 #include <locale>
