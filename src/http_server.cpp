@@ -101,8 +101,8 @@ void handle_not_found_request(http_request_ptr& request, tcp_connection_ptr& con
 void handle_server_error(http_request_ptr& request, tcp_connection_ptr& tcp_conn,
         const std::string& error_msg) {
     static const std::string SERVER_ERROR_MSG_START = R"({
-    "code": 404,
-    "message": "Not Found",
+    "code": 500,
+    "message": "Internal Server Error",
     "description": ")";
     static const std::string SERVER_ERROR_MSG_FINISH = R"("
 })";
