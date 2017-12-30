@@ -16,7 +16,7 @@ cmake_minimum_required ( VERSION 2.8.12 )
 
 # project
 project ( staticlib_pion CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7-14 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7-15 )
 set ( ${PROJECT_NAME}_DESCRIPTION "Embedded async HTTP 1.1 server based on a source code from https://github.com/splunk/pion" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_pion )
 include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
@@ -57,11 +57,11 @@ if ( NOT DEFINED STATICLIB_TOOLCHAIN )
         if ( ${PROJECT_NAME}_USE_OPENSSL )
             staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_openssl )
         endif ( )
-        staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_config )
-        staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_support )
-        staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_concurrent )
-        staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_utils )
     endif (  )
+    staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_config )
+    staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_support )
+    staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_concurrent )
+    staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_utils )
 endif ( )
 
 # dependencies
@@ -72,10 +72,10 @@ set ( ${PROJECT_NAME}_DEPS
         staticlib_utils
         asio )
 if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
-    set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} log4cplus )
+    list ( APPEND ${PROJECT_NAME}_DEPS log4cplus )
 endif ( )
 if ( ${PROJECT_NAME}_USE_OPENSSL )
-    set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} openssl )
+    list ( APPEND ${PROJECT_NAME}_DEPS openssl )
 endif ( )
 staticlib_pion_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 
@@ -95,7 +95,7 @@ set ( ${PROJECT_NAME}_DEFINITIONS
 set ( ${PROJECT_NAME}_OPTIONS "" )
 set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_DEFINITIONS} )
 
-if ( ${CMAKE_CXX_COMPILER_ID}x MATCHES "MSVCx" )    
+if ( ${CMAKE_CXX_COMPILER_ID}x MATCHES "MSVCx" )
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS}
             -D_CRT_SECURE_NO_WARNINGS
             -D_SCL_SECURE_NO_WARNINGS

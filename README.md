@@ -1,6 +1,9 @@
 Pion HTTP Server build for Staticlibs
 =====================================
 
+[![travis](https://travis-ci.org/staticlibs/staticlib_pion.svg?branch=master)](https://travis-ci.org/staticlibs/staticlib_pion)
+[![appveyor](https://ci.appveyor.com/api/projects/status/github/staticlibs/staticlib_pion?svg=true)](https://ci.appveyor.com/project/staticlibs/staticlib-pion)
+
 This project is a part of [Staticlibs](http://staticlibs.net/).
 
 Embedded asynchronous HTTP 1.1 server implementation based on a source code from [Pion HTTP server](https://github.com/splunk/pion)
@@ -76,6 +79,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2017-12-25**
+
+ * version 5.0.7-15
+ * vs2017 support
 
 **2017-05-19**
 

@@ -22,7 +22,7 @@
  */
 
 #ifndef STATICLIB_PION_HTTP_FILTER_CHAIN_HPP
-#define	STATICLIB_PION_HTTP_FILTER_CHAIN_HPP
+#define STATICLIB_PION_HTTP_FILTER_CHAIN_HPP
 
 #include <cstdint>
 #include <atomic>
@@ -91,5 +91,5 @@ public:
 } // namespace
 }
 
-#endif	/* STATICLIB_PION_HTTP_FILTER_CHAIN_HPP */
+#endif /* STATICLIB_PION_HTTP_FILTER_CHAIN_HPP */
 

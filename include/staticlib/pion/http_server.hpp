@@ -22,7 +22,7 @@
  */
 
 #ifndef STATICLIB_PION_HTTP_SERVER_HPP
-#define	STATICLIB_PION_HTTP_SERVER_HPP
+#define STATICLIB_PION_HTTP_SERVER_HPP
 
 #include <cstdint>
 #include <vector>
@@ -298,5 +298,5 @@ protected:
 } // namespace
 }
 
-#endif	/* STATICLIB_PION_HTTP_SERVER_HPP */
+#endif /* STATICLIB_PION_HTTP_SERVER_HPP */
 

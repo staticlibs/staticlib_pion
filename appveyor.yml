@@ -1,0 +1,56 @@
+# Copyright 2017, alex at staticlibs.net
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+environment:
+  matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+      SL_CMAKE_VS: 12 2013
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      SL_CMAKE_VS: 15 2017
+
+clone_folder: c:\projects\staticlib_pion
+
+install:
+  - cd ..
+  - git clone https://github.com/staticlibs/tools_windows_pkgconfig.git
+  - git clone https://github.com/staticlibs/tools_windows_perl.git
+  - git clone https://github.com/staticlibs/tools_windows_nasm.git
+  - set PATH=%PATH%;c:\projects\tools_windows_pkgconfig\bin;c:\projects\tools_windows_perl\perl\bin;c:\projects\tools_windows_nasm
+  - git clone https://github.com/staticlibs/cmake.git
+  - git clone --recursive https://github.com/staticlibs/external_asio.git
+  - git clone --recursive https://github.com/staticlibs/external_log4cplus.git
+  - git clone --recursive https://github.com/staticlibs/external_openssl.git
+  - git clone https://github.com/staticlibs/staticlib_config.git
+  - git clone https://github.com/staticlibs/staticlib_support.git
+  - git clone https://github.com/staticlibs/staticlib_concurrent.git
+  - git clone https://github.com/staticlibs/staticlib_utils.git
+  - mkdir test
+  - robocopy staticlib_pion\test\certificates test\certificates /e /ndl /njh /njs /nc /ns /np || true
+
+build: off
+
+build_script:
+  - mkdir build-standalone
+  - cd build-standalone
+  - cmake ../staticlib_pion
+  - cmake --build .
+  - cd ..
+  - mkdir build
+  - cd build
+  - cmake ../staticlib_pion/test
+        -G "Visual Studio %SL_CMAKE_VS% Win64"
+        -DSTATICLIB_TOOLCHAIN=windows_amd64_msvc
+        -DCMAKE_BUILD_TYPE=Release
+  - cmake --build . --config Release
+  - ctest

@@ -1,0 +1,129 @@
+# Copyright 2017, alex at staticlibs.net
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+language: cpp
+
+sudo: required
+
+services:
+  - docker
+
+os:
+  - linux
+  - osx
+
+before_install:
+  - export CC=
+  - export CXX=
+  - export D="docker exec fedora"
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    docker pull fedora ;
+    docker run -id --name fedora -v `pwd`/..:/src -w=/root -e "PKG_CONFIG_PATH=/src/external_asio/resources/pkgconfig_system" fedora bash ;
+    fi
+
+install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
+
+    `# Ubuntu` ;
+    sudo apt-get -y install
+        g++
+        pkg-config
+        cmake
+        make
+        valgrind
+        libasio-dev
+        libssl-dev
+        liblog4cplus-dev ;
+
+    `# Fedora` ;
+    $D dnf install -y
+        gcc-c++
+        pkg-config
+        cmake
+        make
+        valgrind
+        asio-devel
+        openssl-devel
+        log4cplus-devel ;
+
+    fi
+
+before_script:
+  - cd ..
+  - git clone https://github.com/staticlibs/cmake.git
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    git clone --recursive https://github.com/staticlibs/external_asio.git ;
+    git clone --recursive https://github.com/staticlibs/external_log4cplus.git ;
+    git clone https://github.com/staticlibs/tools_macos_openssl.git ;
+    pwd ;
+    export PKG_CONFIG_PATH=`pwd`/tools_macos_openssl/lib/pkgconfig:$PKG_CONFIG_PATH ;
+    fi
+  - git clone https://github.com/staticlibs/staticlib_config.git
+  - git clone https://github.com/staticlibs/staticlib_support.git
+  - git clone https://github.com/staticlibs/staticlib_concurrent.git
+  - git clone https://github.com/staticlibs/staticlib_utils.git
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    git clone https://github.com/staticlibs/external_asio.git ;
+    export PKG_CONFIG_PATH=`pwd`/external_asio/resources/pkgconfig_system:$PKG_CONFIG_PATH ;
+    git clone https://github.com/staticlibs/external_log4cplus.git ;
+    export PKG_CONFIG_PATH=`pwd`/external_log4cplus/resources/pkgconfig_system:$PKG_CONFIG_PATH ;
+    fi
+  - rm -rf test
+  - mkdir test
+  - cp -r staticlib_pion/test/certificates test/
+
+script:
+  - set -e
+  - mkdir build-standalone
+  - mkdir build
+
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+
+    `# macOS` ;
+    set +e ;
+    pushd build-standalone ;
+    set -e ;
+    cmake ../staticlib_pion  -DCMAKE_CXX_FLAGS="--std=c++11" ;
+    make ;
+    set +e;
+    popd ;
+    pushd build ;
+    set -e ;
+    cmake ../staticlib_pion/test -DSTATICLIB_TOOLCHAIN=macosx_amd64_clang -DCMAKE_BUILD_TYPE=Release ;
+    make all test ;
+
+    fi
+
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+
+    `# Ubuntu` ;
+    lsb_release -a ;
+    pushd build-standalone ;
+    cmake ../staticlib_pion -DCMAKE_CXX_FLAGS="--std=c++11" ;
+    make ;
+    popd ;
+    pushd build ;
+    cmake ../staticlib_pion/test -DCMAKE_BUILD_TYPE=Release ;
+    make all test ;
+
+    `# Fedora` ;
+    $D cat /etc/fedora-release ;
+    $D cmake /src/staticlib_pion/test -DCMAKE_BUILD_TYPE=Release ;
+    $D make all test ;
+
+    fi
+
+notifications:
+  email:
+    on_success: always

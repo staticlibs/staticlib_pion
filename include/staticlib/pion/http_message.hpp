@@ -43,7 +43,7 @@
 
 namespace staticlib { 
 namespace pion {
-	
+ 
 // forward declaration for class used by send() and receive()
 class tcp_connection;
 // forward declaration of parser class

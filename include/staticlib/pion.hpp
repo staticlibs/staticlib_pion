@@ -22,7 +22,7 @@
  */
 
 #ifndef STATICLIB_PION_HPP
-#define	STATICLIB_PION_HPP
+#define STATICLIB_PION_HPP
 
 #include "staticlib/config.hpp"
 
@@ -32,5 +32,5 @@
 #include "staticlib/pion/http_server.hpp"
 #include "staticlib/pion/tcp_connection.hpp"
 
-#endif	/* STATICLIB_PION_HPP */
+#endif /* STATICLIB_PION_HPP */
 

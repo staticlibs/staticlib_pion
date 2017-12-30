@@ -22,7 +22,7 @@
  */
 
 #ifndef STATICLIB_PION_PION_EXCEPTION_HPP
-#define	STATICLIB_PION_PION_EXCEPTION_HPP
+#define STATICLIB_PION_PION_EXCEPTION_HPP
 
 #include <exception>
 #include <string>
@@ -55,5 +55,5 @@ public:
 } // namespace
 }
 
-#endif	/* STATICLIB_PION_PION_EXCEPTION_HPP */
+#endif /* STATICLIB_PION_PION_EXCEPTION_HPP */
 
