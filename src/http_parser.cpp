@@ -196,6 +196,7 @@ sl::support::tribool http_parser::parse(http_message& http_msg, std::error_code&
                 // step through to PARSE_HEADERS
 
             // parsing the HTTP headers
+                // fall through
             case PARSE_HEADERS:
             case PARSE_FOOTERS:
                 rc = parse_headers(http_msg, ec);
