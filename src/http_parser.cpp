@@ -57,13 +57,12 @@ std::once_flag            http_parser::m_instance_flag{};
 
 // parser member functions
 
-http_parser::http_parser(const bool is_request, std::size_t max_content_length) :
+http_parser::http_parser(std::size_t max_content_length) :
 m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_parser")),
-m_is_request(is_request),
 m_read_ptr(NULL),
 m_read_end_ptr(NULL),
 m_message_parse_state(PARSE_START),
-m_headers_parse_state(is_request ? PARSE_METHOD_START : PARSE_HTTP_VERSION_H),
+m_headers_parse_state(PARSE_METHOD_START),
 m_chunked_content_parse_state(PARSE_CHUNK_SIZE_START),
 m_status_code(0),
 m_bytes_content_remaining(0),
@@ -107,7 +106,7 @@ void http_parser::skip_header_parsing(http_message& http_msg) {
 
 void http_parser::reset() {
     m_message_parse_state = PARSE_START;
-    m_headers_parse_state = (m_is_request ? PARSE_METHOD_START : PARSE_HTTP_VERSION_H);
+    m_headers_parse_state = PARSE_METHOD_START;
     m_chunked_content_parse_state = PARSE_CHUNK_SIZE_START;
     m_status_code = 0;
     m_status_message.erase();
@@ -152,14 +151,6 @@ bool http_parser::get_save_raw_headers() const {
 
 bool http_parser::get_parse_headers_only() {
     return m_parse_headers_only;
-}
-
-bool http_parser::is_parsing_request() const {
-    return m_is_request;
-}
-
-bool http_parser::is_parsing_response() const {
-    return !m_is_request;
 }
 
 void http_parser::set_payload_handler(payload_handler_type& h) {
@@ -382,19 +373,11 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
             // parsing "HTTP"
             if (*m_read_ptr == '\r') {
                 // should only happen for requests (no HTTP/VERSION specified)
-                if (! m_is_request) {
-                    set_error(ec, ERROR_VERSION_EMPTY);
-                    return false;
-                }
                 http_msg.set_version_major(0);
                 http_msg.set_version_minor(0);
                 m_headers_parse_state = PARSE_EXPECTING_NEWLINE;
             } else if (*m_read_ptr == '\n') {
                 // should only happen for requests (no HTTP/VERSION specified)
-                if (! m_is_request) {
-                    set_error(ec, ERROR_VERSION_EMPTY);
-                    return false;
-                }
                 http_msg.set_version_major(0);
                 http_msg.set_version_minor(0);
                 m_headers_parse_state = PARSE_EXPECTING_CR;
@@ -478,22 +461,11 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
             // parsing the major version number (not first digit)
             if (*m_read_ptr == ' ') {
                 // ignore trailing spaces after version in request
-                if (! m_is_request) {
-                    m_headers_parse_state = PARSE_STATUS_CODE_START;
-                }
             } else if (*m_read_ptr == '\r') {
                 // should only happen for requests
-                if (! m_is_request) {
-                    set_error(ec, ERROR_STATUS_EMPTY);
-                    return false;
-                }
                 m_headers_parse_state = PARSE_EXPECTING_NEWLINE;
             } else if (*m_read_ptr == '\n') {
                 // should only happen for requests
-                if (! m_is_request) {
-                    set_error(ec, ERROR_STATUS_EMPTY);
-                    return false;
-                }
                 m_headers_parse_state = PARSE_EXPECTING_CR;
             } else if (is_digit(*m_read_ptr)) {
                 http_msg.set_version_minor( (http_msg.get_version_minor() * 10)
@@ -556,7 +528,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
             // we received a CR; expecting a newline to follow
             if (*m_read_ptr == '\n') {
                 // check if this is a HTTP 0.9 "Simple Request"
-                if (m_is_request && http_msg.get_version_major() == 0) {
+                if (http_msg.get_version_major() == 0) {
                     STATICLIB_PION_LOG_DEBUG(m_logger, "HTTP 0.9 Simple-Request found");
                     ++m_read_ptr;
                     m_bytes_last_read = (m_read_ptr - read_start_ptr);
@@ -734,55 +706,31 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
 
 void http_parser::update_message_with_header_data(http_message& http_msg) const
 {
-    if (is_parsing_request()) {
+    // finish an HTTP request message
 
-        // finish an HTTP request message
+    http_request& req(reinterpret_cast<http_request&>(http_msg));
+    req.set_method(m_method);
+    req.set_resource(m_resource);
+    req.set_query_string(m_query_string);
 
-        http_request& req(reinterpret_cast<http_request&>(http_msg));
-        req.set_method(m_method);
-        req.set_resource(m_resource);
-        req.set_query_string(m_query_string);
+    // parse query pairs from the URI query string
+    if (! m_query_string.empty()) {
+        if (! parse_url_encoded(req.get_queries(),
+                              m_query_string.c_str(),
+                              m_query_string.size())) 
+            STATICLIB_PION_LOG_WARN(m_logger, "Request query string parsing failed (URI)");
+    }
 
-        // parse query pairs from the URI query string
-        if (! m_query_string.empty()) {
-            if (! parse_url_encoded(req.get_queries(),
-                                  m_query_string.c_str(),
-                                  m_query_string.size())) 
-                STATICLIB_PION_LOG_WARN(m_logger, "Request query string parsing failed (URI)");
-        }
-
-        // parse "Cookie" headers in request
-        std::pair<std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator, std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator>
-        cookie_pair = req.get_headers().equal_range(http_message::HEADER_COOKIE);
-        for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator cookie_iterator = cookie_pair.first;
-             cookie_iterator != req.get_headers().end()
-             && cookie_iterator != cookie_pair.second; ++cookie_iterator)
-        {
-            if (! parse_cookie_header(req.get_cookies(),
-                                    cookie_iterator->second, false) )
-                STATICLIB_PION_LOG_WARN(m_logger, "Cookie header parsing failed");
-        }
-
-    } else {
-
-        // finish an HTTP response message
-
-        http_response& resp(reinterpret_cast<http_response&>(http_msg));
-        resp.set_status_code(m_status_code);
-        resp.set_status_message(m_status_message);
-
-        // parse "Set-Cookie" headers in response
-        std::pair<std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator, std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator>
-        cookie_pair = resp.get_headers().equal_range(http_message::HEADER_SET_COOKIE);
-        for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator cookie_iterator = cookie_pair.first;
-             cookie_iterator != resp.get_headers().end()
-             && cookie_iterator != cookie_pair.second; ++cookie_iterator)
-        {
-            if (! parse_cookie_header(resp.get_cookies(),
-                                    cookie_iterator->second, true) )
-                STATICLIB_PION_LOG_WARN(m_logger, "Set-Cookie header parsing failed");
-        }
-
+    // parse "Cookie" headers in request
+    std::pair<std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator, std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator>
+    cookie_pair = req.get_headers().equal_range(http_message::HEADER_COOKIE);
+    for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>::const_iterator cookie_iterator = cookie_pair.first;
+         cookie_iterator != req.get_headers().end()
+         && cookie_iterator != cookie_pair.second; ++cookie_iterator)
+    {
+        if (! parse_cookie_header(req.get_cookies(),
+                                cookie_iterator->second, false) )
+            STATICLIB_PION_LOG_WARN(m_logger, "Cookie header parsing failed");
     }
 }
 
@@ -849,20 +797,8 @@ sl::support::tribool http_parser::finish_header_parsing(http_message& http_msg, 
             // otherwise be determined
 
             // only if not a request, read through the close of the connection
-            if (! m_is_request) {
-                // clear the chunk buffers before we start
-                http_msg.get_chunk_cache().clear();
-
-                // continue reading content until there is no more data
-                m_message_parse_state = PARSE_CONTENT_NO_LENGTH;
-
-                // return true if parsing headers only
-                if (m_parse_headers_only)
-                    rc = true;
-            } else {
-                m_message_parse_state = PARSE_END;
-                rc = true;
-            }
+            m_message_parse_state = PARSE_END;
+            rc = true;
         }
     }
 
@@ -1585,7 +1521,7 @@ void http_parser::finish(http_message& http_msg) const
 
     compute_msg_status(http_msg, http_msg.is_valid());
 
-    if (is_parsing_request() && nullptr == m_payload_handler && !m_parse_headers_only) {
+    if (nullptr == m_payload_handler && !m_parse_headers_only) {
         // Parse query pairs from post content if content type is x-www-form-urlencoded.
         // Type could be followed by parameters (as defined in section 3.6 of RFC 2616)
         // e.g. Content-Type: application/x-www-form-urlencoded; charset=UTF-8

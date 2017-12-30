@@ -606,7 +606,7 @@ std::size_t http_message::receive(tcp_connection& tcp_conn,
                              std::error_code& ec,
                              bool headers_only,
                              std::size_t max_content_length) {
-    http_parser http_parser(reinterpret_cast<http_request*>(this) != NULL);
+    http_parser http_parser{};
     http_parser.parse_headers_only(headers_only);
     http_parser.set_max_content_length(max_content_length);
     return receive(tcp_conn, ec, http_parser);
@@ -679,7 +679,7 @@ std::size_t http_message::read(std::istream& in,
                           std::error_code& ec,
                           bool headers_only,
                           std::size_t max_content_length) {
-    http_parser http_parser(reinterpret_cast<http_request*>(this) != NULL);
+    http_parser http_parser{};
     http_parser.parse_headers_only(headers_only);
     http_parser.set_max_content_length(max_content_length);
     return read(in, ec, http_parser);

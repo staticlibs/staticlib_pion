@@ -165,11 +165,6 @@ protected:
     mutable logger m_logger;
 
     /**
-     * True if the message is an HTTP request; false if it is an HTTP response
-     */
-    const bool m_is_request;
-
-    /**
      * Points to the next character to be consumed in the read_buffer
      */
     const char * m_read_ptr;
@@ -366,11 +361,9 @@ public:
     /**
      * Creates new parser objects
      *
-     * @param is_request if true, the message is parsed as an HTTP request;
-     *                   if false, the message is parsed as an HTTP response
      * @param max_content_length maximum length for HTTP payload content
      */
-    http_parser(const bool is_request, std::size_t max_content_length = DEFAULT_CONTENT_MAX);
+    http_parser(std::size_t max_content_length = DEFAULT_CONTENT_MAX);
 
     /**
      * Deleted copy constructor
