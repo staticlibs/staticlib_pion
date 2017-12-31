@@ -218,7 +218,7 @@ public:
      * 
      * @param hook hook function
      */
-    void set_thread_stop_hook(std::function<void(const std::thread::id&) STATICLIB_NOEXCEPT> hook);
+    void set_thread_stop_hook(std::function<void(const std::thread::id&) /* noexcept */> hook);
     
 private:
     /**

@@ -166,7 +166,7 @@ void scheduler::process_service_work(asio::io_service& service) {
     }   
 }
 
-void scheduler::set_thread_stop_hook(std::function<void(const std::thread::id&) STATICLIB_NOEXCEPT> hook) {
+void scheduler::set_thread_stop_hook(std::function<void(const std::thread::id&) /* noexcept */> hook) {
     std::unique_lock<std::mutex> scheduler_lock{mutex};
     this->thread_stop_hook = hook;
 }

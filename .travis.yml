@@ -94,7 +94,7 @@ script:
     set +e ;
     pushd build-standalone ;
     set -e ;
-    cmake ../staticlib_pion  -DCMAKE_CXX_FLAGS="--std=c++11" ;
+    cmake ../staticlib_pion  -DCMAKE_CXX_FLAGS="--std=c++17" ;
     make ;
     set +e;
     popd ;
@@ -119,7 +119,10 @@ script:
 
     `# Fedora` ;
     $D cat /etc/fedora-release ;
-    $D cmake /src/staticlib_pion/test -DCMAKE_BUILD_TYPE=Release ;
+    $D cmake /src/staticlib_pion -DCMAKE_CXX_FLAGS="--std=c++17" ;
+    $D make ;
+    $D rm -rf * ;
+    $D cmake /src/staticlib_pion/test -DSTATICLIB_TOOLCHAIN=linux_amd64_gcc -DCMAKE_BUILD_TYPE=Release ;
     $D make all test ;
 
     fi
