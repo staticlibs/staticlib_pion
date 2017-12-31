@@ -123,6 +123,8 @@ script:
     $D make ;
     $D rm -rf * ;
     $D cmake /src/staticlib_pion/test -DSTATICLIB_TOOLCHAIN=linux_amd64_gcc -DCMAKE_BUILD_TYPE=Release ;
+    $D mkdir /test ;
+    $D cp -r /src/staticlib_pion/test/certificates /test/ ;
     $D make all test ;
 
     fi
