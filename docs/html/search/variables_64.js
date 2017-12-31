@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['default_5fcontent_5fmax',['DEFAULT_CONTENT_MAX',['../classstaticlib_1_1httpserver_1_1http__parser.html#acab8e6b7a77cc16eaabcc569c3931296',1,'staticlib::httpserver::http_parser']]],
-  ['default_5fnum_5fthreads',['DEFAULT_NUM_THREADS',['../classstaticlib_1_1httpserver_1_1scheduler.html#af3ccda92da2a42bebb2fcdeb3dbc9277',1,'staticlib::httpserver::scheduler']]],
-  ['delete_5ffilters',['delete_filters',['../classstaticlib_1_1httpserver_1_1http__server.html#a89ac87aae764a7816d192349b70757b4',1,'staticlib::httpserver::http_server']]],
-  ['delete_5fhandlers',['delete_handlers',['../classstaticlib_1_1httpserver_1_1http__server.html#adb67de1682e6ecccc5a068292be01244',1,'staticlib::httpserver::http_server']]],
-  ['delete_5fpayloads',['delete_payloads',['../classstaticlib_1_1httpserver_1_1http__server.html#af4ac75e664318ad2829ba324b17369ca',1,'staticlib::httpserver::http_server']]]
+  ['default_5fcontent_5fmax',['DEFAULT_CONTENT_MAX',['../classstaticlib_1_1pion_1_1http__parser.html#a41b4410e502a6d70ed881ac2642fd424',1,'staticlib::pion::http_parser']]],
+  ['delete_5ffilters',['delete_filters',['../classstaticlib_1_1pion_1_1http__server.html#aad4c393f52ac39b77890373a37033def',1,'staticlib::pion::http_server']]],
+  ['delete_5fhandlers',['delete_handlers',['../classstaticlib_1_1pion_1_1http__server.html#aa46696741af43c2cf796a061ce97313f',1,'staticlib::pion::http_server']]],
+  ['delete_5fpayloads',['delete_payloads',['../classstaticlib_1_1pion_1_1http__server.html#aa35e9b003deacbce840e1a40fbc1a314',1,'staticlib::pion::http_server']]]
 ];

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_httpserver: staticlib/httpserver/tcp_server.hpp File Reference</title>
+<title>staticlib_pion: staticlib/pion/tcp_server.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,8 +22,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7-13</span>
+   <div id="projectname">staticlib_pion
+   &#160;<span id="projectnumber">5.0.7-15</span>
    </div>
   </td>
  </tr>
@@ -38,7 +38,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -71,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -82,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_c33d3ca81783b96de1fd366e75cb14d0.html">staticlib</a></li><li class="navelem"><a class="el" href="dir_05fdd8ed122623fd25bfabb888adb5b9.html">httpserver</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_c33d3ca81783b96de1fd366e75cb14d0.html">staticlib</a></li><li class="navelem"><a class="el" href="dir_0df7d4f99d96a5817bd3df1bc5ceb3dd.html">pion</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -97,28 +96,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;mutex&gt;</code><br/>
 <code>#include &lt;set&gt;</code><br/>
 <code>#include &quot;asio.hpp&quot;</code><br/>
-<code>#include &quot;<a class="el" href="config_8hpp_source.html">staticlib/httpserver/config.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="logger_8hpp_source.html">staticlib/httpserver/logger.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="noncopyable_8hpp_source.html">staticlib/httpserver/noncopyable.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="scheduler_8hpp_source.html">staticlib/httpserver/scheduler.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="tcp__connection_8hpp_source.html">staticlib/httpserver/tcp_connection.hpp</a>&quot;</code><br/>
+<code>#include &quot;staticlib/config.hpp&quot;</code><br/>
+<code>#include &quot;<a class="el" href="logger_8hpp_source.html">staticlib/pion/logger.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="scheduler_8hpp_source.html">staticlib/pion/scheduler.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="tcp__connection_8hpp_source.html">staticlib/pion/tcp_connection.hpp</a>&quot;</code><br/>
 </div>
 <p><a href="tcp__server_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1httpserver_1_1tcp__server.html">staticlib::httpserver::tcp_server</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-threaded, asynchronous TCP server.  <a href="classstaticlib_1_1httpserver_1_1tcp__server.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html">staticlib::pion::tcp_server</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-threaded, asynchronous TCP server.  <a href="classstaticlib_1_1pion_1_1tcp__server.html#details">More...</a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacestaticlib"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib.html">staticlib</a></td></tr>
-<tr class="memitem:namespacestaticlib_1_1httpserver"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1httpserver.html">staticlib::httpserver</a></td></tr>
+<tr class="memitem:namespacestaticlib_1_1pion"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1pion.html">staticlib::pion</a></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 29 2016 18:01:48 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

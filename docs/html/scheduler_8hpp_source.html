@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_httpserver: staticlib/httpserver/scheduler.hpp Source File</title>
+<title>staticlib_pion: staticlib/pion/scheduler.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,8 +22,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7-13</span>
+   <div id="projectname">staticlib_pion
+   &#160;<span id="projectnumber">5.0.7-15</span>
    </div>
   </td>
  </tr>
@@ -38,7 +38,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -71,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -82,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_c33d3ca81783b96de1fd366e75cb14d0.html">staticlib</a></li><li class="navelem"><a class="el" href="dir_05fdd8ed122623fd25bfabb888adb5b9.html">httpserver</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_c33d3ca81783b96de1fd366e75cb14d0.html">staticlib</a></li><li class="navelem"><a class="el" href="dir_0df7d4f99d96a5817bd3df1bc5ceb3dd.html">pion</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -115,165 +114,111 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// See http://www.boost.org/LICENSE_1_0.txt</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef STATICLIB_HTTPSERVER_SCHEDULER_HPP</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define STATICLIB_HTTPSERVER_SCHEDULER_HPP</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef STATICLIB_PION_SCHEDULER_HPP</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define STATICLIB_PION_SCHEDULER_HPP</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;cassert&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;cassert&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;asio.hpp&quot;</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="noncopyable_8hpp.html">staticlib/httpserver/noncopyable.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config_8hpp.html">staticlib/httpserver/config.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="logger_8hpp.html">staticlib/httpserver/logger.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &quot;staticlib/config.hpp&quot;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="logger_8hpp.html">staticlib/pion/logger.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">namespace </span>staticlib { </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">namespace </span>httpserver {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">namespace </span>pion {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html">   51</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a> : <span class="keyword">private</span> <a class="code" href="classstaticlib_1_1httpserver_1_1noncopyable___1_1noncopyable.html">staticlib::httpserver::noncopyable</a> {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#af3ccda92da2a42bebb2fcdeb3dbc9277">   58</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> uint32_t <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#af3ccda92da2a42bebb2fcdeb3dbc9277" title="Default number of worker threads in the thread pool.">DEFAULT_NUM_THREADS</a>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aba4fb8b6fcc33fb46799e11d1a214cb0">   63</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> uint32_t <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aba4fb8b6fcc33fb46799e11d1a214cb0" title="Number of nanoseconds in one full second (10 ^ 9)">NSEC_IN_SECOND</a>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a4b1089769970c6b1cc19f6a6a955faf5">   68</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> uint32_t <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a4b1089769970c6b1cc19f6a6a955faf5" title="Number of microseconds in one full second (10 ^ 6)">MICROSEC_IN_SECOND</a>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aa99ac9e24d4aa576cfff9cbe6a5da7ee">   73</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> uint32_t <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aa99ac9e24d4aa576cfff9cbe6a5da7ee" title="Number of seconds a timer should wait for to keep the IO services running.">KEEP_RUNNING_TIMER_SECONDS</a>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aa7fe6f4d3c5356cbc4cf36789f6512f7">   78</a></span>&#160;    std::mutex <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aa7fe6f4d3c5356cbc4cf36789f6512f7" title="Mutex to make class thread-safe.">m_mutex</a>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a952e82bc612d3bf49f9227623c9a4f36">   83</a></span>&#160;    <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a952e82bc612d3bf49f9227623c9a4f36" title="Primary logging interface used by this class.">m_logger</a>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a359104c47a29b0d52d10a4a6c21d7484">   88</a></span>&#160;    std::condition_variable <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a359104c47a29b0d52d10a4a6c21d7484" title="Condition triggered when there are no more active users.">m_no_more_active_users</a>;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a0fa9bf5af25673e5a55345911c2ca519">   93</a></span>&#160;    std::condition_variable <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a0fa9bf5af25673e5a55345911c2ca519" title="Condition triggered when the scheduler has stopped.">m_scheduler_has_stopped</a>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a825edc7457e26fb5732b694f2ca255b2">   98</a></span>&#160;    uint32_t <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a825edc7457e26fb5732b694f2ca255b2" title="Total number of worker threads in the pool.">m_num_threads</a>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aa5b4b38fdf3d473e5f50d48ff46a9950">  103</a></span>&#160;    uint32_t <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aa5b4b38fdf3d473e5f50d48ff46a9950" title="The scheduler will not shutdown until there are no more active users.">m_active_users</a>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#ab49fd1eb467e32ac2eabaf4b00064918">  108</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#ab49fd1eb467e32ac2eabaf4b00064918" title="True if the thread scheduler is running.">m_is_running</a>;    </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a3840805e2d9d47feddff04aef6ec8014" title="Constructor.">scheduler</a>();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a8540e6f440f2883356220baacf1b6deb" title="Virtual destructor.">~scheduler</a>();</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#ab04bacca43d7f831d304f455f83f2954" title="Starts the thread scheduler (this is called automatically when necessary)">startup</a>();</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#abd4ee55e44b4a92a4bab69b093fd05e8" title="Stops the thread scheduler (this is called automatically when the program exits)">shutdown</a>();</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aa7ef6b0ec31ae99c4d1792ac943af4bf" title="The calling thread will sleep until the scheduler has stopped.">join</a>();</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a7cd03db0e363637b2713d26757b958d6" title="Registers an active user with the thread scheduler.">add_active_user</a>();</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a65c4c2de63d04a6cef87f59cfd248a1f" title="Unregisters an active user with the thread scheduler.">remove_active_user</a>();</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a6d7c57d70df287b93b57b5b2b7af85cb" title="Returns true if the scheduler is running.">is_running</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1scheduler.html">   51</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstaticlib_1_1pion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a> {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    std::mutex mutex;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="structstaticlib_1_1pion_1_1logger.html" title="STDOUT logger implementation.">logger</a> log;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    std::condition_variable no_more_active_users;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    std::condition_variable scheduler_has_stopped;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    uint32_t num_threads;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    uint32_t active_users;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">bool</span> running;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    std::vector&lt;std::unique_ptr&lt;std::thread&gt;&gt; thread_pool;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    asio::io_service asio_service;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    asio::steady_timer timer;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    std::function&lt;void(<span class="keyword">const</span> std::thread::id&amp;) <span class="comment">/* noexcept */</span>&gt; thread_stop_hook;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a60834c532062478b7e973e7da984771c" title="Constructor.">scheduler</a>(uint32_t number_of_threads);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a60834c532062478b7e973e7da984771c" title="Constructor.">scheduler</a>(<span class="keyword">const</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a>&amp; <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a5c8cd7268a454d6ef2ecd8edfc6bb5a8" title="Deleted copy assignment operator.">operator=</a>(<span class="keyword">const</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a84fad2713c8c27c747d73915885970af" title="Destructor.">~scheduler</a>();</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a6ea8f83ecacd7a3c8f76f9c62184dee5" title="Starts the thread scheduler (this is called automatically when necessary)">startup</a>();</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a54093ca16699d290b4cff75ef77f407d" title="Stops the thread scheduler (this is called automatically when the program exits)">shutdown</a>();</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a9fe61d208bfb3d145761c4478a1404fb" title="The calling thread will sleep until the scheduler has stopped.">join</a>();</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a8c461c13264f0bf6ff3ad1fdf397478b" title="Registers an active user with the thread scheduler.">add_active_user</a>();</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a0bee7a01c7b76d1505886d35f62def17" title="Unregisters an active user with the thread scheduler.">remove_active_user</a>();</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    </div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aa100ee6a8de57839652f83ca97bb74b7" title="Sets the number of threads to be used (these are shared by all servers)">set_num_threads</a>(<span class="keyword">const</span> uint32_t n);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a2f31e6255297581eb31c6399ed828150" title="Returns true if the scheduler is running.">is_running</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    uint32_t <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#ae5553018a54200e4aa7a9d886e066d7a" title="Returns the number of threads currently in use.">get_num_threads</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a69ba9ebbee216b16d1a1672eaa8826fb" title="Sets the logger to be used.">set_logger</a>(<a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a> log_ptr);</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <a class="code" href="structstaticlib_1_1httpserver_1_1logger.html" title="STDOUT logger implementation.">logger</a> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a5dc7c912d2db8a7df67f2215c6978d86" title="Returns the logger currently in use.">get_logger</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keyword">virtual</span> asio::io_service&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#ad9ea53c6529d71788bd5f21cef103e15" title="Returns an async I/O service used to schedule work.">get_io_service</a>(<span class="keywordtype">void</span>) = 0;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aaf1a8d0ad1d191c2fa8ea7a890e2f7aa" title="Schedules work to be performed by one of the pooled threads.">post</a>(std::function&lt;<span class="keywordtype">void</span>()&gt; work_func);</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a164c37b707dccccdeed61094d5e715ba" title="Thread function used to keep the io_service running.">keep_running</a>(asio::io_service&amp; my_service, asio::steady_timer&amp; my_timer);</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    </div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#ad23c10fbaac144d413d0b87f737e2b6f" title="Puts the current thread to sleep for a specific period of time.">sleep</a>(uint32_t sleep_sec, uint32_t sleep_nsec);</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ConditionType, <span class="keyword">typename</span> LockType&gt;</div>
-<div class="line"><a name="l00224"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a476581f48293d1e1731b75f38aa6db3a">  224</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#ad23c10fbaac144d413d0b87f737e2b6f" title="Puts the current thread to sleep for a specific period of time.">sleep</a>(ConditionType&amp; wakeup_condition, LockType&amp; wakeup_lock,</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                             uint32_t sleep_sec, uint32_t sleep_nsec) {</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="keyword">auto</span> nanos = std::chrono::nanoseconds{sleep_sec * 1000000000 + sleep_nsec};</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        wakeup_condition.wait_for(wakeup_lock, nanos);</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    }</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#aaf6ecd961b49ba53bfc9ec46151e91c2" title="processes work passed to the asio service &amp; handles uncaught exceptions">process_service_work</a>(asio::io_service&amp; service);</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    asio::io_service&amp; <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a842fca0ca076a93f6f294a4928aebb0a" title="Returns an async I/O service used to schedule work.">get_io_service</a>();</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#af611ac53b5cbf9a6a7f985bd15f05511" title="Schedules work to be performed by one of the pooled threads.">post</a>(std::function&lt;<span class="keywordtype">void</span>()&gt; work_func);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#af12377bc5bf25f33d3c3c18a15f1fe04" title="Thread function used to keep the io_service running.">keep_running</a>(asio::io_service&amp; my_service, asio::steady_timer&amp; my_timer);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a31e8250f907f57af7750b57394bee939" title="Puts the current thread to sleep for a specific period of time.">sleep</a>(uint32_t sleep_sec, uint32_t sleep_nsec);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ConditionType, <span class="keyword">typename</span> LockType&gt;</div>
+<div class="line"><a name="l00203"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#af64c6e2b56f999451c8b3ed2e1c8b9a8">  203</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#a31e8250f907f57af7750b57394bee939" title="Puts the current thread to sleep for a specific period of time.">sleep</a>(ConditionType&amp; wakeup_condition, LockType&amp; wakeup_lock,</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                             uint32_t sleep_sec, uint32_t sleep_nsec) {</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keyword">auto</span> nanos = std::chrono::nanoseconds{sleep_sec * 1000000000 + sleep_nsec};</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        wakeup_condition.wait_for(wakeup_lock, nanos);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    }</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#af9a96c23fabb9c99ed1da1de8df19596" title="processes work passed to the asio service &amp; handles uncaught exceptions">process_service_work</a>(asio::io_service&amp; service);</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1scheduler.html#af70762ccc710c1e570a556f1bcf4d7a8" title="Setter for hook function, that is called after each thread exit.">set_thread_stop_hook</a>(std::function&lt;<span class="keywordtype">void</span>(<span class="keyword">const</span> std::thread::id&amp;) <span class="comment">/* noexcept */</span>&gt; hook);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    </div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordtype">void</span> stop_services();</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordtype">void</span> stop_threads();</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordtype">void</span> finish_services();</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a10c17a6b24d99ddabe09d3886b828748" title="Stops all services used to schedule work.">stop_services</a>();</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keywordtype">void</span> finish_threads();</div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    </div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a59050508e933db05c5ef8362e0a113bd" title="Stops all threads used to perform work.">stop_threads</a>();</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;};</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        </div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;}</div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a9ebdcec688344b2ab41dccc98dda41a4" title="Finishes all services used to schedule work.">finish_services</a>();</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html#a82d77dbbff8adc0c9b5d266434b2a007" title="Finishes all threads used to perform work.">finish_threads</a>();</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;};</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    </div>
-<div class="line"><a name="l00265"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html">  265</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html" title="Uses a pool of threads to perform work.">multi_thread_scheduler</a> : <span class="keyword">public</span> <a class="code" href="classstaticlib_1_1httpserver_1_1scheduler.html" title="Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads.">scheduler</a> {</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;</div>
-<div class="line"><a name="l00272"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html#ae701205e67fc44efeb9143b1535d0072">  272</a></span>&#160;    std::vector&lt;std::unique_ptr&lt;std::thread&gt;&gt; <a class="code" href="classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html#ae701205e67fc44efeb9143b1535d0072" title="Pool of threads used to perform work.">m_thread_pool</a>;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    </div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    </div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html#a31edf8e899a33b67042bdb6bf6ad386e" title="Constructor.">multi_thread_scheduler</a>();</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    </div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html#ac72f3bb95c0d7e976b69648270d4f6cb" title="Virtual destructor.">~multi_thread_scheduler</a>();</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    </div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    </div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html#a401feb45069323e4a368d233d7b3ef73" title="Stops all threads used to perform work.">stop_threads</a>();</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html#a29155c7a29192ec9fd465585d8639d51" title="Finishes all threads used to perform work.">finish_threads</a>();</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;};</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    </div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    </div>
-<div class="line"><a name="l00304"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html">  304</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html" title="Uses a single IO service to schedule work.">single_service_scheduler</a> : <span class="keyword">public</span> <a class="code" href="classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html" title="Uses a pool of threads to perform work.">multi_thread_scheduler</a> {</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    </div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;</div>
-<div class="line"><a name="l00311"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html#a5a87673f06118d8cc20d69b4d4629033">  311</a></span>&#160;    asio::io_service <a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html#a5a87673f06118d8cc20d69b4d4629033" title="Service used to manage async I/O events.">m_service</a>;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;</div>
-<div class="line"><a name="l00316"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html#a90a986f0a3d856e3f495f62c3c2bbc4b">  316</a></span>&#160;    asio::steady_timer <a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html#a90a986f0a3d856e3f495f62c3c2bbc4b" title="Timer used to periodically check for shutdown.">m_timer</a>;    </div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    </div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    </div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html#a44529a4bf0496ac0b5620cd049d9746f" title="Constructor.">single_service_scheduler</a>();</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    </div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html#a9648f9d1b7471af2303e37bc3e84ce40" title="virtual destructor">~single_service_scheduler</a>();</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    </div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keyword">virtual</span> asio::io_service&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html#a78ae9fe3e287c742d25ddd413d97f8f2" title="Returns an async I/O service used to schedule work.">get_io_service</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    </div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html#ad0e27b7a75ebdac2fafe958a05dc3182" title="Starts the thread scheduler (this is called automatically when necessary)">startup</a>();</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    </div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    </div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html#a40938458ef2b873908849cb85c228f5f" title="Stops all services used to schedule work.">stop_services</a>();</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    </div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1single__service__scheduler.html#afdc54d191c1054f0159331d0a4b52d03" title="Finishes all services used to schedule work.">finish_services</a>();</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;};</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        </div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;}</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="preprocessor">#endif // STATICLIB_HTTPSERVER_SCHEDULER_HPP</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="preprocessor">#endif // STATICLIB_PION_SCHEDULER_HPP</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 29 2016 18:01:48 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

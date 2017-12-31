@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['make_5fquery_5fstring',['make_query_string',['../classstaticlib_1_1httpserver_1_1http__message.html#a1d0ede3d70dd42a12fe38347cd4cddeb',1,'staticlib::httpserver::http_message']]],
-  ['make_5fset_5fcookie_5fheader',['make_set_cookie_header',['../classstaticlib_1_1httpserver_1_1http__message.html#aaee6db066a4d36f6a78650ab2c20448d',1,'staticlib::httpserver::http_message']]],
-  ['message',['message',['../structstaticlib_1_1httpserver_1_1http__message_1_1receive__error__t.html#ae7ff1b91c5f81b6ba1a7cb74a03366b0',1,'staticlib::httpserver::http_message::receive_error_t::message()'],['../classstaticlib_1_1httpserver_1_1http__parser_1_1error__category__t.html#aea195fc2549f9e664c195e04f3ff35db',1,'staticlib::httpserver::http_parser::error_category_t::message()']]],
-  ['multi_5fthread_5fscheduler',['multi_thread_scheduler',['../classstaticlib_1_1httpserver_1_1multi__thread__scheduler.html#a31edf8e899a33b67042bdb6bf6ad386e',1,'staticlib::httpserver::multi_thread_scheduler']]]
+  ['make_5fquery_5fstring',['make_query_string',['../classstaticlib_1_1pion_1_1http__message.html#a77c14a91d5c7e78168d1b8164ae4cd24',1,'staticlib::pion::http_message']]],
+  ['make_5fset_5fcookie_5fheader',['make_set_cookie_header',['../classstaticlib_1_1pion_1_1http__message.html#af40acf1a79f32a3becff50c386785444',1,'staticlib::pion::http_message']]],
+  ['message',['message',['../structstaticlib_1_1pion_1_1http__message_1_1receive__error__t.html#a8429ec9a90c271edce7e61ec4722f98e',1,'staticlib::pion::http_message::receive_error_t::message()'],['../classstaticlib_1_1pion_1_1http__parser_1_1error__category__t.html#a30f9da1b088da9ca5b842d5d4b513af6',1,'staticlib::pion::http_parser::error_category_t::message()']]]
 ];

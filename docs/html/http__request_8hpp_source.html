@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_httpserver: staticlib/httpserver/http_request.hpp Source File</title>
+<title>staticlib_pion: staticlib/pion/http_request.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,8 +22,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7-13</span>
+   <div id="projectname">staticlib_pion
+   &#160;<span id="projectnumber">5.0.7-15</span>
    </div>
   </td>
  </tr>
@@ -38,7 +38,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -71,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -82,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_c33d3ca81783b96de1fd366e75cb14d0.html">staticlib</a></li><li class="navelem"><a class="el" href="dir_05fdd8ed122623fd25bfabb888adb5b9.html">httpserver</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_c33d3ca81783b96de1fd366e75cb14d0.html">staticlib</a></li><li class="navelem"><a class="el" href="dir_0df7d4f99d96a5817bd3df1bc5ceb3dd.html">pion</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -115,111 +114,112 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// See http://www.boost.org/LICENSE_1_0.txt</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef STATICLIB_HTTPSERVER_HTTP_REQUEST_HPP</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define STATICLIB_HTTPSERVER_HTTP_REQUEST_HPP</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef STATICLIB_PION_HTTP_REQUEST_HPP</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define STATICLIB_PION_HTTP_REQUEST_HPP</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config_8hpp.html">staticlib/httpserver/config.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="http__message_8hpp.html">staticlib/httpserver/http_message.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="http__parser_8hpp.html">staticlib/httpserver/http_parser.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">namespace </span>staticlib { </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace </span>httpserver {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html">   42</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html" title="Container for HTTP request information.">http_request</a> : <span class="keyword">public</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__message.html" title="Base container for HTTP messages.">http_message</a> {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    std::string m_method;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    std::string m_resource;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    std::string m_original_resource;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    std::string m_query_string;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    std::unordered_multimap&lt;std::string, std::string, algorithm::ihash, algorithm::iequal_to&gt; m_query_params;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    http_parser::payload_handler_type m_payload_handler;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html" title="Parses HTTP messages.">http_parser</a>* m_request_reader;    </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a138866bb3f9a0eb310c7255db2fc6d3c" title="Constructs a new request object (default constructor)">http_request</a>(<span class="keyword">const</span> std::string&amp; resource);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a138866bb3f9a0eb310c7255db2fc6d3c" title="Constructs a new request object (default constructor)">http_request</a>();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a89721c549d2837fc6a61fbec616efb88" title="Virtual destructor.">~http_request</a>();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a9cdd72d214758719b7deecfc3c6fee99" title="Clears all request data.">clear</a>();</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a33a55ac64a7eb65cb9c84bd1e6fedd49" title="The content length of the message can never be implied for requests.">is_content_length_implied</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a874c8939ece7dd0e67fb72f1cddfcd7b" title="Returns the request method (i.e.">get_method</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a682eaaf60f00a50d419c17c1bb21e796" title="Returns the resource uri-stem to be delivered (possibly the result of a redirect)">get_resource</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#aec3051408e2064e698b3e4e8ceebca4f" title="Returns the resource uri-stem originally requested.">get_original_resource</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a7c398a674a3ecdac1a4f2fb21dce419e" title="Returns the uri-query or query string requested.">get_query_string</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#accbe83aacbdaead62de3c372f9c4478f" title="Returns a value for the query key if any are defined; otherwise, an empty string.">get_query</a>(<span class="keyword">const</span> std::string&amp; key) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    std::unordered_multimap&lt;std::string, std::string, algorithm::ihash, algorithm::iequal_to&gt;&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#aab2a3352698f1aa382229e6ada032dad" title="Returns the query parameters.">get_queries</a>();</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#ad99fd09ce20c7c8b28173e3f0228404c" title="Returns true if at least one value for the query key is defined.">has_query</a>(<span class="keyword">const</span> std::string&amp; key) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a2e41f0f9d2f94add3fe31d10217cb822" title="Sets the HTTP request method (i.e.">set_method</a>(<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#abec19f999d700bc951d478b5f2670a99" title="Sets the resource or uri-stem originally requested.">set_resource</a>(<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a12625406a4a049c6347f3e8dc6ef11e2" title="Changes the resource or uri-stem to be delivered (called as the result of a redirect)">change_resource</a>(<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#aa918916d58f3770f164721af83cf7179" title="Sets the uri-query or query string requested.">set_query_string</a>(<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#ab3d0677b0a4a6b460b17d0f7e08a7e61" title="Adds a value for the query key.">add_query</a>(<span class="keyword">const</span> std::string&amp; key, <span class="keyword">const</span> std::string&amp; value);</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    </div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a31ccea6eda69a86622c76aff77dde4c0" title="Changes the value of a query key.">change_query</a>(<span class="keyword">const</span> std::string&amp; key, <span class="keyword">const</span> std::string&amp; value);</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    </div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a94d909fb78587b55eda6c176fbafd367" title="Removes all values for a query key.">delete_query</a>(<span class="keyword">const</span> std::string&amp; key);</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    </div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a86931205c48cfcb6f227dc7e923a2a44" title="Use the query parameters to build a query string for the request.">use_query_params_for_query_string</a>();</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a507ce4cf752d6bf725b874f7f263146b" title="Use the query parameters to build POST content for the request.">use_query_params_for_post_content</a>();</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a16bfd44e995ce795a1fb04d43c9c1c0e" title="Add content (for POST) from string.">set_content</a>(<span class="keyword">const</span> std::string &amp;value);</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    </div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a16bfd44e995ce795a1fb04d43c9c1c0e" title="Add content (for POST) from string.">set_content</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* value, <span class="keywordtype">size_t</span> size);</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#af755aeb7810df59cf327520fbc807141" title="This method should be called from payload_handler_creator to stick payload handler to this request...">set_payload_handler</a>(http_parser::payload_handler_type ph);</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    </div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00247"></a><span class="lineno"><a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#ad5983f247d541e3bab90b4cc2dbe4801">  247</a></span>&#160;    T* <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#ad5983f247d541e3bab90b4cc2dbe4801" title="Access to the wrapped payload handler object.">get_payload_handler</a>() { <span class="keywordflow">return</span> m_payload_handler.target&lt;T&gt;(); }</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    </div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    http_parser::payload_handler_type&amp; <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a12dbf8f37676e4bb04abb563a1ab73eb" title="Access to the payload handler wrapper.">get_payload_handler_wrapper</a>();</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a16aeb916e145a38352f1a652f15c7072" title="Internal method used with payload handlers.">set_request_reader</a>(<a class="code" href="classstaticlib_1_1httpserver_1_1http__parser.html" title="Parses HTTP messages.">http_parser</a>* rr);</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a8b8d65c2fa9f86873e50f2c0248ab107" title="Updates the string containing the first line for the HTTP message.">update_first_line</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    </div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1httpserver_1_1http__request.html#a7f7765844f3e6ba69a1aaf3c3e89becb" title="Appends HTTP headers for any cookies defined by the http::message.">append_cookie_headers</a>();</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        </div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;};</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="keyword">using</span> http_request_ptr = std::shared_ptr&lt;http_request&gt;;</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;staticlib/config.hpp&quot;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="http__message_8hpp.html">staticlib/pion/http_message.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="http__parser_8hpp.html">staticlib/pion/http_parser.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace </span>staticlib { </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">namespace </span>pion {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1http__request.html">   43</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstaticlib_1_1pion_1_1http__request.html" title="Container for HTTP request information.">http_request</a> : <span class="keyword">public</span> <a class="code" href="classstaticlib_1_1pion_1_1http__message.html" title="Base container for HTTP messages.">http_message</a> {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::string m_method;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::string m_resource;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::string m_original_resource;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    std::string m_query_string;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    std::unordered_multimap&lt;std::string, std::string, algorithm::ihash, algorithm::iequal_to&gt; m_query_params;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    http_parser::payload_handler_type m_payload_handler;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="classstaticlib_1_1pion_1_1http__parser.html" title="Parses HTTP messages.">http_parser</a>* m_request_reader;    </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a7168357169d9532c94e44579f15684b2" title="Constructs a new request object (default constructor)">http_request</a>(<span class="keyword">const</span> std::string&amp; resource);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a7168357169d9532c94e44579f15684b2" title="Constructs a new request object (default constructor)">http_request</a>();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#ad0de2eb83e1f75ca2bb07058d8b6ecf9" title="Virtual destructor.">~http_request</a>();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#aeea169ff30734949f526787e2eb1f097" title="Clears all request data.">clear</a>();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#ae0499157d624dde91ff461603cc894d4" title="The content length of the message can never be implied for requests.">is_content_length_implied</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a4cc6b199a9cfc4a4b6c8dcebfc186f0b" title="Returns the request method (i.e.">get_method</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#ad923e1c08a81b0a6907dc4e57632aebd" title="Returns the resource uri-stem to be delivered (possibly the result of a redirect)">get_resource</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a1cd45d71e8ce1e1e7739cc34ec9b2d0a" title="Returns the resource uri-stem originally requested.">get_original_resource</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a81bc051657e4a856ca58f8556d192c71" title="Returns the uri-query or query string requested.">get_query_string</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a93bc78422fbb5a833cfeb463b6473256" title="Returns a value for the query key if any are defined; otherwise, an empty string.">get_query</a>(<span class="keyword">const</span> std::string&amp; key) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    std::unordered_multimap&lt;std::string, std::string, algorithm::ihash, algorithm::iequal_to&gt;&amp; <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#ab8babd4f192ff43fed5e64bf604d906d" title="Returns the query parameters.">get_queries</a>();</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a50eb8f47a3aa5194b34208fc4abf33f1" title="Returns true if at least one value for the query key is defined.">has_query</a>(<span class="keyword">const</span> std::string&amp; key) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a1d039e75abdf79a99ccd0cd1fd208a93" title="Sets the HTTP request method (i.e.">set_method</a>(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a44b98781ed791ea89158785a4e1f8a8c" title="Sets the resource or uri-stem originally requested.">set_resource</a>(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a25a513b97b4e6866d8d969f26a6175fd" title="Changes the resource or uri-stem to be delivered (called as the result of a redirect)">change_resource</a>(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#aaac87bbaa1de2b38535b2fc9f0518734" title="Sets the uri-query or query string requested.">set_query_string</a>(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#aea09aca6ba3bf239af344b9c894239ce" title="Adds a value for the query key.">add_query</a>(<span class="keyword">const</span> std::string&amp; key, <span class="keyword">const</span> std::string&amp; value);</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#aeb39a70a4ded86b3b516ea81e36d93b6" title="Changes the value of a query key.">change_query</a>(<span class="keyword">const</span> std::string&amp; key, <span class="keyword">const</span> std::string&amp; value);</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    </div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a34fafdcd13579cee7ef156fe8f4da187" title="Removes all values for a query key.">delete_query</a>(<span class="keyword">const</span> std::string&amp; key);</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a7bc5ca9a6e50c09ac9f616bdc86efc0e" title="Use the query parameters to build a query string for the request.">use_query_params_for_query_string</a>();</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a5fbc032fef21fa790be6cd7566af7f89" title="Use the query parameters to build POST content for the request.">use_query_params_for_post_content</a>();</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#af8968f768f1c951d6fe3650fa4fa6746" title="Add content (for POST) from string.">set_content</a>(<span class="keyword">const</span> std::string &amp;value);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#af8968f768f1c951d6fe3650fa4fa6746" title="Add content (for POST) from string.">set_content</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* value, <span class="keywordtype">size_t</span> size);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a34c43bb14d6745b03c67ee1f72859702" title="This method should be called from payload_handler_creator to stick payload handler to this request...">set_payload_handler</a>(http_parser::payload_handler_type ph);</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    </div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00248"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a7c375872a22ebaab21a9ee5c9767d0c9">  248</a></span>&#160;    T* <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a7c375872a22ebaab21a9ee5c9767d0c9" title="Access to the wrapped payload handler object.">get_payload_handler</a>() { <span class="keywordflow">return</span> m_payload_handler.target&lt;T&gt;(); }</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    </div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    http_parser::payload_handler_type&amp; <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a691551baefb5d931bef5b5726e91d779" title="Access to the payload handler wrapper.">get_payload_handler_wrapper</a>();</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    </div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a33fcb9fccf82246b67a7c5e76bcb34d4" title="Internal method used with payload handlers.">set_request_reader</a>(<a class="code" href="classstaticlib_1_1pion_1_1http__parser.html" title="Parses HTTP messages.">http_parser</a>* rr);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#acd42061df26c52f25c35e83d1f946068" title="Updates the string containing the first line for the HTTP message.">update_first_line</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a378ee7b78a6b310d5e9e2e4f35f7f56e" title="Appends HTTP headers for any cookies defined by the http::message.">append_cookie_headers</a>();</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;};</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="keyword">using</span> http_request_ptr = std::shared_ptr&lt;http_request&gt;;</div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;}</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor">#endif // STATICLIB_HTTPSERVER_HTTP_REQUEST_HPP</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;}</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="preprocessor">#endif // STATICLIB_PION_HTTP_REQUEST_HPP</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 29 2016 18:01:48 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

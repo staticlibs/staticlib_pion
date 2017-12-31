@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_httpserver: Namespace Members</title>
+<title>staticlib_pion: Namespace Members</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,8 +22,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">staticlib_httpserver
-   &#160;<span id="projectnumber">5.0.7-13</span>
+   <div id="projectname">staticlib_pion
+   &#160;<span id="projectnumber">5.0.7-15</span>
    </div>
   </td>
  </tr>
@@ -38,7 +38,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -70,19 +69,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li class="current"><a href="namespacemembers.html"><span>All</span></a></li>
       <li><a href="namespacemembers_func.html"><span>Functions</span></a></li>
-      <li><a href="namespacemembers_type.html"><span>Typedefs</span></a></li>
-    </ul>
-  </div>
-  <div id="navrow4" class="tabs3">
-    <ul class="tablist">
-      <li><a href="#index_h"><span>h</span></a></li>
-      <li><a href="#index_i"><span>i</span></a></li>
-      <li><a href="#index_n"><span>n</span></a></li>
-      <li><a href="#index_o"><span>o</span></a></li>
-      <li><a href="#index_p"><span>p</span></a></li>
-      <li><a href="#index_t"><span>t</span></a></li>
-      <li><a href="#index_u"><span>u</span></a></li>
-      <li><a href="#index_x"><span>x</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -91,7 +77,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -101,96 +87,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all namespace members with links to the namespace documentation for each member:</div>
-
-<h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
+<div class="textblock">Here is a list of all namespace members with links to the namespace documentation for each member:</div><ul>
 <li>hash_combine()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#af9899c3d69af142a666a82ff092b0454">staticlib::httpserver::algorithm</a>
+: <a class="el" href="namespacestaticlib_1_1pion_1_1algorithm.html#aa7f894fb3c4dcda75eeb601a9c9caa85">staticlib::pion::algorithm</a>
 </li>
-</ul>
-
-
-<h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
-<li>iequals()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a00377d9b49af4d94d9037e818759a9d5">staticlib::httpserver::algorithm</a>
+<li>is_char()
+: <a class="el" href="namespacestaticlib_1_1pion_1_1algorithm.html#a0a03e94a1d4e16649b1489f34ccba243">staticlib::pion::algorithm</a>
 </li>
-<li>indeterminate()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1logic.html#a01f0018d776d82a8098f0a99b6326d7e">staticlib::httpserver::logic</a>
+<li>is_control()
+: <a class="el" href="namespacestaticlib_1_1pion_1_1algorithm.html#abb4f92a391ecd75ca85021cac148b82c">staticlib::pion::algorithm</a>
 </li>
-<li>indeterminate_keyword_t
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1logic.html#a808a6a398a2689f4901708addf49f84e">staticlib::httpserver::logic</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_n"></a>- n -</h3><ul>
-<li>noncopyable
-: <a class="el" href="namespacestaticlib_1_1httpserver.html#a8d2c41d4d194aae1e793345ba2c926a4">staticlib::httpserver</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
-<li>operator!()
-: <a class="el" href="group__logical.html#ga05d4ddffbc8af974037e7af210ecfe9c">staticlib::httpserver::logic</a>
-</li>
-<li>operator!=()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1logic.html#a039b32beebf701f5fa35422255c33a1f">staticlib::httpserver::logic</a>
-</li>
-<li>operator&amp;&amp;()
-: <a class="el" href="group__logical.html#ga5db68bcd7d9b3c4fae6d47d0a6851c6b">staticlib::httpserver::logic</a>
+<li>is_special()
+: <a class="el" href="namespacestaticlib_1_1pion_1_1algorithm.html#a151b5812703e9bb01edb0ddd35d93286">staticlib::pion::algorithm</a>
 </li>
 <li>operator&lt;&lt;()
-: <a class="el" href="namespacestaticlib_1_1httpserver.html#ae3d325ead646a233c881b904cea77b44">staticlib::httpserver</a>
-</li>
-<li>operator==()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1logic.html#ad88dcdeda1d2f32dd7629ba1117c9878">staticlib::httpserver::logic</a>
-</li>
-<li>operator||()
-: <a class="el" href="group__logical.html#gaffe794dd6a459017dc5ab26ea59f4c57">staticlib::httpserver::logic</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
-<li>parse_sizet()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a839ee02a5435c0ea7169b30ebc3eda6e">staticlib::httpserver::algorithm</a>
-</li>
-<li>parse_uint16()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a97dfab2557fb01f8d029474f37ff4295">staticlib::httpserver::algorithm</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
-<li>to_string()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a5059849f8a889f8e18004a63233f55df">staticlib::httpserver::algorithm</a>
-</li>
-<li>trim()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a1cf29c2bfac9368c7f17c218441a7bb7">staticlib::httpserver::algorithm</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
-<li>url_decode()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a4e776b29c2b5167a9c9c27143e179d8b">staticlib::httpserver::algorithm</a>
-</li>
-<li>url_encode()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a975099b17008eceb7f6f2fbaa0fbba17">staticlib::httpserver::algorithm</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
-<li>xml_encode()
-: <a class="el" href="namespacestaticlib_1_1httpserver_1_1algorithm.html#a95e1027e7df9739aaa5a68534a00030f">staticlib::httpserver::algorithm</a>
+: <a class="el" href="namespacestaticlib_1_1pion.html#a5d5e0c11fd832716b36dca5997b1e0a9">staticlib::pion</a>
 </li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 29 2016 18:01:49 for staticlib_httpserver by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
