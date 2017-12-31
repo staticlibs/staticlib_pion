@@ -94,7 +94,7 @@ script:
     set +e ;
     pushd build-standalone ;
     set -e ;
-    cmake ../staticlib_pion  -DCMAKE_CXX_FLAGS="--std=c++17" ;
+    cmake ../staticlib_pion  -DCMAKE_CXX_FLAGS="--std=c++1z" ;
     make ;
     set +e;
     popd ;
