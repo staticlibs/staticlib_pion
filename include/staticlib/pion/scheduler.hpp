@@ -102,7 +102,7 @@ class scheduler {
     /**
      * Hook function, that is called after each scheduled thread will exit
      */
-    std::function<void(const std::thread::id&) STATICLIB_NOEXCEPT> thread_stop_hook;
+    std::function<void(const std::thread::id&) /* noexcept */> thread_stop_hook;
     
 public:
 
