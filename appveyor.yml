@@ -46,8 +46,17 @@ build_script:
   - cmake ../staticlib_pion
   - cmake --build .
   - cd ..
-  - mkdir build
-  - cd build
+  - mkdir build_i386
+  - cd build_i386
+  - cmake ../staticlib_pion/test
+        -G "Visual Studio %SL_CMAKE_VS%"
+        -DSTATICLIB_TOOLCHAIN=windows_i386_msvc
+        -DCMAKE_BUILD_TYPE=Release
+  - cmake --build . --config Release
+  - ctest
+  - cd ..
+  - mkdir build_amd64
+  - cd build_amd64
   - cmake ../staticlib_pion/test
         -G "Visual Studio %SL_CMAKE_VS% Win64"
         -DSTATICLIB_TOOLCHAIN=windows_amd64_msvc

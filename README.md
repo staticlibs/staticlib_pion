@@ -17,7 +17,7 @@ project ([description](http://sourceforge.net/p/pion/mailman/message/32075645/))
  - namespaces and classes renamed
  - Doxygen comments reformatted
 
-Link to the [API documentation](http://staticlibs.github.io/staticlib_pion/docs/html/namespacestaticlib_1_1httpserver.html).
+Link to the [API documentation](http://staticlibs.github.io/staticlib_pion/docs/html/namespacestaticlib_1_1pion.html).
 
 Usage [example](https://github.com/staticlibs/staticlib_pion/blob/master/test/pion_test.cpp).
 

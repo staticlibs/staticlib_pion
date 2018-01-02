@@ -57,28 +57,35 @@ install:
         openssl-devel
         log4cplus-devel ;
 
+    `# Android` ;
+    git clone https://github.com/staticlibs/android-ndk-r9d-arm-linux-androideabi-4.8.git ../android-ndk ;
+
     fi
 
 before_script:
   - cd ..
   - git clone https://github.com/staticlibs/cmake.git
+# mac
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-    git clone --recursive https://github.com/staticlibs/external_asio.git ;
-    git clone --recursive https://github.com/staticlibs/external_log4cplus.git ;
     git clone https://github.com/staticlibs/tools_macos_openssl.git ;
-    pwd ;
     export PKG_CONFIG_PATH=`pwd`/tools_macos_openssl/lib/pkgconfig:$PKG_CONFIG_PATH ;
     fi
+# mac and android
+  - git clone --recursive https://github.com/staticlibs/external_asio.git
+  - git clone --recursive https://github.com/staticlibs/external_log4cplus.git
+# android
+  - git clone --recursive https://github.com/staticlibs/external_openssl.git
+# linux
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    export PKG_CONFIG_PATH=`pwd`/external_asio/resources/pkgconfig_system:$PKG_CONFIG_PATH ;
+    export PKG_CONFIG_PATH=`pwd`/external_log4cplus/resources/pkgconfig_system:$PKG_CONFIG_PATH ;
+    fi
+# all platforms
   - git clone https://github.com/staticlibs/staticlib_config.git
   - git clone https://github.com/staticlibs/staticlib_support.git
   - git clone https://github.com/staticlibs/staticlib_concurrent.git
   - git clone https://github.com/staticlibs/staticlib_utils.git
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-    git clone https://github.com/staticlibs/external_asio.git ;
-    export PKG_CONFIG_PATH=`pwd`/external_asio/resources/pkgconfig_system:$PKG_CONFIG_PATH ;
-    git clone https://github.com/staticlibs/external_log4cplus.git ;
-    export PKG_CONFIG_PATH=`pwd`/external_log4cplus/resources/pkgconfig_system:$PKG_CONFIG_PATH ;
-    fi
+# test only
   - rm -rf test
   - mkdir test
   - cp -r staticlib_pion/test/certificates test/
@@ -116,16 +123,23 @@ script:
     pushd build ;
     cmake ../staticlib_pion/test -DCMAKE_BUILD_TYPE=Release ;
     make all test ;
+    popd ;
 
     `# Fedora` ;
     $D cat /etc/fedora-release ;
     $D cmake /src/staticlib_pion -DCMAKE_CXX_FLAGS="--std=c++17" ;
     $D make ;
-    $D rm -rf * ;
+    $D sh -c "rm -rf /root && mkdir /root" ;
     $D cmake /src/staticlib_pion/test -DSTATICLIB_TOOLCHAIN=linux_amd64_gcc -DCMAKE_BUILD_TYPE=Release ;
     $D mkdir /test ;
     $D cp -r /src/staticlib_pion/test/certificates /test/ ;
     $D make all test ;
+
+    `# Android` ;
+    mkdir build-android ;
+    pushd build-android ;
+    cmake ../staticlib_pion/test -DCMAKE_BUILD_TYPE=Release -DSTATICLIB_TOOLCHAIN=android_armeabi_gcc -DANDROID_TOOLCHAIN_DIR=`pwd`/../android-ndk ;
+    make ;
 
     fi
 
