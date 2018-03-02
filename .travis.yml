@@ -65,16 +65,13 @@ install:
 before_script:
   - cd ..
   - git clone https://github.com/staticlibs/cmake.git
-# mac
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-    git clone https://github.com/staticlibs/tools_macos_openssl.git ;
-    export PKG_CONFIG_PATH=`pwd`/tools_macos_openssl/lib/pkgconfig:$PKG_CONFIG_PATH ;
-    fi
 # mac and android
-  - git clone --recursive https://github.com/staticlibs/external_asio.git
-  - git clone --recursive https://github.com/staticlibs/external_log4cplus.git
-# android
-  - git clone --recursive https://github.com/staticlibs/external_openssl.git
+  - git clone https://github.com/staticlibs/external_asio.git
+  - git clone https://github.com/staticlibs/lookaside_asio.git
+  - git clone https://github.com/staticlibs/external_log4cplus.git
+  - git clone https://github.com/staticlibs/lookaside_log4cplus.git
+  - git clone https://github.com/staticlibs/external_openssl.git
+  - git clone https://github.com/staticlibs/lookaside_openssl.git
 # linux
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
     export PKG_CONFIG_PATH=`pwd`/external_asio/resources/pkgconfig_system:$PKG_CONFIG_PATH ;

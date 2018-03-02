@@ -24,13 +24,16 @@ clone_folder: c:\projects\staticlib_pion
 install:
   - cd ..
   - git clone https://github.com/staticlibs/tools_windows_pkgconfig.git
-  - git clone https://github.com/staticlibs/tools_windows_perl.git
+  - git clone https://github.com/staticlibs/tools_windows_perl520.git
   - git clone https://github.com/staticlibs/tools_windows_nasm.git
-  - set PATH=%PATH%;c:\projects\tools_windows_pkgconfig\bin;c:\projects\tools_windows_perl\perl\bin;c:\projects\tools_windows_nasm
+  - set PATH=%PATH%;c:\projects\tools_windows_pkgconfig\bin;c:\projects\tools_windows_perl520\perl\bin;c:\projects\tools_windows_nasm
   - git clone https://github.com/staticlibs/cmake.git
-  - git clone --recursive https://github.com/staticlibs/external_asio.git
-  - git clone --recursive https://github.com/staticlibs/external_log4cplus.git
-  - git clone --recursive https://github.com/staticlibs/external_openssl.git
+  - git clone https://github.com/staticlibs/external_asio.git
+  - git clone https://github.com/staticlibs/lookaside_asio.git
+  - git clone https://github.com/staticlibs/external_log4cplus.git
+  - git clone https://github.com/staticlibs/lookaside_log4cplus.git
+  - git clone https://github.com/staticlibs/external_openssl.git
+  - git clone https://github.com/staticlibs/lookaside_openssl.git
   - git clone https://github.com/staticlibs/staticlib_config.git
   - git clone https://github.com/staticlibs/staticlib_support.git
   - git clone https://github.com/staticlibs/staticlib_concurrent.git
