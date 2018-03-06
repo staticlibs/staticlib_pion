@@ -44,10 +44,24 @@ option ( ${PROJECT_NAME}_DISABLE_LOGGING "Disable logging to std out and err" OF
 option ( ${PROJECT_NAME}_USE_LOG4CPLUS "Use log4cplus lib for logging" OFF )
 option ( ${PROJECT_NAME}_USE_OPENSSL "Use OpenSSL lib for https" OFF )
 
+option ( ${PROJECT_NAME}_USE_WILTON_LOG "Use wilton_logging lib for logging" ON )
+
 # standalone build
 if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
     set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} )
 endif ( )
+
+if ( ${PROJECT_NAME}_USE_WILTON_LOG )
+    message(STATUS "*** NOT STATICLIB_TOOLCHAIN MATCHES ${STATICLIB_TOOLCHAIN}")
+    message(STATUS "*** ${CMAKE_CURRENT_LIST_DIR}/../../modules/wilton_logging")
+    staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../modules/wilton_logging )
+    INCLUDE_DIRECTORIES(${CMAKE_CURRENT_LIST_DIR}/../../modules/wilton_logging/include)
+    INCLUDE_DIRECTORIES(${CMAKE_CURRENT_LIST_DIR}/../../core/include)
+    staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_concurrent )
+    staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_utils )
+    staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_asio )
+endif ( )
+
 if ( NOT DEFINED STATICLIB_TOOLCHAIN )
     if ( NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux" )
         staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_asio )
@@ -76,6 +90,9 @@ if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
 endif ( )
 if ( ${PROJECT_NAME}_USE_OPENSSL )
     list ( APPEND ${PROJECT_NAME}_DEPS openssl )
+endif ( )
+if ( ${PROJECT_NAME}_USE_WILTON_LOG )
+    list ( APPEND ${PROJECT_NAME}_DEPS wilton_logging )
 endif ( )
 staticlib_pion_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 
@@ -110,6 +127,11 @@ endif ( )
 if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
     set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_PION_USE_LOG4CPLUS )
     set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_PION_USE_LOG4CPLUS )
+endif ( )
+
+if ( ${PROJECT_NAME}_USE_WILTON_LOG )
+    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_PION_USE_WILTON_LOG )
+    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_PION_USE_WILTON_LOG )
 endif ( )
 
 if ( ${PROJECT_NAME}_USE_OPENSSL )

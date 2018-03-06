@@ -28,13 +28,173 @@
 
 #include "staticlib/config.hpp"
 
-#if defined(STATICLIB_PION_USE_LOG4CPLUS)
+#if defined(STATICLIB_PION_USE_WILTON_LOG)
+
+#include "wilton/wilton_logging.h"
+#include <string>
+#include <ctime>
+#include <vector>
+#include <atomic>
+
+namespace staticlib {
+namespace pion {
+
+namespace {
+    std::atomic<bool> is_init(false);
+    const auto staticlib_pion_logger = std::string{"\"staticlib.pion\" : \"DEBUG\""};
+
+    std::string get_loggers(){
+        return staticlib_pion_logger;
+    }
+
+    std::string get_appenders(){
+        std::vector<std::string> appenders;
+        appenders.push_back("DEBUG");
+        appenders.push_back("INFO");
+        appenders.push_back("WARN");
+        appenders.push_back("ERROR");
+        appenders.push_back("FATAL");
+        auto res = std::string{};
+        for (auto el : appenders) {
+            std::string row =  "{ \n\
+                  \"appenderType\": \"CONSOLE\", \n\
+                  \"layout\": \"%d{%Y-%m-%d %H:%M:%S,%q} [%-5p %-5.5t %-20.20c] %m%n\", \n\
+                  \"thresholdLevel\": \"" + el + "\" \n\
+              },\n";
+            res.append(row);
+        }
+        res.pop_back();
+        res.pop_back();
+        return res;
+    }
+    void initLogger(){
+        if (is_init.exchange(true)) return;
+
+        std::string json_str =
+            "{ \n\
+                \"appenders\": [" + get_appenders() + " ], \n\
+                \"loggers\": {" + get_loggers() + "}  \n\
+            }";
+        wilton_logger_initialize(json_str.c_str(), json_str.size());
+    }
+
+}
+/**
+ *  logger implementation for wilton_logger use
+ */
+class logger {
+public:
+
+    /**
+     * Supported log levels
+     */
+    enum log_priority_type {
+        LOG_LEVEL_DEBUG,
+        LOG_LEVEL_INFO,
+        LOG_LEVEL_WARN,
+        LOG_LEVEL_ERROR,
+        LOG_LEVEL_FATAL
+    };
+
+    /**
+     * Logger name
+     */
+    std::string m_name;
+
+    /**
+     * Constructor, returns logger with name "pion"
+     */
+    logger() : m_name("staticlib.pion") {
+        initLogger();
+    }
+
+    /**
+     * Constructor, return logger with specified name
+     *
+     * @param name logger name
+     */
+    logger(const std::string& name) : m_name(name) {
+        initLogger();
+    }
+
+    /**
+     * Copy constructor
+     *
+     * @param p logger instance
+     */
+    logger(const logger& p) : m_name(p.m_name) {
+    }
+
+    void log(const std::string& level, const std::string& message){
+        wilton_logger_log( level.c_str(), level.size(),
+                m_name.c_str(), m_name.size(), message.c_str(), message.size());
+    }
+
+    int is_priority_enabled(const std::string& level){
+        int res = 0;
+        wilton_logger_is_level_enabled(m_name.c_str(), m_name.size(),
+                level.c_str(), level.size(), &res);
+        return res;
+    }
+
+    void do_nothing(){}
+};
+
+#define STATICLIB_PION_LOG_CONFIG_BASIC   {}
+#define STATICLIB_PION_LOG_CONFIG(FILE)   {}
+#define STATICLIB_PION_GET_LOGGER(NAME)   sl::pion::logger(NAME)
+#define STATICLIB_PION_SHUTDOWN_LOGGER    {}
+
+// Logging api, used in pion, send MSG as [str1 << str2], ostringstream used to handle it.
+#define STATICLIB_PION_LOG_DEBUG(LOG, MSG)    \
+    if (LOG.is_priority_enabled("DEBUG")) { \
+    std::ostringstream test; \
+    test << MSG; \
+    LOG.log("DEBUG", test.str());}
+
+#define STATICLIB_PION_LOG_INFO(LOG, MSG)     \
+    if (LOG.is_priority_enabled("INFO")) { \
+    std::ostringstream test; \
+    test << MSG; \
+    LOG.log("INFO", test.str());}
+
+#define STATICLIB_PION_LOG_WARN(LOG, MSG)    \
+    if (LOG.is_priority_enabled("WARN")) { \
+    std::ostringstream test; \
+    test << MSG; \
+    LOG.log("WARN", test.str());}
+
+#define STATICLIB_PION_LOG_ERROR(LOG, MSG)    \
+    if (LOG.is_priority_enabled("ERROR")) { \
+    std::ostringstream test; \
+    test << MSG; \
+    LOG.log("ERROR", test.str());}
+
+#define STATICLIB_PION_LOG_FATAL(LOG, MSG)    \
+    if (LOG.is_priority_enabled("FATAL")) { \
+    std::ostringstream test; \
+    test << MSG; \
+    LOG.log("FATAL", test.str());}
+
+// define dumb level change functions
+#define STATICLIB_PION_LOG_SETLEVEL_DEBUG(LOG)    { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_INFO(LOG)     { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_WARN(LOG)     { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_ERROR(LOG)    { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_FATAL(LOG)    { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_UP(LOG)       { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_DOWN(LOG)     { LOG.do_nothing(); }
+
+} // namespace
+}
+
+#elif defined(STATICLIB_PION_USE_LOG4CPLUS)
 
     // log4cplus headers
     #include "log4cplus/logger.h"
     #include "log4cplus/loggingmacros.h"
 
-    namespace staticlib { 
+    namespace staticlib {
     namespace pion {
         /**
          * Log4cplus logger, log4cplus must be initialized explicitely before using
@@ -61,7 +221,6 @@
     #define STATICLIB_PION_LOG_WARN   LOG4CPLUS_WARN
     #define STATICLIB_PION_LOG_ERROR  LOG4CPLUS_ERROR
     #define STATICLIB_PION_LOG_FATAL  LOG4CPLUS_FATAL
-
 
 #elif defined(STATICLIB_PION_DISABLE_LOGGING)
 
