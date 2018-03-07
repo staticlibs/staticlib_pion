@@ -32,69 +32,23 @@
 
 #include "wilton/wilton_logging.h"
 #include <string>
-#include <ctime>
-#include <vector>
-#include <atomic>
 
 namespace staticlib {
 namespace pion {
 
 namespace {
-    std::atomic<bool> is_init(false);
-    const auto staticlib_pion_logger = std::string{"\"staticlib.pion\" : \"DEBUG\""};
-
-    std::string get_loggers(){
-        return staticlib_pion_logger;
-    }
-
-    std::string get_appenders(){
-        std::vector<std::string> appenders;
-        appenders.push_back("DEBUG");
-        appenders.push_back("INFO");
-        appenders.push_back("WARN");
-        appenders.push_back("ERROR");
-        appenders.push_back("FATAL");
-        auto res = std::string{};
-        for (auto el : appenders) {
-            std::string row =  "{ \n\
-                  \"appenderType\": \"CONSOLE\", \n\
-                  \"layout\": \"%d{%Y-%m-%d %H:%M:%S,%q} [%-5p %-5.5t %-20.20c] %m%n\", \n\
-                  \"thresholdLevel\": \"" + el + "\" \n\
-              },\n";
-            res.append(row);
-        }
-        res.pop_back();
-        res.pop_back();
-        return res;
-    }
-    void initLogger(){
-        if (is_init.exchange(true)) return;
-
-        std::string json_str =
-            "{ \n\
-                \"appenders\": [" + get_appenders() + " ], \n\
-                \"loggers\": {" + get_loggers() + "}  \n\
-            }";
-        wilton_logger_initialize(json_str.c_str(), json_str.size());
-    }
-
+    const std::string LOG_LEVEL_DEBUG("DEBUG");
+    const std::string LOG_LEVEL_INFO("INFO");
+    const std::string LOG_LEVEL_WARN("WARN");
+    const std::string LOG_LEVEL_ERROR("ERROR");
+    const std::string LOG_LEVEL_FATAL("FATAL");
 }
+
 /**
  *  logger implementation for wilton_logger use
  */
 class logger {
 public:
-
-    /**
-     * Supported log levels
-     */
-    enum log_priority_type {
-        LOG_LEVEL_DEBUG,
-        LOG_LEVEL_INFO,
-        LOG_LEVEL_WARN,
-        LOG_LEVEL_ERROR,
-        LOG_LEVEL_FATAL
-    };
 
     /**
      * Logger name
@@ -105,7 +59,6 @@ public:
      * Constructor, returns logger with name "pion"
      */
     logger() : m_name("staticlib.pion") {
-        initLogger();
     }
 
     /**
@@ -114,7 +67,6 @@ public:
      * @param name logger name
      */
     logger(const std::string& name) : m_name(name) {
-        initLogger();
     }
 
     /**
@@ -147,34 +99,29 @@ public:
 
 // Logging api, used in pion, send MSG as [str1 << str2], ostringstream used to handle it.
 #define STATICLIB_PION_LOG_DEBUG(LOG, MSG)    \
-    if (LOG.is_priority_enabled("DEBUG")) { \
-    std::ostringstream test; \
-    test << MSG; \
-    LOG.log("DEBUG", test.str());}
+    { std::ostringstream msg_handler; \
+    msg_handler << MSG; \
+    LOG.log(LOG_LEVEL_DEBUG, msg_handler.str());}
 
 #define STATICLIB_PION_LOG_INFO(LOG, MSG)     \
-    if (LOG.is_priority_enabled("INFO")) { \
-    std::ostringstream test; \
-    test << MSG; \
-    LOG.log("INFO", test.str());}
+    { std::ostringstream msg_handler; \
+    msg_handler << MSG; \
+    LOG.log(LOG_LEVEL_INFO, msg_handler.str());}
 
 #define STATICLIB_PION_LOG_WARN(LOG, MSG)    \
-    if (LOG.is_priority_enabled("WARN")) { \
-    std::ostringstream test; \
-    test << MSG; \
-    LOG.log("WARN", test.str());}
+    { std::ostringstream msg_handler; \
+    msg_handler << MSG; \
+    LOG.log(LOG_LEVEL_WARN, msg_handler.str());}
 
 #define STATICLIB_PION_LOG_ERROR(LOG, MSG)    \
-    if (LOG.is_priority_enabled("ERROR")) { \
-    std::ostringstream test; \
-    test << MSG; \
-    LOG.log("ERROR", test.str());}
+    { std::ostringstream msg_handler; \
+    msg_handler << MSG; \
+    LOG.log(LOG_LEVEL_ERROR, msg_handler.str());}
 
 #define STATICLIB_PION_LOG_FATAL(LOG, MSG)    \
-    if (LOG.is_priority_enabled("FATAL")) { \
-    std::ostringstream test; \
-    test << MSG; \
-    LOG.log("FATAL", test.str());}
+    { std::ostringstream msg_handler; \
+    msg_handler << MSG; \
+    LOG.log(LOG_LEVEL_FATAL, msg_handler.str());}
 
 // define dumb level change functions
 #define STATICLIB_PION_LOG_SETLEVEL_DEBUG(LOG)    { LOG.do_nothing(); }
