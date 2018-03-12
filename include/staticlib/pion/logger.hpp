@@ -159,8 +159,9 @@ public:
      * 
      */
     void log(const std::string& level, const std::string& message){
-        wilton_logger_log(level.c_str(), level.length(),
-                m_name.c_str(), m_name.length(), message.c_str(), message.length());
+        wilton_logger_log(level.c_str(), static_cast<int>(level.length()),
+                m_name.c_str(), static_cast<int>(m_name.length()),
+                message.c_str(), static_cast<int>(message.length()));
     }
 
     /**
@@ -171,8 +172,8 @@ public:
      */
     bool is_priority_enabled(const std::string& level){
         int res = 0;
-        wilton_logger_is_level_enabled(m_name.c_str(), m_name.length(),
-                level.c_str(), level.length(), std::addressof(res));
+        wilton_logger_is_level_enabled(m_name.c_str(), static_cast<int>(m_name.length()),
+                level.c_str(), static_cast<int>(level.length()), std::addressof(res));
         return res != 0;
     }
 
