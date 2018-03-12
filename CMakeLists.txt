@@ -48,6 +48,7 @@ option ( ${PROJECT_NAME}_USE_OPENSSL "Use OpenSSL lib for https" OFF )
 if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
     set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} )
 endif ( )
+
 if ( NOT DEFINED STATICLIB_TOOLCHAIN )
     if ( NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux" )
         staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_asio )
@@ -77,6 +78,7 @@ endif ( )
 if ( ${PROJECT_NAME}_USE_OPENSSL )
     list ( APPEND ${PROJECT_NAME}_DEPS openssl )
 endif ( )
+
 staticlib_pion_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 
 # library
@@ -139,8 +141,13 @@ if ( ${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" )
     set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -Wno-unused-variable )
 endif ( )
 
+if ( ${PROJECT_NAME}_WILTON_LOG_INCLUDE )
+  set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_PION_USE_WILTON_LOG )
+endif ( )
+
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE 
         ${CMAKE_CURRENT_LIST_DIR}/include
+        ${${PROJECT_NAME}_WILTON_LOG_INCLUDE}
         ${${PROJECT_NAME}_DEPS_PC_INCLUDE_DIRS} )
 
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_DEFINITIONS} )
@@ -153,6 +160,9 @@ target_compile_options ( ${PROJECT_NAME} PRIVATE
 staticlib_pion_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_OTHER "" ${PROJECT_NAME}_CFLAGS_PUBLIC )
 set ( ${PROJECT_NAME}_PC_CFLAGS "-I${CMAKE_CURRENT_LIST_DIR}/include ${${PROJECT_NAME}_PC_CFLAGS_OTHER}" )
 set ( ${PROJECT_NAME}_PC_LIBS "-L${CMAKE_LIBRARY_OUTPUT_DIRECTORY} -l${PROJECT_NAME}" )
+if(${PROJECT_NAME}_WILTON_LOG_LIB)
+  set ( ${PROJECT_NAME}_PC_LIBS "${${PROJECT_NAME}_PC_LIBS} -L${${PROJECT_NAME}_WILTON_LOG_LIB} -lwilton_logging" )
+endif()
 if ( CMAKE_SYSTEM_NAME STREQUAL "Linux" )
     set ( ${PROJECT_NAME}_PC_LIBS "${${PROJECT_NAME}_PC_LIBS} -lpthread" )
 endif ( )
