@@ -28,114 +28,7 @@
 
 #include "staticlib/config.hpp"
 
-#if defined(STATICLIB_PION_USE_WILTON_LOG)
-
-#include "wilton/wilton_logging.h"
-#include <string>
-
-namespace staticlib {
-namespace pion {
-
-namespace {
-    const std::string LOG_LEVEL_DEBUG("DEBUG");
-    const std::string LOG_LEVEL_INFO("INFO");
-    const std::string LOG_LEVEL_WARN("WARN");
-    const std::string LOG_LEVEL_ERROR("ERROR");
-    const std::string LOG_LEVEL_FATAL("FATAL");
-}
-
-/**
- *  logger implementation for wilton_logger use
- */
-class logger {
-public:
-
-    /**
-     * Logger name
-     */
-    std::string m_name;
-
-    /**
-     * Constructor, returns logger with name "pion"
-     */
-    logger() : m_name("staticlib.pion") {
-    }
-
-    /**
-     * Constructor, return logger with specified name
-     *
-     * @param name logger name
-     */
-    logger(const std::string& name) : m_name(name) {
-    }
-
-    /**
-     * Copy constructor
-     *
-     * @param p logger instance
-     */
-    logger(const logger& p) : m_name(p.m_name) {
-    }
-
-    void log(const std::string& level, const std::string& message){
-        wilton_logger_log( level.c_str(), level.size(),
-                m_name.c_str(), m_name.size(), message.c_str(), message.size());
-    }
-
-    int is_priority_enabled(const std::string& level){
-        int res = 0;
-        wilton_logger_is_level_enabled(m_name.c_str(), m_name.size(),
-                level.c_str(), level.size(), &res);
-        return res;
-    }
-
-    void do_nothing(){}
-};
-
-#define STATICLIB_PION_LOG_CONFIG_BASIC   {}
-#define STATICLIB_PION_LOG_CONFIG(FILE)   {}
-#define STATICLIB_PION_GET_LOGGER(NAME)   sl::pion::logger(NAME)
-#define STATICLIB_PION_SHUTDOWN_LOGGER    {}
-
-// Logging api, used in pion, send MSG as [str1 << str2], ostringstream used to handle it.
-#define STATICLIB_PION_LOG_DEBUG(LOG, MSG)    \
-    { std::ostringstream msg_handler; \
-    msg_handler << MSG; \
-    LOG.log(LOG_LEVEL_DEBUG, msg_handler.str());}
-
-#define STATICLIB_PION_LOG_INFO(LOG, MSG)     \
-    { std::ostringstream msg_handler; \
-    msg_handler << MSG; \
-    LOG.log(LOG_LEVEL_INFO, msg_handler.str());}
-
-#define STATICLIB_PION_LOG_WARN(LOG, MSG)    \
-    { std::ostringstream msg_handler; \
-    msg_handler << MSG; \
-    LOG.log(LOG_LEVEL_WARN, msg_handler.str());}
-
-#define STATICLIB_PION_LOG_ERROR(LOG, MSG)    \
-    { std::ostringstream msg_handler; \
-    msg_handler << MSG; \
-    LOG.log(LOG_LEVEL_ERROR, msg_handler.str());}
-
-#define STATICLIB_PION_LOG_FATAL(LOG, MSG)    \
-    { std::ostringstream msg_handler; \
-    msg_handler << MSG; \
-    LOG.log(LOG_LEVEL_FATAL, msg_handler.str());}
-
-// define dumb level change functions
-#define STATICLIB_PION_LOG_SETLEVEL_DEBUG(LOG)    { LOG.do_nothing(); }
-#define STATICLIB_PION_LOG_SETLEVEL_INFO(LOG)     { LOG.do_nothing(); }
-#define STATICLIB_PION_LOG_SETLEVEL_WARN(LOG)     { LOG.do_nothing(); }
-#define STATICLIB_PION_LOG_SETLEVEL_ERROR(LOG)    { LOG.do_nothing(); }
-#define STATICLIB_PION_LOG_SETLEVEL_FATAL(LOG)    { LOG.do_nothing(); }
-#define STATICLIB_PION_LOG_SETLEVEL_UP(LOG)       { LOG.do_nothing(); }
-#define STATICLIB_PION_LOG_SETLEVEL_DOWN(LOG)     { LOG.do_nothing(); }
-
-} // namespace
-}
-
-#elif defined(STATICLIB_PION_USE_LOG4CPLUS)
+#if defined(STATICLIB_PION_USE_LOG4CPLUS)
 
     // log4cplus headers
     #include "log4cplus/logger.h"
@@ -214,6 +107,112 @@ public:
     #define STATICLIB_PION_LOG_WARN(LOG, MSG)     { if (LOG) {} }
     #define STATICLIB_PION_LOG_ERROR(LOG, MSG)    { if (LOG) {} }
     #define STATICLIB_PION_LOG_FATAL(LOG, MSG)    { if (LOG) {} }
+
+#elif defined(STATICLIB_PION_USE_WILTON_LOGGING)
+
+#include <sstream>
+#include <string>
+
+#include "wilton/wilton_logging.h"
+
+namespace staticlib {
+namespace pion {
+
+/**
+ *  logger implementation for wilton_logger use
+ */
+class logger {
+public:
+
+    /**
+     * Logger name
+     */
+    std::string m_name;
+
+    /**
+     * Constructor, returns logger with name "pion"
+     */
+    logger() :
+    m_name("staticlib.pion") { }
+
+    /**
+     * Constructor, return logger with specified name
+     *
+     * @param name logger name
+     */
+    logger(const std::string& name) :
+    m_name(name) { }
+
+    /**
+     * Copy constructor
+     *
+     * @param p logger instance
+     */
+    logger(const logger& p) :
+    m_name(p.m_name) { }
+
+    /**
+     * Send log message to wilton_logging
+     * 
+     * @param level logging level
+     * @param message message
+     * 
+     */
+    void log(const std::string& level, const std::string& message){
+        wilton_logger_log(level.c_str(), level.length(),
+                m_name.c_str(), m_name.length(), message.c_str(), message.length());
+    }
+
+    /**
+     * Check whether specified logging level is enabled
+     * 
+     * @param level level to check
+     * @returns true if enabled, false otherwise
+     */
+    bool is_priority_enabled(const std::string& level){
+        int res = 0;
+        wilton_logger_is_level_enabled(m_name.c_str(), m_name.length(),
+                level.c_str(), level.length(), std::addressof(res));
+        return res != 0;
+    }
+
+    /**
+     * no-op function
+     */
+    void do_nothing() { }
+};
+
+} // namespace
+}
+
+#define STATICLIB_PION_LOG_CONFIG_BASIC   {}
+#define STATICLIB_PION_LOG_CONFIG(FILE)   {}
+#define STATICLIB_PION_GET_LOGGER(NAME)   sl::pion::logger(NAME)
+#define STATICLIB_PION_SHUTDOWN_LOGGER    {}
+
+// Logging api, used in pion, send MSG as [str1 << str2], ostringstream used to handle it.
+#define STATICLIB_PION_LOG_TO_WILTON(LOG, LEVEL, MSG) \
+    if (LOG.is_priority_enabled(LEVEL)) { \
+        std::ostringstream ostream; \
+        ostream << MSG; \
+        LOG.log(LEVEL, ostream.str()); \
+    }
+
+#define STATICLIB_PION_LOG_DEBUG(LOG, MSG) STATICLIB_PION_LOG_TO_WILTON(LOG, "DEBUG", MSG)
+#define STATICLIB_PION_LOG_INFO(LOG, MSG) STATICLIB_PION_LOG_TO_WILTON(LOG, "INFO", MSG)
+#define STATICLIB_PION_LOG_WARN(LOG, MSG) STATICLIB_PION_LOG_TO_WILTON(LOG, "WARN", MSG)
+#define STATICLIB_PION_LOG_ERROR(LOG, MSG) STATICLIB_PION_LOG_TO_WILTON(LOG, "ERROR", MSG)
+#define STATICLIB_PION_LOG_FATAL(LOG, MSG) STATICLIB_PION_LOG_TO_WILTON(LOG, "FATAL", MSG)
+
+// define dumb level change functions
+#define STATICLIB_PION_LOG_SETLEVEL_DEBUG(LOG)    { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_INFO(LOG)     { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_WARN(LOG)     { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_ERROR(LOG)    { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_FATAL(LOG)    { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_UP(LOG)       { LOG.do_nothing(); }
+#define STATICLIB_PION_LOG_SETLEVEL_DOWN(LOG)     { LOG.do_nothing(); }
+
 #else
 
     #define STATICLIB_PION_USE_OSTREAM_LOGGING

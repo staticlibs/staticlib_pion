@@ -80,6 +80,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2018-03-12**
+
+ * version 5.0.7-16
+ * support logging through `wilton_logging`
+
 **2017-12-25**
 
  * version 5.0.7-15

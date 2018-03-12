@@ -16,7 +16,7 @@ cmake_minimum_required ( VERSION 2.8.12 )
 
 # project
 project ( staticlib_pion CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7-15 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7-16 )
 set ( ${PROJECT_NAME}_DESCRIPTION "Embedded async HTTP 1.1 server based on a source code from https://github.com/splunk/pion" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_pion )
 include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
@@ -42,6 +42,8 @@ endif ( )
 # options, use set ( OPTNAME ON CACHE BOOL "") in parent to override
 option ( ${PROJECT_NAME}_DISABLE_LOGGING "Disable logging to std out and err" OFF )
 option ( ${PROJECT_NAME}_USE_LOG4CPLUS "Use log4cplus lib for logging" OFF )
+# additionally set staticlib_pion_WILTON_INCLUDE and staticlib_pion_WILTON_LOGGING_INCLUDE in parent project
+option ( ${PROJECT_NAME}_USE_WILTON_LOGGING "Use wilton_logging lib for logging" OFF )
 option ( ${PROJECT_NAME}_USE_OPENSSL "Use OpenSSL lib for https" OFF )
 
 # standalone build
@@ -110,19 +112,25 @@ if ( ${CMAKE_CXX_COMPILER_ID}x MATCHES "MSVCx" )
 endif ( )
 
 if ( ${PROJECT_NAME}_USE_LOG4CPLUS )
-    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_PION_USE_LOG4CPLUS )
-    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_PION_USE_LOG4CPLUS )
+    list ( APPEND ${PROJECT_NAME}_DEFINITIONS -DSTATICLIB_PION_USE_LOG4CPLUS )
+    list ( APPEND ${PROJECT_NAME}_CFLAGS_PUBLIC -DSTATICLIB_PION_USE_LOG4CPLUS )
 endif ( )
 
 if ( ${PROJECT_NAME}_USE_OPENSSL )
-    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_PION_HAVE_SSL )
-    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_PION_HAVE_SSL )
+    list ( APPEND ${PROJECT_NAME}_DEFINITIONS -DSTATICLIB_PION_HAVE_SSL )
+    list ( APPEND ${PROJECT_NAME}_CFLAGS_PUBLIC -DSTATICLIB_PION_HAVE_SSL )
 endif ( )
 
 if ( ${PROJECT_NAME}_DISABLE_LOGGING ) 
-    set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_PION_DISABLE_LOGGING )
-    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -DSTATICLIB_PION_DISABLE_LOGGING )
+    list ( APPEND ${PROJECT_NAME}_DEFINITIONS -DSTATICLIB_PION_DISABLE_LOGGING )
+    list ( APPEND ${PROJECT_NAME}_CFLAGS_PUBLIC -DSTATICLIB_PION_DISABLE_LOGGING )
 endif ( )
+
+if ( ${PROJECT_NAME}_USE_WILTON_LOGGING )
+    list ( APPEND ${PROJECT_NAME}_DEFINITIONS -DSTATICLIB_PION_USE_WILTON_LOGGING )
+    list ( APPEND ${PROJECT_NAME}_CFLAGS_PUBLIC -DSTATICLIB_PION_USE_WILTON_LOGGING )
+endif ( )
+
 
 if ( ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" )
     execute_process( COMMAND ${CMAKE_CXX_COMPILER} --version OUTPUT_VARIABLE CLANG_FULL_VERSION_STRING )
@@ -130,24 +138,21 @@ if ( ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" )
     if ( (APPLE AND (CLANG_VERSION_STRING VERSION_GREATER 6.0)) OR
         ((NOT APPLE) AND (CLANG_VERSION_STRING VERSION_GREATER 3.5)) )
         message ( STATUS "Enabling ASIO warning suppression for Clang: [${CLANG_VERSION_STRING}]" )
-        set ( ${PROJECT_NAME}_OPTIONS ${${PROJECT_NAME}_OPTIONS} -Wno-unused-local-typedef )
-        set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -Wno-unused-local-typedef )
+        list ( APPEND ${PROJECT_NAME}_OPTIONS -Wno-unused-local-typedef )
+        list ( APPEND ${PROJECT_NAME}_CFLAGS_PUBLIC -Wno-unused-local-typedef )
     endif ( )
 endif ( )
 
 if ( ${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" )
     # asio warnings with openssl on
-    set ( ${PROJECT_NAME}_OPTIONS ${${PROJECT_NAME}_OPTIONS} -Wno-unused-variable )
-    set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} -Wno-unused-variable )
-endif ( )
-
-if ( ${PROJECT_NAME}_WILTON_LOG_INCLUDE )
-  set ( ${PROJECT_NAME}_DEFINITIONS ${${PROJECT_NAME}_DEFINITIONS} -DSTATICLIB_PION_USE_WILTON_LOG )
+    list ( APPEND ${PROJECT_NAME}_OPTIONS -Wno-unused-variable )
+    list ( APPEND ${PROJECT_NAME}_CFLAGS_PUBLIC -Wno-unused-variable )
 endif ( )
 
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE 
         ${CMAKE_CURRENT_LIST_DIR}/include
-        ${${PROJECT_NAME}_WILTON_LOG_INCLUDE}
+        ${${PROJECT_NAME}_WILTON_INCLUDE}
+        ${${PROJECT_NAME}_WILTON_LOGGING_INCLUDE}
         ${${PROJECT_NAME}_DEPS_PC_INCLUDE_DIRS} )
 
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_DEFINITIONS} )
@@ -160,9 +165,11 @@ target_compile_options ( ${PROJECT_NAME} PRIVATE
 staticlib_pion_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_OTHER "" ${PROJECT_NAME}_CFLAGS_PUBLIC )
 set ( ${PROJECT_NAME}_PC_CFLAGS "-I${CMAKE_CURRENT_LIST_DIR}/include ${${PROJECT_NAME}_PC_CFLAGS_OTHER}" )
 set ( ${PROJECT_NAME}_PC_LIBS "-L${CMAKE_LIBRARY_OUTPUT_DIRECTORY} -l${PROJECT_NAME}" )
-if(${PROJECT_NAME}_WILTON_LOG_LIB)
-  set ( ${PROJECT_NAME}_PC_LIBS "${${PROJECT_NAME}_PC_LIBS} -L${${PROJECT_NAME}_WILTON_LOG_LIB} -lwilton_logging" )
-endif()
+if( ${PROJECT_NAME}_USE_WILTON_LOGGING )
+    set ( ${PROJECT_NAME}_PC_CFLAGS "${${PROJECT_NAME}_PC_CFLAGS} -I${${PROJECT_NAME}_WILTON_INCLUDE}" )
+    set ( ${PROJECT_NAME}_PC_CFLAGS "${${PROJECT_NAME}_PC_CFLAGS} -I${${PROJECT_NAME}_WILTON_LOGGING_INCLUDE}" )
+    set ( ${PROJECT_NAME}_PC_LIBS "${${PROJECT_NAME}_PC_LIBS} -lwilton_logging" )
+endif( )
 if ( CMAKE_SYSTEM_NAME STREQUAL "Linux" )
     set ( ${PROJECT_NAME}_PC_LIBS "${${PROJECT_NAME}_PC_LIBS} -lpthread" )
 endif ( )
