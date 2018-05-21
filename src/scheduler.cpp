@@ -40,7 +40,7 @@ active_users(0),
 running(false),
 asio_service(),
 timer(asio_service),
-thread_stop_hook([](const std::thread::id&) STATICLIB_NOEXCEPT {}) { }
+thread_stop_hook([]() STATICLIB_NOEXCEPT {}) { }
 
 scheduler::~scheduler() {
     shutdown();
@@ -62,6 +62,7 @@ void scheduler::startup() {
         for (uint32_t n = 0; n < num_threads; ++n) {
             std::unique_ptr<std::thread> new_thread(new std::thread([this]() {
                 this->process_service_work(this->asio_service);
+                this->thread_stop_hook();
             }));
             thread_pool.emplace_back(std::move(new_thread));
         }
@@ -166,7 +167,7 @@ void scheduler::process_service_work(asio::io_service& service) {
     }   
 }
 
-void scheduler::set_thread_stop_hook(std::function<void(const std::thread::id&) /* noexcept */> hook) {
+void scheduler::set_thread_stop_hook(std::function<void() /* noexcept */> hook) {
     std::unique_lock<std::mutex> scheduler_lock{mutex};
     this->thread_stop_hook = hook;
 }
@@ -188,7 +189,6 @@ void scheduler::stop_threads() {
             if (tid != current_id) {
                 th_ptr->join();
             }
-            thread_stop_hook(tid);
         }
     }
 }

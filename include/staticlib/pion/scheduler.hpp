@@ -102,7 +102,7 @@ class scheduler {
     /**
      * Hook function, that is called after each scheduled thread will exit
      */
-    std::function<void(const std::thread::id&) /* noexcept */> thread_stop_hook;
+    std::function<void() /* noexcept */> thread_stop_hook;
     
 public:
 
@@ -214,11 +214,12 @@ public:
     void process_service_work(asio::io_service& service);
 
     /**
-     * Setter for hook function, that is called after each thread exit
+     * Setter for hook function, that is called from each worker thread
+     * just before that worker thread is going to exit
      * 
      * @param hook hook function
      */
-    void set_thread_stop_hook(std::function<void(const std::thread::id&) /* noexcept */> hook);
+    void set_thread_stop_hook(std::function<void() /* noexcept */> hook);
     
 private:
     /**

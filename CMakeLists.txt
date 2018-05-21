@@ -16,7 +16,7 @@ cmake_minimum_required ( VERSION 2.8.12 )
 
 # project
 project ( staticlib_pion CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7-16 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.0.7-17 )
 set ( ${PROJECT_NAME}_DESCRIPTION "Embedded async HTTP 1.1 server based on a source code from https://github.com/splunk/pion" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_pion )
 include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
