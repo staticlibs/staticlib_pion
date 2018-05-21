@@ -84,7 +84,15 @@ endif ( )
 staticlib_pion_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 
 # library
-file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
+file ( GLOB_RECURSE ${PROJECT_NAME}_SRC
+${CMAKE_CURRENT_LIST_DIR}/src/*.cpp
+# websocket_server
+${CMAKE_CURRENT_LIST_DIR}/src/websocket/websocket_handler.cpp
+${CMAKE_CURRENT_LIST_DIR}/src/websocket/websocket_worker.cpp
+${CMAKE_CURRENT_LIST_DIR}/src/websocket/web_socket/WebSocket.cpp
+${CMAKE_CURRENT_LIST_DIR}/src/websocket/web_socket/sha1/sha1.cpp
+${CMAKE_CURRENT_LIST_DIR}/src/websocket/web_socket/base64/base64.cpp
+ )
 file ( GLOB_RECURSE ${PROJECT_NAME}_HEADERS ${CMAKE_CURRENT_LIST_DIR}/include/*.hpp )
 
 add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} ${${PROJECT_NAME}_HEADERS} )

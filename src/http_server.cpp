@@ -26,6 +26,7 @@
 #include <algorithm>
 #include <functional>
 #include <stdexcept>
+#include <iostream>
 
 #include "staticlib/pion/http_request_reader.hpp"
 #include "staticlib/pion/pion_exception.hpp"
@@ -159,7 +160,8 @@ std::vector<std::reference_wrapper<T>> find_submatch_filters(
 
 } // namespace
 
-http_server::~http_server() STATICLIB_NOEXCEPT { }
+http_server::~http_server() STATICLIB_NOEXCEPT {
+}
 
 http_server::http_server(uint32_t number_of_threads, uint16_t port,
         asio::ip::address_v4 ip_address
@@ -205,6 +207,10 @@ void http_server::add_handler(const std::string& method,
     STATICLIB_PION_LOG_DEBUG(log, "Added handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
     auto it = map.emplace(std::move(clean_resource), std::move(request_handler));
     if (!it.second) throw pion_exception("Invalid duplicate handler path: [" + clean_resource + "], method: [" + method + "]");
+}
+
+void http_server::add_websocket_handler(const string &resource, websocket_service_data websocket_handler_data){
+    websocket_data_storage.emplace(resource, websocket_handler_data);
 }
 
 void http_server::set_bad_request_handler(request_handler_type handler) {
@@ -255,6 +261,35 @@ void http_server::handle_connection(tcp_connection_ptr& conn) {
 void http_server::handle_request_after_headers_parsed(http_request_ptr request,
         tcp_connection_ptr& conn, const std::error_code& ec, sl::support::tribool& rc) {
     if (ec || !rc) return;
+
+//    std::cout << "********** connection get_read_buffer: [" << conn->get_read_buffer().data() << "]" << std::endl;
+//    std::cout << "********** Request get_header Connection: [" << request->get_header("Connection") << "]" << std::endl;
+//    std::cout << "********** Request get_header Upgrade[" << request->get_header("Upgrade") << "]" << std::endl;
+    if ("Upgrade" == request->get_header("Connection")) {
+        if ("websocket" == request->get_header("Upgrade")) {
+            // do magick with websockets
+            std::string message(conn->get_read_buffer().data());
+            std::string raw_resource = strip_trailing_slash(request->get_resource());
+            std::string resource = raw_resource.substr(1,raw_resource.length() - 1); // remove first slash
+//            for (auto& el: websocket_data_storage) {
+//                std::cout << "*** resource: [" << resource << "]" << std::endl;
+//                std::cout << "*** el.first: [" << el.first << "]" << std::endl;
+
+//                std::cout << "*** el.second: [" << el.second.resource << "]" << std::endl;
+//                std::cout << "*** el.second: [" << (nullptr == el.second.websocket_prepare_handler) << "]" << std::endl;
+//            }
+
+            websocket_service_data ws_data = websocket_data_storage[resource];
+            websocket_service_ptr ws_service = std::make_shared<websocket_service>(conn, ws_data);
+//            tmp_ws_service = ws_service.get();
+            // this service lifetime will be controlled by handlers in websocket_worker_data
+            ws_service->start_with_message(message, ws_service);
+            rc = true;
+            conn_pool.erase(conn);
+            return;
+        }
+    }
+
     // http://stackoverflow.com/a/17390776/314015
     if ("100-continue" == request->get_header("Expect")) {
         http_message::write_buffers_type buf;
@@ -341,8 +376,12 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
             server_error_handler(request, conn, e.what());
         }
     } else {
-        STATICLIB_PION_LOG_INFO(log, "No HTTP request handlers found for resource: " << path);
-        not_found_handler(request, conn);
+        std::string raw_resource = strip_trailing_slash(request->get_resource());
+        std::string resource = raw_resource.substr(1,raw_resource.length() - 1); // remove first slash
+        if (!websocket_data_storage.count(resource)) {
+            STATICLIB_PION_LOG_INFO(log, "No HTTP request handlers found for resource: " << path);
+            not_found_handler(request, conn);
+        }
     }    
 }
 

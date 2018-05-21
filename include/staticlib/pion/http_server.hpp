@@ -38,6 +38,8 @@
 #include "staticlib/pion/http_request.hpp"
 #include "staticlib/pion/tcp_connection.hpp"
 #include "staticlib/pion/tcp_server.hpp"
+#include "../src/websocket/websocket_worker.hpp"
+//#include "websocket/websocket_worker.hpp"
 
 namespace staticlib { 
 namespace pion {
@@ -181,6 +183,10 @@ protected:
      */
     filter_map_type options_filters;
 
+    /**
+     * Collection of WEBSOCKET data and handlers functions
+     */
+    std::unordered_map<std::string, websocket_service_data> websocket_data_storage;
 public:
     ~http_server() STATICLIB_NOEXCEPT;
     
@@ -220,6 +226,15 @@ public:
      */
     void add_handler(const std::string& method, const std::string& resource,
             request_handler_type request_handler);
+
+    /**
+     * Adds a new websocket service to the HTTP server
+     *
+     * @param resource the resource name or uri-stem to bind to the handler
+     * @param websocket_handler_data structure of type websocket_worker_data contained functions and data
+     *                               to handle websocket requests to the resource.
+     */
+    void add_websocket_handler(const std::string& resource, websocket_service_data websocket_handler_data);
 
     /**
      * Sets the function that handles bad HTTP requests
