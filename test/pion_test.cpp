@@ -193,8 +193,8 @@ void test_pion() {
     server.add_handler("POST", "/fu", file_upload_resource);
     server.add_payload_handler("POST", "/fu", file_upload_payload_handler_creator);
     server.add_handler("POST", "/fu1", file_upload_resource);
-    server.get_scheduler().set_thread_stop_hook([](const std::thread::id& tid) STATICLIB_NOEXCEPT {
-        std::cout << "Thread stopped: " << tid << std::endl;
+    server.get_scheduler().set_thread_stop_hook([]() STATICLIB_NOEXCEPT {
+        std::cout << "Thread stopped. " << std::endl;
     });
     server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});
