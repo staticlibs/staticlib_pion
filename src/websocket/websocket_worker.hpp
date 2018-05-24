@@ -81,7 +81,6 @@ class websocket_service {
     websocket_handler ws_handler;
     // Задаем обработчики для событий
     websocket_service_data ws_data;
-    std::thread recieve_thread;
 public:
     // Создаем воркер который будет обрабатывать запросы через websocket так как это
     // Сейчас реализовано в wilton_websocket_server

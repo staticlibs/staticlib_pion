@@ -31,7 +31,7 @@ WebSocketFrameType WebSocket::parseHandshake(const std::string &input_frame) //u
     size_t header_end = headers.find("\r\n\r\n");
 
 	if(header_end == string::npos) { // end-of-headers not found - do not parse
-		return INCOMPLETE_FRAME;
+        return WebSocketFrameType::INCOMPLETE_FRAME;
 	}
 
 	headers.resize(header_end); // trim off any data we don't need after the headers
@@ -61,9 +61,7 @@ WebSocketFrameType WebSocket::parseHandshake(const std::string &input_frame) //u
 	//this->key = "dGhlIHNhbXBsZSBub25jZQ==";
 	//printf("PARSED_KEY:%s \n", this->key.data());
 
-	//return FrameType::OPENING_FRAME;
-	printf("HANDSHAKE-PARSED\n");
-	return OPENING_FRAME;
+    return WebSocketFrameType::OPENING_FRAME;
 }
 
 string WebSocket::trim(string str) 
@@ -204,11 +202,13 @@ std::string WebSocket::makeFrame(WebSocketFrameType frame_type, const std::strin
 WebSocketFrameType WebSocket::getFrame(const std::string& input_frame, std::string& out_message)
 {
     size_t in_length = input_frame.size();
-    if(in_length < 3) return INCOMPLETE_FRAME;
+    if(in_length < 2) return WebSocketFrameType::INCOMPLETE_FRAME;
 
     unsigned char msg_opcode = input_frame[0] & 0x0F;
     unsigned char msg_fin = (input_frame[0] >> 7) & 0x01;
     unsigned char msg_masked = (input_frame[1] >> 7) & 0x01;
+
+    if((msg_opcode == 0x8) && (in_length < 3)) return WebSocketFrameType::CLOSING_FRAME;
 
     // *** message decoding
     size_t payload_length = 0;
@@ -241,7 +241,7 @@ WebSocketFrameType WebSocket::getFrame(const std::string& input_frame, std::stri
 //    }
 		
     if(in_length < payload_length+pos) {
-        return INCOMPLETE_FRAME;
+        return WebSocketFrameType::INCOMPLETE_FRAME;
     }
     std::vector<char> unmasked_message;
     if(msg_masked) {
@@ -253,20 +253,26 @@ WebSocketFrameType WebSocket::getFrame(const std::string& input_frame, std::stri
         for(size_t i=0; i<payload_length; i++) {
             unmasked_message.push_back(c[i] ^ ((unsigned char*)(&mask))[i%4]);
         }
+    } else {
+        for(size_t i=pos; i<input_frame.length(); i++) {
+            unmasked_message.push_back(input_frame[i]);
+        }
     }
 	
 //    if(payload_length > out_size) {
 //        //TODO: if output buffer is too small -- ERROR or resize(free and allocate bigger one) the buffer ?
 //    }
-
     out_message = std::string(unmasked_message.data(), (int )unmasked_message.size());
 
-    if(msg_opcode == 0x0) return (msg_fin)?TEXT_FRAME:INCOMPLETE_TEXT_FRAME; // continuation frame ?
-    if(msg_opcode == 0x1) return (msg_fin)?TEXT_FRAME:INCOMPLETE_TEXT_FRAME;
-    if(msg_opcode == 0x2) return (msg_fin)?BINARY_FRAME:INCOMPLETE_BINARY_FRAME;
-    if(msg_opcode == 0x8) return CLOSING_FRAME;
-    if(msg_opcode == 0x9) return PING_FRAME;
-    if(msg_opcode == 0xA) return PONG_FRAME;
 
-    return ERROR_FRAME;
+//    std::cout << "************* out_message [" << out_message << "]" << std::endl;
+
+    if(msg_opcode == 0x0) return (msg_fin)? WebSocketFrameType::TEXT_FRAME : WebSocketFrameType::INCOMPLETE_TEXT_FRAME; // continuation frame ?
+    if(msg_opcode == 0x1) return (msg_fin)? WebSocketFrameType::TEXT_FRAME : WebSocketFrameType::INCOMPLETE_TEXT_FRAME;
+    if(msg_opcode == 0x2) return (msg_fin)? WebSocketFrameType::BINARY_FRAME : WebSocketFrameType::INCOMPLETE_BINARY_FRAME;
+    if(msg_opcode == 0x8) return WebSocketFrameType::CLOSING_FRAME;
+    if(msg_opcode == 0x9) return WebSocketFrameType::PING_FRAME;
+    if(msg_opcode == 0xA) return WebSocketFrameType::PONG_FRAME;
+
+    return WebSocketFrameType::ERROR_FRAME;
 }

@@ -19,12 +19,12 @@
 
 using namespace std;
 
-enum WebSocketFrameType {
+enum class WebSocketFrameType {
 	ERROR_FRAME=0xFF00,
 	INCOMPLETE_FRAME=0xFE00,
 
 	OPENING_FRAME=0x3300,
-	CLOSING_FRAME=0x3400,
+    CLOSING_FRAME=0x3408,
 
 	INCOMPLETE_TEXT_FRAME=0x01,
 	INCOMPLETE_BINARY_FRAME=0x02,

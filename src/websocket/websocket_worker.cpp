@@ -1,7 +1,7 @@
 
 
 #include "websocket_worker.hpp"
-
+#include <iostream>
 
 namespace staticlib {
 namespace pion {
@@ -10,6 +10,8 @@ websocket_service::websocket_service(staticlib::pion::tcp_connection_ptr tcp_con
     : ws_handler(tcp_conn), ws_data(ws_data){
 
     async_recieve_handler_type recieve_handler = [this] (const std::error_code& ec, std::size_t bytes_transferred) {
+
+//        std::cout << "=============== recieve_handler [" << std::this_thread::get_id() << "]" << std::endl;
         if (ec) {
             this->run_error_handler(ec.message());
             this->run_close_handler();
@@ -80,7 +82,9 @@ void websocket_service::start_with_message(string message, websocket_service_ptr
 //    } else {
 //        std::cout << "*** handler is null" << std::endl;
 //    }
+//    if (nullptr != ws_data.websocket_prepare_handler) {
 
+//    }
     ws_data.websocket_prepare_handler(service);
     // Сначала нужно сделать парсинг сообщения чтобы WebSocket бибилотека записала получила данные запроса
     bool res = ws_handler.check_handshake_request(message);
@@ -90,9 +94,7 @@ void websocket_service::start_with_message(string message, websocket_service_ptr
         // И нужно запустить onconnect метод:
         run_open_handler();
         // Теперь нужно запустить чтение данных из сокета
-        recieve_thread = std::thread([this](){
-            this->ws_handler.recieve();
-        });
+        this->ws_handler.recieve();
     }
 }
 
@@ -104,10 +106,6 @@ void websocket_service::setup_user_data(void *data) {
 }
 void websocket_service::stop(){
 //    std::cout << "=============== websocket_service close from stop" << std::endl;
-    if (recieve_thread.joinable()) {
-//        std::cout << "=============== websocket_service wait recieve thread to stop" << std::endl;
-        recieve_thread.join();
-    }
     ws_handler.close();
 }
 void websocket_service::send(string message){
