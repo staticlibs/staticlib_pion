@@ -47,8 +47,14 @@ namespace pion {
  */
 class http_request_reader : public http_parser, 
         public std::enable_shared_from_this<http_request_reader> {
-    
+
 public:
+
+    /**
+     * Function called after the HTTP message has been parsed
+     */
+    using headers_parsing_finished_handler_type = std::function<void(http_request_ptr&,
+            tcp_connection_ptr&, const std::error_code&, sl::support::tribool& rc)>;
 
     /**
      * Function called after the HTTP message has been parsed
@@ -56,12 +62,6 @@ public:
     using finished_handler_type = std::function<void(http_request_ptr, tcp_connection_ptr&,
             const std::error_code&)>;
 
-    /**
-     * Function called after the HTTP message has been parsed
-     */
-    using headers_parsing_finished_handler_type = std::function<void(http_request_ptr, 
-            tcp_connection_ptr&, const std::error_code&, sl::support::tribool& rc)>;    
-    
 private:
 
     /**
@@ -82,33 +82,34 @@ private:
     /**
      * Maximum number of milliseconds for read operations
      */
-    uint32_t m_read_timeout_millis;    
-    
+    uint32_t m_read_timeout_millis;
+
     /**
      * The new HTTP message container being created
      */
     http_request_ptr m_http_msg;
 
     /**
+     * Function called after the HTTP message headers have been parsed
+     */
+    headers_parsing_finished_handler_type m_parsed_headers;
+
+    /**
      * Function called after the HTTP message has been parsed
      */
     finished_handler_type m_finished;
 
-    /**
-     * Function called after the HTTP message headers have been parsed
-     */
-    headers_parsing_finished_handler_type m_parsed_headers;    
-    
 public:
 
     /**
-     * Creates new request_reader objects
+     * Constructor to be used with `std::make_shared`
      *
      * @param tcp_conn TCP connection containing a new message to parse
      * @param handler function called after the message has been parsed
      */
-    static std::shared_ptr<http_request_reader> create(tcp_connection_ptr& tcp_conn, 
-            finished_handler_type handler);
+    http_request_reader(tcp_connection_ptr& tcp_conn,
+            headers_parsing_finished_handler_type headers_parsed_cb,
+            finished_handler_type received_cb);
 
     /**
      * Incrementally reads & parses the HTTP message
@@ -128,23 +129,15 @@ public:
      * @param seconds maximum number of milliseconds for read operations
      */
     void set_timeout(std::chrono::milliseconds timeout);
-    
+
     /**
      * Sets a function to be called after HTTP headers have been parsed
      * 
      * @param h function pointer
      */
     void set_headers_parsed_callback(headers_parsing_finished_handler_type h);
-    
-private:
 
-    /**
-     * Protected constructor restricts creation of objects (use create())
-     *
-     * @param tcp_conn TCP connection containing a new message to parse
-     * @param handler function called after the message has been parsed
-     */
-    http_request_reader(tcp_connection_ptr& tcp_conn, finished_handler_type handler);
+private:
 
     /**
      * Consumes bytes that have been read using an HTTP parser
@@ -170,7 +163,7 @@ private:
      * @param read_error error status from the last read operation
      */
     void handle_read_error(const std::error_code& read_error);
-    
+
     /**
      * Called after we have finished parsing the HTTP message headers
      * 
@@ -183,14 +176,14 @@ private:
      * Reads more bytes from the TCP connection
      */
     void read_bytes();
-    
+
     /**
      * Called after we have finished reading/parsing the HTTP message
      * 
      * @param ec error code reference
      */
     void finished_reading(const std::error_code& ec);
-    
+
     /**
      * Returns a reference to the HTTP message being parsed
      * 
@@ -199,11 +192,6 @@ private:
     http_message& get_message();
 
 };
-
-/**
- * Data type for a request_reader pointer
- */
-using reader_ptr = std::shared_ptr<http_request_reader>;
 
 } // namespace
 }

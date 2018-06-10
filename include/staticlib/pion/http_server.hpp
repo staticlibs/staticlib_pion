@@ -45,7 +45,7 @@ namespace pion {
 /**
  * Server extension that supports streaming requests of arbitrary size (file upload)
  */
-class http_server : public tcp_server {   
+class http_server : public tcp_server {
 protected:
     /**
      * Type of function that is used to handle requests
@@ -67,7 +67,7 @@ protected:
      * Data type for a map of resources to request handlers
      */
     using handlers_map_type = std::unordered_map<std::string, request_handler_type>;
-    
+
     /**
      * Data type for a map of resources to request handlers
      */
@@ -225,7 +225,7 @@ protected:
      * @param ec error_code contains additional information for parsing errors
      * @param rc parsing result code, false: abort, true: ignore_body, indeterminate: continue
      */
-    void handle_request_after_headers_parsed(http_request_ptr request,
+    void handle_request_after_headers_parsed(http_request_ptr& request,
             tcp_connection_ptr& conn, const std::error_code& ec, sl::support::tribool& rc);
 
     /**
@@ -237,9 +237,9 @@ protected:
      */
     void handle_request(http_request_ptr request,
             tcp_connection_ptr& conn, const std::error_code& ec);
-   
-    
-};    
+
+
+};
 
 } // namespace
 }

@@ -212,20 +212,22 @@ void http_server::add_payload_handler(const std::string& method, const std::stri
 }
 
 void http_server::handle_connection(tcp_connection_ptr& conn) {
-    http_request_reader::finished_handler_type fh = [this] (http_request_ptr request, 
-            tcp_connection_ptr& conn, const std::error_code& ec) {
-        this->handle_request(request, conn, ec);
-    };
-    reader_ptr my_reader_ptr = http_request_reader::create(conn, std::move(fh));
-    http_request_reader::headers_parsing_finished_handler_type hpfh = [this](http_request_ptr request,
-            tcp_connection_ptr& conn, const std::error_code& ec, sl::support::tribool & rc) {
-        this->handle_request_after_headers_parsed(request, conn, ec, rc);
-    };
-    my_reader_ptr->set_headers_parsed_callback(std::move(hpfh));
-    my_reader_ptr->receive();
+    http_request_reader::headers_parsing_finished_handler_type headers_parsed_cb =
+        [this](http_request_ptr& request, tcp_connection_ptr& conn, const std::error_code& ec,
+                sl::support::tribool & rc) {
+            this->handle_request_after_headers_parsed(request, conn, ec, rc);
+        };
+    http_request_reader::finished_handler_type received_cb = 
+        [this] (http_request_ptr request, tcp_connection_ptr& conn, const std::error_code& ec) {
+            this->handle_request(std::move(request), conn, ec);
+        };
+    auto reader = std::make_shared<http_request_reader>(
+            conn, std::move(headers_parsed_cb), std::move(received_cb));
+    reader->receive();
+    // reader->request is consumed at this point
 }
 
-void http_server::handle_request_after_headers_parsed(http_request_ptr request,
+void http_server::handle_request_after_headers_parsed(http_request_ptr& request,
         tcp_connection_ptr& conn, const std::error_code& ec, sl::support::tribool& rc) {
     if (ec || !rc) return;
     // http://stackoverflow.com/a/17390776/314015

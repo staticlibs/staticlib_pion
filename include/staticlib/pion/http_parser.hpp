@@ -60,8 +60,7 @@ public:
      * Callback type used to consume payload content
      */
     using payload_handler_type = std::function<void(const char *, std::size_t)>;
-    
-    
+
     /**
      * Class-specific error code values
      */
@@ -85,7 +84,7 @@ public:
         ERROR_MISSING_HEADER_DATA,
         ERROR_MISSING_TOO_MUCH_CONTENT,
     };
-    
+
     /**
      * Class-specific error category
      */
@@ -108,7 +107,7 @@ public:
     };
 
 protected:
-    
+
     /**
      * Maximum length for response status message
      */
@@ -173,7 +172,7 @@ protected:
      * Points to the end of the read_buffer (last byte + 1)
      */
     const char * m_read_end_ptr;    
-    
+
 private:
     /**
      * State used to keep track of where we are in parsing the HTTP message
@@ -235,7 +234,7 @@ private:
         PARSE_EXPECTING_FINAL_CR_OR_FOOTERS_AFTER_LAST_CHUNK,
         PARSE_EXPECTING_FINAL_LF_AFTER_LAST_CHUNK
     };
-    
+
     /**
      * The current state of parsing HTTP headers
      */
@@ -374,7 +373,7 @@ public:
      * Deleted copy assignment operator
      */
     http_parser& operator=(const http_parser&) = delete;
-    
+
     /**
      * Default destructor
      */
@@ -560,7 +559,6 @@ public:
      */
     logger get_logger();
 
-
     /**
      * Parses a URI string
      *
@@ -602,7 +600,7 @@ public:
      */
     static bool parse_multipart_form_data(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
             const std::string& content_type, const char *ptr, const std::size_t len);
-    
+
     /**
      * Parse key-value pairs out of a "Cookie" request header
      * (i.e. this=that; a=value)
@@ -641,7 +639,7 @@ public:
      */
     static bool parse_url_encoded(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
             const std::string& query);
-    
+
     /**
      * Parse key-value pairs out of a multipart/form-data payload content
      * (http://www.ietf.org/rfc/rfc2388.txt)
@@ -654,7 +652,7 @@ public:
      */
     static bool parse_multipart_form_data(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
             const std::string& content_type, const std::string& form_data);
-    
+ 
     /**
      * Should be called after parsing HTTP headers, to prepare for payload content parsing
      * available in the read buffer
@@ -774,7 +772,7 @@ protected:
     static void create_error_category();
 
     // misc functions used by the parsing functions
-    
+
     static bool is_digit(int c);
     
     static bool is_hex_digit(int c);

@@ -171,28 +171,28 @@ public:
      * @param tcp_conn the new TCP connection to handle
      */
     virtual void handle_connection(tcp_connection_ptr& tcp_conn);
-    
+
     /**
      * Returns an async I/O service used to schedule work
      * 
      * @return asio service
      */
     asio::io_service& get_io_service();
-    
+
     /**
      * Return active scheduler
      * 
      * @return scheduler
      */
     scheduler& get_scheduler();
-    
+
 private:
         
     /**
      * Handles a request to stop the server
      */
     void handle_stop_request();
-    
+
     /**
      * Listens for a new connection
      */
@@ -213,7 +213,7 @@ private:
      * @param handshake_error true if an error occurred during the SSL handshake
      */
     void handle_ssl_handshake(tcp_connection_ptr& tcp_conn, const std::error_code& handshake_error);
-    
+
     /**
      * This will be called by connection::finish() after a server has
      * finished handling a connection. If the keep_alive flag is true,
@@ -223,7 +223,7 @@ private:
      * @param tcp_conn TCP connection
      */
     void finish_connection(tcp_connection_ptr& tcp_conn);
-    
+
     /**
      * Prunes orphaned connections that did not close cleanly
      * and returns the remaining number of connections in the pool
@@ -231,7 +231,7 @@ private:
      * @return remaining number of connections in the pool
      */
     std::size_t prune_connections();
-    
+
 };
 
 } // namespace

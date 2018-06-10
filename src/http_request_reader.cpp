@@ -161,21 +161,15 @@ void http_request_reader::handle_read_error(const std::error_code& read_error) {
     finished_reading(read_error);
 }
 
-std::shared_ptr<http_request_reader> http_request_reader::create(tcp_connection_ptr& tcp_conn, 
-        finished_handler_type handler) {
-    return std::shared_ptr<http_request_reader>(new http_request_reader(tcp_conn, handler));
-}
-
-void http_request_reader::set_headers_parsed_callback(headers_parsing_finished_handler_type h) {
-    m_parsed_headers = h;
-}
-
-http_request_reader::http_request_reader(tcp_connection_ptr& tcp_conn, finished_handler_type handler) :
+http_request_reader::http_request_reader(tcp_connection_ptr& tcp_conn,
+            headers_parsing_finished_handler_type headers_parsed_cb,
+            finished_handler_type received_cb) :
 http_parser(true),
 m_tcp_conn(tcp_conn),
 m_read_timeout_millis(DEFAULT_READ_TIMEOUT_MILLIS),
 m_http_msg(new http_request),
-m_finished(handler) {
+m_parsed_headers(std::move(headers_parsed_cb)),
+m_finished(std::move(received_cb)) {
     m_http_msg->set_remote_ip(tcp_conn->get_remote_ip());
     m_http_msg->set_request_reader(this);
     set_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_request_reader"));
@@ -186,22 +180,25 @@ void http_request_reader::read_bytes(void) {
     get_connection()->async_read_some([reader](const std::error_code& read_error, 
             std::size_t bytes_read) {
         reader->consume_bytes(read_error, bytes_read);
-    });
+        });
 }
 
 void http_request_reader::finished_parsing_headers(const std::error_code& ec, sl::support::tribool& rc) {
     // call the finished headers handler with the HTTP message
-    if (m_parsed_headers) m_parsed_headers(m_http_msg, get_connection(), ec, rc);
+    if (m_parsed_headers) {
+        m_parsed_headers(m_http_msg, get_connection(), ec, rc);
+    }
 }
 
 void http_request_reader::finished_reading(const std::error_code& ec) {
     // call the finished handler with the finished HTTP message
-    if (m_finished) m_finished(m_http_msg, get_connection(), ec);
+    if (m_finished) {
+        m_finished(std::move(m_http_msg), get_connection(), ec);
+    }
 }
 
 http_message& http_request_reader::get_message() {
     return *m_http_msg;
 }
-
 } // namespace
 }

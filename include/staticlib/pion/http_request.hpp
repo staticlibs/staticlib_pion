@@ -76,7 +76,7 @@ class http_request : public http_message {
      * Non-owning pointer to request_reader to be used during parsing
      */
     http_parser* m_request_reader;    
-    
+
 public:
 
     /**
@@ -85,12 +85,12 @@ public:
      * @param resource the HTTP resource to request
      */
     http_request(const std::string& resource);
-    
+
     /**
      * Constructs a new request object (default constructor)
      */
     http_request();
-    
+
     /**
      * Virtual destructor
      */
@@ -114,7 +114,7 @@ public:
      * @return request method
      */
     const std::string& get_method() const;
-    
+
     /**
      * Returns the resource uri-stem to be delivered (possibly the result of a redirect)
      * 
@@ -135,7 +135,7 @@ public:
      * @return uri-query or query string requested
      */
     const std::string& get_query_string() const;
-    
+
     /**
      * Returns a value for the query key if any are defined; otherwise, an empty string
      * 
@@ -150,7 +150,7 @@ public:
      * @return query parameters multimap
      */
     std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& get_queries();
-    
+
     /**
      * Returns true if at least one value for the query key is defined
      * 
@@ -158,14 +158,14 @@ public:
      * @return true if at least one value for the query key is defined
      */
     bool has_query(const std::string& key) const;
-        
+
     /**
      * Sets the HTTP request method (i.e. GET, POST, PUT)
      * 
      * @param str request method
      */
     void set_method(const std::string& str);
-    
+
     /**
      * Sets the resource or uri-stem originally requested
      */
@@ -184,7 +184,7 @@ public:
      * @param str uri-query or query string requested
      */
     void set_query_string(const std::string& str);
-    
+
     /**
      * Adds a value for the query key
      * 
@@ -192,7 +192,7 @@ public:
      * @param value additional value for this key
      */
     void add_query(const std::string& key, const std::string& value);
-    
+
     /**
      * Changes the value of a query key
      * 
@@ -200,14 +200,14 @@ public:
      * @param value value for this key
      */
     void change_query(const std::string& key, const std::string& value);
-    
+
     /**
      * Removes all values for a query key
      * 
      * @param key query key
      */
     void delete_query(const std::string& key);
-    
+
     /**
      * Use the query parameters to build a query string for the request
      */
@@ -224,7 +224,7 @@ public:
      * @param value POST content
      */
     void set_content(const std::string &value);
-    
+
     /**
      * Add content (for POST) from buffer of given size;
      * Does nothing if the buffer is invalid or the buffer size is zero
@@ -238,7 +238,7 @@ public:
      * @param ph payload handler
      */
     void set_payload_handler(http_parser::payload_handler_type ph);
-    
+
     /**
      * Access to the wrapped payload handler object
      * 
@@ -246,7 +246,7 @@ public:
      */
     template<typename T>
     T* get_payload_handler() { return m_payload_handler.target<T>(); }
-    
+
     /**
      * Access to the payload handler wrapper
      * 
@@ -265,18 +265,18 @@ protected:
      * Updates the string containing the first line for the HTTP message
      */
     virtual void update_first_line() const;
-    
+
     /**
      * Appends HTTP headers for any cookies defined by the http::message
      */
     virtual void append_cookie_headers();
-        
+
 };
 
 /**
  * Data type for a HTTP request pointer
  */
-using http_request_ptr = std::shared_ptr<http_request>;
+using http_request_ptr = std::unique_ptr<http_request>;
 
 
 } // namespace

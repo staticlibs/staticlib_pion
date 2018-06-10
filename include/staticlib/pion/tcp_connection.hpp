@@ -117,12 +117,12 @@ private:
     /**
      * Function called when a server has finished handling the connection
      */
-    connection_handler m_finished_handler;        
+    connection_handler m_finished_handler;
 
 public:
 
     /**
-     * creates new shared connection objects
+     * Constructor to be used with `std::make_shared`
      *
      * @param io_service asio service associated with the connection
      * @param ssl_context asio ssl context associated with the connection
@@ -130,8 +130,8 @@ public:
      * @param finished_handler function called when a server has finished
      *                         handling the connection
      */
-    static std::shared_ptr<tcp_connection> create(asio::io_service& io_service,
-            ssl_context_type& ssl_context, const bool ssl_flag, connection_handler finished_handler);
+    tcp_connection(asio::io_service& io_service, ssl_context_type& ssl_context, const bool ssl_flag,
+            connection_handler finished_handler);
 
     /**
      * Deleted copy constructor
@@ -343,20 +343,6 @@ public:
      */
     const ssl_socket_type& get_ssl_socket() const;
 
-    
-protected:
-
-    /**
-     * protected constructor restricts creation of objects (use create())
-     *
-     * @param io_service asio service associated with the connection
-     * @param ssl_context asio ssl context associated with the connection
-     * @param ssl_flag if true then the connection will be encrypted using SSL 
-     * @param finished_handler function called when a server has finished
-     *                         handling the connection
-     */
-    tcp_connection(asio::io_service& io_service, ssl_context_type& ssl_context, const bool ssl_flag,
-            connection_handler finished_handler);
 };
 
 /**

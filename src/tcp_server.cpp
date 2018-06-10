@@ -36,7 +36,7 @@
 
 namespace staticlib {
 namespace pion {
-    
+
 // tcp::server member functions
 
 tcp_server::~tcp_server() STATICLIB_NOEXCEPT {
@@ -65,7 +65,7 @@ void tcp_server::start() {
 
     if (! listening) {
         STATICLIB_PION_LOG_INFO(log, "Starting server on port " << tcp_endpoint.port());
-        
+
 //        before_starting();
 
         // configure the acceptor service
@@ -107,7 +107,7 @@ void tcp_server::stop(bool wait_until_finished) {
 
     if (listening) {
         STATICLIB_PION_LOG_INFO(log, "Shutting down server on port " << tcp_endpoint.port());
-    
+
         listening = false;
 
         // this terminates any connections waiting to be accepted
@@ -119,7 +119,7 @@ void tcp_server::stop(bool wait_until_finished) {
                 conn->close();
             }
         }
-    
+
         // wait for all pending connections to complete
         while (! conn_pool.empty()) {
             // try to prun connections that didn't finish cleanly
@@ -129,10 +129,10 @@ void tcp_server::stop(bool wait_until_finished) {
             STATICLIB_PION_LOG_INFO(log, "Waiting for open connections to finish");
             scheduler::sleep(no_more_connections, server_lock, 0, 250000000);
         }
-        
+
         // notify the thread scheduler that we no longer need it
         active_scheduler.remove_active_user();
-        
+
         // all done!
 //        after_stopping();
         server_has_stopped.notify_all();
@@ -150,21 +150,21 @@ void tcp_server::join(void) {
 void tcp_server::listen() {
     // lock mutex for thread safety
     std::lock_guard<std::mutex> server_lock(mutex);
-    
+
     if (listening) {
         // create a new TCP connection object
         tcp_connection::connection_handler fc = [this](std::shared_ptr<tcp_connection>& conn) {
             this->finish_connection(conn);
         };
-        tcp_connection_ptr new_connection = tcp_connection::create(get_io_service(),
-                ssl_context, ssl_flag, std::move(fc));
-        
+        auto new_connection = std::make_shared<tcp_connection>(
+                get_io_service(), ssl_context, ssl_flag, std::move(fc));
+
         // prune connections that finished uncleanly
         prune_connections();
 
         // keep track of the object in the server's connection pool
         conn_pool.insert(new_connection);
-        
+
         // use the object to accept a new connection
         auto cb = [this, new_connection](const std::error_code& ec) mutable {
             this->handle_accept(new_connection, ec);

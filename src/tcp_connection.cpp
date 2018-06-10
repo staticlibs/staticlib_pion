@@ -22,14 +22,6 @@
 namespace staticlib {
 namespace pion {
 
-std::shared_ptr<tcp_connection> tcp_connection::create(asio::io_service& io_service,
-        ssl_context_type& ssl_context,
-        const bool ssl_flag,
-        connection_handler finished_handler) {
-    return std::shared_ptr<tcp_connection>(
-            new tcp_connection(io_service, ssl_context, ssl_flag, finished_handler));
-}
-
 tcp_connection::tcp_connection(asio::io_service& io_service, ssl_context_type& ssl_context,
         const bool ssl_flag, connection_handler finished_handler) :
 m_ssl_socket(io_service, ssl_context), 

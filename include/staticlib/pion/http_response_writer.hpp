@@ -136,7 +136,7 @@ public:
      */
     static std::shared_ptr<http_response_writer> create(tcp_connection_ptr& tcp_conn,
             const http_request_ptr& http_request);
-    
+
     /**
      * Creates new response_writer objects
      * 
@@ -176,7 +176,7 @@ public:
      * @param length the length, in bytes, of the binary data
      */
     void write(const void *data, size_t length);
-    
+
     /**
      * Write text (non-binary) payload content; the data written is not
      * copied, and therefore must persist until the message has finished
@@ -185,7 +185,7 @@ public:
      * @param data the data to append to the payload content
      */
     void write_no_copy(const std::string& data);
-    
+
     /**
      * Write binary payload content;  the data written is not copied, and
      * therefore must persist until the message has finished sending
@@ -214,7 +214,7 @@ public:
     template <typename SendHandler> void send(SendHandler send_handler) {
         send_more_data(false, send_handler);
     }
-    
+
     /**
      * Sends all data buffered as a single HTTP chunk.  Following a call to this
      * function, it is not thread safe to use your reference to the writer
@@ -251,7 +251,7 @@ public:
         m_sending_chunks = true;
         send_more_data(true, send_handler);
     }
-    
+
     /**
      * Sends all data buffered (if any) and also sends the final HTTP chunk.
      * This function (either overloaded version) must be called following any 
@@ -260,7 +260,7 @@ public:
      * reference to the writer object.
      */ 
     void send_final_chunk();
-    
+
     /**
      * Returns a shared pointer to the TCP connection
      * 
@@ -281,7 +281,7 @@ public:
      * @param b whether or not the client supports chunked messages
      */
     void supports_chunked_messages(bool b);
-    
+
     /**
      * Returns true if the client supports chunked messages
      * 
@@ -295,7 +295,7 @@ public:
      * @return true if we are sending a chunked message to the client
      */
     bool sending_chunked_message() const;
-    
+
 private:
 
     /**
@@ -336,7 +336,7 @@ private:
      * @param bytes_written number of bytes sent by the last write operation
      */
     void handle_write(const std::error_code& write_error, std::size_t bytes_written);
-    
+
     /**
      * Sends all of the buffered data to the client
      *
@@ -357,7 +357,7 @@ private:
             finished_writing(asio::error::connection_reset);
         }
     }
-    
+
     /**
      * Prepares write_buffers for next send operation
      *

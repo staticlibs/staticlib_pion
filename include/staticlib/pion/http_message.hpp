@@ -41,7 +41,7 @@
 
 #include "staticlib/pion/algorithm.hpp"
 
-namespace staticlib { 
+namespace staticlib {
 namespace pion {
 
 // forward declaration for class used by send() and receive()
@@ -64,7 +64,7 @@ public:
      * Used to cache chunked data
      */
     using chunk_cache_type = std::vector<char>; 
-    
+
     /**
      * Defines message data integrity status codes
      */
@@ -114,7 +114,7 @@ public:
          */
         virtual std::string message(int ev) const;
     };
-    
+
     // generic strings used by HTTP
     static const std::string STRING_EMPTY;
     static const std::string STRING_CRLF;
@@ -188,7 +188,7 @@ public:
     static const unsigned int RESPONSE_CODE_SERVER_ERROR;
     static const unsigned int RESPONSE_CODE_NOT_IMPLEMENTED;
     static const unsigned int RESPONSE_CODE_CONTINUE;
-    
+
     // response to "Expect: 100-Continue" header
     static const std::string RESPONSE_FULLMESSAGE_100_CONTINUE;
 
@@ -340,7 +340,7 @@ private:
      * Indicates missing packets in the middle of the data stream
      */
     bool m_has_data_after_missing;    
-    
+
 public:
 
     /**
@@ -433,7 +433,7 @@ public:
      * Returns size of allocated buffer
      */
     std::size_t get_content_buffer_size() const;
-    
+
     /**
      * Returns a pointer to the payload content, or empty string if there is none
      */
@@ -495,7 +495,7 @@ public:
      * @return true if at least one value for the cookie is defined
      */
     bool has_cookie(const std::string& key) const;
-    
+
     /**
      * Adds a value for the cookie since cookie names are insensitive,
      * key should use lowercase alpha chars
@@ -535,7 +535,7 @@ public:
      * @return true if there were missing packets 
      */
     bool has_missing_packets() const;
-    
+
     /**
      * Set to true when missing packets detected
      * 
@@ -635,7 +635,7 @@ public:
      * @return pointer to newly created content buffer
      */
     char *create_content_buffer();
-    
+
     /**
      * Resets payload content to match the value of a string
      * 

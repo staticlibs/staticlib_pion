@@ -98,19 +98,19 @@ class scheduler {
      * Timer used to periodically check for shutdown
      */
     asio::steady_timer timer;
-    
+
     /**
      * Hook function, that is called after each scheduled thread will exit
      */
     std::function<void() /* noexcept */> thread_stop_hook;
-    
+
 public:
 
     /**
      * Constructor
      */
     scheduler(uint32_t number_of_threads);
-    
+
     /**
      * Deleted copy constructor
      */
@@ -120,7 +120,7 @@ public:
      * Deleted copy assignment operator
      */
     scheduler& operator=(const scheduler&) = delete;
-    
+
     /**
      * Destructor
      */
@@ -130,7 +130,7 @@ public:
      * Starts the thread scheduler (this is called automatically when necessary)
      */
     void startup();
-    
+
     /**
      * Stops the thread scheduler (this is called automatically when the program exits)
      */
@@ -140,7 +140,7 @@ public:
      * The calling thread will sleep until the scheduler has stopped
      */
     void join();
-    
+
     /**
      * Registers an active user with the thread scheduler.  Shutdown of the
      * scheduler is deferred until there are no more active users.  This
@@ -152,28 +152,28 @@ public:
      * Unregisters an active user with the thread scheduler
      */
     void remove_active_user();
-    
+
     /**
      * Returns true if the scheduler is running
      * 
      * @return whether scheduler is running
      */
     bool is_running() const;
-    
+
     /**
      * Returns an async I/O service used to schedule work
      * 
      * @return asio service
      */
     asio::io_service& get_io_service();
-    
+
     /**
      * Schedules work to be performed by one of the pooled threads
      *
      * @param work_func work function to be executed
      */
     void post(std::function<void()> work_func);
-    
+
     /**
      * Thread function used to keep the io_service running
      *
@@ -181,7 +181,7 @@ public:
      * @param my_timer deadline timer used to keep the IO service active while running
      */
     void keep_running(asio::io_service& my_service, asio::steady_timer& my_timer);
-    
+
     /**
      * Puts the current thread to sleep for a specific period of time
      *
@@ -205,7 +205,7 @@ public:
         auto nanos = std::chrono::nanoseconds{sleep_sec * 1000000000 + sleep_nsec};
         wakeup_condition.wait_for(wakeup_lock, nanos);
     }
-    
+
     /**
      * processes work passed to the asio service & handles uncaught exceptions
      * 
@@ -220,7 +220,7 @@ public:
      * @param hook hook function
      */
     void set_thread_stop_hook(std::function<void() /* noexcept */> hook);
-    
+
 private:
     /**
      * Stops all services used to schedule work
@@ -241,9 +241,9 @@ private:
      * Finishes all threads used to perform work
      */
     void finish_threads();
-    
+
 };
-        
+
 } // namespace
 }
 
