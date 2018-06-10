@@ -34,13 +34,10 @@
 #include "staticlib/pion/http_response_writer.hpp"
 #include "staticlib/pion/http_server.hpp"
 
-#ifdef STATICLIB_PION_HAVE_SSL
 const uint16_t SECONDS_TO_RUN = 1;
 const uint16_t TCP_PORT = 8443;
-#endif // STATICLIB_PION_HAVE_SSL
 
 void test_https() {
-#ifdef STATICLIB_PION_HAVE_SSL
     auto certpath = "../test/certificates/server/localhost.pem";
     auto pwdcb = [](std::size_t, asio::ssl::context::password_purpose) {
         return "test";
@@ -59,7 +56,6 @@ void test_https() {
     server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});
     server.stop(true);
-#endif // STATICLIB_PION_HAVE_SSL
 }
 
 int main() {

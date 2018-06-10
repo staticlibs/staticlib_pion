@@ -183,7 +183,7 @@ protected:
 
 public:
     ~http_server() STATICLIB_NOEXCEPT;
-    
+
     /**
      * Creates a new server object
      * 
@@ -199,18 +199,14 @@ public:
      *        certificate auth
      */
     http_server(uint32_t number_of_threads, uint16_t port,
-            asio::ip::address_v4 ip_address = asio::ip::address_v4::any()
-#ifdef STATICLIB_PION_HAVE_SSL
-            ,
+            asio::ip::address_v4 ip_address = asio::ip::address_v4::any(),
             const std::string& ssl_key_file = std::string(),
             std::function<std::string(std::size_t, asio::ssl::context::password_purpose)> ssl_key_password_callback = 
                     [](std::size_t, asio::ssl::context::password_purpose) { return std::string(); },
             const std::string& ssl_verify_file = std::string(),
             std::function<bool(bool, asio::ssl::verify_context&)> ssl_verify_callback = 
-                    [](bool, asio::ssl::verify_context&) { return true; }
-#endif // STATICLIB_PION_HAVE_SSL
-            );
-        
+                    [](bool, asio::ssl::verify_context&) { return true; });
+
     /**
      * Adds a new web service to the HTTP server
      *

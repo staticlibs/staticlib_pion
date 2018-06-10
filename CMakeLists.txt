@@ -43,7 +43,6 @@ endif ( )
 option ( ${PROJECT_NAME}_DISABLE_LOGGING "Disable logging to std out and err" OFF )
 # additionally set staticlib_pion_WILTON_INCLUDE and staticlib_pion_WILTON_LOGGING_INCLUDE in parent project
 option ( ${PROJECT_NAME}_USE_WILTON_LOGGING "Use wilton_logging lib for logging" OFF )
-option ( ${PROJECT_NAME}_USE_OPENSSL "Use OpenSSL lib for https" OFF )
 
 # standalone build
 if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
@@ -53,9 +52,7 @@ endif ( )
 if ( NOT DEFINED STATICLIB_TOOLCHAIN )
     if ( NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux" )
         staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_asio )
-        if ( ${PROJECT_NAME}_USE_OPENSSL )
-            staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_openssl )
-        endif ( )
+        staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../external_openssl )
     endif (  )
     staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_config )
     staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_support )
@@ -69,10 +66,8 @@ set ( ${PROJECT_NAME}_DEPS
         staticlib_support
         staticlib_concurrent
         staticlib_utils
-        asio )
-if ( ${PROJECT_NAME}_USE_OPENSSL )
-    list ( APPEND ${PROJECT_NAME}_DEPS openssl )
-endif ( )
+        asio
+        openssl )
 
 staticlib_pion_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 
@@ -102,11 +97,6 @@ if ( ${CMAKE_CXX_COMPILER_ID}x MATCHES "MSVCx" )
     set ( ${PROJECT_NAME}_CFLAGS_PUBLIC ${${PROJECT_NAME}_CFLAGS_PUBLIC} 
             -D_WIN32_WINNT=0x0501
             -DWIN32_LEAN_AND_MEAN )
-endif ( )
-
-if ( ${PROJECT_NAME}_USE_OPENSSL )
-    list ( APPEND ${PROJECT_NAME}_DEFINITIONS -DSTATICLIB_PION_HAVE_SSL )
-    list ( APPEND ${PROJECT_NAME}_CFLAGS_PUBLIC -DSTATICLIB_PION_HAVE_SSL )
 endif ( )
 
 if ( ${PROJECT_NAME}_DISABLE_LOGGING ) 

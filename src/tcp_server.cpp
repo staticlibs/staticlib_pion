@@ -54,11 +54,7 @@ tcp_server::tcp_server(const asio::ip::tcp::endpoint& endpoint, uint32_t number_
 log(STATICLIB_PION_GET_LOGGER("staticlib.pion.tcp_server")),
 active_scheduler(number_of_threads),
 tcp_acceptor(active_scheduler.get_io_service()),
-#ifdef STATICLIB_PION_HAVE_SSL
 ssl_context(asio::ssl::context::sslv23),
-#else
-ssl_context(0),
-#endif
 tcp_endpoint(endpoint), 
 ssl_flag(false),
 listening(false) { }
@@ -196,16 +192,15 @@ void tcp_server::handle_accept(tcp_connection_ptr& tcp_conn, const std::error_co
         if (listening) listen();
         
         // handle the new connection
-#ifdef STATICLIB_PION_HAVE_SSL
         if (tcp_conn->get_ssl_flag()) {
             auto cb = [this, tcp_conn](const std::error_code & ec) mutable {
                 this->handle_ssl_handshake(tcp_conn, ec);
             };
             tcp_conn->async_handshake_server(std::move(cb));
-        } else
-#endif
+        } else {
             // not SSL -> call the handler immediately
             handle_connection(tcp_conn);
+        }
     }
 }
 

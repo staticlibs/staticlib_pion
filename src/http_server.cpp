@@ -162,20 +162,16 @@ std::vector<std::reference_wrapper<T>> find_submatch_filters(
 http_server::~http_server() STATICLIB_NOEXCEPT { }
 
 http_server::http_server(uint32_t number_of_threads, uint16_t port,
-        asio::ip::address_v4 ip_address
-#ifdef STATICLIB_PION_HAVE_SSL        
-        ,
+        asio::ip::address_v4 ip_address,
         const std::string& ssl_key_file,
         std::function<std::string(std::size_t, asio::ssl::context::password_purpose)> ssl_key_password_callback,
         const std::string& ssl_verify_file,
         std::function<bool(bool, asio::ssl::verify_context&)> ssl_verify_callback
-#endif // STATICLIB_PION_HAVE_SSL
 ) : 
 tcp_server(asio::ip::tcp::endpoint(ip_address, port), number_of_threads),
 bad_request_handler(handle_bad_request),
 not_found_handler(handle_not_found_request),
 server_error_handler(handle_server_error) {
-#ifdef STATICLIB_PION_HAVE_SSL
     if (!ssl_key_file.empty()) {
         this->ssl_flag = true;
         this->ssl_context.set_options(asio::ssl::context::default_workarounds
@@ -194,7 +190,6 @@ server_error_handler(handle_server_error) {
             SSL_CTX_set_session_id_context(ssl_context.native_handle(), reinterpret_cast<const unsigned char*>("pion"), 4);
         }
     }
-#endif // STATICLIB_PION_HAVE_SSL
 }
 
 void http_server::add_handler(const std::string& method,

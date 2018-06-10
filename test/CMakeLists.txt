@@ -26,8 +26,6 @@ project ( staticlib_pion_test CXX )
 include ( ${STATICLIB_CMAKE}/staticlibs_common.cmake )
 
 # dependencies
-# options, use SET ( OPTNAME ON CACHE BOOL "") in parent to override
-set ( staticlib_pion_USE_OPENSSL ON CACHE BOOL "" )
 if ( NOT DEFINED STATICLIB_DEPS )
     set ( STATICLIB_DEPS ${CMAKE_CURRENT_LIST_DIR}/../../ CACHE INTERNAL "" )    
 endif ( )
@@ -36,9 +34,7 @@ staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_asio )
 # end: removeme
 if ( NOT STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_[^_]+" )
     staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_asio )
-    if ( staticlib_pion_USE_OPENSSL )
-        staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_openssl )
-    endif ( )
+    staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_openssl )
 endif ( )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_config )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_support )

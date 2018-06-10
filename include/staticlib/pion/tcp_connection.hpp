@@ -32,9 +32,7 @@
 #include <string>
 
 #include "asio.hpp"
-#ifdef STATICLIB_PION_HAVE_SSL
-    #include "asio/ssl.hpp"
-#endif
+#include "asio/ssl.hpp"
 
 #include "staticlib/config.hpp"
 
@@ -47,7 +45,7 @@ namespace pion {
  * Represents a single tcp connection
  */
 class tcp_connection : public std::enable_shared_from_this<tcp_connection> {    
-    
+
 public:
 
     /**
@@ -58,7 +56,7 @@ public:
         LIFECYCLE_KEEPALIVE, 
         LIFECYCLE_PIPELINED
     };
-    
+
     /**
      * Size of the read buffer
      */
@@ -68,18 +66,17 @@ public:
      * Data type for a function that handles TCP connection objects
      */
     using connection_handler = std::function<void(std::shared_ptr<tcp_connection>&)>;
-    
+
     /**
      * Data type for an I/O read buffer
      */
     using read_buffer_type = std::array<char, READ_BUFFER_SIZE>;
-    
+
     /**
      * Data type for a socket connection
      */
     using socket_type = asio::ip::tcp::socket;
 
-#ifdef STATICLIB_PION_HAVE_SSL
     /**
      * Data type for an SSL socket connection
      */
@@ -89,28 +86,7 @@ public:
      * Data type for SSL configuration context
      */
     using ssl_context_type = asio::ssl::context;
-#else
-    /**
-     * Proxy data type for an SSL-like socket connection in non-SSL environment
-     */
-    class ssl_socket_type {
-    private:
-        socket_type m_socket;
-    public:
-        ssl_socket_type(asio::io_service& io_service);
-        socket_type& next_layer();
-        const socket_type& next_layer() const;
-        socket_type::lowest_layer_type& lowest_layer();
-        const socket_type::lowest_layer_type& lowest_layer() const;
-        void shutdown();
-    };
-    
-    /**
-     * Dummy data type for SSL configuration context in non-SSL environment
-     */
-    using ssl_context_type = int;
-#endif    
-    
+
 private:
 
     /**
@@ -144,7 +120,7 @@ private:
     connection_handler m_finished_handler;        
 
 public:
-    
+
     /**
      * creates new shared connection objects
      *
@@ -166,19 +142,19 @@ public:
      * Deleted copy assignment operator
      */
     tcp_connection& operator=(const tcp_connection&) = delete;
-    
+
     /**
      * Virtual destructor
      */
     virtual ~tcp_connection();
-    
+
     /**
      * Returns true if the connection is currently open
      * 
      * @return true if the connection is currently open
      */
     bool is_open() const;
-    
+
     /**
      * Closes the tcp socket and cancels any pending asynchronous operations
      */
@@ -188,7 +164,7 @@ public:
      * Cancels any asynchronous operations pending on the socket.
      */
     void cancel();
-        
+
     /**
      * Asynchronously accepts a new tcp connection
      *
@@ -211,14 +187,10 @@ public:
      */
     template <typename SSLHandshakeHandler>
     void async_handshake_server(SSLHandshakeHandler handler) {
-#ifdef STATICLIB_PION_HAVE_SSL
         m_ssl_socket.async_handshake(asio::ssl::stream_base::server, handler);
         m_ssl_flag = true;
-#else
-        (void) handler;
-#endif
     }
-    
+
     /**
      * Asynchronously reads some data into the connection's read buffer 
      *
@@ -228,15 +200,13 @@ public:
      */
     template <typename ReadHandler>
     void async_read_some(ReadHandler handler) {
-#ifdef STATICLIB_PION_HAVE_SSL
-        if (get_ssl_flag())
-            m_ssl_socket.async_read_some(asio::buffer(m_read_buffer),
-                                         handler);
-        else
-#endif      
+        if (get_ssl_flag()) {
+            m_ssl_socket.async_read_some(asio::buffer(m_read_buffer), handler);
+        } else {
             m_ssl_socket.next_layer().async_read_some(asio::buffer(m_read_buffer), handler);
+        }
     }
-    
+
     /**
      * Asynchronously reads some data into the connection's read buffer 
      *
@@ -247,14 +217,13 @@ public:
      */
     template <typename ReadBufferType, typename ReadHandler>
     void async_read_some(ReadBufferType read_buffer, ReadHandler handler) {
-#ifdef STATICLIB_PION_HAVE_SSL
-        if (get_ssl_flag())
+        if (get_ssl_flag()) {
             m_ssl_socket.async_read_some(read_buffer, handler);
-        else
-#endif      
+        } else {
             m_ssl_socket.next_layer().async_read_some(read_buffer, handler);
+        }
     }
-    
+
     /**
      * Reads some data into the connection's read buffer (blocks until finished)
      *
@@ -264,7 +233,7 @@ public:
      * @see asio::basic_stream_socket::read_some()
      */
     std::size_t read_some(std::error_code& ec);
-    
+
     /**
      * reads some data into the connection's read buffer (blocks until finished)
      *
@@ -276,14 +245,13 @@ public:
      */
     template <typename ReadBufferType>
     std::size_t read_some(ReadBufferType read_buffer, std::error_code& ec) {
-#ifdef STATICLIB_PION_HAVE_SSL
-        if (get_ssl_flag())
+        if (get_ssl_flag()) {
             return m_ssl_socket.read_some(read_buffer, ec);
-        else
-#endif      
+        } else {
             return m_ssl_socket.next_layer().read_some(read_buffer, ec);
+        }
     }
-    
+
     /**
      * Asynchronously reads data into the connection's read buffer until
      * completion_condition is met
@@ -295,16 +263,14 @@ public:
      */
     template <typename CompletionCondition, typename ReadHandler>
     void async_read(CompletionCondition completion_condition, ReadHandler handler) {
-#ifdef STATICLIB_PION_HAVE_SSL
-        if (get_ssl_flag())
-            asio::async_read(m_ssl_socket, asio::buffer(m_read_buffer),
-                                    completion_condition, handler);
-        else
-#endif      
+        if (get_ssl_flag()) {
+            asio::async_read(m_ssl_socket, asio::buffer(m_read_buffer), completion_condition, handler);
+        } else {
             asio::async_read(m_ssl_socket.next_layer(), asio::buffer(m_read_buffer),
                     completion_condition, handler);
+        }
     }
-            
+
     /**
      * Asynchronously reads data from the connection until completion_condition
      * is met
@@ -318,16 +284,13 @@ public:
     template <typename MutableBufferSequence, typename CompletionCondition, typename ReadHandler>
     void async_read(const MutableBufferSequence& buffers, CompletionCondition completion_condition,
             ReadHandler handler) {
-#ifdef STATICLIB_PION_HAVE_SSL
-        if (get_ssl_flag())
-            asio::async_read(m_ssl_socket, buffers,
-                                    completion_condition, handler);
-        else
-#endif      
-            asio::async_read(m_ssl_socket.next_layer(), buffers,
-                                    completion_condition, handler);
+        if (get_ssl_flag()) {
+            asio::async_read(m_ssl_socket, buffers, completion_condition, handler);
+        } else {
+            asio::async_read(m_ssl_socket.next_layer(), buffers, completion_condition, handler);
+        }
     }
-    
+ 
     /**
      * Reads data into the connection's read buffer until completion_condition
      * is met (blocks until finished)
@@ -340,16 +303,15 @@ public:
      */
     template <typename CompletionCondition>
     std::size_t read(CompletionCondition completion_condition, std::error_code& ec) {
-#ifdef STATICLIB_PION_HAVE_SSL
-        if (get_ssl_flag())
+        if (get_ssl_flag()) {
             return asio::async_read(m_ssl_socket, asio::buffer(m_read_buffer),
-                                           completion_condition, ec);
-        else
-#endif      
+                    completion_condition, ec);
+        } else {
             return asio::async_read(m_ssl_socket.next_layer(), asio::buffer(m_read_buffer),
-                                           completion_condition, ec);
+                    completion_condition, ec);
+        }
     }
-    
+
     /**
      * Reads data from the connection until completion_condition is met
      * (blocks until finished)
@@ -364,16 +326,13 @@ public:
     template <typename MutableBufferSequence, typename CompletionCondition>
     std::size_t read(const MutableBufferSequence& buffers, CompletionCondition completion_condition,
             std::error_code& ec) {
-#ifdef STATICLIB_PION_HAVE_SSL
-        if (get_ssl_flag())
-            return asio::read(m_ssl_socket, buffers,
-                                     completion_condition, ec);
-        else
-#endif      
-            return asio::read(m_ssl_socket.next_layer(), buffers,
-                                     completion_condition, ec);
+        if (get_ssl_flag()) {
+            return asio::read(m_ssl_socket, buffers, completion_condition, ec);
+        } else {
+            return asio::read(m_ssl_socket.next_layer(), buffers, completion_condition, ec);
+        }
     }
-    
+
     /**
      * Asynchronously writes data to the connection
      *
@@ -384,14 +343,13 @@ public:
      */
     template <typename ConstBufferSequence, typename write_handler_t>
     void async_write(const ConstBufferSequence& buffers, write_handler_t handler) {
-#ifdef STATICLIB_PION_HAVE_SSL
-        if (get_ssl_flag())
+        if (get_ssl_flag()) {
             asio::async_write(m_ssl_socket, buffers, handler);
-        else
-#endif      
+        } else {
             asio::async_write(m_ssl_socket.next_layer(), buffers, handler);
-    }   
-        
+        }
+    }
+
     /**
      * Writes data to the connection (blocks until finished)
      *
@@ -403,21 +361,17 @@ public:
      */
     template <typename ConstBufferSequence>
     std::size_t write(const ConstBufferSequence& buffers, std::error_code& ec) {
-#ifdef STATICLIB_PION_HAVE_SSL
-        if (get_ssl_flag())
-            return asio::write(m_ssl_socket, buffers,
-                                      asio::transfer_all(), ec);
-        else
-#endif      
+        if (get_ssl_flag()) {
+            return asio::write(m_ssl_socket, buffers, asio::transfer_all(), ec);
+        } else {
             return asio::write(m_ssl_socket.next_layer(), buffers, asio::transfer_all(), ec);
-    }   
-    
+        }
+    }
+
     /**
      * This function should be called when a server has finished handling the connection
      */
     void finish();
-    
-    
 
     /**
      * Returns true if the connection is encrypted using SSL
@@ -432,21 +386,21 @@ public:
      * @param t lifecycle type name
      */
     void set_lifecycle(lifecycle_type t);
-    
+
     /**
      * Returns the lifecycle type for the connection
      * 
      * @return lifecycle type name
      */
     lifecycle_type get_lifecycle() const;
-    
+
     /**
      * Returns true if the connection should be kept alive
      * 
      * @return 
      */
     bool get_keep_alive() const;
-    
+
     /**
      * Returns true if the HTTP requests are pipelined
      * 
@@ -460,7 +414,7 @@ public:
      * @return buffer used for reading data from the TCP connection
      */
     read_buffer_type& get_read_buffer();
-    
+
     /**
      * Saves a read position bookmark
      *
@@ -468,7 +422,7 @@ public:
      * @param read_end_ptr points to the end of the read_buffer (last byte + 1)
      */
     void save_read_pos(const char *read_ptr, const char *read_end_ptr);
-    
+
     /**
      * Loads a read position bookmark
      *
@@ -497,7 +451,7 @@ public:
      * @return client's port number
      */
     unsigned short get_remote_port() const;
-    
+
     /**
      * Returns reference to the io_service used for async operations
      * 
@@ -511,7 +465,7 @@ public:
      * @return underlying TCP socket object
      */
     socket_type& get_socket();
-    
+
     /**
      * Returns non-const reference to underlying SSL socket object
      * 
@@ -525,7 +479,7 @@ public:
      * @return underlying TCP socket object
      */
     const socket_type& get_socket() const;
-    
+
     /**
      * Returns const reference to underlying SSL socket object
      * 
@@ -535,7 +489,7 @@ public:
 
     
 protected:
-        
+
     /**
      * protected constructor restricts creation of objects (use create())
      *
