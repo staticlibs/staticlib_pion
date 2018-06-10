@@ -42,15 +42,10 @@
 namespace staticlib { 
 namespace pion {
 
-// forward declaration
-class http_filter_chain;
-
 /**
  * Server extension that supports streaming requests of arbitrary size (file upload)
  */
 class http_server : public tcp_server {   
-    friend class http_filter_chain;   
-    
 protected:
     /**
      * Type of function that is used to handle requests
@@ -67,11 +62,6 @@ protected:
      * Type of function that is used to create payload handlers
      */
     using payload_handler_creator_type = std::function<http_parser::payload_handler_type(http_request_ptr&)>;
-
-    /**
-     * Type for filters
-     */
-    using request_filter_type = std::function<void(http_request_ptr&, tcp_connection_ptr&, http_filter_chain&)>;
     
     /**
      * Data type for a map of resources to request handlers
@@ -82,11 +72,6 @@ protected:
      * Data type for a map of resources to request handlers
      */
     using payloads_map_type = std::unordered_map<std::string, payload_handler_creator_type>; 
-    
-    /**
-     * Data type for a multi map of filters
-     */
-    using filter_map_type = std::unordered_multimap<std::string, request_filter_type, algorithm::ihash, algorithm::iequal_to>;
     
     /**
      * Collection of GET handlers that are recognized by this HTTP server
@@ -156,31 +141,6 @@ protected:
      */
     payloads_map_type options_payloads;
 
-    /**
-     * Collection of GET filters
-     */
-    filter_map_type get_filters;
-
-    /**
-     * Collection of POST filters
-     */
-    filter_map_type post_filters;
-
-    /**
-     * Collection of PUT filters
-     */
-    filter_map_type put_filters;
-
-    /**
-     * Collection of DELETE filters
-     */
-    filter_map_type delete_filters;
-
-    /**
-     * Collection of OPTIONS filters
-     */
-    filter_map_type options_filters;
-
 public:
     ~http_server() STATICLIB_NOEXCEPT;
 
@@ -247,16 +207,6 @@ public:
      */
     void add_payload_handler(const std::string& method, const std::string& resource, 
             payload_handler_creator_type payload_handler);
-
-    /**
-     * Adds a new filter to the HTTP server
-     *
-     * @param method HTTP method name
-     * @param resource the resource name or uri-stem to bind to the handler
-     * @param request_handler filter function
-     */    
-    void add_filter(const std::string& method, const std::string& resource,
-            request_filter_type filter);
 
 protected:
     

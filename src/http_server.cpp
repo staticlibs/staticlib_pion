@@ -29,7 +29,6 @@
 
 #include "staticlib/pion/http_request_reader.hpp"
 #include "staticlib/pion/pion_exception.hpp"
-#include "staticlib/pion/http_filter_chain.hpp"
 #include "staticlib/pion/http_response_writer.hpp"
 
 #ifdef STATICLIB_PION_USE_SSL
@@ -139,24 +138,6 @@ typename T::iterator find_submatch(T& map, const std::string& path) {
     return end;
 }
 
-template<typename T>
-std::vector<std::reference_wrapper<T>> find_submatch_filters(
-        std::unordered_multimap<std::string, T, algorithm::ihash, algorithm::iequal_to>& map, 
-        const std::string& path) {
-    std::string st{path};
-    std::vector<std::reference_wrapper<T>> vec{};
-    std::string::size_type slash_ind = st.length();
-    do {
-        st = st.substr(0, slash_ind);
-        auto ra = map.equal_range(st);
-        for (auto it = ra.first; it != ra.second; ++it) {
-            vec.emplace_back(std::ref(it->second));
-        }
-        slash_ind = st.find_last_of("/");
-    } while (std::string::npos != slash_ind);
-    return vec;
-}
-
 } // namespace
 
 http_server::~http_server() STATICLIB_NOEXCEPT { }
@@ -222,15 +203,6 @@ void http_server::add_payload_handler(const std::string& method, const std::stri
     STATICLIB_PION_LOG_DEBUG(log, "Added payload handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
     auto it = map.emplace(std::move(clean_resource), std::move(payload_handler));
     if (!it.second) throw pion_exception("Invalid duplicate payload path: [" + clean_resource + "], method: [" + method + "]");
-}
-
-void http_server::add_filter(const std::string& method, const std::string& resource,
-        request_filter_type filter) {
-    filter_map_type& map = choose_map_by_method(method, get_filters, post_filters, put_filters, 
-            delete_filters, options_filters);
-    const std::string clean_resource{strip_trailing_slash(resource)};
-    STATICLIB_PION_LOG_DEBUG(log, "Added filter for HTTP resource: " << clean_resource << ", method: " << method);
-    map.emplace(std::move(clean_resource), std::move(filter));
 }
 
 void http_server::handle_connection(tcp_connection_ptr& conn) {
@@ -322,11 +294,7 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
         request_handler_type& handler = handlers_it->second;
         try {
             STATICLIB_PION_LOG_DEBUG(log, "Found request handler for HTTP resource: " << path);
-            filter_map_type& filter_map = choose_map_by_method(method, get_filters, post_filters, 
-                    put_filters, delete_filters, options_filters);
-            std::vector<std::reference_wrapper<request_filter_type>> filters = find_submatch_filters(filter_map, path);
-            http_filter_chain fc{std::move(filters), handler};
-            fc.do_filter(request, conn);
+            handler(request, conn);
         } catch (std::bad_alloc&) {
             // propagate memory errors (FATAL)
             throw;
