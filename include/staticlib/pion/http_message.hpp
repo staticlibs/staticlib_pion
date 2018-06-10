@@ -43,12 +43,12 @@
 
 namespace staticlib { 
 namespace pion {
- 
+
 // forward declaration for class used by send() and receive()
 class tcp_connection;
 // forward declaration of parser class
 class http_parser;
-    
+
 /**
  * Base container for HTTP messages
  */
@@ -192,8 +192,8 @@ public:
     // response to "Expect: 100-Continue" header
     static const std::string RESPONSE_FULLMESSAGE_100_CONTINUE;
 
-protected:    
-    
+protected:
+ 
     /**
      * First line sent in an HTTP message
      * (i.e. "GET / HTTP/1.1" for request, or "HTTP/1.1 200 OK" for response)
@@ -258,9 +258,9 @@ protected:
          * Clears the content buffer
          */
         void clear();
-    };    
+    };
     
-private:    
+private:
     /**
      * Regex used to check for the "chunked" transfer encoding header
      */
@@ -694,76 +694,6 @@ public:
      */
     void prepare_buffers_for_send(write_buffers_type& write_buffers, const bool keep_alive,
             const bool using_chunks);
-
-    /**
-     * Sends the message over a TCP connection (blocks until finished)
-     *
-     * @param tcp_conn TCP connection to use
-     * @param ec contains error code if the send fails
-     * @param headers_only if true then only HTTP headers are sent
-     *
-     * @return std::size_t number of bytes written to the connection
-     */
-    std::size_t send(tcp_connection& tcp_conn, std::error_code& ec, bool headers_only = false);
-
-    /**
-     * Receives a new message from a TCP connection (blocks until finished)
-     *
-     * @param tcp_conn TCP connection to use
-     * @param ec contains error code if the receive fails
-     * @param http_parser http parser object to use
-     *
-     * @return std::size_t number of bytes read from the connection
-     */
-    std::size_t receive(tcp_connection& tcp_conn, std::error_code& ec, http_parser& http_parser);
-    
-    /**
-     * Receives a new message from a TCP connection (blocks until finished)
-     *
-     * @param tcp_conn TCP connection to use
-     * @param ec contains error code if the receive fails
-     * @param headers_only if true then only HTTP headers are received
-     * @param max_content_length maximum number of content bytes received
-     *
-     * @return std::size_t number of bytes read from the connection
-     */
-    std::size_t receive(tcp_connection& tcp_conn, std::error_code& ec, bool headers_only = false,
-            std::size_t max_content_length = static_cast<size_t>(-1));
-
-    /**
-     * Writes the message to a std::ostream (blocks until finished)
-     *
-     * @param out std::ostream to use
-     * @param ec contains error code if the write fails
-     * @param headers_only if true then only HTTP headers are written
-     *
-     * @return std::size_t number of bytes written to the connection
-     */
-    std::size_t write(std::ostream& out, std::error_code& ec, bool headers_only = false);
-
-    /**
-     * Reads a new message from a std::istream (blocks until finished)
-     *
-     * @param in std::istream to use
-     * @param ec contains error code if the read fails
-     * @param http_parser http parser object to use
-     *
-     * @return std::size_t number of bytes read from the connection
-     */
-    std::size_t read(std::istream& in, std::error_code& ec, http_parser& http_parser);
-    
-    /**
-     * Reads a new message from a std::istream (blocks until finished)
-     *
-     * @param in std::istream to use
-     * @param ec contains error code if the read fails
-     * @param headers_only if true then only HTTP headers are read
-     * @param max_content_length maximum number of content bytes received
-     *
-     * @return std::size_t number of bytes read from the connection
-     */
-    std::size_t read(std::istream& in, std::error_code& ec, bool headers_only = false,
-            std::size_t max_content_length = static_cast<size_t>(-1));
 
     /**
      * Pieces together all the received chunks

@@ -122,6 +122,12 @@ void handle_root_options(http_request_ptr& request, tcp_connection_ptr& conn) {
     writer->send();
 }
 
+void handle_100_continue(http_request_ptr& request, tcp_connection_ptr& conn) {
+    auto writer = http_response_writer::create(conn, request);
+    writer->write_no_copy(http_message::RESPONSE_FULLMESSAGE_100_CONTINUE);
+    writer->send();
+}
+
 template<typename T>
 typename T::iterator find_submatch(T& map, const std::string& path) {
     std::string st{path};
@@ -224,16 +230,9 @@ void http_server::handle_request_after_headers_parsed(http_request_ptr request,
     if (ec || !rc) return;
     // http://stackoverflow.com/a/17390776/314015
     if ("100-continue" == request->get_header("Expect")) {
-        http_message::write_buffers_type buf;
-        buf.emplace_back(http_message::RESPONSE_FULLMESSAGE_100_CONTINUE.data(), 
-                http_message::RESPONSE_FULLMESSAGE_100_CONTINUE.length());
-        std::error_code code;
-        conn->write(buf, code);
-        if (code) {
-            STATICLIB_PION_LOG_WARN(log, 
-                    "'100 Continue' write failed for resource" << request->get_resource());
-            return;
-        }
+        handle_100_continue(request, conn);
+        rc = true;
+        return;
     }
     auto& method = request->get_method();
     payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, 

@@ -77,14 +77,6 @@ void tcp_connection::cancel() {
 #endif
 }
 
-std::size_t tcp_connection::read_some(std::error_code& ec) {
-    if (get_ssl_flag()) {
-        return m_ssl_socket.read_some(asio::buffer(m_read_buffer), ec);
-    } else {
-        return m_ssl_socket.next_layer().read_some(asio::buffer(m_read_buffer), ec);
-    }
-}
-
 void tcp_connection::finish() {
     tcp_connection_ptr conn = shared_from_this();
     if (m_finished_handler) m_finished_handler(conn);

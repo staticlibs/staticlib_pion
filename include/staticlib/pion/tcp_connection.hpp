@@ -44,7 +44,7 @@ namespace pion {
 /**
  * Represents a single tcp connection
  */
-class tcp_connection : public std::enable_shared_from_this<tcp_connection> {    
+class tcp_connection : public std::enable_shared_from_this<tcp_connection> {
 
 public:
 
@@ -61,7 +61,7 @@ public:
      * Size of the read buffer
      */
     enum { READ_BUFFER_SIZE = 8192 };
-    
+
     /**
      * Data type for a function that handles TCP connection objects
      */
@@ -208,132 +208,6 @@ public:
     }
 
     /**
-     * Asynchronously reads some data into the connection's read buffer 
-     *
-     * @param read_buffer the buffer to read data into
-     * @param handler called after the read operation has completed
-     *
-     * @see asio::basic_stream_socket::async_read_some()
-     */
-    template <typename ReadBufferType, typename ReadHandler>
-    void async_read_some(ReadBufferType read_buffer, ReadHandler handler) {
-        if (get_ssl_flag()) {
-            m_ssl_socket.async_read_some(read_buffer, handler);
-        } else {
-            m_ssl_socket.next_layer().async_read_some(read_buffer, handler);
-        }
-    }
-
-    /**
-     * Reads some data into the connection's read buffer (blocks until finished)
-     *
-     * @param ec contains error code if the read fails
-     * @return std::size_t number of bytes read
-     *
-     * @see asio::basic_stream_socket::read_some()
-     */
-    std::size_t read_some(std::error_code& ec);
-
-    /**
-     * reads some data into the connection's read buffer (blocks until finished)
-     *
-     * @param read_buffer the buffer to read data into
-     * @param ec contains error code if the read fails
-     * @return std::size_t number of bytes read
-     *
-     * @see asio::basic_stream_socket::read_some()
-     */
-    template <typename ReadBufferType>
-    std::size_t read_some(ReadBufferType read_buffer, std::error_code& ec) {
-        if (get_ssl_flag()) {
-            return m_ssl_socket.read_some(read_buffer, ec);
-        } else {
-            return m_ssl_socket.next_layer().read_some(read_buffer, ec);
-        }
-    }
-
-    /**
-     * Asynchronously reads data into the connection's read buffer until
-     * completion_condition is met
-     *
-     * @param completion_condition determines if the read operation is complete
-     * @param handler called after the read operation has completed
-     *
-     * @see asio::async_read()
-     */
-    template <typename CompletionCondition, typename ReadHandler>
-    void async_read(CompletionCondition completion_condition, ReadHandler handler) {
-        if (get_ssl_flag()) {
-            asio::async_read(m_ssl_socket, asio::buffer(m_read_buffer), completion_condition, handler);
-        } else {
-            asio::async_read(m_ssl_socket.next_layer(), asio::buffer(m_read_buffer),
-                    completion_condition, handler);
-        }
-    }
-
-    /**
-     * Asynchronously reads data from the connection until completion_condition
-     * is met
-     *
-     * @param buffers one or more buffers into which the data will be read
-     * @param completion_condition determines if the read operation is complete
-     * @param handler called after the read operation has completed
-     *
-     * @see asio::async_read()
-     */
-    template <typename MutableBufferSequence, typename CompletionCondition, typename ReadHandler>
-    void async_read(const MutableBufferSequence& buffers, CompletionCondition completion_condition,
-            ReadHandler handler) {
-        if (get_ssl_flag()) {
-            asio::async_read(m_ssl_socket, buffers, completion_condition, handler);
-        } else {
-            asio::async_read(m_ssl_socket.next_layer(), buffers, completion_condition, handler);
-        }
-    }
- 
-    /**
-     * Reads data into the connection's read buffer until completion_condition
-     * is met (blocks until finished)
-     *
-     * @param completion_condition determines if the read operation is complete
-     * @param ec contains error code if the read fails
-     * @return std::size_t number of bytes read
-     *
-     * @see asio::read()
-     */
-    template <typename CompletionCondition>
-    std::size_t read(CompletionCondition completion_condition, std::error_code& ec) {
-        if (get_ssl_flag()) {
-            return asio::async_read(m_ssl_socket, asio::buffer(m_read_buffer),
-                    completion_condition, ec);
-        } else {
-            return asio::async_read(m_ssl_socket.next_layer(), asio::buffer(m_read_buffer),
-                    completion_condition, ec);
-        }
-    }
-
-    /**
-     * Reads data from the connection until completion_condition is met
-     * (blocks until finished)
-     *
-     * @param buffers one or more buffers into which the data will be read
-     * @param completion_condition determines if the read operation is complete
-     * @param ec contains error code if the read fails
-     * @return std::size_t number of bytes read
-     *
-     * @see asio::read()
-     */
-    template <typename MutableBufferSequence, typename CompletionCondition>
-    std::size_t read(const MutableBufferSequence& buffers, CompletionCondition completion_condition,
-            std::error_code& ec) {
-        if (get_ssl_flag()) {
-            return asio::read(m_ssl_socket, buffers, completion_condition, ec);
-        } else {
-            return asio::read(m_ssl_socket.next_layer(), buffers, completion_condition, ec);
-        }
-    }
-
-    /**
      * Asynchronously writes data to the connection
      *
      * @param buffers one or more buffers containing the data to be written
@@ -347,24 +221,6 @@ public:
             asio::async_write(m_ssl_socket, buffers, handler);
         } else {
             asio::async_write(m_ssl_socket.next_layer(), buffers, handler);
-        }
-    }
-
-    /**
-     * Writes data to the connection (blocks until finished)
-     *
-     * @param buffers one or more buffers containing the data to be written
-     * @param ec contains error code if the write fails
-     * @return std::size_t number of bytes written
-     *
-     * @see asio::write()
-     */
-    template <typename ConstBufferSequence>
-    std::size_t write(const ConstBufferSequence& buffers, std::error_code& ec) {
-        if (get_ssl_flag()) {
-            return asio::write(m_ssl_socket, buffers, asio::transfer_all(), ec);
-        } else {
-            return asio::write(m_ssl_socket.next_layer(), buffers, asio::transfer_all(), ec);
         }
     }
 
