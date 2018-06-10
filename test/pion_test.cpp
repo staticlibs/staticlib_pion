@@ -41,17 +41,17 @@ const uint16_t TCP_PORT = 8080;
 
 void hello_service(sl::pion::http_request_ptr& req, sl::pion::tcp_connection_ptr& conn) {
     auto writer = sl::pion::http_response_writer::create(conn, req);
-    writer << "Hello World!\n";
+    writer->write("Hello World!\n");
     writer->send();
 }
 
 void hello_service_post(sl::pion::http_request_ptr& req, sl::pion::tcp_connection_ptr& conn) {
     auto writer = sl::pion::http_response_writer::create(conn, req);
-    writer << "Hello POST!\n";
+    writer->write("Hello POST!\n");
     writer->send();
 }
 
-class FileWriter {
+class file_writer {
     mutable std::unique_ptr<std::ofstream> stream;
  
 public:
@@ -61,17 +61,17 @@ public:
     // instead of copy one (with mutable member fields)
     // in MSVC only moved-to instance will be used
     // in GCC copy constructor won't be called at all
-    FileWriter(const FileWriter& other) :
+    file_writer(const file_writer& other) :
     stream(std::move(other.stream)) { }
 
-    FileWriter& operator=(const FileWriter&) = delete;  
+    file_writer& operator=(const file_writer&) = delete;  
 
-    FileWriter(FileWriter&& other) :
+    file_writer(file_writer&& other) :
     stream(std::move(other.stream)) { }
 
-    FileWriter& operator=(FileWriter&&) = delete;
+    file_writer& operator=(file_writer&&) = delete;
 
-    FileWriter(const std::string& filename) {
+    file_writer(const std::string& filename) {
         stream = std::unique_ptr<std::ofstream>{new std::ofstream{filename, std::ios::out | std::ios::binary}};
         stream->exceptions(std::ofstream::failbit | std::ofstream::badbit);
     }
@@ -86,14 +86,14 @@ public:
     }
 };
 
-class FileSender : public std::enable_shared_from_this<FileSender> {
+class file_sender : public std::enable_shared_from_this<file_sender> {
     sl::pion::http_response_writer_ptr writer;
     std::ifstream stream;
     std::array<char, 8192> buf;
     std::mutex mutex;
 
 public:
-    FileSender(const std::string& filename, sl::pion::http_response_writer_ptr writer) : 
+    file_sender(const std::string& filename, sl::pion::http_response_writer_ptr writer) : 
     writer(writer),
     stream(filename, std::ios::in | std::ios::binary) {
         stream.exceptions(std::ifstream::badbit);
@@ -126,20 +126,20 @@ public:
 };
 
 void file_upload_resource(sl::pion::http_request_ptr& req, sl::pion::tcp_connection_ptr& conn) {
-    auto ph = req->get_payload_handler<FileWriter>();
+    auto ph = req->get_payload_handler<file_writer>();
     if (ph) {
         ph->close();
     } else {
         std::cout << "No payload handler found in main handler" << std::endl;
     }
     auto writer = sl::pion::http_response_writer::create(conn, req);
-    auto fs = std::make_shared<FileSender>("uploaded.dat", writer);
+    auto fs = std::make_shared<file_sender>("uploaded.dat", writer);
     fs->send();
 }
 
-FileWriter file_upload_payload_handler_creator(sl::pion::http_request_ptr& req) {
+file_writer file_upload_payload_handler_creator(sl::pion::http_request_ptr& req) {
     (void) req;
-    return FileWriter{"uploaded.dat"};
+    return file_writer{"uploaded.dat"};
 }
 
 void test_pion() {

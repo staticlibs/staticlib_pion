@@ -25,15 +25,15 @@
 
 #include "staticlib/pion/http_response_writer.hpp"
 
+#include <array>
+
 namespace staticlib { 
 namespace pion {
 
 http_response_writer::http_response_writer(tcp_connection_ptr& tcp_conn, const http_request& http_request,
         finished_handler_type handler) :
-m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_response_writer")),
 m_tcp_conn(tcp_conn),
 m_content_length(0),
-m_stream_is_empty(true),
 m_client_supports_chunks(true),
 m_sending_chunks(false),
 m_sent_headers(false),
@@ -78,13 +78,12 @@ void http_response_writer::prepare_write_buffers(http_message::write_buffers_typ
         if (supports_chunked_messages() && sending_chunked_message()) {
             // prepare the next chunk of data to send
             // write chunk length in hex
-            char cast_buf[35];
-            sprintf(cast_buf, "%lx", static_cast<long>(m_content_length));
+            auto cast_buf = std::array<char, 35>();
+            auto written = sprintf(cast_buf.data(), "%lx", static_cast<long>(m_content_length));
             
             // add chunk length as a string at the back of the text cache
-            m_text_cache.push_back(cast_buf);
             // append length of chunk to write_buffers
-            write_buffers.push_back(asio::buffer(m_text_cache.back()));
+            write_buffers.push_back(add_to_cache(cast_buf.data(), written));
             // append an extra CRLF for chunk formatting
             write_buffers.push_back(asio::buffer(http_message::STRING_CRLF));
             
@@ -103,9 +102,9 @@ void http_response_writer::prepare_write_buffers(http_message::write_buffers_typ
     // prepare a zero-byte (final) chunk
     if (send_final_chunk && supports_chunked_messages() && sending_chunked_message()) {
         // add chunk length as a string at the back of the text cache
-        m_text_cache.push_back("0");
+        char zero = '0';
         // append length of chunk to write_buffers
-        write_buffers.push_back(asio::buffer(m_text_cache.back()));
+        write_buffers.push_back(add_to_cache(std::addressof(zero), 1));
         // append an extra CRLF for chunk formatting
         write_buffers.push_back(asio::buffer(http_message::STRING_CRLF));
         write_buffers.push_back(asio::buffer(http_message::STRING_CRLF));
@@ -120,31 +119,23 @@ void http_response_writer::finished_writing(const std::error_code& ec) {
 
 void http_response_writer::clear() {
     m_content_buffers.clear();
-    m_binary_cache.clear();
-    m_text_cache.clear();
-    m_content_stream().str("");
-    m_stream_is_empty = true;
+    payload_cache.clear();
     m_content_length = 0;
 }
 
-void http_response_writer::write(std::ostream& (*iomanip)(std::ostream&)) {
-    if (m_http_response->is_body_allowed()) {
-        m_content_stream() << iomanip;
-        if (m_stream_is_empty) m_stream_is_empty = false;
-    }
+void http_response_writer::write(const std::string& data) {
+    write(data.data(), data.length());
 }
 
 void http_response_writer::write(const void *data, size_t length) {
     if (m_http_response->is_body_allowed() && length != 0) {
-        flush_content_stream();
-        m_content_buffers.push_back(m_binary_cache.add(data, length));
+        m_content_buffers.push_back(add_to_cache(data, length));
         m_content_length += length;
     }
 }
 
 void http_response_writer::write_no_copy(const std::string& data) {
     if (m_http_response->is_body_allowed() && !data.empty()) {
-        flush_content_stream();
         m_content_buffers.push_back(asio::buffer(data));
         m_content_length += data.size();
     }
@@ -152,19 +143,8 @@ void http_response_writer::write_no_copy(const std::string& data) {
 
 void http_response_writer::write_no_copy(void *data, size_t length) {
     if (m_http_response->is_body_allowed() && length > 0) {
-        flush_content_stream();
         m_content_buffers.push_back(asio::buffer(data, length));
         m_content_length += length;
-    }
-}
-
-void http_response_writer::write_move(std::string&& data) {
-    if (m_http_response->is_body_allowed() && !data.empty()) {
-        m_moved_cache.emplace_back(std::move(data));
-        std::string& dataref = m_moved_cache.back();
-        flush_content_stream();
-        m_content_buffers.emplace_back(dataref.c_str(), dataref.length());
-        m_content_length += dataref.length();
     }
 }
 
@@ -197,38 +177,11 @@ bool http_response_writer::sending_chunked_message() const {
     return m_sending_chunks;
 }
 
-void http_response_writer::set_logger(logger log_ptr) {
-    m_logger = log_ptr;
-}
-
-logger http_response_writer::get_logger() {
-    return m_logger;
-}
-
-void http_response_writer::flush_content_stream() {
-    if (!m_stream_is_empty) {
-        std::string string_to_add(m_content_stream().str());
-        if (!string_to_add.empty()) {
-            m_content_stream().str("");
-            m_content_length += string_to_add.size();
-            m_text_cache.push_back(string_to_add);
-            m_content_buffers.push_back(asio::buffer(m_text_cache.back()));
-        }
-        m_stream_is_empty = true;
-    }
-}
-
-http_response_writer::binary_cache_t::~binary_cache_t() {
-    for (iterator i = begin(); i != end(); ++i) {
-        delete[] i->first;
-    }
-}
-
-asio::const_buffer http_response_writer::binary_cache_t::add(const void *ptr, const size_t size) {
-    char *data_ptr = new char[size];
-    memcpy(data_ptr, ptr, size);
-    push_back(std::make_pair(data_ptr, size));
-    return asio::buffer(data_ptr, size);
+asio::const_buffer http_response_writer::add_to_cache(const void *ptr, const size_t size) {
+    payload_cache.emplace_back(new char[size]);
+    char* dest = payload_cache.back().get();
+    std::memcpy(dest, ptr, size);
+    return asio::buffer(dest, size);
 }
 
 http_response& http_response_writer::get_response() {
@@ -252,13 +205,14 @@ http_response_writer::write_handler_type http_response_writer::bind_to_write_han
 
 void http_response_writer::handle_write(const std::error_code& write_error, std::size_t bytes_written) {
     (void) bytes_written;
-    logger log_ptr(get_logger());
     if (!write_error) {
         // response sent OK
         if (sending_chunked_message()) {
-            STATICLIB_PION_LOG_DEBUG(log_ptr, "Sent HTTP response chunk of " << bytes_written << " bytes");
+            STATICLIB_PION_LOG_DEBUG(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_response_writer"),
+                    "Sent HTTP response chunk of " << bytes_written << " bytes");
         } else {
-            STATICLIB_PION_LOG_DEBUG(log_ptr, "Sent HTTP response of " << bytes_written << " bytes ("
+            STATICLIB_PION_LOG_DEBUG(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_response_writer"),
+                    "Sent HTTP response of " << bytes_written << " bytes ("
                     << (get_connection()->get_keep_alive() ? "keeping alive)" : "closing)"));
         }
     }

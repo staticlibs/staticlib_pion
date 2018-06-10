@@ -29,7 +29,6 @@
 #include <functional>
 #include <list>
 #include <memory>
-#include <sstream>
 #include <string>
 #include <vector>
 
@@ -49,45 +48,20 @@ namespace pion {
  * Sends HTTP data asynchronously
  */
 class http_response_writer : public std::enable_shared_from_this<http_response_writer> {
-    
+
 public:
-    
+
     /**
      * Function called after the HTTP message has been sent
      */
     using finished_handler_type = std::function<void(const std::error_code&)>;
 
-private:    
-    
+private:
+
     /**
      * Data type for a function that handles write operations
      */
     using write_handler_type = std::function<void(const std::error_code&, std::size_t)>;
-    
-    /**
-     * Used to cache binary data included within the payload content
-     */
-    class binary_cache_t : public std::vector<std::pair<const char *, size_t>> {
-        public:
-        /**
-         * Destructor
-         */
-        ~binary_cache_t();
-
-        /**
-         * Add data to cache
-         * 
-         * @param ptr data
-         * @param size data length in bytes
-         * @return asio buffer pointing to copy of passed data
-         */
-        asio::const_buffer add(const void *ptr, const size_t size);
-    };
-
-    /**
-     * Primary logging interface used by this class
-     */
-    logger m_logger;
 
     /**
      * The HTTP connection that we are writing the message to
@@ -102,32 +76,12 @@ private:
     /**
      * Caches binary data included within the payload content
      */
-    binary_cache_t m_binary_cache;
-
-    /**
-     * Caches text (non-binary) data included within the payload content
-     */
-    std::list<std::string> m_text_cache;
-
-    /**
-     * Caches strings moved into writer and included within the payload content
-     */
-    std::vector<std::string> m_moved_cache;
-
-    /**
-     * Incrementally creates strings of text data for the text_cache
-     */
-    std::unique_ptr<std::ostringstream> m_content_stream_ptr;
+    std::vector<std::unique_ptr<char[]>> payload_cache;
 
     /**
      * The length (in bytes) of the response content to be sent (Content-Length)
      */
     size_t m_content_length;
-
-    /**
-     * True if the content_stream is empty (avoids unnecessary string copies)
-     */
-    bool m_stream_is_empty;
 
     /**
      * True if the HTTP client supports chunked transfer encodings
@@ -158,7 +112,7 @@ private:
      * The initial HTTP response header line
      */
     std::string m_response_line;
-        
+
 public:
 
     /**
@@ -209,23 +163,11 @@ public:
     void clear();
 
     /**
-     * Write text (non-binary) payload content
+     * Write binary payload content
      *
-     * @param data the data to append to the payload content
+     * @param data to append to the payload content
      */
-    template <typename T> void write(const T& data) {
-        if (m_http_response->is_body_allowed()) {
-            m_content_stream() << data;
-            if (m_stream_is_empty) m_stream_is_empty = false;
-        }
-    }
-
-    /**
-     * Write using manipulator
-     * 
-     * @param iomanip manipulator
-     */
-    void write(std::ostream& (*iomanip)(std::ostream&));
+    void write(const std::string& data);
 
     /**
      * Write binary payload content
@@ -253,14 +195,6 @@ public:
      */
     void write_no_copy(void *data, size_t length);
 
-    /**
-     * Write binary payload content using r-value string
-     *
-     * @param data points to the binary data to append to the payload content
-     * @param length the length, in bytes, of the binary data
-     */
-    void write_move(std::string&& data);
-    
     /**
      * Sends all data buffered as a single HTTP message (without chunking).
      * Following a call to this function, it is not thread safe to use your
@@ -362,20 +296,6 @@ public:
      */
     bool sending_chunked_message() const;
     
-    /**
-     * Sets the logger to be used
-     * 
-     * @param log_ptr logger to be used
-     */
-    void set_logger(logger log_ptr);
-    
-    /**
-     * Returns the logger currently in use
-     * 
-     * @return logger currently in use
-     */
-    logger get_logger();
-
 private:
 
     /**
@@ -428,7 +348,6 @@ private:
         // make sure that we did not lose the TCP connection
         if (m_tcp_conn->is_open()) {
             // make sure that the content-length is up-to-date
-            flush_content_stream();
             // prepare the write buffers to be sent
             http_message::write_buffers_type write_buffers;
             prepare_write_buffers(write_buffers, send_final_chunk);
@@ -447,51 +366,21 @@ private:
      */
     void prepare_write_buffers(http_message::write_buffers_type &write_buffers, 
             const bool send_final_chunk);
-    
+
     /**
-     * Flushes any text data in the content stream after caching it in the text_cache_t
+     * Add data to cache
+     * 
+     * @param ptr data
+     * @param size data length in bytes
+     * @return asio buffer pointing to copy of passed data
      */
-    void flush_content_stream();
-    
-    inline std::ostringstream& m_content_stream() {
-        if (nullptr == m_content_stream_ptr) {
-             m_content_stream_ptr.reset(new std::ostringstream());
-        }
-        return *m_content_stream_ptr;
-    }
-    
+    asio::const_buffer add_to_cache(const void *ptr, const size_t size);
 };
 
 /**
  * Data type for a response_writer pointer
  */
 using http_response_writer_ptr = std::shared_ptr<http_response_writer>;
-
-/**
- * Override operator shift for convenience
- * 
- * @param writer pointer to writer
- * @param data data to write
- * @return pointer to passed writer
- */
-
-template <typename T>
-inline const http_response_writer_ptr& operator<<(const http_response_writer_ptr& writer, const T& data) {
-    writer->write(data);
-    return writer;
-}
-
-/**
- * Override operator shift for convenience
- * 
- * @param writer pointer to writer
- * @param iomanip manipulator to write
- * @return pointer to passed writer
- */
-inline const http_response_writer_ptr& operator<<(const http_response_writer_ptr& writer, std::ostream& (*iomanip)(std::ostream&)) {
-    writer->write(iomanip);
-    return writer;
-}
 
 } // namespace
 }

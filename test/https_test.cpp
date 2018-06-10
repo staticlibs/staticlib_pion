@@ -50,7 +50,7 @@ void test_https() {
     server.add_handler("GET", "/", 
             [] (sl::pion::http_request_ptr& http_request_ptr, sl::pion::tcp_connection_ptr& tcp_conn) {
                 auto writer = sl::pion::http_response_writer::create(tcp_conn, http_request_ptr);
-                writer << "Hello pion\n";
+                writer->write("Hello pion\n");
                 writer->send();
             });
     server.start();

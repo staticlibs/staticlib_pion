@@ -92,7 +92,7 @@ void handle_not_found_request(http_request_ptr& request, tcp_connection_ptr& con
     writer->write_no_copy(NOT_FOUND_MSG_START);
     auto res = request->get_resource();
     std::replace(res.begin(), res.end(), '"', '\'');
-    writer->write_move(std::move(res));
+    writer->write(res);
     writer->write_no_copy(NOT_FOUND_MSG_FINISH);
     writer->send();
 }
@@ -111,7 +111,7 @@ void handle_server_error(http_request_ptr& request, tcp_connection_ptr& tcp_conn
     writer->write_no_copy(SERVER_ERROR_MSG_START);
     auto err = std::string(error_msg.data(), error_msg.length());
     std::replace(err.begin(), err.end(), '"', '\'');
-    writer->write_move(std::move(err));
+    writer->write(err);
     writer->write_no_copy(SERVER_ERROR_MSG_FINISH);
     writer->send();
 }
