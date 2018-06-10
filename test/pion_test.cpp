@@ -37,24 +37,8 @@
 #include "staticlib/pion/http_server.hpp"
 #include "staticlib/pion/http_filter_chain.hpp"
 
-#ifdef STATICLIB_PION_USE_LOG4CPLUS
-#include <log4cplus/logger.h>
-#include <log4cplus/consoleappender.h>
-#endif // STATICLIB_PION_USE_LOG4CPLUS
-
-
 const uint16_t SECONDS_TO_RUN = 1;
 const uint16_t TCP_PORT = 8080;
-
-#ifdef STATICLIB_PION_USE_LOG4CPLUS
-const std::string CONSOLE_APPENDER_LAYOUT = "%d{%H:%M:%S} [%-5p %-15.15c] %m%n";
-
-log4cplus::SharedAppenderPtr create_console_appender() {
-    log4cplus::SharedAppenderPtr res{new log4cplus::ConsoleAppender()};
-    res->setLayout(std::auto_ptr<log4cplus::Layout>(new log4cplus::PatternLayout(CONSOLE_APPENDER_LAYOUT)));
-    return res;
-}
-#endif // STATICLIB_PION_USE_LOG4CPLUS
 
 void hello_service(sl::pion::http_request_ptr& req, sl::pion::tcp_connection_ptr& conn) {
     auto writer = sl::pion::http_response_writer::create(conn, req);
@@ -172,18 +156,7 @@ void logging_filter2(sl::pion::http_request_ptr& request, sl::pion::tcp_connecti
 }
 
 void test_pion() {
-#ifdef STATICLIB_PION_USE_LOG4CPLUS
-    #ifdef STATICLIB_PION_USE_LOG4CPLUS_STATIC
-    // need initialization with static log4cplus
-    log4cplus::initialize();
-    #endif // STATICLIB_PION_USE_LOG4CPLUS_STATIC
-    auto fa = create_console_appender();
-    log4cplus::Logger::getRoot().addAppender(fa);
-    log4cplus::Logger::getRoot().setLogLevel(log4cplus::ALL_LOG_LEVEL);
-    log4cplus::Logger::getInstance("pion").setLogLevel(log4cplus::DEBUG_LOG_LEVEL);
-#else // std out logging
     STATICLIB_PION_LOG_SETLEVEL_INFO(STATICLIB_PION_GET_LOGGER("staticlib.pion"))
-#endif // STATICLIB_PION_USE_LOG4CPLUS    
     // pion
     sl::pion::http_server server(2, TCP_PORT);
     server.add_handler("GET", "/hello", hello_service);
