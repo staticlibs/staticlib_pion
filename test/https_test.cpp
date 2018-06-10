@@ -48,10 +48,9 @@ void test_https() {
     };
     sl::pion::http_server server(2, TCP_PORT, asio::ip::address_v4::any(), certpath, pwdcb, capath, verifier);
     server.add_handler("GET", "/", 
-            [] (sl::pion::http_request_ptr& http_request_ptr, sl::pion::tcp_connection_ptr& tcp_conn) {
-                auto writer = sl::pion::http_response_writer::create(tcp_conn, http_request_ptr);
-                writer->write("Hello pion\n");
-                writer->send();
+            [] (sl::pion::http_request_ptr, sl::pion::response_writer_ptr resp) {
+                resp->write("Hello pion\n");
+                resp->send();
             });
     server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});

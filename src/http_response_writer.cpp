@@ -27,36 +27,22 @@
 
 #include <array>
 
-namespace staticlib { 
+namespace staticlib {
 namespace pion {
 
-http_response_writer::http_response_writer(tcp_connection_ptr& tcp_conn, const http_request& http_request,
-        finished_handler_type handler) :
+http_response_writer::http_response_writer(tcp_connection_ptr& tcp_conn, const http_request& http_request) :
 m_tcp_conn(tcp_conn),
 m_content_length(0),
 m_client_supports_chunks(true),
 m_sending_chunks(false),
 m_sent_headers(false),
-m_finished(handler),
+m_finished([tcp_conn](const std::error_code&) { tcp_conn->finish(); }),
 m_http_response(new http_response(http_request)) {
     // set whether or not the client supports chunks
     supports_chunked_messages(m_http_response->get_chunks_supported());
 }
 
 // writer member functions
-
-std::shared_ptr<http_response_writer> http_response_writer::create(tcp_connection_ptr& tcp_conn,
-        const http_request_ptr& http_request) {
-    finished_handler_type fh = [tcp_conn](const std::error_code&) {
-        tcp_conn->finish();
-    };
-    return create(tcp_conn, http_request, std::move(fh));
-}
-
-std::shared_ptr<http_response_writer> http_response_writer::create(tcp_connection_ptr& tcp_conn,
-        const http_request_ptr& http_request, finished_handler_type handler) {
-    return std::shared_ptr<http_response_writer>(new http_response_writer(tcp_conn, *http_request, handler));
-}
 
 void http_response_writer::prepare_write_buffers(http_message::write_buffers_type& write_buffers,
         const bool send_final_chunk) {
@@ -72,7 +58,7 @@ void http_response_writer::prepare_write_buffers(http_message::write_buffers_typ
     // combine I/O write buffers (headers and content) so that everything
     // can be sent together; otherwise, we would have to send headers
     // and content separately, which would not be as efficient
-    
+
     // don't send anything if there is no data in content buffers
     if (m_content_length > 0) {
         if (supports_chunked_messages() && sending_chunked_message()) {
@@ -80,13 +66,13 @@ void http_response_writer::prepare_write_buffers(http_message::write_buffers_typ
             // write chunk length in hex
             auto cast_buf = std::array<char, 35>();
             auto written = sprintf(cast_buf.data(), "%lx", static_cast<long>(m_content_length));
-            
+
             // add chunk length as a string at the back of the text cache
             // append length of chunk to write_buffers
             write_buffers.push_back(add_to_cache(cast_buf.data(), written));
             // append an extra CRLF for chunk formatting
             write_buffers.push_back(asio::buffer(http_message::STRING_CRLF));
-            
+
             // append response content buffers
             write_buffers.insert(write_buffers.end(), m_content_buffers.begin(),
                                  m_content_buffers.end());
@@ -98,7 +84,7 @@ void http_response_writer::prepare_write_buffers(http_message::write_buffers_typ
                                  m_content_buffers.end());
         }
     }
-    
+
     // prepare a zero-byte (final) chunk
     if (send_final_chunk && supports_chunked_messages() && sending_chunked_message()) {
         // add chunk length as a string at the back of the text cache
@@ -218,6 +204,6 @@ void http_response_writer::handle_write(const std::error_code& write_error, std:
     }
     finished_writing(write_error);
 }
-    
+
 } // namespace
 }

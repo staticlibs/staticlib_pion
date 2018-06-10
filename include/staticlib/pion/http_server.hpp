@@ -36,6 +36,7 @@
 
 #include "staticlib/pion/http_parser.hpp"
 #include "staticlib/pion/http_request.hpp"
+#include "staticlib/pion/http_response_writer.hpp"
 #include "staticlib/pion/tcp_connection.hpp"
 #include "staticlib/pion/tcp_server.hpp"
 
@@ -50,13 +51,12 @@ protected:
     /**
      * Type of function that is used to handle requests
      */
-    using request_handler_type = std::function<void(http_request_ptr&, tcp_connection_ptr&)>;
+    using request_handler_type = std::function<void(http_request_ptr, response_writer_ptr)>;
 
     /**
      * Handler for requests that result in "500 Server Error"
      */
-    using error_handler_type = std::function<void(http_request_ptr&, tcp_connection_ptr&,
-            const std::string&)> ;
+    using error_handler_type = std::function<void(response_writer_ptr, const std::string&)> ;
 
     /**
      * Type of function that is used to create payload handlers

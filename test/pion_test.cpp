@@ -39,16 +39,14 @@
 const uint16_t SECONDS_TO_RUN = 1;
 const uint16_t TCP_PORT = 8080;
 
-void hello_service(sl::pion::http_request_ptr& req, sl::pion::tcp_connection_ptr& conn) {
-    auto writer = sl::pion::http_response_writer::create(conn, req);
-    writer->write("Hello World!\n");
-    writer->send();
+void hello_service(sl::pion::http_request_ptr, sl::pion::response_writer_ptr resp) {
+    resp->write("Hello World!\n");
+    resp->send();
 }
 
-void hello_service_post(sl::pion::http_request_ptr& req, sl::pion::tcp_connection_ptr& conn) {
-    auto writer = sl::pion::http_response_writer::create(conn, req);
-    writer->write("Hello POST!\n");
-    writer->send();
+void hello_service_post(sl::pion::http_request_ptr, sl::pion::response_writer_ptr resp) {
+    resp->write("Hello POST!\n");
+    resp->send();
 }
 
 class file_writer {
@@ -87,13 +85,13 @@ public:
 };
 
 class file_sender : public std::enable_shared_from_this<file_sender> {
-    sl::pion::http_response_writer_ptr writer;
+    sl::pion::response_writer_ptr writer;
     std::ifstream stream;
     std::array<char, 8192> buf;
     std::mutex mutex;
 
 public:
-    file_sender(const std::string& filename, sl::pion::http_response_writer_ptr writer) : 
+    file_sender(const std::string& filename, sl::pion::response_writer_ptr writer) : 
     writer(writer),
     stream(filename, std::ios::in | std::ios::binary) {
         stream.exceptions(std::ifstream::badbit);
@@ -125,15 +123,14 @@ public:
     }
 };
 
-void file_upload_resource(sl::pion::http_request_ptr& req, sl::pion::tcp_connection_ptr& conn) {
+void file_upload_resource(sl::pion::http_request_ptr req, sl::pion::response_writer_ptr resp) {
     auto ph = req->get_payload_handler<file_writer>();
     if (ph) {
         ph->close();
     } else {
         std::cout << "No payload handler found in main handler" << std::endl;
     }
-    auto writer = sl::pion::http_response_writer::create(conn, req);
-    auto fs = std::make_shared<file_sender>("uploaded.dat", writer);
+    auto fs = std::make_shared<file_sender>("uploaded.dat", resp);
     fs->send();
 }
 

@@ -116,6 +116,14 @@ private:
 public:
 
     /**
+     * Constructor to be used with `std::make_shared`
+     * 
+     * @param tcp_conn TCP connection used to send the response
+     * @param http_request the request we are responding to
+     */
+    http_response_writer(tcp_connection_ptr& tcp_conn, const http_request& http_request);
+
+    /**
      * Deleted copy constructor
      */
     http_response_writer(const http_response_writer&) = delete;
@@ -124,31 +132,6 @@ public:
      * Deleted copy assignment operator
      */
     http_response_writer& operator=(const http_response_writer&) = delete;
-
-    /**
-     * Creates new response_writer objects
-     * 
-     * @param tcp_conn TCP connection used to send the response
-     * @param http_request the request we are responding to
-     * 
-     * @return std::shared_ptr<response_writer> shared pointer to
-     *         the new writer object that was created
-     */
-    static std::shared_ptr<http_response_writer> create(tcp_connection_ptr& tcp_conn,
-            const http_request_ptr& http_request);
-
-    /**
-     * Creates new response_writer objects
-     * 
-     * @param tcp_conn TCP connection used to send the response
-     * @param http_request the request we are responding to
-     * @param handler function called after the request has been sent
-     * 
-     * @return std::shared_ptr<response_writer> shared pointer to
-     *         the new writer object that was created
-     */
-    static std::shared_ptr<http_response_writer> create(tcp_connection_ptr& tcp_conn,
-            const http_request_ptr& http_request, finished_handler_type handler);
 
     /**
      * Returns a non-const reference to the response that will be sent
@@ -306,16 +289,6 @@ private:
     void finished_writing(const std::error_code& ec);
 
     /**
-     * Protected constructor restricts creation of objects (use create())
-     * 
-     * @param tcp_conn TCP connection used to send the response
-     * @param http_request the request we are responding to
-     * @param handler function called after the request has been sent
-     */
-    http_response_writer(tcp_connection_ptr& tcp_conn, const http_request& http_request,
-            finished_handler_type handler);
-
-    /**
      * Initializes a vector of write buffers with the HTTP message information
      *
      * @param write_buffers vector of write buffers to initialize
@@ -380,7 +353,7 @@ private:
 /**
  * Data type for a response_writer pointer
  */
-using http_response_writer_ptr = std::shared_ptr<http_response_writer>;
+using response_writer_ptr = std::shared_ptr<http_response_writer>;
 
 } // namespace
 }

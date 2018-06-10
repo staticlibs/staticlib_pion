@@ -66,38 +66,36 @@ T& choose_map_by_method(const std::string& method, T& get_map, T& post_map, T& p
     } 
 }
 
-void handle_bad_request(http_request_ptr& request, tcp_connection_ptr& conn) {
+void handle_bad_request(http_request_ptr, response_writer_ptr resp) {
     static const std::string BAD_REQUEST_MSG = R"({
     "code": 400,
     "message": "Bad Request",
     "description": "Your browser sent a request that this server could not understand."
 })";
-    http_response_writer_ptr writer{http_response_writer::create(conn, request)};
-    writer->get_response().set_status_code(http_message::RESPONSE_CODE_BAD_REQUEST);
-    writer->get_response().set_status_message(http_message::RESPONSE_MESSAGE_BAD_REQUEST);
-    writer->write_no_copy(BAD_REQUEST_MSG);
-    writer->send();
+    resp->get_response().set_status_code(http_message::RESPONSE_CODE_BAD_REQUEST);
+    resp->get_response().set_status_message(http_message::RESPONSE_MESSAGE_BAD_REQUEST);
+    resp->write_no_copy(BAD_REQUEST_MSG);
+    resp->send();
 }
 
-void handle_not_found_request(http_request_ptr& request, tcp_connection_ptr& conn) {
+void handle_not_found_request(http_request_ptr request, response_writer_ptr resp) {
     static const std::string NOT_FOUND_MSG_START = R"({
     "code": 404,
     "message": "Not Found",
     "description": "The requested URL: [)";
     static const std::string NOT_FOUND_MSG_FINISH = R"(] was not found on this server."
 })";
-    http_response_writer_ptr writer{http_response_writer::create(conn, request)};
-    writer->get_response().set_status_code(http_message::RESPONSE_CODE_NOT_FOUND);
-    writer->get_response().set_status_message(http_message::RESPONSE_MESSAGE_NOT_FOUND);
-    writer->write_no_copy(NOT_FOUND_MSG_START);
+    resp->get_response().set_status_code(http_message::RESPONSE_CODE_NOT_FOUND);
+    resp->get_response().set_status_message(http_message::RESPONSE_MESSAGE_NOT_FOUND);
+    resp->write_no_copy(NOT_FOUND_MSG_START);
     auto res = request->get_resource();
     std::replace(res.begin(), res.end(), '"', '\'');
-    writer->write(res);
-    writer->write_no_copy(NOT_FOUND_MSG_FINISH);
-    writer->send();
+    resp->write(res);
+    resp->write_no_copy(NOT_FOUND_MSG_FINISH);
+    resp->send();
 }
 
-void handle_server_error(http_request_ptr& request, tcp_connection_ptr& tcp_conn,
+void handle_server_error(response_writer_ptr resp,
         const std::string& error_msg) {
     static const std::string SERVER_ERROR_MSG_START = R"({
     "code": 500,
@@ -105,27 +103,24 @@ void handle_server_error(http_request_ptr& request, tcp_connection_ptr& tcp_conn
     "description": ")";
     static const std::string SERVER_ERROR_MSG_FINISH = R"("
 })";
-    http_response_writer_ptr writer(http_response_writer::create(tcp_conn, request));
-    writer->get_response().set_status_code(http_message::RESPONSE_CODE_SERVER_ERROR);
-    writer->get_response().set_status_message(http_message::RESPONSE_MESSAGE_SERVER_ERROR);
-    writer->write_no_copy(SERVER_ERROR_MSG_START);
+    resp->get_response().set_status_code(http_message::RESPONSE_CODE_SERVER_ERROR);
+    resp->get_response().set_status_message(http_message::RESPONSE_MESSAGE_SERVER_ERROR);
+    resp->write_no_copy(SERVER_ERROR_MSG_START);
     auto err = std::string(error_msg.data(), error_msg.length());
     std::replace(err.begin(), err.end(), '"', '\'');
-    writer->write(err);
-    writer->write_no_copy(SERVER_ERROR_MSG_FINISH);
-    writer->send();
+    resp->write(err);
+    resp->write_no_copy(SERVER_ERROR_MSG_FINISH);
+    resp->send();
 }
 
-void handle_root_options(http_request_ptr& request, tcp_connection_ptr& conn) {
-    auto writer = http_response_writer::create(conn, request);
-    writer->get_response().change_header("Allow", "HEAD, GET, POST, PUT, DELETE, OPTIONS");
-    writer->send();
+void handle_root_options(http_request_ptr, response_writer_ptr resp) {
+    resp->get_response().change_header("Allow", "HEAD, GET, POST, PUT, DELETE, OPTIONS");
+    resp->send();
 }
 
-void handle_100_continue(http_request_ptr& request, tcp_connection_ptr& conn) {
-    auto writer = http_response_writer::create(conn, request);
-    writer->write_no_copy(http_message::RESPONSE_FULLMESSAGE_100_CONTINUE);
-    writer->send();
+void handle_100_continue(http_request_ptr, response_writer_ptr resp) {
+    resp->write_no_copy(http_message::RESPONSE_FULLMESSAGE_100_CONTINUE);
+    resp->send();
 }
 
 template<typename T>
@@ -232,7 +227,8 @@ void http_server::handle_request_after_headers_parsed(http_request_ptr& request,
     if (ec || !rc) return;
     // http://stackoverflow.com/a/17390776/314015
     if ("100-continue" == request->get_header("Expect")) {
-        handle_100_continue(request, conn);
+        auto writer = std::make_shared<http_response_writer>(conn, *request);
+        handle_100_continue(std::move(request), std::move(writer));
         rc = true;
         return;
     }
@@ -265,7 +261,8 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
         if (conn->is_open() && (ec.category() == http_parser::get_error_category())) {
             // HTTP parser error
             STATICLIB_PION_LOG_INFO(log, "Invalid HTTP request (" << ec.message() << ")");
-            bad_request_handler(request, conn);
+            auto writer = std::make_shared<http_response_writer>(conn, *request);
+            bad_request_handler(std::move(request), std::move(writer));
         } else {
             static const std::error_code
             ERRCOND_CANCELED(asio::error::operation_aborted, asio::error::system_category),
@@ -282,31 +279,32 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
     }
     // handle request
     STATICLIB_PION_LOG_DEBUG(log, "Received a valid HTTP request");
+    auto writer = std::make_shared<http_response_writer>(conn, *request);
     std::string path{strip_trailing_slash(request->get_resource())};
     if (http_message::REQUEST_METHOD_OPTIONS == request->get_method() && ("*" == path || "/*" == path)) {
-        handle_root_options(request, conn);
+        handle_root_options(std::move(request), std::move(writer));
         return;
-    }    
+    }
     auto& method = request->get_method();
     handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, 
-            delete_handlers, options_handlers);    
+            delete_handlers, options_handlers);
     auto handlers_it = find_submatch(map, path);
     if (map.end() != handlers_it) {
         request_handler_type& handler = handlers_it->second;
         try {
             STATICLIB_PION_LOG_DEBUG(log, "Found request handler for HTTP resource: " << path);
-            handler(request, conn);
+            handler(std::move(request), std::move(writer));
         } catch (std::bad_alloc&) {
             // propagate memory errors (FATAL)
             throw;
         } catch (std::exception& e) {
             // recover gracefully from other exceptions thrown by request handlers
             STATICLIB_PION_LOG_ERROR(log, "HTTP request handler: " << e.what());
-            server_error_handler(request, conn, e.what());
+            server_error_handler(std::move(writer), e.what());
         }
     } else {
         STATICLIB_PION_LOG_INFO(log, "No HTTP request handlers found for resource: " << path);
-        not_found_handler(request, conn);
+        not_found_handler(std::move(request), std::move(writer));
     }    
 }
 
