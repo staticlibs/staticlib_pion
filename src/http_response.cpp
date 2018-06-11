@@ -128,10 +128,6 @@ void http_response::delete_cookie(const std::string& name, const std::string& pa
     add_header(HEADER_SET_COOKIE, set_cookie_header);
 }
 
-void http_response::set_last_modified(const unsigned long t) {
-    change_header(HEADER_LAST_MODIFIED, get_date_string(t));
-}
-
 void http_response::update_first_line() const {
     // start out with the HTTP version
     m_first_line = get_version_string();

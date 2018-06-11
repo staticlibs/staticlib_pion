@@ -266,10 +266,7 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
             auto writer = std::make_shared<http_response_writer>(conn, *request);
             bad_request_handler(std::move(request), std::move(writer));
         } else {
-            static const std::error_code
-            ERRCOND_CANCELED(asio::error::operation_aborted, asio::error::system_category),
-                    ERRCOND_EOF(asio::error::eof, asio::error::misc_category);
-            if (ec == ERRCOND_CANCELED || ec == ERRCOND_EOF) {
+            if (asio::error::operation_aborted == ec.value() || asio::error::eof == ec.value()) {
                 // don't spam the log with common (non-)errors that happen during normal operation
                 STATICLIB_PION_LOG_DEBUG(log, "Lost connection on port " << tcp_endpoint.port() << " (" << ec.message() << ")");
             } else {

@@ -101,7 +101,7 @@ inline bool is_priority_enabled(const std::string& name, const std::string& leve
 #include <ctime>
 
 #define STATICLIB_PION_LOG_TO_OSTREAM(LOG, LEVEL, MSG) \
-{ std::cout << time(NULL) << ' ' << LEVEL << ' ' << LOG << ' ' << MSG << std::endl; }
+{ std::cout << time(nullptr) << ' ' << LEVEL << ' ' << LOG << ' ' << MSG << std::endl; }
 
 #define STATICLIB_PION_LOG_DEBUG(LOG, MSG) STATICLIB_PION_LOG_TO_OSTREAM(LOG, "DEBUG", MSG)
 #define STATICLIB_PION_LOG_INFO(LOG, MSG) STATICLIB_PION_LOG_TO_OSTREAM(LOG, "INFO", MSG)

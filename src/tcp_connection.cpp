@@ -28,7 +28,7 @@ m_ssl_socket(io_service, ssl_context),
 m_ssl_flag(ssl_flag),
 m_lifecycle(LIFECYCLE_CLOSE),
 m_finished_handler(finished_handler) {
-    save_read_pos(NULL, NULL);
+    save_read_pos(nullptr, nullptr);
 }
 
 tcp_connection::~tcp_connection() {

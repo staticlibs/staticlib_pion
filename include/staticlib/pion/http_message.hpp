@@ -30,7 +30,6 @@
 #include <cstdint>
 #include <iosfwd>
 #include <memory>
-#include <regex>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -261,11 +260,6 @@ protected:
     };
     
 private:
-    /**
-     * Regex used to check for the "chunked" transfer encoding header
-     */
-    static const std::regex REGEX_ICASE_CHUNKED;
-
     /**
      * True if the HTTP message is valid
      */
@@ -700,15 +694,7 @@ public:
      */
     void concatenate_chunks();
 
-protected:    
-
-    /**
-     * Converts time_t format into an HTTP-date string
-     * 
-     * @param t time
-     * @return HTTP-date string
-     */
-    std::string get_date_string(const time_t t);
+protected:
 
     /**
      * Builds an HTTP query string from a collection of query parameters

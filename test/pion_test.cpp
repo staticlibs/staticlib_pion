@@ -88,7 +88,6 @@ class file_sender : public std::enable_shared_from_this<file_sender> {
     sl::pion::response_writer_ptr writer;
     std::ifstream stream;
     std::array<char, 8192> buf;
-    std::mutex mutex;
 
 public:
     file_sender(const std::string& filename, sl::pion::response_writer_ptr writer) : 
@@ -103,7 +102,6 @@ public:
     }
 
     void handle_write(const std::error_code& ec, std::size_t /* bytes_written */) {
-        std::lock_guard<std::mutex> lock{mutex};
         if (!ec) {
             stream.read(buf.data(), buf.size());
             writer->clear();

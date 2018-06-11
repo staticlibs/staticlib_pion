@@ -27,7 +27,6 @@
 
 #include <cstdlib>
 #include <cstring>
-#include <regex>
 #include <unordered_map>
 
 #include "staticlib/utils.hpp"
@@ -57,15 +56,15 @@ const uint32_t   http_parser::QUERY_VALUE_MAX = 1024 * 1024;  // 1 MB
 const uint32_t   http_parser::COOKIE_NAME_MAX = 1024; // 1 KB
 const uint32_t   http_parser::COOKIE_VALUE_MAX = 1024 * 1024; // 1 MB
 const std::size_t       http_parser::DEFAULT_CONTENT_MAX = 1024 * 1024;  // 1 MB
-http_parser::error_category_t * http_parser::m_error_category_ptr = NULL;
+http_parser::error_category_t * http_parser::m_error_category_ptr = nullptr;
 std::once_flag            http_parser::m_instance_flag{};
 
 
 // parser member functions
 
 http_parser::http_parser(std::size_t max_content_length) :
-m_read_ptr(NULL),
-m_read_end_ptr(NULL),
+m_read_ptr(nullptr),
+m_read_end_ptr(nullptr),
 m_message_parse_state(PARSE_START),
 m_headers_parse_state(PARSE_METHOD_START),
 m_chunked_content_parse_state(PARSE_CHUNK_SIZE_START),
@@ -123,7 +122,7 @@ void http_parser::reset() {
 }
 
 bool http_parser::eof() const {
-    return m_read_ptr == NULL || m_read_ptr >= m_read_end_ptr;
+    return m_read_ptr == nullptr || m_read_ptr >= m_read_end_ptr;
 }
 
 std::size_t http_parser::bytes_available() const {
@@ -876,7 +875,7 @@ bool http_parser::parse_url_encoded(std::unordered_multimap<std::string, std::st
                                const char *ptr, const size_t len)
 {
     // sanity check
-    if (ptr == NULL || len == 0)
+    if (ptr == nullptr || len == 0)
         return true;
 
     // used to track whether we are parsing the name or value
@@ -958,7 +957,7 @@ bool http_parser::parse_multipart_form_data(std::unordered_multimap<std::string,
                                        const char *ptr, const size_t len)
 {
     // sanity check
-    if (ptr == NULL || len == 0)
+    if (ptr == nullptr || len == 0)
         return true;
     
     // parse field boundary
@@ -986,7 +985,7 @@ bool http_parser::parse_multipart_form_data(std::unordered_multimap<std::string,
 
     ptr = std::search(ptr, end_ptr, boundary.begin(), boundary.end());
 
-    while (ptr != NULL && ptr < end_ptr) {
+    while (ptr != nullptr && ptr < end_ptr) {
         switch (parse_state) {
             case MP_PARSE_START:
                 // start parsing a new field
@@ -1561,44 +1560,6 @@ void http_parser::create_error_category(void)
 {
     static error_category_t UNIQUE_ERROR_CATEGORY;
     m_error_category_ptr = &UNIQUE_ERROR_CATEGORY;
-}
-
-bool http_parser::parse_forwarded_for(const std::string& header, std::string& public_ip)
-{
-    // static regex's used to check for ipv4 address
-    static const std::regex IPV4_ADDR_RX("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}");
-
-    /// static regex used to check for private/local networks:
-    /// 10.*
-    /// 127.*
-    /// 192.168.*
-    /// 172.16-31.*
-    static const std::regex PRIVATE_NET_RX("(10\\.[0-9]{1,3}|127\\.[0-9]{1,3}|192\\.168|172\\.1[6-9]|172\\.2[0-9]|172\\.3[0-1])\\.[0-9]{1,3}\\.[0-9]{1,3}");
-
-    // sanity check
-    if (header.empty())
-        return false;
-
-    // local variables re-used by while loop
-    std::match_results<std::string::const_iterator> m;
-    std::string::const_iterator start_it = header.begin();
-
-    // search for next ip address within the header
-    while (std::regex_search(start_it, header.end(), m, IPV4_ADDR_RX)) {
-        // get ip that matched
-        std::string ip_str(m[0].first, m[0].second);
-        // check if public network ip address
-        if (! std::regex_match(ip_str, PRIVATE_NET_RX) ) {
-            // match found!
-            public_ip = ip_str;
-            return true;
-        }
-        // update search starting position
-        start_it = m[0].second;
-    }
-
-    // no matches found
-    return false;
 }
 
 http_parser::error_category_t& http_parser::get_error_category() {

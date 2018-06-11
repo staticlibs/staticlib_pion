@@ -124,7 +124,7 @@ void http_request::set_content(const std::string &value) {
 }
 
 void http_request::set_content(const char* value, size_t size) {
-    if (NULL == value || 0 == size) return;
+    if (nullptr == value || 0 == size) return;
     set_content_length(size);
     char *ptr = create_content_buffer();
     memcpy(ptr, value, size);
@@ -138,7 +138,7 @@ void http_request::set_payload_handler(http_parser::payload_handler_type ph) {
     if (m_request_reader) {
         // request will always outlive reader
         m_request_reader->set_payload_handler(m_payload_handler);
-        m_request_reader = NULL;
+        m_request_reader = nullptr;
     }
 }
 

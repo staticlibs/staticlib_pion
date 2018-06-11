@@ -143,8 +143,6 @@ const unsigned int http_message::RESPONSE_CODE_CONTINUE = 100;
 // see https://groups.google.com/d/msg/mongoose-users/92fD1Elk5m4/Op6fPLZtlrEJ
 const std::string http_message::RESPONSE_FULLMESSAGE_100_CONTINUE("HTTP/1.1 100 Continue\r\n\r\n");
 
-const std::regex  http_message::REGEX_ICASE_CHUNKED(".*chunked.*", std::regex::icase);
-
 http_message::http_message() : 
 m_is_valid(false), 
 m_is_chunked(false),
@@ -385,7 +383,13 @@ void http_message::update_transfer_encoding_using_header() {
             ::const_iterator i = m_headers.find(HEADER_TRANSFER_ENCODING);
     if (i != m_headers.end()) {
         // From RFC 2616, sec 3.6: All transfer-coding values are case-insensitive.
-        m_is_chunked = std::regex_match(i->second, REGEX_ICASE_CHUNKED);
+        // comparing only lower and camel variants for simplicity
+        if (std::string::npos != i->second.find("chunked") ||
+                std::string::npos != i->second.find("Chunked")) {
+            m_is_chunked = true;
+        } else {
+            m_is_chunked = false;
+        }
         // ignoring other possible values for now
     }
 }
@@ -427,21 +431,6 @@ bool http_message::check_keep_alive() const {
     return (get_header(HEADER_CONNECTION) != "close"
             && (get_version_major() > 1
             || (get_version_major() >= 1 && get_version_minor() >= 1)));
-}
-
-std::string http_message::get_date_string(const time_t t) {
-    // use mutex since time functions are normally not thread-safe
-    static std::mutex time_mutex;
-    static const char *TIME_FORMAT = "%a, %d %b %Y %H:%M:%S GMT";
-    static const unsigned int TIME_BUF_SIZE = 100;
-    char time_buf[TIME_BUF_SIZE + 1];
-
-    std::unique_lock<std::mutex> time_lock(time_mutex);
-    if (strftime(time_buf, TIME_BUF_SIZE, TIME_FORMAT, gmtime(&t)) == 0)
-        time_buf[0] = '\0'; // failed; resulting buffer is indeterminate
-    time_lock.unlock();
-
-    return std::string(time_buf);
 }
 
 std::string http_message::make_query_string(const std::unordered_multimap<std::string, std::string,

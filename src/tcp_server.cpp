@@ -126,7 +126,7 @@ void tcp_server::stop(bool wait_until_finished) {
         }
 
         // wait for all pending connections to complete
-        while (! conn_pool.empty()) {
+        while (!conn_pool.empty()) {
             // try to prun connections that didn't finish cleanly
             if (prune_connections() == 0)
                 break;  // if no more left, then we can stop waiting
@@ -194,7 +194,9 @@ void tcp_server::handle_accept(tcp_connection_ptr& tcp_conn, const std::error_co
 
         // schedule the acceptance of another new connection
         // (this returns immediately since it schedules it as an event)
-        if (listening) listen();
+        if (listening) {
+            listen();
+        }
         
         // handle the new connection
         if (tcp_conn->get_ssl_flag()) {

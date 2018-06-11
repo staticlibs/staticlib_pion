@@ -95,7 +95,7 @@ protected:
     /**
      * Mutex to make class thread-safe
      */
-    mutable std::mutex mutex;    
+    mutable std::mutex mutex;
     
 public:
 

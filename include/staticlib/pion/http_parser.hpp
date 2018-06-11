@@ -166,7 +166,7 @@ protected:
     /**
      * Points to the end of the read_buffer (last byte + 1)
      */
-    const char * m_read_end_ptr;    
+    const char * m_read_end_ptr;
 
 private:
     /**
@@ -348,9 +348,9 @@ private:
     /**
      * Used to ensure thread safety of the parser error_category_t
      */
-    static std::once_flag m_instance_flag;    
-    
-public:    
+    static std::once_flag m_instance_flag;
+
+public:
 
     /**
      * Creates new parser objects
@@ -648,17 +648,6 @@ public:
      */
     sl::support::tribool finish_header_parsing(http_message& http_msg, std::error_code& ec);
 
-    /**
-     * Parses an X-Forwarded-For HTTP header, and extracts from it an IP
-     * address that best matches the client's public IP address (if any are found)
-     *
-     * @param header the X-Forwarded-For HTTP header to parse
-     * @param public_ip the extract IP address, if found
-     *
-     * @return bool true if a public IP address was found and extracted
-     */
-    static bool parse_forwarded_for(const std::string& header, std::string& public_ip);
-    
     /**
      * Returns an instance of parser::error_category_t
      * 
