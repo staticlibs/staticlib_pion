@@ -107,7 +107,7 @@ public:
         if (!ec) {
             stream.read(buf.data(), buf.size());
             writer->clear();
-            writer->write_no_copy(buf.data(), static_cast<size_t>(stream.gcount()));
+            writer->write_nocopy({buf.data(), stream.gcount()});
             if (stream) {
                 auto self = shared_from_this();
                 writer->send_chunk([self](const std::error_code& ec, size_t bt) {

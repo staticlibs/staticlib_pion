@@ -76,7 +76,7 @@ void handle_bad_request(http_request_ptr, response_writer_ptr resp) {
 })";
     resp->get_response().set_status_code(http_message::RESPONSE_CODE_BAD_REQUEST);
     resp->get_response().set_status_message(http_message::RESPONSE_MESSAGE_BAD_REQUEST);
-    resp->write_no_copy(BAD_REQUEST_MSG);
+    resp->write_nocopy(BAD_REQUEST_MSG);
     resp->send();
 }
 
@@ -89,11 +89,11 @@ void handle_not_found_request(http_request_ptr request, response_writer_ptr resp
 })";
     resp->get_response().set_status_code(http_message::RESPONSE_CODE_NOT_FOUND);
     resp->get_response().set_status_message(http_message::RESPONSE_MESSAGE_NOT_FOUND);
-    resp->write_no_copy(NOT_FOUND_MSG_START);
+    resp->write_nocopy(NOT_FOUND_MSG_START);
     auto res = request->get_resource();
     std::replace(res.begin(), res.end(), '"', '\'');
     resp->write(res);
-    resp->write_no_copy(NOT_FOUND_MSG_FINISH);
+    resp->write_nocopy(NOT_FOUND_MSG_FINISH);
     resp->send();
 }
 
@@ -107,11 +107,11 @@ void handle_server_error(response_writer_ptr resp,
 })";
     resp->get_response().set_status_code(http_message::RESPONSE_CODE_SERVER_ERROR);
     resp->get_response().set_status_message(http_message::RESPONSE_MESSAGE_SERVER_ERROR);
-    resp->write_no_copy(SERVER_ERROR_MSG_START);
+    resp->write_nocopy(SERVER_ERROR_MSG_START);
     auto err = std::string(error_msg.data(), error_msg.length());
     std::replace(err.begin(), err.end(), '"', '\'');
     resp->write(err);
-    resp->write_no_copy(SERVER_ERROR_MSG_FINISH);
+    resp->write_nocopy(SERVER_ERROR_MSG_FINISH);
     resp->send();
 }
 
@@ -121,7 +121,7 @@ void handle_root_options(http_request_ptr, response_writer_ptr resp) {
 }
 
 void handle_100_continue(http_request_ptr, response_writer_ptr resp) {
-    resp->write_no_copy(http_message::RESPONSE_FULLMESSAGE_100_CONTINUE);
+    resp->write_nocopy(http_message::RESPONSE_FULLMESSAGE_100_CONTINUE);
     resp->send();
 }
 

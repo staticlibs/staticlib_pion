@@ -35,6 +35,7 @@
 #include "asio.hpp"
 
 #include "staticlib/config.hpp"
+#include "staticlib/io/span.hpp"
 
 #include "staticlib/pion/logger.hpp"
 #include "staticlib/pion/http_message.hpp"
@@ -146,37 +147,20 @@ public:
     void clear();
 
     /**
-     * Write binary payload content
+     * Write payload content
      *
      * @param data to append to the payload content
      */
-    void write(const std::string& data);
+    void write(sl::io::span<const char> data);
 
     /**
-     * Write binary payload content
-     *
-     * @param data points to the binary data to append to the payload content
-     * @param length the length, in bytes, of the binary data
-     */
-    void write(const void *data, size_t length);
-
-    /**
-     * Write text (non-binary) payload content; the data written is not
+     * Write payload content; the data written is not
      * copied, and therefore must persist until the message has finished
      * sending
      *
      * @param data the data to append to the payload content
      */
-    void write_no_copy(const std::string& data);
-
-    /**
-     * Write binary payload content;  the data written is not copied, and
-     * therefore must persist until the message has finished sending
-     *
-     * @param data points to the binary data to append to the payload content
-     * @param length the length, in bytes, of the binary data
-     */
-    void write_no_copy(void *data, size_t length);
+    void write_nocopy(sl::io::span<const char> data);
 
     /**
      * Sends all data buffered as a single HTTP message (without chunking).
@@ -343,11 +327,10 @@ private:
     /**
      * Add data to cache
      * 
-     * @param ptr data
-     * @param size data length in bytes
+     * @param data data span
      * @return asio buffer pointing to copy of passed data
      */
-    asio::const_buffer add_to_cache(const void *ptr, const size_t size);
+    asio::const_buffer add_to_cache(sl::io::span<const char> data);
 };
 
 /**

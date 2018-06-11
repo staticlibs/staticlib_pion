@@ -75,7 +75,7 @@ void http_response_writer::prepare_write_buffers(http_message::write_buffers_typ
 
             // add chunk length as a string at the back of the text cache
             // append length of chunk to write_buffers
-            write_buffers.push_back(add_to_cache(cast_buf.data(), written));
+            write_buffers.push_back(add_to_cache({cast_buf.data(), written}));
             // append an extra CRLF for chunk formatting
             write_buffers.push_back(asio::buffer(http_message::STRING_CRLF));
 
@@ -96,7 +96,7 @@ void http_response_writer::prepare_write_buffers(http_message::write_buffers_typ
         // add chunk length as a string at the back of the text cache
         char zero = '0';
         // append length of chunk to write_buffers
-        write_buffers.push_back(add_to_cache(std::addressof(zero), 1));
+        write_buffers.push_back(add_to_cache({std::addressof(zero), 1}));
         // append an extra CRLF for chunk formatting
         write_buffers.push_back(asio::buffer(http_message::STRING_CRLF));
         write_buffers.push_back(asio::buffer(http_message::STRING_CRLF));
@@ -115,28 +115,17 @@ void http_response_writer::clear() {
     m_content_length = 0;
 }
 
-void http_response_writer::write(const std::string& data) {
-    write(data.data(), data.length());
-}
-
-void http_response_writer::write(const void *data, size_t length) {
-    if (m_http_response->is_body_allowed() && length != 0) {
-        m_content_buffers.push_back(add_to_cache(data, length));
-        m_content_length += length;
-    }
-}
-
-void http_response_writer::write_no_copy(const std::string& data) {
-    if (m_http_response->is_body_allowed() && !data.empty()) {
-        m_content_buffers.push_back(asio::buffer(data));
+void http_response_writer::write(sl::io::span<const char> data) {
+    if (m_http_response->is_body_allowed() && data.size() > 0) {
+        m_content_buffers.push_back(add_to_cache(data));
         m_content_length += data.size();
     }
 }
 
-void http_response_writer::write_no_copy(void *data, size_t length) {
-    if (m_http_response->is_body_allowed() && length > 0) {
-        m_content_buffers.push_back(asio::buffer(data, length));
-        m_content_length += length;
+void http_response_writer::write_nocopy(sl::io::span<const char> data) {
+    if (m_http_response->is_body_allowed() && data.size() > 0) {
+        m_content_buffers.push_back(asio::buffer(data.data(), data.size()));
+        m_content_length += data.size();
     }
 }
 
@@ -169,11 +158,11 @@ bool http_response_writer::sending_chunked_message() const {
     return m_sending_chunks;
 }
 
-asio::const_buffer http_response_writer::add_to_cache(const void *ptr, const size_t size) {
-    payload_cache.emplace_back(new char[size]);
+asio::const_buffer http_response_writer::add_to_cache(sl::io::span<const char> data) {
+    payload_cache.emplace_back(new char[data.size()]);
     char* dest = payload_cache.back().get();
-    std::memcpy(dest, ptr, size);
-    return asio::buffer(dest, size);
+    std::memcpy(dest, data.data(), data.size());
+    return asio::buffer(dest, data.size());
 }
 
 http_response& http_response_writer::get_response() {

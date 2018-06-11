@@ -17,7 +17,7 @@ cmake_minimum_required ( VERSION 2.8.12 )
 # toolchain setup
 set ( STATICLIB_TOOLCHAIN linux_amd64_gcc CACHE STRING "toolchain triplet" )
 if ( NOT DEFINED STATICLIB_CMAKE )
-    set ( STATICLIB_CMAKE ${CMAKE_CURRENT_LIST_DIR}/../../cmake CACHE INTERNAL "" )    
+    set ( STATICLIB_CMAKE ${CMAKE_CURRENT_LIST_DIR}/../../cmake CACHE INTERNAL "" )
 endif ( )
 set ( CMAKE_TOOLCHAIN_FILE ${STATICLIB_CMAKE}/toolchains/${STATICLIB_TOOLCHAIN}.cmake CACHE INTERNAL "" )
 
@@ -27,7 +27,7 @@ include ( ${STATICLIB_CMAKE}/staticlibs_common.cmake )
 
 # dependencies
 if ( NOT DEFINED STATICLIB_DEPS )
-    set ( STATICLIB_DEPS ${CMAKE_CURRENT_LIST_DIR}/../../ CACHE INTERNAL "" )    
+    set ( STATICLIB_DEPS ${CMAKE_CURRENT_LIST_DIR}/../../ CACHE INTERNAL "" )
 endif ( )
 # todo: removeme
 staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_asio )
@@ -39,6 +39,7 @@ endif ( )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_config )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_support )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_concurrent )
+staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_io )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_utils )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_pion )
 set ( ${PROJECT_NAME}_DEPS staticlib_pion )
