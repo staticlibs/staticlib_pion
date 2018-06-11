@@ -31,10 +31,15 @@
 namespace staticlib { 
 namespace pion {
 
+namespace { // anonymous
+
+const std::string log = "staticlib.pion.scheduler";
+
+} // namespace
+
 // members of scheduler
-    
+
 scheduler::scheduler(uint32_t number_of_threads) :
-log(STATICLIB_PION_GET_LOGGER("staticlib.pion.scheduler")),
 num_threads(number_of_threads),
 active_users(0),
 running(false),

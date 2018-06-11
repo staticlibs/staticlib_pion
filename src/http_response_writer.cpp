@@ -30,6 +30,12 @@
 namespace staticlib {
 namespace pion {
 
+namespace { // anonymous
+
+const std::string log = "staticlib.pion.http_response_writer";
+
+} // namespace
+
 http_response_writer::http_response_writer(tcp_connection_ptr& tcp_conn, const http_request& http_request) :
 m_tcp_conn(tcp_conn),
 m_content_length(0),
@@ -194,10 +200,9 @@ void http_response_writer::handle_write(const std::error_code& write_error, std:
     if (!write_error) {
         // response sent OK
         if (sending_chunked_message()) {
-            STATICLIB_PION_LOG_DEBUG(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_response_writer"),
-                    "Sent HTTP response chunk of " << bytes_written << " bytes");
+            STATICLIB_PION_LOG_DEBUG(log, "Sent HTTP response chunk of " << bytes_written << " bytes");
         } else {
-            STATICLIB_PION_LOG_DEBUG(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_response_writer"),
+            STATICLIB_PION_LOG_DEBUG(log,
                     "Sent HTTP response of " << bytes_written << " bytes ("
                     << (get_connection()->get_keep_alive() ? "keeping alive)" : "closing)"));
         }

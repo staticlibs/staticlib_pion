@@ -38,6 +38,12 @@
 namespace staticlib { 
 namespace pion {
 
+namespace { // anonymous
+
+const std::string log = "staticlib.pion.http_parser";
+
+} // namespace
+
 // static members of parser
 
 const uint32_t   http_parser::STATUS_MESSAGE_MAX = 1024;  // 1 KB
@@ -58,7 +64,6 @@ std::once_flag            http_parser::m_instance_flag{};
 // parser member functions
 
 http_parser::http_parser(std::size_t max_content_length) :
-m_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_parser")),
 m_read_ptr(NULL),
 m_read_end_ptr(NULL),
 m_message_parse_state(PARSE_START),
@@ -169,15 +174,6 @@ void http_parser::set_save_raw_headers(bool b) {
     m_save_raw_headers = b;
 }
 
-void http_parser::set_logger(logger log_ptr) {
-    m_logger = log_ptr;
-}
-
-logger http_parser::get_logger(void) {
-    return m_logger;
-}
-
-
 sl::support::tribool http_parser::parse(http_message& http_msg, std::error_code& ec) {
     assert(! eof() );
 
@@ -216,7 +212,7 @@ sl::support::tribool http_parser::parse(http_message& http_msg, std::error_code&
                     total_bytes_parsed += m_bytes_last_read;
                 } catch(const std::exception& e) {
                     (void) e;
-                    STATICLIB_PION_LOG_WARN(m_logger, "Chunks parsing failed: " << e.what());
+                    STATICLIB_PION_LOG_WARN(log, "Chunks parsing failed: " << e.what());
                     rc = false;
                 }
                 // check if we have finished parsing all chunks
@@ -236,7 +232,7 @@ sl::support::tribool http_parser::parse(http_message& http_msg, std::error_code&
                     total_bytes_parsed += m_bytes_last_read;
                 } catch (const std::exception& e) {
                     (void) e;
-                    STATICLIB_PION_LOG_WARN(m_logger, "Content parsing failed: " << e.what());
+                    STATICLIB_PION_LOG_WARN(log, "Content parsing failed: " << e.what());
                     rc = false;
                 }
                 break;
@@ -248,7 +244,7 @@ sl::support::tribool http_parser::parse(http_message& http_msg, std::error_code&
                     total_bytes_parsed += m_bytes_last_read;
                 } catch (const std::exception& e) {
                     (void) e;
-                    STATICLIB_PION_LOG_WARN(m_logger, "Content (without length) parsing failed: " << e.what());
+                    STATICLIB_PION_LOG_WARN(log, "Content (without length) parsing failed: " << e.what());
                     rc = false;
                 }
                 break;
@@ -530,7 +526,7 @@ sl::support::tribool http_parser::parse_headers(http_message& http_msg,
             if (*m_read_ptr == '\n') {
                 // check if this is a HTTP 0.9 "Simple Request"
                 if (http_msg.get_version_major() == 0) {
-                    STATICLIB_PION_LOG_DEBUG(m_logger, "HTTP 0.9 Simple-Request found");
+                    STATICLIB_PION_LOG_DEBUG(log, "HTTP 0.9 Simple-Request found");
                     ++m_read_ptr;
                     m_bytes_last_read = (m_read_ptr - read_start_ptr);
                     m_bytes_total_read += m_bytes_last_read;
@@ -719,7 +715,7 @@ void http_parser::update_message_with_header_data(http_message& http_msg) const
         if (! parse_url_encoded(req.get_queries(),
                               m_query_string.c_str(),
                               m_query_string.size())) 
-            STATICLIB_PION_LOG_WARN(m_logger, "Request query string parsing failed (URI)");
+            STATICLIB_PION_LOG_WARN(log, "Request query string parsing failed (URI)");
     }
 
     // parse "Cookie" headers in request
@@ -731,7 +727,7 @@ void http_parser::update_message_with_header_data(http_message& http_msg) const
     {
         if (! parse_cookie_header(req.get_cookies(),
                                 cookie_iterator->second, false) )
-            STATICLIB_PION_LOG_WARN(m_logger, "Cookie header parsing failed");
+            STATICLIB_PION_LOG_WARN(log, "Cookie header parsing failed");
     }
 }
 
@@ -767,7 +763,7 @@ sl::support::tribool http_parser::finish_header_parsing(http_message& http_msg, 
             try {
                 http_msg.update_content_length_using_header();
             } catch (...) {
-                STATICLIB_PION_LOG_ERROR(m_logger, "Unable to update content length");
+                STATICLIB_PION_LOG_ERROR(log, "Unable to update content length");
                 set_error(ec, ERROR_INVALID_CONTENT_LENGTH);
                 return false;
             }
@@ -1388,7 +1384,7 @@ sl::support::tribool http_parser::parse_chunks(http_message::chunk_cache_type& c
                 m_bytes_last_read = (m_read_ptr - read_start_ptr);
                 m_bytes_total_read += m_bytes_last_read;
                 m_bytes_content_read += m_bytes_last_read;
-                STATICLIB_PION_LOG_DEBUG(m_logger, "Parsed " << m_bytes_last_read << " chunked payload content bytes; chunked content complete.");
+                STATICLIB_PION_LOG_DEBUG(log, "Parsed " << m_bytes_last_read << " chunked payload content bytes; chunked content complete.");
                 return true;
             }
             break;
@@ -1400,7 +1396,7 @@ sl::support::tribool http_parser::parse_chunks(http_message::chunk_cache_type& c
                 m_bytes_last_read = (m_read_ptr - read_start_ptr);
                 m_bytes_total_read += m_bytes_last_read;
                 m_bytes_content_read += m_bytes_last_read;
-                STATICLIB_PION_LOG_DEBUG(m_logger, "Parsed " << m_bytes_last_read << " chunked payload content bytes; chunked content complete.");
+                STATICLIB_PION_LOG_DEBUG(log, "Parsed " << m_bytes_last_read << " chunked payload content bytes; chunked content complete.");
                 return true;
             } else {
                 set_error(ec, ERROR_CHUNK_CHAR);
@@ -1534,7 +1530,7 @@ void http_parser::finish(http_message& http_msg) const
             if (! parse_url_encoded(req.get_queries(),
                                   req.get_content(),
                                   req.get_content_length()))
-                STATICLIB_PION_LOG_WARN(m_logger, "Request form data parsing failed (POST urlencoded)");
+                STATICLIB_PION_LOG_WARN(log, "Request form data parsing failed (POST urlencoded)");
         } else if (content_type_header.compare(0, http_message::CONTENT_TYPE_MULTIPART_FORM_DATA.length(),
                                                http_message::CONTENT_TYPE_MULTIPART_FORM_DATA) == 0)
         {
@@ -1542,7 +1538,7 @@ void http_parser::finish(http_message& http_msg) const
                                             content_type_header,
                                             req.get_content(),
                                             req.get_content_length()))
-                STATICLIB_PION_LOG_WARN(m_logger, "Request form data parsing failed (POST multipart)");
+                STATICLIB_PION_LOG_WARN(log, "Request form data parsing failed (POST multipart)");
         }
     }
 }

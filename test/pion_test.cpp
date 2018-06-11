@@ -140,7 +140,6 @@ file_writer file_upload_payload_handler_creator(sl::pion::http_request_ptr& req)
 }
 
 void test_pion() {
-    STATICLIB_PION_LOG_SETLEVEL_INFO(STATICLIB_PION_GET_LOGGER("staticlib.pion"))
     // pion
     sl::pion::http_server server(2, TCP_PORT);
     server.add_handler("GET", "/hello", hello_service);

@@ -40,6 +40,8 @@ namespace pion {
 
 namespace { // anonymous
 
+const std::string log = "staticlib.pion.http_server";
+
 std::string strip_trailing_slash(const std::string& str) {
     std::string result{str};
     if (!result.empty() && '/' == result[result.size() - 1]) {

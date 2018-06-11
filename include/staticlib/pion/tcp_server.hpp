@@ -48,11 +48,6 @@ class tcp_server {
 
 protected:
     /**
-     * Primary logging interface used by this class
-     */
-    logger log;
-
-    /**
      * Reference to the active scheduler object used to manage worker threads
      */
     scheduler active_scheduler;

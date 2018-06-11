@@ -37,6 +37,12 @@
 namespace staticlib {
 namespace pion {
 
+namespace { // anonymous
+
+const std::string log = "staticlib.pion.tcp_server";
+
+} // namespace
+
 // tcp::server member functions
 
 tcp_server::~tcp_server() STATICLIB_NOEXCEPT {
@@ -51,7 +57,6 @@ tcp_server::~tcp_server() STATICLIB_NOEXCEPT {
 }
 
 tcp_server::tcp_server(const asio::ip::tcp::endpoint& endpoint, uint32_t number_of_threads) : 
-log(STATICLIB_PION_GET_LOGGER("staticlib.pion.tcp_server")),
 active_scheduler(number_of_threads),
 tcp_acceptor(active_scheduler.get_io_service()),
 ssl_context(asio::ssl::context::sslv23),

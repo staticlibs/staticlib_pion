@@ -55,11 +55,6 @@ class scheduler {
     std::mutex mutex;
 
     /**
-     * Primary logging interface used by this class
-     */
-    logger log;
-
-    /**
      * Condition triggered when there are no more active users
      */
     std::condition_variable no_more_active_users;

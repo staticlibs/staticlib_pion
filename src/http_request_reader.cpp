@@ -21,6 +21,12 @@
 namespace staticlib { 
 namespace pion {
 
+namespace { // anonymous
+
+const std::string log = "staticlib.pion.http_request_reader";
+
+} // namespace
+
 const uint32_t http_request_reader::DEFAULT_READ_TIMEOUT_MILLIS = 10000;
 
 tcp_connection_ptr& http_request_reader::get_connection() {
@@ -59,7 +65,7 @@ void http_request_reader::consume_bytes(const std::error_code& read_error, std::
         return;
     }
 
-    STATICLIB_PION_LOG_DEBUG(m_logger, "Read " << bytes_read << " bytes from HTTP request");
+    STATICLIB_PION_LOG_DEBUG(log, "Read " << bytes_read << " bytes from HTTP request");
 
     // set pointers for new HTTP header data to be consumed
     set_read_buffer(m_tcp_conn->get_read_buffer().data(), bytes_read);
@@ -81,7 +87,7 @@ void http_request_reader::consume_bytes() {
 
     if (gcount() > 0) {
         // parsed > 0 bytes in HTTP headers
-        STATICLIB_PION_LOG_DEBUG(m_logger, "Parsed " << gcount() << " HTTP bytes");
+        STATICLIB_PION_LOG_DEBUG(log, "Parsed " << gcount() << " HTTP bytes");
     }
 
     if (result == true) {
@@ -101,7 +107,7 @@ void http_request_reader::consume_bytes() {
                 // message has been handled
                 m_tcp_conn->save_read_pos(m_read_ptr, m_read_end_ptr);
 
-                STATICLIB_PION_LOG_DEBUG(m_logger, "HTTP pipelined request("
+                STATICLIB_PION_LOG_DEBUG(log, "HTTP pipelined request("
                         << bytes_available() << " bytes available)");
             }
         } else {
@@ -152,9 +158,9 @@ void http_request_reader::handle_read_error(const std::error_code& read_error) {
         if (read_error == asio::error::operation_aborted) {
             // if the operation was aborted, the acceptor was stopped,
             // which means another thread is shutting-down the server
-            STATICLIB_PION_LOG_INFO(m_logger, "HTTP request parsing aborted (shutting down)");
+            STATICLIB_PION_LOG_INFO(log, "HTTP request parsing aborted (shutting down)");
         } else {
-            STATICLIB_PION_LOG_INFO(m_logger, "HTTP request parsing aborted (" << read_error.message() << ')');
+            STATICLIB_PION_LOG_INFO(log, "HTTP request parsing aborted (" << read_error.message() << ')');
         }
     }
 
@@ -172,7 +178,6 @@ m_parsed_headers(std::move(headers_parsed_cb)),
 m_finished(std::move(received_cb)) {
     m_http_msg->set_remote_ip(tcp_conn->get_remote_ip());
     m_http_msg->set_request_reader(this);
-    set_logger(STATICLIB_PION_GET_LOGGER("staticlib.pion.http_request_reader"));
 }
 
 void http_request_reader::read_bytes(void) {

@@ -159,11 +159,6 @@ protected:
     static const uint32_t COOKIE_VALUE_MAX;
 
     /**
-     * Primary logging interface used by this class
-     */
-    mutable logger m_logger;
-
-    /**
      * Points to the next character to be consumed in the read_buffer
      */
     const char * m_read_ptr;
@@ -544,20 +539,6 @@ public:
      * @param b parameter for saving raw HTTP header content
      */
     void set_save_raw_headers(bool b);
-
-    /**
-     * Sets the logger to be used
-     * 
-     * @param log_ptr logger to be used
-     */
-    void set_logger(logger log_ptr);
-
-    /**
-     * Returns the logger currently in use
-     * 
-     * @return logger currently in use
-     */
-    logger get_logger();
 
     /**
      * Parses a URI string
