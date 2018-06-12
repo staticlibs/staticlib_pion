@@ -372,7 +372,11 @@ private:
                 // prepare the next chunk of data to send
                 // write chunk length in hex
                 auto cast_buf = std::array<char, 35>();
+                #ifdef _WIN32
+                auto written = sprintf_s(cast_buf.data(), cast_buf.size(), "%lx", static_cast<long>(content_length));
+                #else // !WIN32
                 auto written = sprintf(cast_buf.data(), "%lx", static_cast<long>(content_length));
+                #endif // WIN32
 
                 // add chunk length as a string at the back of the text cache
                 // append length of chunk to write_buffers

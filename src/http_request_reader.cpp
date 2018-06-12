@@ -123,7 +123,7 @@ void http_request_reader::read_bytes_with_timeout(std::unique_ptr<http_request_r
     auto conn = self->tcp_conn;
     auto timeout_handler =
         [conn] (const std::error_code& ec) {
-            if (asio::error::operation_aborted != ec) {
+            if (asio::error::operation_aborted != ec.value()) {
                 conn->cancel();
             }
         };
@@ -134,7 +134,7 @@ void http_request_reader::read_bytes_with_timeout(std::unique_ptr<http_request_r
         [self_shared](const std::error_code& ec, std::size_t bytes_read) {
             auto self = sl::support::make_unique_from_shared_with_release_deleter(self_shared);
             if (nullptr != self.get()) {
-                if(asio::error::operation_aborted != ec) {
+                if(asio::error::operation_aborted != ec.value()) {
                     self->tcp_conn->cancel_timer();
                 }
                 consume_bytes(std::move(self), ec, bytes_read);

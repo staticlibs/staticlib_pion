@@ -946,7 +946,7 @@ public:
         set_content_length(m_chunk_cache.size());
         char *post_buffer = create_content_buffer();
         if (m_chunk_cache.size() > 0) {
-            std::copy(m_chunk_cache.begin(), m_chunk_cache.end(), post_buffer);
+            std::memcpy(post_buffer, m_chunk_cache.data(), m_chunk_cache.size());
         }
     }
 
