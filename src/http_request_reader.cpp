@@ -18,6 +18,8 @@
 
 #include "asio.hpp"
 
+#include "staticlib/pion/http_server.hpp"
+
 namespace staticlib { 
 namespace pion {
 
@@ -27,27 +29,17 @@ const std::string log = "staticlib.pion.http_request_reader";
 
 } // namespace
 
-const uint32_t http_request_reader::DEFAULT_READ_TIMEOUT_MILLIS = 10000;
-
-tcp_connection_ptr& http_request_reader::get_connection() {
-    return m_tcp_conn;
-}
-
-void http_request_reader::set_timeout(std::chrono::milliseconds timeout) {
-    m_read_timeout_millis = static_cast<uint32_t> (timeout.count());
-}
-
 // reader member functions
 
 void http_request_reader::receive(std::unique_ptr<http_request_reader> self) {
-    if (self->m_tcp_conn->get_pipelined()) {
+    if (self->tcp_conn->is_pipelined()) {
         // there are pipelined messages available in the connection's read buffer
-        self->m_tcp_conn->set_lifecycle(tcp_connection::LIFECYCLE_CLOSE); // default to close the connection
-        self->m_tcp_conn->load_read_pos(self->m_read_ptr, self->m_read_end_ptr);
+        self->tcp_conn->set_lifecycle(tcp_connection::lifecycle::close); // default to close the connection
+        self->tcp_conn->load_read_pos(self->m_read_ptr, self->m_read_end_ptr);
         consume_bytes(std::move(self));
     } else {
         // no pipelined messages available in the read buffer -> read bytes from the socket
-        self->m_tcp_conn->set_lifecycle(tcp_connection::LIFECYCLE_CLOSE); // default to close the connection
+        self->tcp_conn->set_lifecycle(tcp_connection::lifecycle::close); // default to close the connection
         read_bytes_with_timeout(std::move(self));
     }
 }
@@ -63,7 +55,7 @@ void http_request_reader::consume_bytes(std::unique_ptr<http_request_reader> sel
     STATICLIB_PION_LOG_DEBUG(log, "Read " << bytes_read << " bytes from HTTP request");
 
     // set pointers for new HTTP header data to be consumed
-    self->set_read_buffer(self->m_tcp_conn->get_read_buffer().data(), bytes_read);
+    self->set_read_buffer(self->tcp_conn->get_read_buffer().data(), bytes_read);
 
     consume_bytes(std::move(self));
 }
@@ -78,7 +70,7 @@ void http_request_reader::consume_bytes(std::unique_ptr<http_request_reader> sel
     // indeterminate: parsed bytes, but the message is not yet finished
     //
     std::error_code ec;
-    sl::support::tribool result = self->parse(self->get_message(), ec);
+    sl::support::tribool result = self->parse(*self->request, ec);
 
     if (self->gcount() > 0) {
         // parsed > 0 bytes in HTTP headers
@@ -89,24 +81,24 @@ void http_request_reader::consume_bytes(std::unique_ptr<http_request_reader> sel
         // finished reading HTTP message and it is valid
 
         // set the connection's lifecycle type
-        if (self->get_message().check_keep_alive()) {
+        if (self->request->check_keep_alive()) {
             if (self->eof()) {
                 // the connection should be kept alive, but does not have pipelined messages
-                self->m_tcp_conn->set_lifecycle(tcp_connection::LIFECYCLE_KEEPALIVE);
+                self->tcp_conn->set_lifecycle(tcp_connection::lifecycle::keepalive);
             } else {
                 // the connection has pipelined messages
-                self->m_tcp_conn->set_lifecycle(tcp_connection::LIFECYCLE_PIPELINED);
+                self->tcp_conn->set_lifecycle(tcp_connection::lifecycle::pipelined);
 
                 // save the read position as a bookmark so that it can be retrieved
                 // by a new HTTP parser, which will be created after the current
                 // message has been handled
-                self->m_tcp_conn->save_read_pos(self->m_read_ptr, self->m_read_end_ptr);
+                self->tcp_conn->save_read_pos(self->m_read_ptr, self->m_read_end_ptr);
 
                 STATICLIB_PION_LOG_DEBUG(log, "HTTP pipelined request("
                         << self->bytes_available() << " bytes available)");
             }
         } else {
-            self->m_tcp_conn->set_lifecycle(tcp_connection::LIFECYCLE_CLOSE);
+            self->tcp_conn->set_lifecycle(tcp_connection::lifecycle::close);
         }
 
         // we have finished parsing the HTTP message
@@ -114,8 +106,8 @@ void http_request_reader::consume_bytes(std::unique_ptr<http_request_reader> sel
 
     } else if (result == false) {
         // the message is invalid or an error occured
-        self->m_tcp_conn->set_lifecycle(tcp_connection::LIFECYCLE_CLOSE); // make sure it will get closed
-        self->get_message().set_is_valid(false);
+        self->tcp_conn->set_lifecycle(tcp_connection::lifecycle::close); // make sure it will get closed
+        self->request->set_is_valid(false);
         self->finished_reading(ec);
     } else {
         // not yet finished parsing the message -> read more data
@@ -125,10 +117,10 @@ void http_request_reader::consume_bytes(std::unique_ptr<http_request_reader> sel
 
 void http_request_reader::read_bytes_with_timeout(std::unique_ptr<http_request_reader> self) {
     // setup timer
-    auto& timer = self->m_tcp_conn->get_timer();
-    auto& strand = self->m_tcp_conn->get_strand();
-    timer.expires_from_now(std::chrono::milliseconds(self->m_read_timeout_millis));
-    auto conn = self->m_tcp_conn;
+    auto& timer = self->tcp_conn->get_timer();
+    auto& strand = self->tcp_conn->get_strand();
+    timer.expires_from_now(std::chrono::milliseconds(self->read_timeout_millis));
+    auto conn = self->tcp_conn;
     auto timeout_handler =
         [conn] (const std::error_code& ec) {
             if (asio::error::operation_aborted != ec) {
@@ -143,7 +135,7 @@ void http_request_reader::read_bytes_with_timeout(std::unique_ptr<http_request_r
             auto self = sl::support::make_unique_from_shared_with_release_deleter(self_shared);
             if (nullptr != self.get()) {
                 if(asio::error::operation_aborted != ec) {
-                    self->m_tcp_conn->cancel_timer();
+                    self->tcp_conn->cancel_timer();
                 }
                 consume_bytes(std::move(self), ec, bytes_read);
             } else {
@@ -158,10 +150,10 @@ void http_request_reader::read_bytes_with_timeout(std::unique_ptr<http_request_r
 
 void http_request_reader::handle_read_error(const std::error_code& read_error) {
     // close the connection, forcing the client to establish a new one
-    m_tcp_conn->set_lifecycle(tcp_connection::LIFECYCLE_CLOSE); // make sure it will get closed
+    tcp_conn->set_lifecycle(tcp_connection::lifecycle::close); // make sure it will get closed
 
     // check if this is just a message with unknown content length
-    if (!check_premature_eof(get_message())) {
+    if (!check_premature_eof(*request)) {
         std::error_code ec; // clear error code
         finished_reading(ec);
         return;
@@ -181,35 +173,13 @@ void http_request_reader::handle_read_error(const std::error_code& read_error) {
     finished_reading(read_error);
 }
 
-http_request_reader::http_request_reader(tcp_connection_ptr& tcp_conn,
-            headers_parsing_finished_handler_type headers_parsed_cb,
-            finished_handler_type received_cb) :
-http_parser(true),
-m_tcp_conn(tcp_conn),
-m_read_timeout_millis(DEFAULT_READ_TIMEOUT_MILLIS),
-m_http_msg(new http_request),
-m_parsed_headers(std::move(headers_parsed_cb)),
-m_finished(std::move(received_cb)) {
-    m_http_msg->set_remote_ip(tcp_conn->get_remote_ip());
-    m_http_msg->set_request_reader(this);
-}
-
 void http_request_reader::finished_parsing_headers(const std::error_code& ec, sl::support::tribool& rc) {
-    // call the finished headers handler with the HTTP message
-    if (m_parsed_headers) {
-        m_parsed_headers(m_http_msg, get_connection(), ec, rc);
-    }
+    server.handle_request_after_headers_parsed(request, tcp_conn, ec, rc);
 }
 
 void http_request_reader::finished_reading(const std::error_code& ec) {
-    // call the finished handler with the finished HTTP message
-    if (m_finished) {
-        m_finished(std::move(m_http_msg), get_connection(), ec);
-    }
+    server.handle_request(std::move(request), tcp_conn, ec);
 }
 
-http_message& http_request_reader::get_message() {
-    return *m_http_msg;
-}
 } // namespace
 }

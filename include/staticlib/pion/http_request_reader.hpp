@@ -41,94 +41,71 @@
 namespace staticlib { 
 namespace pion {
 
+class http_server;
+
 /**
  * Asynchronously reads and parses HTTP requests
  */
 class http_request_reader : public http_parser {
-
-public:
-
-    /**
-     * Function called after the HTTP message has been parsed
-     */
-    using headers_parsing_finished_handler_type = std::function<void(http_request_ptr&,
-            tcp_connection_ptr&, const std::error_code&, sl::support::tribool& rc)>;
-
-    /**
-     * Function called after the HTTP message has been parsed
-     */
-    using finished_handler_type = std::function<void(http_request_ptr, tcp_connection_ptr&,
-            const std::error_code&)>;
-
 private:
-
     /**
-     * Default maximum number of milliseconds for read operations
+     * Server reference
      */
-    static const uint32_t DEFAULT_READ_TIMEOUT_MILLIS;
+    http_server& server;
 
     /**
      * The HTTP connection that has a new HTTP message to parse
      */
-    tcp_connection_ptr m_tcp_conn;
+    tcp_connection_ptr tcp_conn;
 
     /**
      * Maximum number of milliseconds for read operations
      */
-    uint32_t m_read_timeout_millis;
+    uint32_t read_timeout_millis;
 
     /**
      * The new HTTP message container being created
      */
-    http_request_ptr m_http_msg;
-
-    /**
-     * Function called after the HTTP message headers have been parsed
-     */
-    headers_parsing_finished_handler_type m_parsed_headers;
-
-    /**
-     * Function called after the HTTP message has been parsed
-     */
-    finished_handler_type m_finished;
+    http_request_ptr request;
 
 public:
 
     /**
      * Constructor to be used with `std::make_unique`
      *
+     * @param server reference to server
      * @param tcp_conn TCP connection containing a new message to parse
-     * @param handler function called after the message has been parsed
      */
-    http_request_reader(tcp_connection_ptr& tcp_conn,
-            headers_parsing_finished_handler_type headers_parsed_cb,
-            finished_handler_type received_cb);
+    http_request_reader(http_server& srv, tcp_connection_ptr& tcp_conn,
+            uint32_t read_timeout) :
+    http_parser(true),
+    server(srv),
+    tcp_conn(tcp_conn),
+    read_timeout_millis(read_timeout),
+    request(new http_request()) {
+        request->set_remote_ip(tcp_conn->get_remote_ip());
+        request->set_request_reader(this);
+    }
+
+    /**
+     * Deleted copy-constructor
+     * 
+     * @param other instance
+     */
+    http_request_reader(const http_request_reader&) = delete;
+
+    /**
+     * Deleted copy-assignment operator
+     * 
+     * @param other instance
+     * @return this instance
+     */
+    http_request_reader& operator=(const http_request_reader&) = delete;
 
     /**
      * Incrementally reads & parses the HTTP message
      */
     static void receive(std::unique_ptr<http_request_reader> self);
-
-    /**
-     * Returns a shared pointer to the TCP connection
-     * 
-     * @return shared pointer to the TCP connection
-     */
-    tcp_connection_ptr& get_connection();
-
-    /**
-     * Sets the maximum number of seconds for read operations
-     * 
-     * @param seconds maximum number of milliseconds for read operations
-     */
-    void set_timeout(std::chrono::milliseconds timeout);
-
-    /**
-     * Sets a function to be called after HTTP headers have been parsed
-     * 
-     * @param h function pointer
-     */
-    void set_headers_parsed_callback(headers_parsing_finished_handler_type h);
 
 private:
 
@@ -143,11 +120,15 @@ private:
 
     /**
      * Consumes bytes that have been read using an HTTP parser
+     * 
+     * @param self-owning instance
      */
     static void consume_bytes(std::unique_ptr<http_request_reader> self);
     
     /**
      * Reads more bytes for parsing, with timeout support
+     * 
+     * @param self-owning instance
      */
     static void read_bytes_with_timeout(std::unique_ptr<http_request_reader> self);
 
@@ -172,13 +153,6 @@ private:
      * @param ec error code reference
      */
     void finished_reading(const std::error_code& ec);
-
-    /**
-     * Returns a reference to the HTTP message being parsed
-     * 
-     * @return HTTP message being parsed
-     */
-    http_message& get_message();
 
 };
 

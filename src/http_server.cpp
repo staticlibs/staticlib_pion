@@ -126,6 +126,7 @@ typename T::iterator find_submatch(T& map, const std::string& path) {
     auto end = map.end();
     std::string::size_type slash_ind = st.length();
     do {
+        // todo: fixme
         st = st.substr(0, slash_ind);
         auto it = map.find(st);
         if (end != it) {
@@ -138,16 +139,16 @@ typename T::iterator find_submatch(T& map, const std::string& path) {
 
 } // namespace
 
-http_server::~http_server() STATICLIB_NOEXCEPT { }
-
 http_server::http_server(uint32_t number_of_threads, uint16_t port,
         asio::ip::address_v4 ip_address,
+        uint32_t read_timeout_millis,
         const std::string& ssl_key_file,
         std::function<std::string(std::size_t, asio::ssl::context::password_purpose)> ssl_key_password_callback,
         const std::string& ssl_verify_file,
         std::function<bool(bool, asio::ssl::verify_context&)> ssl_verify_callback
 ) : 
 tcp_server(asio::ip::tcp::endpoint(ip_address, port), number_of_threads),
+read_timeout(read_timeout_millis),
 bad_request_handler(handle_bad_request),
 not_found_handler(handle_not_found_request),
 server_error_handler(handle_server_error) {
@@ -181,18 +182,6 @@ void http_server::add_handler(const std::string& method,
     if (!it.second) throw pion_exception("Invalid duplicate handler path: [" + clean_resource + "], method: [" + method + "]");
 }
 
-void http_server::set_bad_request_handler(request_handler_type handler) {
-    bad_request_handler = std::move(handler);
-}
-
-void http_server::set_not_found_handler(request_handler_type handler) {
-    not_found_handler = std::move(handler);
-}
-
-void http_server::set_error_handler(error_handler_type handler) {
-    server_error_handler = std::move(handler);
-}
-
 void http_server::add_payload_handler(const std::string& method, const std::string& resource,
         payload_handler_creator_type payload_handler) {
     payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, 
@@ -204,17 +193,7 @@ void http_server::add_payload_handler(const std::string& method, const std::stri
 }
 
 void http_server::handle_connection(tcp_connection_ptr& conn) {
-    http_request_reader::headers_parsing_finished_handler_type headers_parsed_cb =
-        [this](http_request_ptr& request, tcp_connection_ptr& conn, const std::error_code& ec,
-                sl::support::tribool & rc) {
-            this->handle_request_after_headers_parsed(request, conn, ec, rc);
-        };
-    http_request_reader::finished_handler_type received_cb = 
-        [this] (http_request_ptr request, tcp_connection_ptr& conn, const std::error_code& ec) {
-            this->handle_request(std::move(request), conn, ec);
-        };
-    auto reader = sl::support::make_unique<http_request_reader>(
-            conn, std::move(headers_parsed_cb), std::move(received_cb));
+    auto reader = sl::support::make_unique<http_request_reader>(*this, conn, read_timeout);
     reader->receive(std::move(reader));
     // reader is consumed at this point
 }
@@ -252,7 +231,7 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
         const std::error_code& ec) {
     // handle error
     if (ec || !request->is_valid()) {
-        conn->set_lifecycle(tcp_connection::LIFECYCLE_CLOSE); // make sure it will get closed
+        conn->set_lifecycle(tcp_connection::lifecycle::close); // make sure it will get closed
         if (conn->is_open() && (ec.category() == http_parser::get_error_category())) {
             // HTTP parser error
             STATICLIB_PION_LOG_INFO(log, "Invalid HTTP request (" << ec.message() << ")");

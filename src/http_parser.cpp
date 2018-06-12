@@ -62,117 +62,6 @@ std::once_flag            http_parser::m_instance_flag{};
 
 // parser member functions
 
-http_parser::http_parser(std::size_t max_content_length) :
-m_read_ptr(nullptr),
-m_read_end_ptr(nullptr),
-m_message_parse_state(PARSE_START),
-m_headers_parse_state(PARSE_METHOD_START),
-m_chunked_content_parse_state(PARSE_CHUNK_SIZE_START),
-m_status_code(0),
-m_bytes_content_remaining(0),
-m_bytes_content_read(0),
-m_bytes_last_read(0),
-m_bytes_total_read(0),
-m_max_content_length(max_content_length),
-m_parse_headers_only(false),
-m_save_raw_headers(false) { }
-
-http_parser::~http_parser() { }
-
-void http_parser::set_read_buffer(const char *ptr, size_t len) {
-    m_read_ptr = ptr;
-    m_read_end_ptr = ptr + len;
-}
-
-void http_parser::load_read_pos(const char *&read_ptr, const char *&read_end_ptr) const {
-    read_ptr = m_read_ptr;
-    read_end_ptr = m_read_end_ptr;
-}
-
-bool http_parser::check_premature_eof(http_message& http_msg) {
-    if (m_message_parse_state != PARSE_CONTENT_NO_LENGTH) {
-        return true;
-    }
-    m_message_parse_state = PARSE_END;
-    http_msg.concatenate_chunks();
-    finish(http_msg);
-    return false;
-}
-
-void http_parser::parse_headers_only(bool b) {
-    m_parse_headers_only = b;
-}
-
-void http_parser::skip_header_parsing(http_message& http_msg) {
-    std::error_code ec;
-    finish_header_parsing(http_msg, ec);
-}
-
-void http_parser::reset() {
-    m_message_parse_state = PARSE_START;
-    m_headers_parse_state = PARSE_METHOD_START;
-    m_chunked_content_parse_state = PARSE_CHUNK_SIZE_START;
-    m_status_code = 0;
-    m_status_message.erase();
-    m_method.erase();
-    m_resource.erase();
-    m_query_string.erase();
-    m_raw_headers.erase();
-    m_bytes_content_read = m_bytes_last_read = m_bytes_total_read = 0;
-}
-
-bool http_parser::eof() const {
-    return m_read_ptr == nullptr || m_read_ptr >= m_read_end_ptr;
-}
-
-std::size_t http_parser::bytes_available() const {
-    return (eof() ? 0 : (std::size_t)(m_read_end_ptr - m_read_ptr));
-}
-
-std::size_t http_parser::gcount() const {
-    return m_bytes_last_read;
-}
-
-std::size_t http_parser::get_total_bytes_read() const {
-    return m_bytes_total_read;
-}
-
-std::size_t http_parser::get_content_bytes_read() const {
-    return m_bytes_content_read;
-}
-
-std::size_t http_parser::get_max_content_length() const {
-    return m_max_content_length;
-}
-
-const std::string& http_parser::get_raw_headers() const {
-    return m_raw_headers;
-}
-
-bool http_parser::get_save_raw_headers() const {
-    return m_save_raw_headers;
-}
-
-bool http_parser::get_parse_headers_only() {
-    return m_parse_headers_only;
-}
-
-void http_parser::set_payload_handler(payload_handler_type& h) {
-    m_payload_handler = &h;
-}
-
-void http_parser::set_max_content_length(std::size_t n) {
-    m_max_content_length = n;
-}
-
-void http_parser::reset_max_content_length() {
-    m_max_content_length = DEFAULT_CONTENT_MAX;
-}
-
-void http_parser::set_save_raw_headers(bool b) {
-    m_save_raw_headers = b;
-}
-
 sl::support::tribool http_parser::parse(http_message& http_msg, std::error_code& ec) {
     assert(! eof() );
 
@@ -1556,26 +1445,6 @@ void http_parser::compute_msg_status(http_message& http_msg, bool msg_parsed_ok 
     http_msg.set_status(st);
 }
 
-void http_parser::create_error_category(void)
-{
-    static error_category_t UNIQUE_ERROR_CATEGORY;
-    m_error_category_ptr = &UNIQUE_ERROR_CATEGORY;
-}
-
-http_parser::error_category_t& http_parser::get_error_category() {
-    std::call_once(m_instance_flag, http_parser::create_error_category);
-    return *m_error_category_ptr;
-}
-
-void http_parser::finished_parsing_headers(const std::error_code& /* ec */, sl::support::tribool& /* rc */) { }
-
-void http_parser::set_error(std::error_code& ec, error_value_t ev) {
-    ec = std::error_code(static_cast<int> (ev), get_error_category());
-}
-
-const char* http_parser::error_category_t::name() const STATICLIB_NOEXCEPT {
-    return "parser";
-}
 
 std::string http_parser::error_category_t::message(int ev) const {
     switch (ev) {
@@ -1617,14 +1486,6 @@ std::string http_parser::error_category_t::message(int ev) const {
         return "missing too much content";
     }
     return "parser error";
-}
-
-bool http_parser::is_digit(int c) {
-    return (c >= '0' && c <= '9');
-}
-
-bool http_parser::is_hex_digit(int c) {
-    return ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'));
 }
 
 bool http_parser::is_cookie_attribute(const std::string& name, bool set_cookie_header) {

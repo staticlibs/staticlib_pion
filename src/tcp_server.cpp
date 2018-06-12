@@ -45,25 +45,6 @@ const std::string log = "staticlib.pion.tcp_server";
 
 // tcp::server member functions
 
-tcp_server::~tcp_server() STATICLIB_NOEXCEPT {
-    if (listening) {
-        try {
-            stop(false);
-        } catch (const std::exception& e) {
-            (void) e;
-//            STATICLIB_PION_LOG_WARN("Exception thrown in tcp::server destructor: " << e.message());
-        }
-    }
-}
-
-tcp_server::tcp_server(const asio::ip::tcp::endpoint& endpoint, uint32_t number_of_threads) : 
-active_scheduler(number_of_threads),
-tcp_acceptor(active_scheduler.get_io_service()),
-ssl_context(asio::ssl::context::sslv23),
-tcp_endpoint(endpoint), 
-ssl_flag(false),
-listening(false) { }
-    
 void tcp_server::start() {
     // lock mutex for thread safety
     std::unique_lock<std::mutex> server_lock(mutex);
@@ -128,11 +109,12 @@ void tcp_server::stop(bool wait_until_finished) {
         // wait for all pending connections to complete
         while (!conn_pool.empty()) {
             // try to prun connections that didn't finish cleanly
-            if (prune_connections() == 0)
+            if (prune_connections() == 0) {
                 break;  // if no more left, then we can stop waiting
+            }
             // sleep for up to a quarter second to give open connections a chance to finish
             STATICLIB_PION_LOG_INFO(log, "Waiting for open connections to finish");
-            scheduler::sleep(no_more_connections, server_lock, 0, 250000000);
+            no_more_connections.wait_for(server_lock, std::chrono::milliseconds(250));
         }
 
         // notify the thread scheduler that we no longer need it
@@ -141,14 +123,6 @@ void tcp_server::stop(bool wait_until_finished) {
         // all done!
 //        after_stopping();
         server_has_stopped.notify_all();
-    }
-}
-
-void tcp_server::join(void) {
-    std::unique_lock<std::mutex> server_lock(mutex);
-    while (listening) {
-        // sleep until server_has_stopped condition is signaled
-        server_has_stopped.wait(server_lock);
     }
 }
 
@@ -264,31 +238,6 @@ std::size_t tcp_server::prune_connections() {
     // return the number of connections remaining
     return conn_pool.size();
 }
-
-const asio::ip::tcp::endpoint& tcp_server::get_endpoint() const {
-    return tcp_endpoint;
-}
-
-tcp_connection::ssl_context_type& tcp_server::get_ssl_context_type() {
-    return ssl_context;
-}
-
-bool tcp_server::is_listening() const {
-    return listening;
-}
-
-void tcp_server::handle_connection(tcp_connection_ptr& tcp_conn) {
-    tcp_conn->set_lifecycle(tcp_connection::LIFECYCLE_CLOSE); // make sure it will get closed
-    tcp_conn->finish();
-}
-
-asio::io_service& tcp_server::get_io_service() {
-    return active_scheduler.get_io_service();
-}
-
-scheduler& tcp_server::get_scheduler() {
-    return active_scheduler;
-}        
 
 } // namespace
 }

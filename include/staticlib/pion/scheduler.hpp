@@ -26,7 +26,6 @@
 #ifndef STATICLIB_PION_SCHEDULER_HPP
 #define STATICLIB_PION_SCHEDULER_HPP
 
-#include <cassert>
 #include <cstdint>
 #include <chrono>
 #include <condition_variable>
@@ -39,8 +38,6 @@
 #include "asio.hpp"
 
 #include "staticlib/config.hpp"
-
-#include "staticlib/pion/logger.hpp"
 
 namespace staticlib { 
 namespace pion {
@@ -104,7 +101,13 @@ public:
     /**
      * Constructor
      */
-    scheduler(uint32_t number_of_threads);
+    scheduler(uint32_t number_of_threads) :
+    num_threads(number_of_threads),
+    active_users(0),
+    running(false),
+    asio_service(),
+    timer(asio_service),
+    thread_stop_hook([]() STATICLIB_NOEXCEPT {}) { }
 
     /**
      * Deleted copy constructor
@@ -119,7 +122,9 @@ public:
     /**
      * Destructor
      */
-    ~scheduler();
+    ~scheduler() {
+        shutdown();
+    }
 
     /**
      * Starts the thread scheduler (this is called automatically when necessary)
@@ -153,21 +158,27 @@ public:
      * 
      * @return whether scheduler is running
      */
-    bool is_running() const;
+    bool is_running() const {
+        return running;
+    }
 
     /**
      * Returns an async I/O service used to schedule work
      * 
      * @return asio service
      */
-    asio::io_service& get_io_service();
+    asio::io_service& get_io_service() {
+        return asio_service;
+    }
 
     /**
      * Schedules work to be performed by one of the pooled threads
      *
      * @param work_func work function to be executed
      */
-    void post(std::function<void()> work_func);
+    void post(std::function<void()> work_func) {
+        get_io_service().post(work_func);
+    }
 
     /**
      * Thread function used to keep the io_service running
@@ -176,30 +187,6 @@ public:
      * @param my_timer deadline timer used to keep the IO service active while running
      */
     void keep_running(asio::io_service& my_service, asio::steady_timer& my_timer);
-
-    /**
-     * Puts the current thread to sleep for a specific period of time
-     *
-     * @param sleep_sec number of entire seconds to sleep for
-     * @param sleep_nsec number of nanoseconds to sleep for (10^-9 in 1 second)
-     */
-    static void sleep(uint32_t sleep_sec, uint32_t sleep_nsec);
-
-    /**
-     * puts the current thread to sleep for a specific period of time, or until
-     * a wakeup condition is signaled
-     *
-     * @param wakeup_condition if signaled, the condition will wakeup the thread early
-     * @param wakeup_lock scoped lock protecting the wakeup condition
-     * @param sleep_sec number of entire seconds to sleep for
-     * @param sleep_nsec number of nanoseconds to sleep for (10^-9 in 1 second)
-     */
-    template <typename ConditionType, typename LockType>
-    inline static void sleep(ConditionType& wakeup_condition, LockType& wakeup_lock,
-                             uint32_t sleep_sec, uint32_t sleep_nsec) {
-        auto nanos = std::chrono::nanoseconds{sleep_sec * 1000000000 + sleep_nsec};
-        wakeup_condition.wait_for(wakeup_lock, nanos);
-    }
 
     /**
      * processes work passed to the asio service & handles uncaught exceptions
@@ -214,28 +201,17 @@ public:
      * 
      * @param hook hook function
      */
-    void set_thread_stop_hook(std::function<void() /* noexcept */> hook);
+    void set_thread_stop_hook(std::function<void() /* noexcept */> hook) {
+        std::lock_guard<std::mutex> scheduler_lock{mutex};
+        this->thread_stop_hook = hook;
+    }
 
 private:
-    /**
-     * Stops all services used to schedule work
-     */
-    void stop_services();
-    
+
     /**
      * Stops all threads used to perform work
      */
     void stop_threads();
-
-    /**
-     * Finishes all services used to schedule work
-     */
-    void finish_services();
-
-    /**
-     * Finishes all threads used to perform work
-     */
-    void finish_threads();
 
 };
 

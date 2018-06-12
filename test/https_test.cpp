@@ -46,7 +46,7 @@ void test_https() {
     auto verifier = [](bool, asio::ssl::verify_context&) {
         return true;
     };
-    sl::pion::http_server server(2, TCP_PORT, asio::ip::address_v4::any(), certpath, pwdcb, capath, verifier);
+    sl::pion::http_server server(2, TCP_PORT, asio::ip::address_v4::any(), 10000, certpath, pwdcb, capath, verifier);
     server.add_handler("GET", "/", 
             [] (sl::pion::http_request_ptr, sl::pion::response_writer_ptr resp) {
                 resp->write("Hello pion\n");

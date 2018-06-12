@@ -49,18 +49,13 @@ class tcp_connection : public std::enable_shared_from_this<tcp_connection> {
 public:
 
     /**
-     * Data type for the connection's lifecycle state
+     * Data type for the connection's current_lifecycle state
      */
-    enum lifecycle_type {
-        LIFECYCLE_CLOSE, 
-        LIFECYCLE_KEEPALIVE, 
-        LIFECYCLE_PIPELINED
+    enum class lifecycle {
+        close, 
+        keepalive, 
+        pipelined
     };
-
-    /**
-     * Size of the read buffer
-     */
-    enum { READ_BUFFER_SIZE = 8192 };
 
     /**
      * Data type for a function that handles TCP connection objects
@@ -70,7 +65,7 @@ public:
     /**
      * Data type for an I/O read buffer
      */
-    using read_buffer_type = std::array<char, READ_BUFFER_SIZE>;
+    using read_buffer_type = std::array<char, 8192>;
 
     /**
      * Data type for a socket connection
@@ -92,32 +87,32 @@ private:
     /**
      * SSL connection socket
      */
-    ssl_socket_type m_ssl_socket;
+    ssl_socket_type ssl_socket;
 
     /**
      * True if the connection is encrypted using SSL
      */
-    bool m_ssl_flag;
+    bool ssl_flag;
 
     /**
      * Buffer used for reading data from the TCP connection
      */
-    read_buffer_type m_read_buffer;
+    read_buffer_type read_buffer;
 
     /**
      * Saved read position bookmark
      */
-    std::pair<const char*, const char*> m_read_position;
+    std::pair<const char*, const char*> read_position;
 
     /**
      * Lifecycle state for the connection
      */
-    lifecycle_type m_lifecycle;
+    lifecycle current_lifecycle;
 
     /**
      * Function called when a server has finished handling the connection
      */
-    connection_handler m_finished_handler;
+    connection_handler finished_handler;
 
     /**
      * Strand used to synchronize all async operations over this connection
@@ -140,8 +135,16 @@ public:
      * @param finished_handler function called when a server has finished
      *                         handling the connection
      */
-    tcp_connection(asio::io_service& io_service, ssl_context_type& ssl_context, const bool ssl_flag,
-            connection_handler finished_handler);
+    tcp_connection(asio::io_service& io_service, ssl_context_type& ssl_context, const bool ssl_flag_in,
+            connection_handler finished_handler_in) :
+    ssl_socket(io_service, ssl_context), 
+    ssl_flag(ssl_flag_in),
+    current_lifecycle(lifecycle::close),
+    finished_handler(finished_handler_in),
+    strand(io_service),
+    timer(io_service) {
+        save_read_pos(nullptr, nullptr);
+    }
 
     /**
      * Deleted copy constructor
@@ -156,29 +159,64 @@ public:
     /**
      * Virtual destructor
      */
-    virtual ~tcp_connection();
+    virtual ~tcp_connection() {
+        close();
+    }
 
     /**
      * Returns true if the connection is currently open
      * 
      * @return true if the connection is currently open
      */
-    bool is_open() const;
+    bool is_open() const {
+        return const_cast<ssl_socket_type&> (ssl_socket).lowest_layer().is_open();
+    }
 
     /**
      * Closes the tcp socket and cancels any pending asynchronous operations
      */
-    void close();
+    void close() {
+        if (is_open()) {
+            try {
+                // shutting down SSL will wait forever for a response from the remote end,
+                // which causes it to hang indefinitely if the other end died unexpectedly
+                // if (get_ssl_flag()) ssl_socket.shutdown();
+
+                // windows seems to require this otherwise it doesn't
+                // recognize that connections have been closed
+                ssl_socket.next_layer().shutdown(asio::ip::tcp::socket::shutdown_both);
+            } catch (...) {
+            } // ignore exceptions
+
+            // close the underlying socket (ignore errors)
+            std::error_code ec;
+            ssl_socket.next_layer().close(ec);
+        }
+    }
 
     /**
      * Cancels any asynchronous operations pending on the socket.
      */
-    void cancel();
+    void cancel() {
+        // there is no good way to do this on windows until vista or later (0x0600)
+        // http://www.boost.org/doc/libs/1_53_0/doc/html/boost_asio/reference/basic_stream_socket/cancel/overload2.html
+        // note that the asio docs are misleading because close() is not thread-safe,
+        // and the suggested #define statements cause WAY too much trouble and heartache
+        #if !defined(_MSC_VER) || (_WIN32_WINNT >= 0x0600)
+            std::error_code ec;
+            ssl_socket.next_layer().cancel(ec);
+        #endif // !WINXP
+    }
 
     /**
      * Cancels timer
      */
-    void cancel_timer();
+    void cancel_timer() {
+        #if !defined(_MSC_VER) || (_WIN32_WINNT >= 0x0600)
+            std::error_code ec;
+            timer.cancel(ec);
+        #endif // !WINXP
+    }
 
     /**
      * Asynchronously accepts a new tcp connection
@@ -190,7 +228,7 @@ public:
      */
     template <typename AcceptHandler>
     void async_accept(asio::ip::tcp::acceptor& tcp_acceptor, AcceptHandler handler) {
-        tcp_acceptor.async_accept(m_ssl_socket.lowest_layer(), handler);
+        tcp_acceptor.async_accept(ssl_socket.lowest_layer(), handler);
     }
 
     /**
@@ -202,8 +240,8 @@ public:
      */
     template <typename SSLHandshakeHandler>
     void async_handshake_server(SSLHandshakeHandler handler) {
-        m_ssl_socket.async_handshake(asio::ssl::stream_base::server, handler);
-        m_ssl_flag = true;
+        ssl_socket.async_handshake(asio::ssl::stream_base::server, handler);
+        ssl_flag = true;
     }
 
     /**
@@ -216,9 +254,9 @@ public:
     template <typename ReadHandler>
     void async_read_some(ReadHandler handler) {
         if (get_ssl_flag()) {
-            m_ssl_socket.async_read_some(asio::buffer(m_read_buffer), handler);
+            ssl_socket.async_read_some(asio::buffer(read_buffer), handler);
         } else {
-            m_ssl_socket.next_layer().async_read_some(asio::buffer(m_read_buffer), handler);
+            ssl_socket.next_layer().async_read_some(asio::buffer(read_buffer), handler);
         }
     }
 
@@ -233,58 +271,66 @@ public:
     template <typename ConstBufferSequence, typename write_handler_t>
     void async_write(const ConstBufferSequence& buffers, write_handler_t handler) {
         if (get_ssl_flag()) {
-            asio::async_write(m_ssl_socket, buffers, handler);
+            asio::async_write(ssl_socket, buffers, handler);
         } else {
-            asio::async_write(m_ssl_socket.next_layer(), buffers, handler);
+            asio::async_write(ssl_socket.next_layer(), buffers, handler);
         }
     }
 
     /**
      * This function should be called when a server has finished handling the connection
      */
-    void finish();
+    void finish() {
+        auto conn = shared_from_this();
+        if (finished_handler) {
+            finished_handler(conn);
+        }
+    }
 
     /**
      * Returns true if the connection is encrypted using SSL
      * 
      * @return true if the connection is encrypted using SSL
      */
-    bool get_ssl_flag() const;
+    bool get_ssl_flag() const {
+        return ssl_flag;
+    }
 
     /**
-     * Sets the lifecycle type for the connection
+     * Sets the lifecycle for the connection
      * 
-     * @param t lifecycle type name
+     * @param lcycle lifecycle type name
      */
-    void set_lifecycle(lifecycle_type t);
-
-    /**
-     * Returns the lifecycle type for the connection
-     * 
-     * @return lifecycle type name
-     */
-    lifecycle_type get_lifecycle() const;
+    void set_lifecycle(lifecycle lcycle) {
+        current_lifecycle = lcycle;
+    }
 
     /**
      * Returns true if the connection should be kept alive
      * 
      * @return 
      */
-    bool get_keep_alive() const;
+    bool get_keep_alive() const {
+        return current_lifecycle != lifecycle::close;
+    }
 
     /**
      * Returns true if the HTTP requests are pipelined
      * 
      * @return true if the HTTP requests are pipelined
      */
-    bool get_pipelined() const;
+    bool is_pipelined() const {
+        return current_lifecycle != lifecycle::pipelined;
+    }
 
     /**
      * Returns the buffer used for reading data from the TCP connection
      * 
      * @return buffer used for reading data from the TCP connection
      */
-    read_buffer_type& get_read_buffer();
+    read_buffer_type& get_read_buffer() {
+        return read_buffer;
+    }
 
     /**
      * Saves a read position bookmark
@@ -292,7 +338,10 @@ public:
      * @param read_ptr points to the next character to be consumed in the read_buffer
      * @param read_end_ptr points to the end of the read_buffer (last byte + 1)
      */
-    void save_read_pos(const char *read_ptr, const char *read_end_ptr);
+    void save_read_pos(const char *read_ptr, const char *read_end_ptr) {
+        read_position.first = read_ptr;
+        read_position.second = read_end_ptr;
+    }
 
     /**
      * Loads a read position bookmark
@@ -300,77 +349,89 @@ public:
      * @param read_ptr points to the next character to be consumed in the read_buffer
      * @param read_end_ptr points to the end of the read_buffer (last byte + 1)
      */
-    void load_read_pos(const char *&read_ptr, const char *&read_end_ptr) const;
+    void load_read_pos(const char *&read_ptr, const char *&read_end_ptr) const {
+        read_ptr = read_position.first;
+        read_end_ptr = read_position.second;
+    }
 
     /**
      * Returns an ASIO endpoint for the client connection
      * 
      * @return endpoint
      */
-    asio::ip::tcp::endpoint get_remote_endpoint() const;
+    asio::ip::tcp::endpoint get_remote_endpoint() const {
+        asio::ip::tcp::endpoint remote_endpoint;
+        try {
+            // const_cast is required since lowest_layer() is only defined non-const in asio
+            remote_endpoint = const_cast<ssl_socket_type&> (ssl_socket).lowest_layer().remote_endpoint();
+        } catch (asio::system_error& /* e */) {
+            // do nothing
+        }
+        return remote_endpoint;
+    }
 
     /**
      * Returns the client's IP address
      * 
      * @return client's IP address
      */
-    asio::ip::address get_remote_ip() const;
+    asio::ip::address get_remote_ip() const {
+        return get_remote_endpoint().address();
+    }
 
     /**
      * Returns the client's port number
      * 
      * @return client's port number
      */
-    unsigned short get_remote_port() const;
+    unsigned short get_remote_port() const {
+        return get_remote_endpoint().port();
+    }
 
     /**
      * Returns reference to the io_service used for async operations
      * 
      * @return io_service used for async operations
      */
-    asio::io_service& get_io_service();
+    asio::io_service& get_io_service() {
+        return ssl_socket.lowest_layer().get_io_service();
+    }
 
     /**
      * Returns non-const reference to underlying TCP socket object
      * 
      * @return underlying TCP socket object
      */
-    socket_type& get_socket();
+    socket_type& get_socket() {
+        return ssl_socket.next_layer();
+    }
 
     /**
      * Returns non-const reference to underlying SSL socket object
      * 
      * @return underlying SSL socket object
      */
-    ssl_socket_type& get_ssl_socket();
-
-    /**
-     * Returns const reference to underlying TCP socket object
-     * 
-     * @return underlying TCP socket object
-     */
-    const socket_type& get_socket() const;
-
-    /**
-     * Returns const reference to underlying SSL socket object
-     * 
-     * @return underlying SSL socket object
-     */
-    const ssl_socket_type& get_ssl_socket() const;
+    ssl_socket_type& get_ssl_socket() {
+        return ssl_socket;
+    }
 
     /**
      * Returns the strand that can be used with this connection
      * 
      * @return the strand that can be used with this connection
      */
-    asio::io_service::strand& get_strand();
+    asio::io_service::strand& get_strand() {
+        return strand;
+    }
 
     /**
      * Returns the timer that can be used with this connection
      * 
      * @return the timer that can be used with this connection
      */
-    asio::steady_timer& get_timer();
+    asio::steady_timer& get_timer() {
+        return timer;
+    }
 
 };
 

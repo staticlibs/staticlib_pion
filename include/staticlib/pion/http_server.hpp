@@ -43,10 +43,14 @@
 namespace staticlib { 
 namespace pion {
 
+class http_request_reader;
+
 /**
  * Server extension that supports streaming requests of arbitrary size (file upload)
  */
 class http_server : public tcp_server {
+    friend class http_request_reader;
+
 protected:
     /**
      * Type of function that is used to handle requests
@@ -72,6 +76,11 @@ protected:
      * Data type for a map of resources to request handlers
      */
     using payloads_map_type = std::unordered_map<std::string, payload_handler_creator_type>; 
+
+    /**
+     * Timeout for read operations
+     */
+    uint32_t read_timeout;
     
     /**
      * Collection of GET handlers that are recognized by this HTTP server
@@ -142,13 +151,14 @@ protected:
     payloads_map_type options_payloads;
 
 public:
-    ~http_server() STATICLIB_NOEXCEPT;
+    ~http_server() STATICLIB_NOEXCEPT { }
 
     /**
      * Creates a new server object
      * 
      * @param number_of_threads number of threads to use for requests processing
      * @param port TCP port
+     * @param read_timeout_millis timeout for read operations
      * @param ip_address (optional) IPv4-address to use, ANY address by default
      * @param ssl_key_file (optional) path file containing concatenated X.509 key and certificate,
      *        empty by default (SSL disabled)
@@ -160,6 +170,7 @@ public:
      */
     http_server(uint32_t number_of_threads, uint16_t port,
             asio::ip::address_v4 ip_address = asio::ip::address_v4::any(),
+            uint32_t read_timeout_millis = 10000,
             const std::string& ssl_key_file = std::string(),
             std::function<std::string(std::size_t, asio::ssl::context::password_purpose)> ssl_key_password_callback = 
                     [](std::size_t, asio::ssl::context::password_purpose) { return std::string(); },
@@ -182,21 +193,27 @@ public:
      * 
      * @param handler function that handles bad HTTP requests
      */
-    void set_bad_request_handler(request_handler_type handler);
+    void set_bad_request_handler(request_handler_type handler) {
+        bad_request_handler = std::move(handler);
+    }
 
     /**
      * Sets the function that handles requests which match no other web services
      * 
      * @param handler function that handles requests which match no other web services
      */
-    void set_not_found_handler(request_handler_type handler);
+    void set_not_found_handler(request_handler_type handler) {
+        not_found_handler = std::move(handler);
+    }
 
     /**
      * Sets the function that handles requests which match no other web services
      * 
      * @param h the function that handles requests which match no other web services
      */
-    void set_error_handler(error_handler_type handler);
+    void set_error_handler(error_handler_type handler) {
+        server_error_handler = std::move(handler);
+    }
     
     /**
      * Adds a new payload_handler to the HTTP server
@@ -208,8 +225,6 @@ public:
     void add_payload_handler(const std::string& method, const std::string& resource, 
             payload_handler_creator_type payload_handler);
 
-protected:
-    
     /**
      * Handles a new TCP connection
      * 

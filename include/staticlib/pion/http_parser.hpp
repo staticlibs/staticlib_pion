@@ -54,12 +54,12 @@ public:
     /**
      * Maximum length for HTTP payload content (for non-streaming server)
      */
-    static const std::size_t DEFAULT_CONTENT_MAX;
+    static const size_t DEFAULT_CONTENT_MAX;
 
     /**
      * Callback type used to consume payload content
      */
-    using payload_handler_type = std::function<void(const char *, std::size_t)>;
+    using payload_handler_type = std::function<void(const char *, size_t)>;
 
     /**
      * Class-specific error code values
@@ -95,7 +95,9 @@ public:
          * 
          * @return error category name
          */
-        const char *name() const STATICLIB_NOEXCEPT;
+        const char *name() const STATICLIB_NOEXCEPT {
+            return "parser";
+        }
         
         /**
          * Returns error message for specified code
@@ -298,37 +300,37 @@ private:
     /**
      * Number of bytes in the chunk currently being parsed
      */
-    std::size_t m_size_of_current_chunk;
+    size_t m_size_of_current_chunk;
 
     /**
      * Number of bytes read so far in the chunk currently being parsed
      */
-    std::size_t m_bytes_read_in_current_chunk;
+    size_t m_bytes_read_in_current_chunk;
 
     /**
      * Number of payload content bytes that have not yet been read
      */
-    std::size_t m_bytes_content_remaining;
+    size_t m_bytes_content_remaining;
 
     /**
      * Number of bytes read so far into the message's payload content
      */
-    std::size_t m_bytes_content_read;
+    size_t m_bytes_content_read;
 
     /**
      * Number of bytes read during last parse operation
      */
-    std::size_t m_bytes_last_read;
+    size_t m_bytes_last_read;
 
     /**
      * Total number of bytes read while parsing the HTTP message
      */
-    std::size_t m_bytes_total_read;
+    size_t m_bytes_total_read;
 
     /**
      * Maximum length for HTTP payload content
      */
-    std::size_t m_max_content_length;
+    size_t m_max_content_length;
 
     /**
      * If true, then only HTTP headers will be parsed (no content parsing)
@@ -357,7 +359,20 @@ public:
      *
      * @param max_content_length maximum length for HTTP payload content
      */
-    http_parser(std::size_t max_content_length = DEFAULT_CONTENT_MAX);
+    http_parser(size_t max_content_length = DEFAULT_CONTENT_MAX) :
+    m_read_ptr(nullptr),
+    m_read_end_ptr(nullptr),
+    m_message_parse_state(PARSE_START),
+    m_headers_parse_state(PARSE_METHOD_START),
+    m_chunked_content_parse_state(PARSE_CHUNK_SIZE_START),
+    m_status_code(0),
+    m_bytes_content_remaining(0),
+    m_bytes_content_read(0),
+    m_bytes_last_read(0),
+    m_bytes_total_read(0),
+    m_max_content_length(max_content_length),
+    m_parse_headers_only(false),
+    m_save_raw_headers(false) { }
 
     /**
      * Deleted copy constructor
@@ -372,7 +387,7 @@ public:
     /**
      * Default destructor
      */
-    virtual ~http_parser();
+    virtual ~http_parser() STATICLIB_NOEXCEPT { }
 
     /**
      * Parses an HTTP message including all payload content it might contain
@@ -400,7 +415,10 @@ public:
      * @param ptr pointer to the first bytes available to be read
      * @param len number of bytes available to be read
      */
-    void set_read_buffer(const char *ptr, size_t len);
+    void set_read_buffer(const char *ptr, size_t len) {
+        m_read_ptr = ptr;
+        m_read_end_ptr = ptr + len;
+    }
 
     /**
      * Loads a read position bookmark
@@ -408,7 +426,10 @@ public:
      * @param read_ptr points to the next character to be consumed in the read_buffer
      * @param read_end_ptr points to the end of the read_buffer (last byte + 1)
      */
-    void load_read_pos(const char *&read_ptr, const char *&read_end_ptr) const;
+    void load_read_pos(const char *&read_ptr, const char *&read_end_ptr) const {
+        read_ptr = m_read_ptr;
+        read_end_ptr = m_read_end_ptr;
+    }
 
     /**
      * Checks to see if a premature EOF was encountered while parsing.  This
@@ -418,87 +439,129 @@ public:
      * @param http_msg the HTTP message object being parsed
      * @return true if premature EOF, false if message is OK & finished parsing
      */
-    bool check_premature_eof(http_message& http_msg);
+    bool check_premature_eof(http_message& http_msg) {
+        if (m_message_parse_state != PARSE_CONTENT_NO_LENGTH) {
+            return true;
+        }
+        m_message_parse_state = PARSE_END;
+        http_msg.concatenate_chunks();
+        finish(http_msg);
+        return false;
+    }
 
     /**
      * Controls headers-only parsing (default is disabled; content parsed also)
      *
      * @param b if true, then the parse() function returns true after headers
      */
-    void parse_headers_only(bool b = true);
+    void parse_headers_only(bool b = true) {
+        m_parse_headers_only = b;
+    }
 
     /**
      * Skip parsing all headers and parse payload content only
      *
      * @param http_msg the HTTP message object being parsed
      */
-    void skip_header_parsing(http_message& http_msg);
+    void skip_header_parsing(http_message& http_msg) {
+        std::error_code ec;
+        finish_header_parsing(http_msg, ec);
+    }
     
     /**
      * Resets the parser to its initial state
      */
-    void reset();
+    void reset() {
+        m_message_parse_state = PARSE_START;
+        m_headers_parse_state = PARSE_METHOD_START;
+        m_chunked_content_parse_state = PARSE_CHUNK_SIZE_START;
+        m_status_code = 0;
+        m_status_message.erase();
+        m_method.erase();
+        m_resource.erase();
+        m_query_string.erase();
+        m_raw_headers.erase();
+        m_bytes_content_read = m_bytes_last_read = m_bytes_total_read = 0;
+    }
 
     /**
      * Returns true if there are no more bytes available in the read buffer
      * 
      * @return true if there are no more bytes available in the read buffer
      */
-    bool eof() const;
+    bool eof() const {
+        return m_read_ptr == nullptr || m_read_ptr >= m_read_end_ptr;
+    }
 
     /**
      * Returns the number of bytes available in the read buffer
      * 
      * @return number of bytes available in the read buffer
      */
-    std::size_t bytes_available() const;
+    size_t bytes_available() const {
+        return (eof() ? 0 : (size_t)(m_read_end_ptr - m_read_ptr));
+    }
 
     /**
      * Returns the number of bytes read during the last parse operation
      * 
      * @return number of bytes read during the last parse operation
      */
-    std::size_t gcount() const;
+    size_t gcount() const {
+        return m_bytes_last_read;
+    }
 
     /**
      * Returns the total number of bytes read while parsing the HTTP message
      * 
      * @return total number of bytes read while parsing the HTTP message
      */
-    std::size_t get_total_bytes_read() const;
+    size_t get_total_bytes_read() const {
+        return m_bytes_total_read;
+    }
 
     /**
      * Returns the total number of bytes read while parsing the payload content
      * 
      * @return total number of bytes read while parsing the payload content
      */
-    std::size_t get_content_bytes_read() const;
+    size_t get_content_bytes_read() const {
+        return m_bytes_content_read;
+    }
 
     /**
      * Returns the maximum length for HTTP payload content
      * 
      * @return maximum length for HTTP payload content
      */
-    std::size_t get_max_content_length() const;
+    size_t get_max_content_length() const {
+        return m_max_content_length;
+    }
 
     /**
      * Returns the raw HTTP headers saved by the parser
      * 
      * @return raw HTTP headers saved by the parser
      */
-    const std::string& get_raw_headers() const;
+    const std::string& get_raw_headers() const {
+        return m_raw_headers;
+    }
 
     /**
      * Returns true if the parser is saving raw HTTP header contents
      */
-    bool get_save_raw_headers() const;
+    bool get_save_raw_headers() const {
+        return m_save_raw_headers;
+    }
 
     /**
      * Returns true if parsing headers only
      * 
      * @return true if parsing headers only
      */
-    bool get_parse_headers_only();
+    bool get_parse_headers_only() {
+        return m_parse_headers_only;
+    }
     
     /**
      * Returns true if the parser is being used to parse an HTTP request
@@ -519,26 +582,34 @@ public:
      * 
      * @param h a callback function to be used for consuming payload content
      */
-    void set_payload_handler(payload_handler_type& h);
+    void set_payload_handler(payload_handler_type& h) {
+        m_payload_handler = &h;
+    }
 
     /**
      * Sets the maximum length for HTTP payload content
      * 
      * @param n maximum length for HTTP payload content
      */
-    void set_max_content_length(std::size_t n);
+    void set_max_content_length(size_t n) {
+        m_max_content_length = n;
+    }
 
     /**
      * Resets the maximum length for HTTP payload content to the default value
      */
-    void reset_max_content_length();
+    void reset_max_content_length() {
+        m_max_content_length = DEFAULT_CONTENT_MAX;
+    }
 
     /**
      * Sets parameter for saving raw HTTP header content
      * 
      * @param b parameter for saving raw HTTP header content
      */
-    void set_save_raw_headers(bool b);
+    void set_save_raw_headers(bool b) {
+        m_save_raw_headers = b;
+    }
 
     /**
      * Parses a URI string
@@ -566,7 +637,7 @@ public:
      * @return bool true if successful
      */
     static bool parse_url_encoded(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
-            const char *ptr, const std::size_t len);
+            const char *ptr, const size_t len);
 
     /**
      * Parse key-value pairs out of a multipart/form-data payload content
@@ -580,7 +651,7 @@ public:
      * @return bool true if successful
      */
     static bool parse_multipart_form_data(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
-            const std::string& content_type, const char *ptr, const std::size_t len);
+            const std::string& content_type, const char *ptr, const size_t len);
 
     /**
      * Parse key-value pairs out of a "Cookie" request header
@@ -594,7 +665,7 @@ public:
      * @return bool true if successful
      */
     static bool parse_cookie_header(std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& dict,
-            const char *ptr, const std::size_t len, bool set_cookie_header);
+            const char *ptr, const size_t len, bool set_cookie_header);
 
     /**
      * Parse key-value pairs out of a "Cookie" request header
@@ -653,7 +724,10 @@ public:
      * 
      * @return instance of parser::error_category_t
      */
-    static error_category_t& get_error_category();
+    static error_category_t& get_error_category() {
+        std::call_once(m_instance_flag, http_parser::create_error_category);
+        return *m_error_category_ptr;
+    }
 
 protected:
 
@@ -663,7 +737,9 @@ protected:
      * @param 
      * @param 
      */
-    virtual void finished_parsing_headers(const std::error_code& /* ec */, sl::support::tribool& /* rc */);
+    virtual void finished_parsing_headers(const std::error_code& /* ec */, sl::support::tribool& /* rc */) {
+        // no-op
+    }
     
     /**
      * Parses an HTTP message up to the end of the headers using bytes 
@@ -717,9 +793,9 @@ protected:
      * the next chunk for the HTTP message
      *
      * @param chunk_buffers buffers to be populated from parsing chunked content
-     * @return std::size_t number of content bytes consumed, if any
+     * @return size_t number of content bytes consumed, if any
      */
-    std::size_t consume_content_as_next_chunk(http_message::chunk_cache_type& chunk_buffers);
+    size_t consume_content_as_next_chunk(http_message::chunk_cache_type& chunk_buffers);
 
     /**
      * Compute and sets a HTTP Message data integrity status
@@ -734,18 +810,27 @@ protected:
      * @param ec error code variable to define
      * @param ev error value to raise
      */
-    static void set_error(std::error_code& ec, error_value_t ev);
+    static void set_error(std::error_code& ec, error_value_t ev) {
+        ec = std::error_code(static_cast<int> (ev), get_error_category());
+    }
 
     /**
      * Creates the unique parser error_category_t
      */
-    static void create_error_category();
+    static void create_error_category() {
+        static error_category_t UNIQUE_ERROR_CATEGORY;
+        m_error_category_ptr = &UNIQUE_ERROR_CATEGORY;
+    }
 
     // misc functions used by the parsing functions
 
-    static bool is_digit(int c);
+    static bool is_digit(int c) {
+        return (c >= '0' && c <= '9');
+    }
     
-    static bool is_hex_digit(int c);
+    static bool is_hex_digit(int c) {
+        return ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'));
+    }
     
     static bool is_cookie_attribute(const std::string& name, bool set_cookie_header);
 

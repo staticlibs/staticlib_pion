@@ -25,8 +25,7 @@
 
 #include "staticlib/pion/scheduler.hpp"
 
-#include <cstdint>
-#include <chrono>
+#include "staticlib/pion/logger.hpp"
 
 namespace staticlib { 
 namespace pion {
@@ -38,18 +37,6 @@ const std::string log = "staticlib.pion.scheduler";
 } // namespace
 
 // members of scheduler
-
-scheduler::scheduler(uint32_t number_of_threads) :
-num_threads(number_of_threads),
-active_users(0),
-running(false),
-asio_service(),
-timer(asio_service),
-thread_stop_hook([]() STATICLIB_NOEXCEPT {}) { }
-
-scheduler::~scheduler() {
-    shutdown();
-}
 
 void scheduler::startup() {
     // lock mutex for thread safety
@@ -90,10 +77,10 @@ void scheduler::shutdown(void) {
 
         // shut everything down
         running = false;
-        stop_services();
+        asio_service.stop();
         stop_threads();
-        finish_services();
-        finish_threads();
+        asio_service.reset();
+        thread_pool.clear();
         
         STATICLIB_PION_LOG_INFO(log, "The thread scheduler has shutdown");
 
@@ -103,10 +90,10 @@ void scheduler::shutdown(void) {
     } else {
         
         // stop and finish everything to be certain that no events are pending
-        stop_services();
+        asio_service.stop();
         stop_threads();
-        finish_services();
-        finish_threads();
+        asio_service.reset();
+        thread_pool.clear();
         
         // Make sure anyone waiting on shutdown gets notified
         // even if the scheduler did not startup successfully
@@ -122,14 +109,6 @@ void scheduler::join(void) {
     }
 }
 
-bool scheduler::is_running() const {
-    return running;
-}
-
-void scheduler::post(std::function<void()> work_func) {
-    get_io_service().post(work_func);
-}
-    
 void scheduler::keep_running(asio::io_service& my_service, asio::steady_timer& my_timer) {
     if (running) {
         // schedule this again to make sure the service doesn't complete
@@ -154,11 +133,6 @@ void scheduler::remove_active_user() {
     }
 }
 
-void scheduler::sleep(uint32_t sleep_sec, uint32_t sleep_nsec) {
-    auto nanos = std::chrono::nanoseconds{sleep_sec * 1000000000 + sleep_nsec};
-    std::this_thread::sleep_for(nanos);
-}
-
 void scheduler::process_service_work(asio::io_service& service) {
     while (running) {
         try {
@@ -170,15 +144,6 @@ void scheduler::process_service_work(asio::io_service& service) {
             STATICLIB_PION_LOG_ERROR(log, "caught unrecognized exception");
         }
     }   
-}
-
-void scheduler::set_thread_stop_hook(std::function<void() /* noexcept */> hook) {
-    std::unique_lock<std::mutex> scheduler_lock{mutex};
-    this->thread_stop_hook = hook;
-}
-
-void scheduler::stop_services() {
-    asio_service.stop();
 }
 
 void scheduler::stop_threads() {
@@ -196,18 +161,6 @@ void scheduler::stop_threads() {
             }
         }
     }
-}
-
-void scheduler::finish_services() {
-    asio_service.reset();
-}
-
-void scheduler::finish_threads() {
-    thread_pool.clear();
-}
-
-asio::io_service& scheduler::get_io_service() {
-    return asio_service;
 }
 
 } // namespace

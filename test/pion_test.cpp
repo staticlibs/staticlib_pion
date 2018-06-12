@@ -124,7 +124,7 @@ public:
             }
         } else {
             // make sure it will get closed
-            self->writer->get_connection()->set_lifecycle(sl::pion::tcp_connection::LIFECYCLE_CLOSE);
+            self->writer->get_connection()->set_lifecycle(sl::pion::tcp_connection::lifecycle::close);
         }
     }
 };

@@ -34,7 +34,6 @@
 
 #include "staticlib/config.hpp"
 
-#include "staticlib/pion/logger.hpp"
 #include "staticlib/pion/scheduler.hpp"
 #include "staticlib/pion/tcp_connection.hpp"
 
@@ -100,6 +99,19 @@ protected:
 public:
 
     /**
+     * Protected constructor so that only derived objects may be created
+     * 
+     * @param endpoint TCP endpoint used to listen for new connections (see ASIO docs)
+     */
+    tcp_server(const asio::ip::tcp::endpoint& endpoint, uint32_t number_of_threads) :
+    active_scheduler(number_of_threads),
+    tcp_acceptor(active_scheduler.get_io_service()),
+    ssl_context(asio::ssl::context::sslv23),
+    tcp_endpoint(endpoint), 
+    ssl_flag(false),
+    listening(false) { }
+
+    /**
      * Deleted copy constructor
      */
     tcp_server(const tcp_server&) = delete;
@@ -112,7 +124,16 @@ public:
     /**
      * Virtual destructor
      */
-    virtual ~tcp_server() STATICLIB_NOEXCEPT;
+    virtual ~tcp_server() STATICLIB_NOEXCEPT {
+        if (listening) {
+            try {
+                stop(false);
+            } catch (const std::exception& e) {
+                (void) e;
+    //            STATICLIB_PION_LOG_WARN("Exception thrown in tcp::server destructor: " << e.message());
+            }
+        }
+    }
     
     /**
      * Starts listening for new connections
@@ -125,39 +146,15 @@ public:
      * @param wait_until_finished if true, blocks until all pending connections have closed
      */
     void stop(bool wait_until_finished = false);
-    
-    /**
-     * The calling thread will sleep until the server has stopped listening for connections
-     */
-    void join();
 
-    /**
-     * Returns tcp endpoint that the server listens for connections on
-     * 
-     * @return tcp endpoint
-     */
-    const asio::ip::tcp::endpoint& get_endpoint() const;
-    
-    /**
-     * Returns the SSL context for configuration
-     * 
-     * @return SSL context
-     */
-    tcp_connection::ssl_context_type& get_ssl_context_type();
-        
     /**
      * Returns true if the server is listening for connections
      * 
      * @return true if the server is listening for connections
      */
-    bool is_listening() const;
-    
-    /**
-     * Protected constructor so that only derived objects may be created
-     * 
-     * @param endpoint TCP endpoint used to listen for new connections (see ASIO docs)
-     */
-    tcp_server(const asio::ip::tcp::endpoint& endpoint, uint32_t number_of_threads);
+    bool is_listening() const {
+        return listening;
+    }
 
     /**
      * Handles a new TCP connection; derived classes SHOULD override this
@@ -165,21 +162,28 @@ public:
      * 
      * @param tcp_conn the new TCP connection to handle
      */
-    virtual void handle_connection(tcp_connection_ptr& tcp_conn);
+    virtual void handle_connection(tcp_connection_ptr& tcp_conn) {
+        tcp_conn->set_lifecycle(tcp_connection::lifecycle::close); // make sure it will get closed
+        tcp_conn->finish();
+    }
 
     /**
      * Returns an async I/O service used to schedule work
      * 
      * @return asio service
      */
-    asio::io_service& get_io_service();
+    asio::io_service& get_io_service() {
+        return active_scheduler.get_io_service();
+    }
 
     /**
      * Return active scheduler
      * 
      * @return scheduler
      */
-    scheduler& get_scheduler();
+    scheduler& get_scheduler() {
+        return active_scheduler;
+    }
 
 private:
         
