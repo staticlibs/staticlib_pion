@@ -68,8 +68,6 @@ before_script:
 # mac and android
   - git clone https://github.com/staticlibs/external_asio.git
   - git clone https://github.com/staticlibs/lookaside_asio.git
-  - git clone https://github.com/staticlibs/external_log4cplus.git
-  - git clone https://github.com/staticlibs/lookaside_log4cplus.git
   - git clone https://github.com/staticlibs/external_openssl.git
   - git clone https://github.com/staticlibs/lookaside_openssl.git
 # linux
@@ -80,7 +78,7 @@ before_script:
 # all platforms
   - git clone https://github.com/staticlibs/staticlib_config.git
   - git clone https://github.com/staticlibs/staticlib_support.git
-  - git clone https://github.com/staticlibs/staticlib_concurrent.git
+  - git clone https://github.com/staticlibs/staticlib_io.git
   - git clone https://github.com/staticlibs/staticlib_utils.git
 # test only
   - rm -rf test

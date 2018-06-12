@@ -30,13 +30,11 @@ install:
   - git clone https://github.com/staticlibs/cmake.git
   - git clone https://github.com/staticlibs/external_asio.git
   - git clone https://github.com/staticlibs/lookaside_asio.git
-  - git clone https://github.com/staticlibs/external_log4cplus.git
-  - git clone https://github.com/staticlibs/lookaside_log4cplus.git
   - git clone https://github.com/staticlibs/external_openssl.git
   - git clone https://github.com/staticlibs/lookaside_openssl.git
   - git clone https://github.com/staticlibs/staticlib_config.git
   - git clone https://github.com/staticlibs/staticlib_support.git
-  - git clone https://github.com/staticlibs/staticlib_concurrent.git
+  - git clone https://github.com/staticlibs/staticlib_io.git
   - git clone https://github.com/staticlibs/staticlib_utils.git
   - mkdir test
   - robocopy staticlib_pion\test\certificates test\certificates /e /ndl /njh /njs /nc /ns /np || true
