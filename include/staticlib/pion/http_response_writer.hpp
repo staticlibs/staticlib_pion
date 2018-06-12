@@ -48,7 +48,7 @@ namespace pion {
 /**
  * Sends HTTP data asynchronously
  */
-class http_response_writer : public std::enable_shared_from_this<http_response_writer> {
+class http_response_writer {
 
 public:
 
@@ -117,7 +117,7 @@ private:
 public:
 
     /**
-     * Constructor to be used with `std::make_shared`
+     * Constructor to be used with `std::make_unique`
      * 
      * @param tcp_conn TCP connection used to send the response
      * @param http_request the request we are responding to
@@ -167,20 +167,7 @@ public:
      * Following a call to this function, it is not thread safe to use your
      * reference to the writer object.
      */
-    void send();
-    
-    /**
-     * Sends all data buffered as a single HTTP message (without chunking).
-     * Following a call to this function, it is not thread safe to use your
-     * reference to the writer object until the send_handler has been called.
-     *
-     * @param send_handler function that is called after the message has been
-     *                     sent to the client.  Your callback function must end
-     *                     the connection by calling connection::finish().
-     */
-    template <typename SendHandler> void send(SendHandler send_handler) {
-        send_more_data(false, send_handler);
-    }
+    static void send(std::unique_ptr<http_response_writer> self);
 
     /**
      * Sends all data buffered as a single HTTP chunk.  Following a call to this
@@ -199,24 +186,13 @@ public:
             // make sure that the connection will be closed when we are all done
             m_tcp_conn->set_lifecycle(tcp_connection::LIFECYCLE_CLOSE);
         }
-        // send more data
-        send_more_data(false, send_handler);
-    }
-
-    /**
-     * Sends all data buffered (if any) and also sends the final HTTP chunk.
-     * This function (either overloaded version) must be called following any 
-     * calls to send_chunk().
-     * Following a call to this function, it is not thread safe to use your
-     * reference to the writer object until the send_handler has been called.
-     *
-     * @param send_handler function that is called after the message has been
-     *                     sent to the client.  Your callback function must end
-     *                     the connection by calling connection::finish().
-     */ 
-    template <typename SendHandler> void send_final_chunk(SendHandler send_handler) {
-        m_sending_chunks = true;
-        send_more_data(true, send_handler);
+        // make sure that we did not lose the TCP connection
+        if (m_tcp_conn->is_open()) {
+            // send more data
+            send_more_data(false, send_handler);
+        } else {
+            finished_writing(asio::error::connection_reset);
+        }
     }
 
     /**
@@ -226,7 +202,7 @@ public:
      * Following a call to this function, it is not thread safe to use your
      * reference to the writer object.
      */ 
-    void send_final_chunk();
+    static void send_final_chunk(std::unique_ptr<http_response_writer> self);
 
     /**
      * Returns a shared pointer to the TCP connection
@@ -284,7 +260,7 @@ private:
      * 
      * @return function bound to http::writer::handle_write()
      */
-    write_handler_type bind_to_write_handler();
+    static write_handler_type bind_to_write_handler(std::unique_ptr<http_response_writer> self);
 
     /**
      * Called after the response is sent
@@ -292,7 +268,8 @@ private:
      * @param write_error error status from the last write operation
      * @param bytes_written number of bytes sent by the last write operation
      */
-    void handle_write(const std::error_code& write_error, std::size_t bytes_written);
+    static void handle_write(std::unique_ptr<http_response_writer> self,
+            const std::error_code& write_error, std::size_t bytes_written);
 
     /**
      * Sends all of the buffered data to the client
@@ -309,7 +286,8 @@ private:
             http_message::write_buffers_type write_buffers;
             prepare_write_buffers(write_buffers, send_final_chunk);
             // send data in the write buffers
-            m_tcp_conn->async_write(write_buffers, send_handler);
+            auto send_handler_stranded = m_tcp_conn->get_strand().wrap(send_handler);
+            m_tcp_conn->async_write(write_buffers, send_handler_stranded);
         } else {
             finished_writing(asio::error::connection_reset);
         }
@@ -336,7 +314,7 @@ private:
 /**
  * Data type for a response_writer pointer
  */
-using response_writer_ptr = std::shared_ptr<http_response_writer>;
+using response_writer_ptr = std::unique_ptr<http_response_writer>;
 
 } // namespace
 }

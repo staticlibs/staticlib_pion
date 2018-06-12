@@ -27,6 +27,8 @@
 
 #include <array>
 
+#include "staticlib/support.hpp"
+
 namespace staticlib {
 namespace pion {
 
@@ -105,7 +107,9 @@ void http_response_writer::prepare_write_buffers(http_message::write_buffers_typ
 
 void http_response_writer::finished_writing(const std::error_code& ec) {
     if (m_http_response->is_body_allowed()) {
-        if (m_finished) m_finished(ec);
+        if (m_finished) {
+            m_finished(ec);
+        }
     }
 }
 
@@ -129,13 +133,15 @@ void http_response_writer::write_nocopy(sl::io::span<const char> data) {
     }
 }
 
-void http_response_writer::send() {
-    send_more_data(false, bind_to_write_handler());
+void http_response_writer::send(std::unique_ptr<http_response_writer> self) {
+    auto self_ptr = self.get();
+    self_ptr->send_more_data(false, bind_to_write_handler(std::move(self)));
 }
 
-void http_response_writer::send_final_chunk() {
-    m_sending_chunks = true;
-    send_more_data(true, bind_to_write_handler());
+void http_response_writer::send_final_chunk(std::unique_ptr<http_response_writer> self) {
+    self->m_sending_chunks = true;
+    auto self_ptr = self.get();
+    self_ptr->send_more_data(true, bind_to_write_handler(std::move(self)));
 }
 
 tcp_connection_ptr& http_response_writer::get_connection() {
@@ -177,26 +183,32 @@ void http_response_writer::prepare_buffers_for_send(http_message::write_buffers_
             sending_chunked_message());
 }
 
-http_response_writer::write_handler_type http_response_writer::bind_to_write_handler() {
-    auto self = shared_from_this();
-    return [self](const std::error_code& ec, std::size_t bt) { 
-        self->handle_write(ec, bt); 
+http_response_writer::write_handler_type http_response_writer::bind_to_write_handler(
+        std::unique_ptr<http_response_writer> self) {
+    auto self_shared = sl::support::make_shared_with_release_deleter(self.release());
+    return [self_shared](const std::error_code& ec, std::size_t bt) { 
+        auto self = sl::support::make_unique_from_shared_with_release_deleter(self_shared);
+        if (nullptr != self.get()) {
+            handle_write(std::move(self), ec, bt); 
+        } else {
+            STATICLIB_PION_LOG_WARN(log, "Lost context detected in 'async_write'");
+        }
     };
 }
 
-void http_response_writer::handle_write(const std::error_code& write_error, std::size_t bytes_written) {
-    (void) bytes_written;
-    if (!write_error) {
+void http_response_writer::handle_write(std::unique_ptr<http_response_writer> self,
+        const std::error_code& ec, std::size_t bytes_written) {
+    if (!ec) {
         // response sent OK
-        if (sending_chunked_message()) {
+        if (self->sending_chunked_message()) {
             STATICLIB_PION_LOG_DEBUG(log, "Sent HTTP response chunk of " << bytes_written << " bytes");
         } else {
             STATICLIB_PION_LOG_DEBUG(log,
                     "Sent HTTP response of " << bytes_written << " bytes ("
-                    << (get_connection()->get_keep_alive() ? "keeping alive)" : "closing)"));
+                    << (self->get_connection()->get_keep_alive() ? "keeping alive)" : "closing)"));
         }
     }
-    finished_writing(write_error);
+    self->finished_writing(ec);
 }
 
 } // namespace

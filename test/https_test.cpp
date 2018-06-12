@@ -50,7 +50,7 @@ void test_https() {
     server.add_handler("GET", "/", 
             [] (sl::pion::http_request_ptr, sl::pion::response_writer_ptr resp) {
                 resp->write("Hello pion\n");
-                resp->send();
+                resp->send(std::move(resp));
             });
     server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});

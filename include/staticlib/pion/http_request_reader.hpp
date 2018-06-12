@@ -33,7 +33,6 @@
 #include "asio.hpp"
 
 #include "staticlib/config.hpp"
-#include "staticlib/concurrent.hpp"
 
 #include "staticlib/pion/http_parser.hpp"
 #include "staticlib/pion/http_request.hpp"
@@ -45,8 +44,7 @@ namespace pion {
 /**
  * Asynchronously reads and parses HTTP requests
  */
-class http_request_reader : public http_parser, 
-        public std::enable_shared_from_this<http_request_reader> {
+class http_request_reader : public http_parser {
 
 public:
 
@@ -75,11 +73,6 @@ private:
     tcp_connection_ptr m_tcp_conn;
 
     /**
-     * Pointer to a tcp_timer object if read timeouts are enabled
-     */
-    std::shared_ptr<sl::concurrent::cancelable_timer<asio::steady_timer>> m_timer_ptr;
-
-    /**
      * Maximum number of milliseconds for read operations
      */
     uint32_t m_read_timeout_millis;
@@ -102,7 +95,7 @@ private:
 public:
 
     /**
-     * Constructor to be used with `std::make_shared`
+     * Constructor to be used with `std::make_unique`
      *
      * @param tcp_conn TCP connection containing a new message to parse
      * @param handler function called after the message has been parsed
@@ -114,7 +107,7 @@ public:
     /**
      * Incrementally reads & parses the HTTP message
      */
-    void receive();
+    static void receive(std::unique_ptr<http_request_reader> self);
 
     /**
      * Returns a shared pointer to the TCP connection
@@ -145,17 +138,18 @@ private:
      * @param read_error error status from the last read operation
      * @param bytes_read number of bytes consumed by the last read operation
      */
-    void consume_bytes(const std::error_code& read_error, std::size_t bytes_read);
+    static void consume_bytes(std::unique_ptr<http_request_reader> self, 
+            const std::error_code& read_error, std::size_t bytes_read);
 
     /**
      * Consumes bytes that have been read using an HTTP parser
      */
-    void consume_bytes();
+    static void consume_bytes(std::unique_ptr<http_request_reader> self);
     
     /**
      * Reads more bytes for parsing, with timeout support
      */
-    void read_bytes_with_timeout();
+    static void read_bytes_with_timeout(std::unique_ptr<http_request_reader> self);
 
     /**
      * Handles errors that occur during read operations
@@ -171,11 +165,6 @@ private:
      * @param rc result code reference
      */
     void finished_parsing_headers(const std::error_code& ec, sl::support::tribool& rc);
-
-    /**
-     * Reads more bytes from the TCP connection
-     */
-    void read_bytes();
 
     /**
      * Called after we have finished reading/parsing the HTTP message

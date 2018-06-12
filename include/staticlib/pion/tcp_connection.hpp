@@ -119,6 +119,16 @@ private:
      */
     connection_handler m_finished_handler;
 
+    /**
+     * Strand used to synchronize all async operations over this connection
+     */
+    asio::io_service::strand strand;
+
+    /**
+     * Timer that can be used with IO operations over this connection
+     */
+    asio::steady_timer timer;
+
 public:
 
     /**
@@ -164,6 +174,11 @@ public:
      * Cancels any asynchronous operations pending on the socket.
      */
     void cancel();
+
+    /**
+     * Cancels timer
+     */
+    void cancel_timer();
 
     /**
      * Asynchronously accepts a new tcp connection
@@ -342,6 +357,20 @@ public:
      * @return underlying SSL socket object
      */
     const ssl_socket_type& get_ssl_socket() const;
+
+    /**
+     * Returns the strand that can be used with this connection
+     * 
+     * @return the strand that can be used with this connection
+     */
+    asio::io_service::strand& get_strand();
+
+    /**
+     * Returns the timer that can be used with this connection
+     * 
+     * @return the timer that can be used with this connection
+     */
+    asio::steady_timer& get_timer();
 
 };
 

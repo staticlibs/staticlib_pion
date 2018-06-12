@@ -32,6 +32,8 @@
 
 #include "asio.hpp"
 
+#include "staticlib/support.hpp"
+
 #include "staticlib/pion/logger.hpp"
 #include "staticlib/pion/http_response_writer.hpp"
 #include "staticlib/pion/http_server.hpp"
@@ -41,12 +43,12 @@ const uint16_t TCP_PORT = 8080;
 
 void hello_service(sl::pion::http_request_ptr, sl::pion::response_writer_ptr resp) {
     resp->write("Hello World!\n");
-    resp->send();
+    resp->send(std::move(resp));
 }
 
 void hello_service_post(sl::pion::http_request_ptr, sl::pion::response_writer_ptr resp) {
     resp->write("Hello POST!\n");
-    resp->send();
+    resp->send(std::move(resp));
 }
 
 class file_writer {
@@ -62,7 +64,7 @@ public:
     file_writer(const file_writer& other) :
     stream(std::move(other.stream)) { }
 
-    file_writer& operator=(const file_writer&) = delete;  
+    file_writer& operator=(const file_writer&) = delete;
 
     file_writer(file_writer&& other) :
     stream(std::move(other.stream)) { }
@@ -84,39 +86,45 @@ public:
     }
 };
 
-class file_sender : public std::enable_shared_from_this<file_sender> {
+class file_sender {
     sl::pion::response_writer_ptr writer;
     std::ifstream stream;
     std::array<char, 8192> buf;
 
 public:
     file_sender(const std::string& filename, sl::pion::response_writer_ptr writer) : 
-    writer(writer),
+    writer(std::move(writer)),
     stream(filename, std::ios::in | std::ios::binary) {
         stream.exceptions(std::ifstream::badbit);
     }
 
-    void send() {
-        std::error_code ec{};
-        handle_write(ec, 0);
+    static void send(std::unique_ptr<file_sender> self) {
+        std::error_code ec;
+        handle_write(std::move(self), ec, 0);
     }
 
-    void handle_write(const std::error_code& ec, std::size_t /* bytes_written */) {
+    static void handle_write(std::unique_ptr<file_sender> self,
+            const std::error_code& ec, std::size_t /* bytes_written */) {
         if (!ec) {
-            stream.read(buf.data(), buf.size());
-            writer->clear();
-            writer->write_nocopy({buf.data(), stream.gcount()});
-            if (stream) {
-                auto self = shared_from_this();
-                writer->send_chunk([self](const std::error_code& ec, size_t bt) {
-                    self->handle_write(ec, bt);
-                });
+            self->stream.read(self->buf.data(), self->buf.size());
+            self->writer->clear();
+            self->writer->write_nocopy({self->buf.data(), self->stream.gcount()});
+            if (self->stream) {
+                auto& wr = self->writer;
+                auto self_shared = sl::support::make_shared_with_release_deleter(self.release());
+                wr->send_chunk(
+                    [self_shared](const std::error_code& ec, size_t bt) {
+                        auto self = sl::support::make_unique_from_shared_with_release_deleter(self_shared);
+                        if (self.get()) {
+                            handle_write(std::move(self), ec, bt);
+                        }
+                    });
             } else {
-                writer->send_final_chunk();
+                self->writer->send_final_chunk(std::move(self->writer));
             }
         } else {
             // make sure it will get closed
-            writer->get_connection()->set_lifecycle(sl::pion::tcp_connection::LIFECYCLE_CLOSE);
+            self->writer->get_connection()->set_lifecycle(sl::pion::tcp_connection::LIFECYCLE_CLOSE);
         }
     }
 };
@@ -128,8 +136,8 @@ void file_upload_resource(sl::pion::http_request_ptr req, sl::pion::response_wri
     } else {
         std::cout << "No payload handler found in main handler" << std::endl;
     }
-    auto fs = std::make_shared<file_sender>("uploaded.dat", resp);
-    fs->send();
+    auto fs = sl::support::make_unique<file_sender>("uploaded.dat", std::move(resp));
+    fs->send(std::move(fs));
 }
 
 file_writer file_upload_payload_handler_creator(sl::pion::http_request_ptr& req) {

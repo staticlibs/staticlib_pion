@@ -27,7 +27,9 @@ tcp_connection::tcp_connection(asio::io_service& io_service, ssl_context_type& s
 m_ssl_socket(io_service, ssl_context), 
 m_ssl_flag(ssl_flag),
 m_lifecycle(LIFECYCLE_CLOSE),
-m_finished_handler(finished_handler) {
+m_finished_handler(finished_handler),
+strand(io_service),
+timer(io_service) {
     save_read_pos(nullptr, nullptr);
 }
 
@@ -66,6 +68,13 @@ void tcp_connection::cancel() {
 #if !defined(_MSC_VER) || (_WIN32_WINNT >= 0x0600)
     std::error_code ec;
     m_ssl_socket.next_layer().cancel(ec);
+#endif
+}
+
+void tcp_connection::cancel_timer() {
+#if !defined(_MSC_VER) || (_WIN32_WINNT >= 0x0600)
+    std::error_code ec;
+    timer.cancel(ec);
 #endif
 }
 
@@ -145,6 +154,14 @@ const tcp_connection::socket_type& tcp_connection::get_socket() const {
 
 const tcp_connection::ssl_socket_type& tcp_connection::get_ssl_socket() const {
     return m_ssl_socket;
+}
+
+asio::io_service::strand& tcp_connection::get_strand() {
+    return strand;
+}
+
+asio::steady_timer& tcp_connection::get_timer() {
+    return timer;
 }
 
 } // namespace

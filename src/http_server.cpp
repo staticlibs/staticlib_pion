@@ -77,7 +77,7 @@ void handle_bad_request(http_request_ptr, response_writer_ptr resp) {
     resp->get_response().set_status_code(http_message::RESPONSE_CODE_BAD_REQUEST);
     resp->get_response().set_status_message(http_message::RESPONSE_MESSAGE_BAD_REQUEST);
     resp->write_nocopy(BAD_REQUEST_MSG);
-    resp->send();
+    resp->send(std::move(resp));
 }
 
 void handle_not_found_request(http_request_ptr request, response_writer_ptr resp) {
@@ -94,7 +94,7 @@ void handle_not_found_request(http_request_ptr request, response_writer_ptr resp
     std::replace(res.begin(), res.end(), '"', '\'');
     resp->write(res);
     resp->write_nocopy(NOT_FOUND_MSG_FINISH);
-    resp->send();
+    resp->send(std::move(resp));
 }
 
 void handle_server_error(response_writer_ptr resp,
@@ -112,17 +112,12 @@ void handle_server_error(response_writer_ptr resp,
     std::replace(err.begin(), err.end(), '"', '\'');
     resp->write(err);
     resp->write_nocopy(SERVER_ERROR_MSG_FINISH);
-    resp->send();
+    resp->send(std::move(resp));
 }
 
 void handle_root_options(http_request_ptr, response_writer_ptr resp) {
     resp->get_response().change_header("Allow", "HEAD, GET, POST, PUT, DELETE, OPTIONS");
-    resp->send();
-}
-
-void handle_100_continue(http_request_ptr, response_writer_ptr resp) {
-    resp->write_nocopy(http_message::RESPONSE_FULLMESSAGE_100_CONTINUE);
-    resp->send();
+    resp->send(std::move(resp));
 }
 
 template<typename T>
@@ -218,21 +213,19 @@ void http_server::handle_connection(tcp_connection_ptr& conn) {
         [this] (http_request_ptr request, tcp_connection_ptr& conn, const std::error_code& ec) {
             this->handle_request(std::move(request), conn, ec);
         };
-    auto reader = std::make_shared<http_request_reader>(
+    auto reader = sl::support::make_unique<http_request_reader>(
             conn, std::move(headers_parsed_cb), std::move(received_cb));
-    reader->receive();
-    // reader->request is consumed at this point
+    reader->receive(std::move(reader));
+    // reader is consumed at this point
 }
 
 void http_server::handle_request_after_headers_parsed(http_request_ptr& request,
         tcp_connection_ptr& conn, const std::error_code& ec, sl::support::tribool& rc) {
     if (ec || !rc) return;
     // http://stackoverflow.com/a/17390776/314015
-    if ("100-continue" == request->get_header("Expect")) {
-        auto writer = std::make_shared<http_response_writer>(conn, *request);
-        handle_100_continue(std::move(request), std::move(writer));
-        rc = true;
-        return;
+    if (sl::utils::iequals("100-continue", request->get_header("Expect"))) {
+        conn->async_write(asio::buffer(http_message::RESPONSE_FULLMESSAGE_100_CONTINUE),
+                [](const std::error_code&, std::size_t){ /* no-op */ });
     }
     auto& method = request->get_method();
     payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, 
@@ -263,7 +256,7 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
         if (conn->is_open() && (ec.category() == http_parser::get_error_category())) {
             // HTTP parser error
             STATICLIB_PION_LOG_INFO(log, "Invalid HTTP request (" << ec.message() << ")");
-            auto writer = std::make_shared<http_response_writer>(conn, *request);
+            auto writer = sl::support::make_unique<http_response_writer>(conn, *request);
             bad_request_handler(std::move(request), std::move(writer));
         } else {
             if (asio::error::operation_aborted == ec.value() || asio::error::eof == ec.value()) {
@@ -278,7 +271,7 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
     }
     // handle request
     STATICLIB_PION_LOG_DEBUG(log, "Received a valid HTTP request");
-    auto writer = std::make_shared<http_response_writer>(conn, *request);
+    auto writer = sl::support::make_unique<http_response_writer>(conn, *request);
     std::string path{strip_trailing_slash(request->get_resource())};
     if (http_message::REQUEST_METHOD_OPTIONS == request->get_method() && ("*" == path || "/*" == path)) {
         handle_root_options(std::move(request), std::move(writer));

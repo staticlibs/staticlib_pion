@@ -56,7 +56,6 @@ if ( NOT DEFINED STATICLIB_TOOLCHAIN )
     endif (  )
     staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_config )
     staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_support )
-    staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_concurrent )
     staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_io )
     staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_utils )
 endif ( )
@@ -65,7 +64,6 @@ endif ( )
 set ( ${PROJECT_NAME}_DEPS 
         staticlib_config
         staticlib_support
-        staticlib_concurrent
         staticlib_io
         staticlib_utils
         asio
