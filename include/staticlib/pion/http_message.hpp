@@ -55,14 +55,9 @@ class http_message  {
 public:
 
     /**
-     * Data type for I/O write buffers (these wrap existing data to be sent)
-     */
-    using write_buffers_type = std::vector<asio::const_buffer>;
-
-    /**
      * Used to cache chunked data
      */
-    using chunk_cache_type = std::vector<char>; 
+//    using chunk_cache_type = std::vector<char>; 
 
     /**
      * Defines message data integrity status codes
@@ -362,7 +357,7 @@ private:
     /**
      * Buffers for holding chunked data
      */
-    chunk_cache_type m_chunk_cache;
+    std::vector<char> m_chunk_cache;
 
     /**
      * HTTP message headers
@@ -582,7 +577,7 @@ public:
     /**
      * Returns a reference to the chunk cache
      */
-    chunk_cache_type& get_chunk_cache() {
+    std::vector<char>& get_chunk_cache() {
         return m_chunk_cache;
     }
 
@@ -926,7 +921,7 @@ public:
      * @param keep_alive true if the connection should be kept alive
      * @param using_chunks true if the payload content will be sent in chunks
      */
-    void prepare_buffers_for_send(write_buffers_type& write_buffers, const bool keep_alive,
+    void prepare_buffers_for_send(std::vector<asio::const_buffer>& write_buffers, const bool keep_alive,
             const bool using_chunks) {
         // update message headers
         prepare_headers_for_send(keep_alive, using_chunks);
@@ -1025,7 +1020,7 @@ protected:
      *
      * @param write_buffers the buffers to append HTTP headers into
      */
-    void append_headers(write_buffers_type& write_buffers) {
+    void append_headers(std::vector<asio::const_buffer>& write_buffers) {
         // add HTTP headers
         for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>
                 ::const_iterator i = m_headers.begin(); i != m_headers.end(); ++i) {

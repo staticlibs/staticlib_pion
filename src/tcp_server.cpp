@@ -211,12 +211,14 @@ void tcp_server::finish_connection(tcp_connection_ptr& tcp_conn) {
         
         // remove the connection from the server's management pool
         std::set<tcp_connection_ptr>::iterator conn_itr = conn_pool.find(tcp_conn);
-        if (conn_itr != conn_pool.end())
+        if (conn_itr != conn_pool.end()) {
             conn_pool.erase(conn_itr);
+        }
 
         // trigger the no more connections condition if we're waiting to stop
-        if (!listening && conn_pool.empty())
+        if (!listening && conn_pool.empty()) {
             no_more_connections.notify_all();
+        }
     }
 }
 

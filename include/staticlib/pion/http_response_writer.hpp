@@ -57,7 +57,7 @@ class http_response_writer {
     /**
      * I/O write buffers that wrap the payload content to be written
      */
-    http_message::write_buffers_type content_buffers;
+    std::vector<asio::const_buffer> content_buffers;
 
     /**
      * Caches binary data included within the payload content
@@ -292,7 +292,7 @@ private:
      *
      * @param write_buffers vector of write buffers to initialize
      */
-    void prepare_buffers_for_send(http_message::write_buffers_type& write_buffers) {
+    void prepare_buffers_for_send(std::vector<asio::const_buffer>& write_buffers) {
         if (get_content_length() > 0) {
             response->set_content_length(get_content_length());
         }
@@ -335,7 +335,7 @@ private:
         if (tcp_conn->is_open()) {
             // make sure that the content-length is up-to-date
             // prepare the write buffers to be sent
-            http_message::write_buffers_type write_buffers;
+            auto write_buffers = std::vector<asio::const_buffer>();
             prepare_write_buffers(write_buffers, send_final_chunk);
             // send data in the write buffers
             auto send_handler_stranded = tcp_conn->get_strand().wrap(send_handler);
@@ -351,7 +351,7 @@ private:
      * @param write_buffers buffers to which data will be appended
      * @param send_final_chunk true if the final 0-byte chunk should be included
      */
-    void prepare_write_buffers(http_message::write_buffers_type &write_buffers, 
+    void prepare_write_buffers(std::vector<asio::const_buffer>& write_buffers, 
             const bool send_final_chunk) {
         // check if the HTTP headers have been sent yet
         if (! sent_headers) {

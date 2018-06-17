@@ -25,6 +25,7 @@
 
 #include "staticlib/pion/http_parser.hpp"
 
+#include <cassert>
 #include <cstdlib>
 #include <cstring>
 #include <unordered_map>
@@ -1137,7 +1138,7 @@ bool http_parser::parse_multipart_form_data(std::unordered_multimap<std::string,
 
 
 
-sl::support::tribool http_parser::parse_chunks(http_message::chunk_cache_type& chunks, std::error_code& ec) {
+sl::support::tribool http_parser::parse_chunks(std::vector<char>& chunks, std::error_code& ec) {
     //
     // note that tribool may have one of THREE states:
     //
@@ -1346,7 +1347,7 @@ sl::support::tribool http_parser::consume_content(http_message& http_msg,
     return rc;
 }
 
-std::size_t http_parser::consume_content_as_next_chunk(http_message::chunk_cache_type& chunks)
+std::size_t http_parser::consume_content_as_next_chunk(std::vector<char>& chunks)
 {
     if (bytes_available() == 0) {
         m_bytes_last_read = 0;

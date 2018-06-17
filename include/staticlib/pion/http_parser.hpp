@@ -773,7 +773,7 @@ protected:
      *                        true = finished parsing message,
      *                        indeterminate = message is not yet finished
      */
-    sl::support::tribool parse_chunks(http_message::chunk_cache_type& chunk_buffers, std::error_code& ec);
+    sl::support::tribool parse_chunks(std::vector<char>& chunk_buffers, std::error_code& ec);
 
     /**
      * Consumes payload content in the parser's read buffer 
@@ -795,7 +795,7 @@ protected:
      * @param chunk_buffers buffers to be populated from parsing chunked content
      * @return size_t number of content bytes consumed, if any
      */
-    size_t consume_content_as_next_chunk(http_message::chunk_cache_type& chunk_buffers);
+    size_t consume_content_as_next_chunk(std::vector<char>& chunk_buffers);
 
     /**
      * Compute and sets a HTTP Message data integrity status

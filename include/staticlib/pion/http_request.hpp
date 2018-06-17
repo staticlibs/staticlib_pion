@@ -86,6 +86,16 @@ public:
     m_method(REQUEST_METHOD_GET) { }
 
     /**
+     * Deleted copy constructor
+     */
+    http_request(const http_request&) = delete;
+
+    /**
+     * Deleted copy-assignment operator
+     */
+    http_request& operator=(const http_request&) = delete;
+
+    /**
      * Virtual destructor
      */
     virtual ~http_request() STATICLIB_NOEXCEPT { }

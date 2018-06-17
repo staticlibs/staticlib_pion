@@ -39,6 +39,7 @@
 #include "staticlib/pion/http_response_writer.hpp"
 #include "staticlib/pion/tcp_connection.hpp"
 #include "staticlib/pion/tcp_server.hpp"
+#include "staticlib/pion/websocket.hpp"
 
 namespace staticlib { 
 namespace pion {
@@ -51,7 +52,7 @@ class http_request_reader;
 class http_server : public tcp_server {
     friend class http_request_reader;
 
-protected:
+public:
     /**
      * Type of function that is used to handle requests
      */
@@ -66,7 +67,7 @@ protected:
      * Type of function that is used to create payload handlers
      */
     using payload_handler_creator_type = std::function<http_parser::payload_handler_type(http_request_ptr&)>;
-    
+
     /**
      * Data type for a map of resources to request handlers
      */
@@ -77,6 +78,12 @@ protected:
      */
     using payloads_map_type = std::unordered_map<std::string, payload_handler_creator_type>; 
 
+    /**
+     * Data type for a map of resources to WebSocket handlers
+     */
+    using websocket_map_type = std::unordered_map<std::string, websocket_handler_type>; 
+
+private:
     /**
      * Timeout for read operations
      */
@@ -149,6 +156,21 @@ protected:
      * Collection of payload handlers OPTIONS resources that are recognized by this HTTP server
      */
     payloads_map_type options_payloads;
+
+    /**
+     * Collection of WebSocket WSOPEN resources that are recognized by this HTTP server
+     */
+    websocket_map_type wsopen_handlers;
+
+    /**
+     * Collection of WebSocket WSMESSAGE resources that are recognized by this HTTP server
+     */
+    websocket_map_type wsmessage_handlers;
+
+    /**
+     * Collection of WebSocket WSCLOSE resources that are recognized by this HTTP server
+     */
+    websocket_map_type wsclose_handlers;
 
 public:
     ~http_server() STATICLIB_NOEXCEPT { }
@@ -224,6 +246,16 @@ public:
      */
     void add_payload_handler(const std::string& method, const std::string& resource, 
             payload_handler_creator_type payload_handler);
+
+    /**
+     * Adds a new handler for WebSocket events
+     *
+     * @param event WebSocket event name
+     * @param resource the resource name or uri-stem to bind to the handler
+     * @param handler function used to handle WebSocket events
+     */
+    void add_websocket_handler(const std::string& event, const std::string& resource, 
+            websocket_handler_type handler);
 
     /**
      * Handles a new TCP connection

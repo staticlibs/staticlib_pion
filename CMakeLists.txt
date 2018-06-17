@@ -57,7 +57,9 @@ if ( NOT DEFINED STATICLIB_TOOLCHAIN )
     staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_config )
     staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_support )
     staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_io )
+    staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_endian )
     staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_utils )
+    staticlib_pion_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_websocket )
 endif ( )
 
 # dependencies
@@ -66,6 +68,7 @@ set ( ${PROJECT_NAME}_DEPS
         staticlib_support
         staticlib_io
         staticlib_utils
+        staticlib_websocket
         asio
         openssl )
 

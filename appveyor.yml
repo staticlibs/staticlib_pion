@@ -35,6 +35,9 @@ install:
   - git clone https://github.com/staticlibs/staticlib_config.git
   - git clone https://github.com/staticlibs/staticlib_support.git
   - git clone https://github.com/staticlibs/staticlib_io.git
+  - git clone https://github.com/staticlibs/staticlib_endian.git
+  - git clone https://github.com/staticlibs/staticlib_crypto.git
+  - git clone https://github.com/staticlibs/staticlib_websocket.git
   - git clone https://github.com/staticlibs/staticlib_utils.git
   - mkdir test
   - robocopy staticlib_pion\test\certificates test\certificates /e /ndl /njh /njs /nc /ns /np || true

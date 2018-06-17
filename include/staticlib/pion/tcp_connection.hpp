@@ -320,7 +320,7 @@ public:
      * @return true if the HTTP requests are pipelined
      */
     bool is_pipelined() const {
-        return current_lifecycle != lifecycle::pipelined;
+        return current_lifecycle == lifecycle::pipelined;
     }
 
     /**

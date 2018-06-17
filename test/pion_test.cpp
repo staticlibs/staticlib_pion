@@ -32,6 +32,7 @@
 
 #include "asio.hpp"
 
+#include "staticlib/io.hpp"
 #include "staticlib/support.hpp"
 
 #include "staticlib/pion/logger.hpp"
@@ -41,6 +42,36 @@
 const uint16_t SECONDS_TO_RUN = 1;
 const uint16_t TCP_PORT = 8080;
 
+std::string page = R"(
+<html>
+    <head>
+        <script>
+            var ws = new WebSocket('ws://127.0.0.1:8080/hello');
+            function sendRequest() {
+                var input = document.getElementById("req").value;
+                ws.send(input);
+            }
+            ws.addEventListener('message', function (event) {
+                var area = document.getElementById("resp");
+                area.value += "\n";
+                area.value += event.data;
+            });
+        </script>
+    </head>
+    <body>
+        <textarea id="req"
+                  rows="7" cols="50">hi</textarea>
+        <br>
+        <br>
+        <textarea id="resp"
+                  rows="7" cols="50"></textarea>
+        <br>
+        <br>
+        <button onclick="sendRequest();">Send</button>
+    </body>
+</html>
+)";
+
 void hello_service(sl::pion::http_request_ptr, sl::pion::response_writer_ptr resp) {
     resp->write("Hello World!\n");
     resp->send(std::move(resp));
@@ -49,6 +80,32 @@ void hello_service(sl::pion::http_request_ptr, sl::pion::response_writer_ptr res
 void hello_service_post(sl::pion::http_request_ptr, sl::pion::response_writer_ptr resp) {
     resp->write("Hello POST!\n");
     resp->send(std::move(resp));
+}
+
+void wspage(sl::pion::http_request_ptr, sl::pion::response_writer_ptr resp) {
+    resp->write_nocopy(page);
+    resp->send(std::move(resp));
+}
+
+void wsopen(sl::pion::websocket_ptr ws, sl::websocket::frame) {
+    std::cout << "open" << std::endl;
+    ws->write("hi42");
+    ws->send(std::move(ws));
+}
+
+void wsmsg(sl::pion::websocket_ptr ws, sl::websocket::frame frame) {
+    auto src = frame.payload_unmasked();
+    auto sink = sl::io::string_sink();
+    sl::io::copy_all(src, sink);
+    std::cout << "[" << sink.get_string() << "]" << std::endl;
+    ws->write(sink.get_string());
+    ws->write_nocopy("43");
+    ws->send(std::move(ws));
+}
+
+void wsclose(sl::pion::websocket_ptr ws, sl::websocket::frame) {
+    (void) ws;
+    std::cout << "close" << std::endl;
 }
 
 class file_writer {
@@ -156,9 +213,13 @@ void test_pion() {
     server.get_scheduler().set_thread_stop_hook([]() STATICLIB_NOEXCEPT {
         std::cout << "Thread stopped. " << std::endl;
     });
+    server.add_handler("GET", "/wspage.html", wspage);
+    server.add_websocket_handler("WSOPEN", "/hello", wsopen);
+    server.add_websocket_handler("WSMESSAGE", "/hello", wsmsg);
+    server.add_websocket_handler("WSCLOSE", "/hello", wsclose);
     server.start();
     std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});
-    server.stop(true);
+    server.stop();
 }
 
 int main() {

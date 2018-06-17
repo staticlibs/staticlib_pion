@@ -26,10 +26,11 @@
 #include <algorithm>
 #include <functional>
 #include <stdexcept>
+#include <tuple>
 
 #include "staticlib/pion/http_request_reader.hpp"
-#include "staticlib/pion/pion_exception.hpp"
 #include "staticlib/pion/http_response_writer.hpp"
+#include "staticlib/pion/pion_exception.hpp"
 
 #ifdef STATICLIB_PION_USE_SSL
 #include "openssl/ssl.h"
@@ -65,6 +66,21 @@ T& choose_map_by_method(const std::string& method, T& get_map, T& post_map, T& p
         return options_map;
     } else {
         throw pion_exception("Invalid HTTP method: [" + method + "]");
+    } 
+}
+
+http_server::websocket_map_type& choose_ws_map(const std::string& event,
+        http_server::websocket_map_type& open_map,
+        http_server::websocket_map_type& message_map,
+        http_server::websocket_map_type& close_map) {
+    if ("WSOPEN" == event) {
+        return open_map;
+    } else if ("WSMESSAGE" == event) {
+        return message_map;
+    } else if ("WSCLOSE" == event) {
+        return close_map;
+    } else {
+        throw pion_exception("Invalid WebSocket event: [" + event + "]");
     } 
 }
 
@@ -137,6 +153,25 @@ typename T::iterator find_submatch(T& map, const std::string& path) {
     return end;
 }
 
+std::tuple<bool, websocket_handler_type, websocket_handler_type, websocket_handler_type>
+find_ws_handlers(const std::string& path, http_server::websocket_map_type& open_map,
+        http_server::websocket_map_type& message_map, http_server::websocket_map_type& close_map) {
+    auto it_open = open_map.find(path);
+    auto has_open = open_map.end() != it_open;
+    auto it_message = message_map.find(path);
+    auto has_message = message_map.end() != it_message;
+    auto it_close = close_map.find(path);
+    auto has_close = close_map.end() != it_close;
+    auto noop = [](std::unique_ptr<websocket> self, sl::websocket::frame){
+        self->receive(std::move(self));
+    };
+    return std::make_tuple(
+            has_open || has_message || has_close,
+            has_open ? it_open->second : noop,
+            has_message ? it_message->second : noop,
+            has_close ? it_close->second : noop);
+}
+
 } // namespace
 
 http_server::http_server(uint32_t number_of_threads, uint16_t port,
@@ -176,9 +211,9 @@ void http_server::add_handler(const std::string& method,
         const std::string& resource, request_handler_type request_handler) {
     handlers_map_type& map = choose_map_by_method(method, get_handlers, post_handlers, put_handlers, 
             delete_handlers, options_handlers);
-    const std::string clean_resource{strip_trailing_slash(resource)};
-    STATICLIB_PION_LOG_DEBUG(log, "Added handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
-    auto it = map.emplace(std::move(clean_resource), std::move(request_handler));
+    auto clean_resource = strip_trailing_slash(resource);
+    STATICLIB_PION_LOG_DEBUG(log, "Adding handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
+    auto it = map.emplace(clean_resource, std::move(request_handler));
     if (!it.second) throw pion_exception("Invalid duplicate handler path: [" + clean_resource + "], method: [" + method + "]");
 }
 
@@ -186,10 +221,19 @@ void http_server::add_payload_handler(const std::string& method, const std::stri
         payload_handler_creator_type payload_handler) {
     payloads_map_type& map = choose_map_by_method(method, get_payloads, post_payloads, put_payloads, 
             delete_payloads, options_payloads);
-    const std::string clean_resource{strip_trailing_slash(resource)};
-    STATICLIB_PION_LOG_DEBUG(log, "Added payload handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
-    auto it = map.emplace(std::move(clean_resource), std::move(payload_handler));
+    auto clean_resource = strip_trailing_slash(resource);
+    STATICLIB_PION_LOG_DEBUG(log, "Adding payload handler for HTTP resource: [" << clean_resource << "], method: [" << method << "]");
+    auto it = map.emplace(clean_resource, std::move(payload_handler));
     if (!it.second) throw pion_exception("Invalid duplicate payload path: [" + clean_resource + "], method: [" + method + "]");
+}
+
+void http_server::add_websocket_handler(const std::string& event, const std::string& resource, 
+        websocket_handler_type handler) {
+    auto& map = choose_ws_map(event, wsopen_handlers, wsmessage_handlers, wsclose_handlers);
+    auto clean_resource = strip_trailing_slash(resource);
+    STATICLIB_PION_LOG_DEBUG(log, "Adding WebSocket handler for resource: [" << clean_resource << "], event: [" << event << "]");
+    auto it = map.emplace(std::move(clean_resource), std::move(handler));
+    if (!it.second) throw pion_exception("Invalid duplicate WebSocket path: [" + clean_resource + "], event: [" + event + "]");
 }
 
 void http_server::handle_connection(tcp_connection_ptr& conn) {
@@ -250,8 +294,23 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
     }
     // handle request
     STATICLIB_PION_LOG_DEBUG(log, "Received a valid HTTP request");
+    auto path = std::string(strip_trailing_slash(request->get_resource()));
+    // check websocket upgrade
+    if (websocket::is_websocket_upgrade(*request)) {
+        auto tup = find_ws_handlers(path, wsopen_handlers, wsmessage_handlers, wsclose_handlers);
+        if (std::get<0>(tup)) {
+            auto ws = sl::support::make_unique<websocket>(std::move(request), std::move(conn),
+                    std::move(std::get<1>(tup)), std::move(std::get<2>(tup)), std::move(std::get<3>(tup)));
+            ws->start(std::move(ws));
+        } else {
+            STATICLIB_PION_LOG_INFO(log, "No WebSocket handlers found for resource: " << path);
+            auto writer = sl::support::make_unique<http_response_writer>(conn, *request);
+            not_found_handler(std::move(request), std::move(writer));
+        }
+        return;
+    }
+    // handle HTTP request
     auto writer = sl::support::make_unique<http_response_writer>(conn, *request);
-    std::string path{strip_trailing_slash(request->get_resource())};
     if (http_message::REQUEST_METHOD_OPTIONS == request->get_method() && ("*" == path || "/*" == path)) {
         handle_root_options(std::move(request), std::move(writer));
         return;
