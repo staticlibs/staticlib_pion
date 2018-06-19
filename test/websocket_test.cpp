@@ -34,7 +34,6 @@
 #include "staticlib/support.hpp"
 #include "staticlib/websocket.hpp"
 
-
 #include "staticlib/pion/http_server.hpp"
 
 const uint16_t SECONDS_TO_RUN = 60;
@@ -50,13 +49,17 @@ void wsmsg(sl::pion::websocket_ptr ws) {
     auto src = ws->message_data();
     auto sink = sl::io::string_sink();
     sl::io::copy_all(src, sink);
-    ws->write(sink.get_string());
-    ws->send(std::move(ws));
+    if ("closeme" == sink.get_string()) {
+        ws->close(std::move(ws));
+    } else {
+        ws->write(sink.get_string());
+        ws->send(std::move(ws));
+    }
 }
 
 void wsclose(sl::pion::websocket_ptr ws) {
     (void) ws;
-    std::cout << "close" << std::endl;
+    std::cout << "closed" << std::endl;
 }
 
 std::string make_handshake() {
@@ -165,6 +168,14 @@ void check_long(asio::ip::tcp::socket& socket) {
     slassert(msg == retmsg);
 }
 
+void check_close(asio::ip::tcp::socket& socket) {
+    auto msg = std::string("closeme");
+    auto hello = make_frame(msg);
+    socket.send(asio::buffer(hello));
+    auto resp = receive(socket);
+    slassert("03e8" == sl::io::string_to_hex(resp));
+}
+
 void test_websocket() {
     // start server
     sl::pion::http_server server(2, TCP_PORT);
@@ -196,6 +207,7 @@ void test_websocket() {
     check_broadcast(server, socket);
     check_long(socket);
 //    }
+    check_close(socket);
 
     socket.close();
     server.stop();

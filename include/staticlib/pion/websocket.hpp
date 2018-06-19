@@ -49,7 +49,6 @@ class msg_data_src {
     std::vector<sl::websocket::frame>& frames_ref;
     sl::websocket::masked_payload_source src_single;
     sl::io::multi_source<std::vector<sl::websocket::masked_payload_source>> src_multi;
-    size_t frames_size;
 
 public:
     msg_data_src(std::vector<sl::websocket::frame>& frames):
@@ -161,12 +160,12 @@ public:
 
     websocket& operator=(const websocket&) = delete;
 
-    const http_request& get_request() const {
-        return *request;
+    const std::string& get_id() {
+        return request->get_header("Sec-WebSocket-Key");
     }
 
-    const std::string& get_id() const {
-        return request->get_header("Sec-WebSocket-Key");
+    http_request& get_request() {
+        return *request;
     }
 
     tcp_connection& get_connection() {
@@ -264,6 +263,10 @@ public:
         }
     }
 
+    static void close(std::unique_ptr<websocket> self, const close_status& status = close_status::normal) {
+        on_close(std::move(self), status);
+    }
+
 private:
 
     /**
@@ -330,7 +333,6 @@ private:
 
     void prepare_handshake() {
         write(sl::websocket::handshake::make_response_line());
-        write_nocopy("\r\n");
         auto& key = request->get_header("Sec-WebSocket-Key");
         auto headers = sl::websocket::handshake::make_response_headers(key);
         for (auto& ha : headers) {
