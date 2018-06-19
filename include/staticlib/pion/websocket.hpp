@@ -228,7 +228,7 @@ public:
 
     static void receive(std::unique_ptr<websocket> self) {
         self->clear_frames_cache();
-        receive_internal(std::move(self));
+        process_receive_buffer(std::move(self));
     }
 
     static void send(std::unique_ptr<websocket> self,
@@ -286,22 +286,20 @@ private:
     }
 
     void remove_frame_from_receive_buffer(sl::websocket::frame& frame) {
-        auto buf = frame.raw_view();
-        auto receive_tail = receive_buffer.size() - buf.size();
+        auto receive_tail = receive_buffer.size() - frame.size();
         if (0 == receive_tail) {
             receive_buffer.clear();
         } else {
-            std::memmove(receive_buffer.data(), receive_buffer.data() + buf.size(), receive_tail);
+            std::memmove(receive_buffer.data(), receive_buffer.data() + frame.size(), receive_tail);
             receive_buffer.resize(receive_tail);
         }
     }
 
     void add_to_frames_cache(sl::websocket::frame& frame) {
-        auto buf = frame.raw_view();
-        frames_cache.emplace_back(new char[buf.size()]);
+        frames_cache.emplace_back(new char[frame.size()]);
         char* dest = frames_cache.back().get();
-        std::memcpy(dest, buf.data(), buf.size());
-        frames.emplace_back(sl::websocket::frame({dest, buf.size()}));
+        std::memcpy(dest, frame.data(), frame.size());
+        frames.emplace_back(sl::websocket::frame({dest, frame.size()}));
         remove_frame_from_receive_buffer(frame);
     }
 
@@ -461,6 +459,10 @@ private:
             return;
         }
         self->add_to_receive_buffer(buf);
+        process_receive_buffer(std::move(self));
+    }
+
+    static void process_receive_buffer(std::unique_ptr<websocket> self) {
         auto frame = sl::websocket::frame(self->receive_buffer_span());
         // close connection for invalid frame
         if (!frame.is_well_formed()) {
@@ -482,6 +484,10 @@ private:
             return;
         }
         // complete and final frame received
+        process_final_frame(std::move(self), frame);
+    }
+
+    static void process_final_frame(std::unique_ptr<websocket> self, sl::websocket::frame frame) {
         self->frames.push_back(frame);
         // choose handler
         switch (frame.type()) {
@@ -544,7 +550,8 @@ private:
             return;
         }
         self->add_to_frames_cache(frame);
-        receive_internal(std::move(self));
+        // safety precaution for stack overflow
+        post_with_strand(std::move(self), websocket::process_receive_buffer);
     }
 
     sl::io::span<const char> receive_buffer_span() {
@@ -562,7 +569,6 @@ using websocket_ptr = std::unique_ptr<websocket>;
  * Type of function that is used to handle WebSocket connections
  */
 using websocket_handler_type = std::function<void(std::unique_ptr<websocket>)>;
-using websocket_close_handler_type = std::function<void(const std::unique_ptr<websocket>&)>;
 
 
 } // namespace

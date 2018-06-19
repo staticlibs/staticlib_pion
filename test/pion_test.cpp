@@ -39,7 +39,7 @@
 #include "staticlib/pion/http_response_writer.hpp"
 #include "staticlib/pion/http_server.hpp"
 
-const uint16_t SECONDS_TO_RUN = 60;
+const uint16_t SECONDS_TO_RUN = 1;
 const uint16_t TCP_PORT = 8080;
 
 std::string page = R"(
@@ -225,14 +225,14 @@ void test_pion() {
     server.add_websocket_handler("WSMESSAGE", "/hello", wsmsg);
     server.add_websocket_handler("WSCLOSE", "/hello", wsclose);
     server.start();
-//    std::this_thread::sleep_for(std::chrono::seconds(SECONDS_TO_RUN));
-    for (size_t i = 0; i < SECONDS_TO_RUN; i++) {
+    std::this_thread::sleep_for(std::chrono::seconds(SECONDS_TO_RUN));
+//    for (size_t i = 0; i < SECONDS_TO_RUN; i++) {
 //        if (0 == i % 10) {
-            auto msg = std::string("ping") + sl::support::to_string(i);
-            server.broadcast_websocket("/hello", msg);
+//            auto msg = std::string("ping") + sl::support::to_string(i);
+//            server.broadcast_websocket("/hello", msg);
 //        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    }
+//        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+//    }
     server.stop();
 }
 
