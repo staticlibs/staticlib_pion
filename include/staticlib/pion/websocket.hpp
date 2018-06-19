@@ -43,47 +43,109 @@
 namespace staticlib { 
 namespace pion {
 
-// forward declaration
-class websocket;
+namespace websocket_detail {
 
-/**
- * Type of function that is used to handle WebSocket connections
- */
-using websocket_handler_type = std::function<void(std::unique_ptr<websocket>, sl::websocket::frame)>;
+class msg_data_src {
+    std::vector<sl::websocket::frame>& frames_ref;
+    sl::websocket::masked_payload_source src_single;
+    sl::io::multi_source<std::vector<sl::websocket::masked_payload_source>> src_multi;
+    size_t frames_size;
+
+public:
+    msg_data_src(std::vector<sl::websocket::frame>& frames):
+    frames_ref(frames),
+    src_single(
+        [&frames] {
+            if (1 == frames.size()) {
+                return frames[0].payload_unmasked();
+            } else {
+                return sl::websocket::masked_payload_source({nullptr, 0}, 0);
+            }
+        } ()),
+    src_multi(
+        [&frames] {
+            auto vec = std::vector<sl::websocket::masked_payload_source>();
+            if (frames.size() > 1) {
+                for (auto& fr : frames) {
+                    vec.emplace_back(fr.payload_unmasked());
+                }
+            } 
+            return sl::io::make_multi_source(std::move(vec));
+        } ()) { }
+
+    msg_data_src(const msg_data_src&) = delete;
+
+    msg_data_src& operator=(const msg_data_src&) = delete;
+
+    msg_data_src(msg_data_src&& other):
+    frames_ref(other.frames_ref),
+    src_single(std::move(other.src_single)),
+    src_multi(std::move(other.src_multi)) { }
+
+    msg_data_src& operator=(msg_data_src&&) = delete;
+
+    std::streamsize read(sl::io::span<char> span) {
+        if (1 == frames_ref.size()) {
+            return src_single.read(span);
+        } else if (frames_ref.size() > 1) {
+            return src_multi.read(span);
+        } else {
+            return std::char_traits<char>::eof();
+        }
+    }
+};
+
+} // namespace
 
 
 class websocket {
+
+    enum class close_status : uint32_t {
+        normal = 0xe8030288,
+        going_away = 0xe9030288,
+        protocol_error = 0xea030288,
+        overflow = 0xf1030288,
+        error = 0xf3030288
+    };
+
+    // IO
     std::unique_ptr<http_request> request;
     std::shared_ptr<tcp_connection> connection;
 
-    websocket_handler_type on_open_fun;
-    websocket_handler_type on_message_fun;
-    websocket_handler_type on_close_fun;
+    // handlers
+    std::function<void(std::unique_ptr<websocket>)> on_open_fun;
+    std::function<void(std::unique_ptr<websocket>)> on_message_fun;
+    std::function<void(std::unique_ptr<websocket>)> on_close_fun;
 
-    /**
-     * I/O write buffers that wrap the payload content to be written
-     */
+    // overflow limits
+    const size_t receive_buffer_max_size;
+    const size_t frames_max_count;
+
+    // output state
     std::vector<asio::const_buffer> payload_buffers;
-
-    /**
-     * Caches binary data included within the payload content
-     */
     std::vector<std::unique_ptr<char[]>> payload_cache;
-
     size_t payload_length = 0;
 
+    // input state
+    // todo: use array sink
     std::vector<char> receive_buffer;
-    std::vector<std::unique_ptr<char[]>> receive_partials;
+    std::vector<std::unique_ptr<char[]>> frames_cache;
+    std::vector<sl::websocket::frame> frames;
 
 public:
     websocket(std::unique_ptr<http_request> req, std::shared_ptr<tcp_connection> conn,
-            websocket_handler_type open_handler, websocket_handler_type message_handler,
-            websocket_handler_type close_handler) :
+            std::function<void(std::unique_ptr<websocket>)> open_handler,
+            std::function<void(std::unique_ptr<websocket>)> message_handler,
+            std::function<void(std::unique_ptr<websocket>)> close_handler,
+            size_t max_receive_cache_size_bytes = (1024*1024),
+            size_t max_cached_frames_count = 1024) :
     request(std::move(req)),
     connection(std::move(conn)),
     on_open_fun(std::move(open_handler)),
     on_message_fun(std::move(message_handler)),
-    on_close_fun(std::move(close_handler)) {
+    on_close_fun(std::move(close_handler)),
+    receive_buffer_max_size(max_receive_cache_size_bytes),
+    frames_max_count(max_cached_frames_count) {
         connection->set_lifecycle(tcp_connection::lifecycle::close);
     }
 
@@ -101,6 +163,25 @@ public:
 
     const http_request& get_request() const {
         return *request;
+    }
+
+    const std::string& get_id() const {
+        return request->get_header("Sec-WebSocket-Key");
+    }
+
+    tcp_connection& get_connection() {
+        return *connection;
+    }
+
+    sl::websocket::frame_type message_type() {
+        if(frames.size() > 0) {
+            return frames[0].type();
+        }
+        return sl::websocket::frame_type::invalid;
+    }
+
+    websocket_detail::msg_data_src message_data() {
+        return websocket_detail::msg_data_src(frames);
     }
 
     /**
@@ -146,7 +227,7 @@ public:
     }
 
     static void receive(std::unique_ptr<websocket> self) {
-        self->clear_receive();
+        self->clear_frames_cache();
         receive_internal(std::move(self));
     }
 
@@ -166,8 +247,8 @@ public:
             });
     }
 
-    template<typename Range>
-    static void broadcast(Range& connections, sl::io::span<const char> msg,
+    static void broadcast(std::vector<std::shared_ptr<tcp_connection>>& connections,
+            sl::io::span<const char> msg,
             sl::websocket::frame_type msg_type = sl::websocket::frame_type::text) {
         // prepare message
         auto holder = std::make_shared<std::vector<char>>();
@@ -176,13 +257,10 @@ public:
         holder->resize(header.size() + msg.size());
         std::memcpy(holder->data(), header.data(), header.size());
         std::memcpy(holder->data() + header.size(), msg.data(), msg.size());
-        
+
         // broadcast message
-        for (auto it = connections.first; it != connections.second; ++it) {
-            auto conn_shared = it->second.lock();
-            if (nullptr != conn_shared.get()) {
-                send_broadcast(std::move(conn_shared), holder);
-            }
+        for (auto& el : connections) {
+            send_broadcast(std::move(el), holder);
         }
     }
 
@@ -207,11 +285,24 @@ private:
         std::memcpy(receive_buffer.data() + size, buf.data(), buf.size());
     }
 
-    void add_to_receive_partials(sl::io::span<const char> payload) {
-        receive_partials.emplace_back(new char[payload.size()]);
-        char* dest = payload_cache.back().get();
-        std::memcpy(dest, payload.data(), payload.size());
-        receive_buffer.clear();
+    void remove_frame_from_receive_buffer(sl::websocket::frame& frame) {
+        auto buf = frame.raw_view();
+        auto receive_tail = receive_buffer.size() - buf.size();
+        if (0 == receive_tail) {
+            receive_buffer.clear();
+        } else {
+            std::memmove(receive_buffer.data(), receive_buffer.data() + buf.size(), receive_tail);
+            receive_buffer.resize(receive_tail);
+        }
+    }
+
+    void add_to_frames_cache(sl::websocket::frame& frame) {
+        auto buf = frame.raw_view();
+        frames_cache.emplace_back(new char[buf.size()]);
+        char* dest = frames_cache.back().get();
+        std::memcpy(dest, buf.data(), buf.size());
+        frames.emplace_back(sl::websocket::frame({dest, buf.size()}));
+        remove_frame_from_receive_buffer(frame);
     }
 
     void clear_payload() {
@@ -221,9 +312,13 @@ private:
         payload_length = 0;
     }
 
-    void clear_receive() {
-        receive_buffer.clear();
-        receive_partials.clear();
+    void clear_frames_cache() {
+        // last received frame always lives in cache
+        if (frames.size() > 0) {
+            remove_frame_from_receive_buffer(frames.back());
+        }
+        frames_cache.clear();
+        frames.clear();
     }
 
     void prepare_header(sl::websocket::frame_type msg_type) {
@@ -249,6 +344,14 @@ private:
         write_nocopy("\r\n");
     }
 
+    bool receive_buffer_overflow(size_t addition) {
+        return receive_buffer.size() + addition > receive_buffer_max_size;
+    }
+
+    bool frames_cache_overflow() {
+        return frames.size() >= frames_max_count;
+    }
+
     template<typename Handler>
     static void post_with_strand(std::unique_ptr<websocket> self, Handler handler) {
         auto self_ptr = self.get();
@@ -259,8 +362,7 @@ private:
                 if (nullptr != self.get()) {
                     handler(std::move(self));
                 } else {
-                    STATICLIB_PION_LOG_WARN("staticlib.pion.websocket",
-                            "Lost context detected in 'post'");
+                    STATICLIB_PION_LOG_WARN("staticlib.pion.websocket", "Lost context detected in 'post'");
                 }
             };
         self_ptr->connection->get_strand().post(std::move(post_handler));
@@ -278,17 +380,38 @@ private:
                     if (!ec) {
                         handler(std::move(self));
                     } else {
-                        on_close(std::move(self));
-                        STATICLIB_PION_LOG_DEBUG("staticlib.pion.websocket",
-                                "Write error, code: [" << ec <<"]");
+                        STATICLIB_PION_LOG_DEBUG("staticlib.pion.websocket", "Write error," <<
+                                " code: [" << ec << "]" <<
+                                " message: [" << ec.message() << "]" <<
+                                " id: [" << self->get_id() << "]" <<
+                                " path: [" << self->request->get_resource() << "]");
+                        on_close(std::move(self), close_status::error);
                     }
                 } else {
-                    STATICLIB_PION_LOG_WARN("staticlib.pion.websocket",
-                            "Lost context detected in 'async_write'");
+                    STATICLIB_PION_LOG_WARN("staticlib.pion.websocket", "Lost context detected in 'async_write'");
                 }
             };
         auto send_handler_stranded = self_ptr->connection->get_strand().wrap(send_handler);
         self_ptr->connection->async_write(self_ptr->payload_buffers, std::move(send_handler_stranded));
+    }
+
+    static void send_close(std::unique_ptr<websocket> self, const close_status& status) {
+        auto self_ptr = self.get();
+        auto self_shared = sl::support::make_shared_with_release_deleter(self.release());
+        auto send_handler =
+            [self_shared](const asio::error_code&, size_t) {
+                auto self = sl::support::make_unique_from_shared_with_release_deleter(self_shared);
+                if (nullptr != self.get()) {
+                    auto self_ptr = self.get();
+                    self_ptr->on_close_fun(std::move(self));
+                    // self is destroyed on close fun exit
+                } else {
+                    STATICLIB_PION_LOG_WARN("staticlib.pion.websocket", "Lost context detected in 'async_write'");
+                }
+            };
+        auto send_handler_stranded = self_ptr->connection->get_strand().wrap(send_handler);
+        auto msg = asio::buffer(std::addressof(status), sizeof(status));
+        self_ptr->connection->async_write(std::move(msg), std::move(send_handler_stranded));
     }
 
     static void receive_internal(std::unique_ptr<websocket> self) {
@@ -303,13 +426,15 @@ private:
                         auto buf = sl::io::make_span(dptr, bytes_read);
                         consume(std::move(self), buf);
                     } else {
-                        on_close(std::move(self));
-                        STATICLIB_PION_LOG_DEBUG("staticlib.pion.websocket",
-                                "Read error, code: [" << ec <<"]");
+                        STATICLIB_PION_LOG_DEBUG("staticlib.pion.websocket", "Read error," <<
+                                " code: [" << ec << "]" <<
+                                " message: [" << ec.message() << "]" <<
+                                " id: [" << self->get_id() << "]" <<
+                                " path: [" << self->request->get_resource() << "]");
+                        on_close(std::move(self), close_status::error);
                     }
                 } else {
-                    STATICLIB_PION_LOG_WARN("staticlib.pion.websocket",
-                            "Lost context detected in 'async_read_some'");
+                    STATICLIB_PION_LOG_WARN("staticlib.pion.websocket", "Lost context detected in 'async_read_some'");
                 }
             };
         auto read_handler_stranded = self_ptr->connection->get_strand().wrap(std::move(read_handler));
@@ -327,57 +452,74 @@ private:
     }
 
     static void consume(std::unique_ptr<websocket> self, sl::io::span<const char> buf) {
-        auto frame = sl::websocket::frame(buf);
-        if (!(frame.is_well_formed() && frame.is_complete())) {
-            self->add_to_receive_buffer(buf);
-            frame = sl::websocket::frame(self->receive_buffer_span());
-        }
-        if (!frame.is_well_formed()) {
-            STATICLIB_PION_LOG_DEBUG("staticlib.pion.websocket",
-                    "Invalid frame received, header: [" << frame.header_hex() << "]");
-            on_close(std::move(self));
+        // append incoming data to receive buffer
+        if (self->receive_buffer_overflow(buf.size())) {
+            STATICLIB_PION_LOG_WARN("staticlib.pion.websocket", "Receive buffer overflow" <<
+                " id: [" << self->get_id() << "]" <<
+                " path: [" << self->request->get_resource() << "]");
+            on_close(std::move(self), close_status::overflow);
             return;
         }
+        self->add_to_receive_buffer(buf);
+        auto frame = sl::websocket::frame(self->receive_buffer_span());
+        // close connection for invalid frame
+        if (!frame.is_well_formed()) {
+            STATICLIB_PION_LOG_WARN("staticlib.pion.websocket",
+                    "Invalid frame received, header: [" << frame.header_hex() << "]" <<
+                    " id: [" << self->get_id() << "]" <<
+                    " path: [" << self->request->get_resource() << "]");
+            on_close(std::move(self), close_status::protocol_error);
+            return;
+        }
+        // read more data for fragmented frame
         if (!frame.is_complete()) {
             receive_internal(std::move(self));
             return;
         }
+        // frame is not fragmented on TCP, but may be partial
         if (!frame.is_final()) {
             on_continuation(std::move(self), frame);
             return;
         }
-        // todo: check partials: generic list source in sl::io
+        // complete and final frame received
+        self->frames.push_back(frame);
+        // choose handler
         switch (frame.type()) {
         case sl::websocket::frame_type::text:
         case sl::websocket::frame_type::binary:
-            on_message(std::move(self), frame);
-            return;
+        case sl::websocket::frame_type::continuation:
+            on_message(std::move(self));
+            break;
         case sl::websocket::frame_type::ping:
             on_ping(std::move(self), frame);
-            return;
-        case sl::websocket::frame_type::continuation:
-            on_continuation(std::move(self), frame);
-            return;
+            break;
         case sl::websocket::frame_type::close:
+            on_close(std::move(self), close_status::normal);
+            break;
         default:
-            on_close(std::move(self));
-            STATICLIB_PION_LOG_DEBUG("staticlib.pion.websocket", "Closing WebSocket connection");
+            on_close(std::move(self), close_status::protocol_error);
+            break;
         };
     }
 
     static void on_open(std::unique_ptr<websocket> self) {
+        STATICLIB_PION_LOG_DEBUG("staticlib.pion.websocket", "WebSocket connection opened," <<
+                " id: [" << self->get_id() << "]" <<
+                " path: [" << self->request->get_resource() << "]");
         auto self_ptr = self.get();
-        self_ptr->on_open_fun(std::move(self), sl::websocket::frame({nullptr, 0}));
+        self_ptr->on_open_fun(std::move(self));
     }
 
-    static void on_message(std::unique_ptr<websocket> self, sl::websocket::frame frame) {
+    static void on_message(std::unique_ptr<websocket> self) {
         auto self_ptr = self.get();
-        self_ptr->on_message_fun(std::move(self), frame);
+        self_ptr->on_message_fun(std::move(self));
     }
 
-    static void on_close(std::unique_ptr<websocket> self) {
-        auto self_ptr = self.get();
-        self_ptr->on_close_fun(std::move(self), sl::websocket::frame({nullptr, 0}));
+    static void on_close(std::unique_ptr<websocket> self, const close_status& status) {
+        STATICLIB_PION_LOG_DEBUG("staticlib.pion.websocket", "Closing WebSocket connection," <<
+                " id: [" << self->get_id() << "]" <<
+                " path: [" << self->request->get_resource() << "]");
+        send_close(std::move(self), status);
     }
 
     static void on_ping(std::unique_ptr<websocket> self, sl::websocket::frame frame) {
@@ -394,7 +536,14 @@ private:
     }
 
     static void on_continuation(std::unique_ptr<websocket> self, sl::websocket::frame frame) {
-        self->add_to_receive_partials(frame.raw_view());
+        if (self->frames_cache_overflow()) {
+            STATICLIB_PION_LOG_DEBUG("staticlib.pion.websocket", "Frame fragments overflow" <<
+                " id: [" << self->get_id() << "]" <<
+                " path: [" << self->request->get_resource() << "]");
+            on_close(std::move(self), close_status::overflow);
+            return;
+        }
+        self->add_to_frames_cache(frame);
         receive_internal(std::move(self));
     }
 
@@ -409,6 +558,12 @@ private:
  * Data type for a WebSocket connection pointer
  */
 using websocket_ptr = std::unique_ptr<websocket>;
+/**
+ * Type of function that is used to handle WebSocket connections
+ */
+using websocket_handler_type = std::function<void(std::unique_ptr<websocket>)>;
+using websocket_close_handler_type = std::function<void(const std::unique_ptr<websocket>&)>;
+
 
 } // namespace
 }

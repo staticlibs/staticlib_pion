@@ -96,12 +96,13 @@ inline bool is_priority_enabled(const std::string& name, const std::string& leve
 #else
 
 // Logging uses std::cout and std::cerr
-#include <iostream>
-#include <string>
 #include <ctime>
+#include <iostream>
+#include <thread>
+#include <string>
 
 #define STATICLIB_PION_LOG_TO_OSTREAM(LOG, LEVEL, MSG) \
-{ std::cout << time(nullptr) << ' ' << LEVEL << ' ' << LOG << ' ' << MSG << std::endl; }
+{ std::cout << std::time(nullptr) << ' ' << std::this_thread::get_id() << ' ' << LEVEL << ' ' << LOG << ' ' << MSG << std::endl; }
 
 #define STATICLIB_PION_LOG_DEBUG(LOG, MSG) STATICLIB_PION_LOG_TO_OSTREAM(LOG, "DEBUG", MSG)
 #define STATICLIB_PION_LOG_INFO(LOG, MSG) STATICLIB_PION_LOG_TO_OSTREAM(LOG, "INFO", MSG)

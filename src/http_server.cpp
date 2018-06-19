@@ -162,14 +162,50 @@ find_ws_handlers(const std::string& path, http_server::websocket_map_type& open_
     auto has_message = message_map.end() != it_message;
     auto it_close = close_map.find(path);
     auto has_close = close_map.end() != it_close;
-    auto noop = [](std::unique_ptr<websocket> self, sl::websocket::frame){
-        self->receive(std::move(self));
+    auto receive_fun = [](websocket_ptr ws) {
+        websocket::receive(std::move(ws));
     };
+    auto noop_fun = [](websocket_ptr) { };
     return std::make_tuple(
             has_open || has_message || has_close,
-            has_open ? it_open->second : noop,
-            has_message ? it_message->second : noop,
-            has_close ? it_close->second : noop);
+            has_open ? it_open->second : receive_fun,
+            has_message ? it_message->second : receive_fun,
+            has_close ? it_close->second : noop_fun);
+}
+
+void register_ws_conn(http_server::websocket_conn_registry_type& registry, std::mutex& mtx,
+        const std::string& path, const std::string& id, std::weak_ptr<tcp_connection>& conn) {
+    std::lock_guard<std::mutex> guard{mtx};
+    // purge closed connections, this may take some time, done only on ws connect
+    for (http_server::websocket_conn_registry_type::iterator it = registry.begin(); it != registry.end(); /* erase */) {
+        if (it->second.second.expired()) {
+            registry.erase(it++);
+        } else {
+            ++it;
+        }
+    }
+    // insert new element
+    registry.insert(std::make_pair(path, std::make_pair(id, conn)));
+}
+
+std::vector<std::shared_ptr<tcp_connection>> find_ws_conns(
+        http_server::websocket_conn_registry_type& registry, std::mutex& mtx,
+        const std::string& path, const std::set<std::string>& dest_ids) {
+    std::lock_guard<std::mutex> guard{mtx};
+    auto vec = std::vector<std::shared_ptr<tcp_connection>>();
+    auto range = registry.equal_range(path);
+    for (http_server::websocket_conn_registry_type::iterator it = range.first; it != range.second; /* erase */) {
+        if (0 == dest_ids.size() || dest_ids.count(it->second.first) > 0) {
+            auto shared = it->second.second.lock();
+            if (nullptr != shared.get()) {
+                vec.emplace_back(std::move(shared));
+                ++it;
+            } else {
+                registry.erase(it++);
+            }
+        }
+    }
+    return vec;
 }
 
 } // namespace
@@ -236,6 +272,17 @@ void http_server::add_websocket_handler(const std::string& event, const std::str
     if (!it.second) throw pion_exception("Invalid duplicate WebSocket path: [" + clean_resource + "], event: [" + event + "]");
 }
 
+void http_server::broadcast_websocket(const std::string& path, sl::io::span<const char> message,
+            sl::websocket::frame_type frame_type, const std::set<std::string>& dest_ids) {
+    auto conns = find_ws_conns(websocket_conn_registry, websocket_conn_registry_mtx, path, dest_ids);
+    if (conns.size() > 0) {
+        STATICLIB_PION_LOG_DEBUG("staticlib.pion.websocket", "Broadcasting WebSocket message," <<
+                " path: [" << path << "], clients count: [" << conns.size() << "]," <<
+                " message length: [" << message.size() << "]");
+        websocket::broadcast(conns, message, frame_type);
+    }
+}
+
 void http_server::handle_connection(tcp_connection_ptr& conn) {
     auto reader = sl::support::make_unique<http_request_reader>(*this, conn, read_timeout);
     reader->receive(std::move(reader));
@@ -273,6 +320,7 @@ void http_server::handle_request_after_headers_parsed(http_request_ptr& request,
 
 void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& conn,
         const std::error_code& ec) {
+
     // handle error
     if (ec || !request->is_valid()) {
         conn->set_lifecycle(tcp_connection::lifecycle::close); // make sure it will get closed
@@ -292,24 +340,34 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
         }
         return;
     }
+
     // handle request
     STATICLIB_PION_LOG_DEBUG(log, "Received a valid HTTP request");
-    auto path = std::string(strip_trailing_slash(request->get_resource()));
+
     // check websocket upgrade
     if (websocket::is_websocket_upgrade(*request)) {
-        auto tup = find_ws_handlers(path, wsopen_handlers, wsmessage_handlers, wsclose_handlers);
+        auto tup = find_ws_handlers(request->get_resource(), wsopen_handlers, wsmessage_handlers, wsclose_handlers);
         if (std::get<0>(tup)) {
+            // collect details for registry
+            auto path = request->get_resource();
+            auto id = request->get_header("Sec-WebSocket-Key");
+            auto weak_conn = std::weak_ptr<tcp_connection>(conn);
+            // create and start ws instance
             auto ws = sl::support::make_unique<websocket>(std::move(request), std::move(conn),
                     std::move(std::get<1>(tup)), std::move(std::get<2>(tup)), std::move(std::get<3>(tup)));
             ws->start(std::move(ws));
+            // register connection for broadcasting
+            register_ws_conn(websocket_conn_registry, websocket_conn_registry_mtx, path, id, weak_conn);
         } else {
-            STATICLIB_PION_LOG_INFO(log, "No WebSocket handlers found for resource: " << path);
+            STATICLIB_PION_LOG_INFO(log, "No WebSocket handlers found for resource: " << request->get_resource());
             auto writer = sl::support::make_unique<http_response_writer>(conn, *request);
             not_found_handler(std::move(request), std::move(writer));
         }
         return;
     }
+
     // handle HTTP request
+    auto path = std::string(strip_trailing_slash(request->get_resource()));
     auto writer = sl::support::make_unique<http_response_writer>(conn, *request);
     if (http_message::REQUEST_METHOD_OPTIONS == request->get_method() && ("*" == path || "/*" == path)) {
         handle_root_options(std::move(request), std::move(writer));

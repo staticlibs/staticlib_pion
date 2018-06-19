@@ -29,6 +29,9 @@ include ( ${STATICLIB_CMAKE}/staticlibs_common.cmake )
 if ( NOT DEFINED STATICLIB_DEPS )
     set ( STATICLIB_DEPS ${CMAKE_CURRENT_LIST_DIR}/../../ CACHE INTERNAL "" )
 endif ( )
+# todo: removeme
+staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_asio )
+# end: removeme
 if ( NOT STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_[^_]+" )
     staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_asio )
     staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_openssl )

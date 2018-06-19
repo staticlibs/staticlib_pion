@@ -39,7 +39,7 @@
 #include "staticlib/pion/http_response_writer.hpp"
 #include "staticlib/pion/http_server.hpp"
 
-const uint16_t SECONDS_TO_RUN = 1;
+const uint16_t SECONDS_TO_RUN = 60;
 const uint16_t TCP_PORT = 8080;
 
 std::string page = R"(
@@ -51,10 +51,16 @@ std::string page = R"(
                 var input = document.getElementById("req").value;
                 ws.send(input);
             }
+            function closeConn() {
+                console.log("Closing");
+                ws.close();
+            }
             ws.addEventListener('message', function (event) {
                 var area = document.getElementById("resp");
-                area.value += "\n";
-                area.value += event.data;
+                area.value = event.data + "_";
+//                area.value += ("_" + event.data);
+                // send back
+                ws.send(area.value);
             });
         </script>
     </head>
@@ -68,6 +74,7 @@ std::string page = R"(
         <br>
         <br>
         <button onclick="sendRequest();">Send</button>
+        <button onclick="closeConn();">Close</button>
     </body>
 </html>
 )";
@@ -87,23 +94,23 @@ void wspage(sl::pion::http_request_ptr, sl::pion::response_writer_ptr resp) {
     resp->send(std::move(resp));
 }
 
-void wsopen(sl::pion::websocket_ptr ws, sl::websocket::frame) {
+void wsopen(sl::pion::websocket_ptr ws) {
     std::cout << "open" << std::endl;
-    ws->write("hi42");
+    ws->write("open");
     ws->send(std::move(ws));
 }
 
-void wsmsg(sl::pion::websocket_ptr ws, sl::websocket::frame frame) {
-    auto src = frame.payload_unmasked();
+void wsmsg(sl::pion::websocket_ptr ws) {
+    auto src = ws->message_data();
     auto sink = sl::io::string_sink();
     sl::io::copy_all(src, sink);
-    std::cout << "[" << sink.get_string() << "]" << std::endl;
+//    std::cout << "[" << sink.get_string() << "]" << std::endl;
     ws->write(sink.get_string());
-    ws->write_nocopy("43");
+    ws->write(sl::support::to_string(sink.get_string().length()));
     ws->send(std::move(ws));
 }
 
-void wsclose(sl::pion::websocket_ptr ws, sl::websocket::frame) {
+void wsclose(sl::pion::websocket_ptr ws) {
     (void) ws;
     std::cout << "close" << std::endl;
 }
@@ -204,7 +211,7 @@ file_writer file_upload_payload_handler_creator(sl::pion::http_request_ptr& req)
 
 void test_pion() {
     // pion
-    sl::pion::http_server server(2, TCP_PORT);
+    sl::pion::http_server server(4, TCP_PORT);
     server.add_handler("GET", "/hello", hello_service);
     server.add_handler("POST", "/hello/post", hello_service_post);
     server.add_handler("POST", "/fu", file_upload_resource);
@@ -218,7 +225,14 @@ void test_pion() {
     server.add_websocket_handler("WSMESSAGE", "/hello", wsmsg);
     server.add_websocket_handler("WSCLOSE", "/hello", wsclose);
     server.start();
-    std::this_thread::sleep_for(std::chrono::seconds{SECONDS_TO_RUN});
+//    std::this_thread::sleep_for(std::chrono::seconds(SECONDS_TO_RUN));
+    for (size_t i = 0; i < SECONDS_TO_RUN; i++) {
+//        if (0 == i % 10) {
+            auto msg = std::string("ping") + sl::support::to_string(i);
+            server.broadcast_websocket("/hello", msg);
+//        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
     server.stop();
 }
 

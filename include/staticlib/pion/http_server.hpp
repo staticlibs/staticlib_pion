@@ -26,6 +26,8 @@
 
 #include <cstdint>
 #include <vector>
+#include <map>
+#include <set>
 #include <unordered_map>
 #include <utility>
 
@@ -82,6 +84,9 @@ public:
      * Data type for a map of resources to WebSocket handlers
      */
     using websocket_map_type = std::unordered_map<std::string, websocket_handler_type>; 
+
+    // path -> (id, connection)
+    using websocket_conn_registry_type = std::multimap<std::string, std::pair<std::string, std::weak_ptr<tcp_connection>>>;
 
 private:
     /**
@@ -172,6 +177,10 @@ private:
      */
     websocket_map_type wsclose_handlers;
 
+    websocket_conn_registry_type websocket_conn_registry;
+
+    std::mutex websocket_conn_registry_mtx;
+
 public:
     ~http_server() STATICLIB_NOEXCEPT { }
 
@@ -257,6 +266,20 @@ public:
     void add_websocket_handler(const std::string& event, const std::string& resource, 
             websocket_handler_type handler);
 
+    /**
+     * Broadcasts specified message to the WebSocket clients currently
+     * connected on the specified path
+     * 
+     * @param path websocket path clients connected on
+     * @param message message to broadcast
+     * @param frame_type type of the websocket frame to use, `text` by default
+     * @param dest_ids broadcast only to the specified list of ids,
+     *        broadcast to all clients on the specified path by default
+     */
+    void broadcast_websocket(const std::string& path, sl::io::span<const char> message,
+            sl::websocket::frame_type frame_type = sl::websocket::frame_type::text,
+            const std::set<std::string>& dest_ids = std::set<std::string>());
+private:
     /**
      * Handles a new TCP connection
      * 
