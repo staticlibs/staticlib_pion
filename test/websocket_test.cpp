@@ -36,7 +36,6 @@
 
 #include "staticlib/pion/http_server.hpp"
 
-const uint16_t SECONDS_TO_RUN = 60;
 const uint16_t TCP_PORT = 8080;
 
 void wsopen(sl::pion::websocket_ptr ws) {
