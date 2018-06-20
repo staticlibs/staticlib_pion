@@ -173,7 +173,7 @@ void check_close(asio::ip::tcp::socket& socket) {
     auto hello = make_frame(msg);
     socket.send(asio::buffer(hello));
     auto resp = receive(socket);
-    slassert("03e8" == sl::io::string_to_hex(resp));
+    slassert("03e8" == sl::io::hex_from_string(resp));
 }
 
 void test_websocket() {
