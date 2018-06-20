@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">5.0.7-15</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -87,8 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">http_response_writer.hpp File Reference</div>  </div>
 </div><!--header-->
@@ -96,11 +95,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &lt;functional&gt;</code><br/>
 <code>#include &lt;list&gt;</code><br/>
 <code>#include &lt;memory&gt;</code><br/>
-<code>#include &lt;sstream&gt;</code><br/>
 <code>#include &lt;string&gt;</code><br/>
 <code>#include &lt;vector&gt;</code><br/>
 <code>#include &quot;asio.hpp&quot;</code><br/>
 <code>#include &quot;staticlib/config.hpp&quot;</code><br/>
+<code>#include &quot;staticlib/io/span.hpp&quot;</code><br/>
 <code>#include &quot;<a class="el" href="logger_8hpp_source.html">staticlib/pion/logger.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="http__message_8hpp_source.html">staticlib/pion/http_message.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="http__response_8hpp_source.html">staticlib/pion/http_response.hpp</a>&quot;</code><br/>
@@ -112,26 +111,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">staticlib::pion::http_response_writer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends HTTP data asynchronously.  <a href="classstaticlib_1_1pion_1_1http__response__writer.html#details">More...</a><br/></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><b>staticlib::pion::http_response_writer::binary_cache_t</b></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to cache binary data included within the payload content. <br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacestaticlib"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib.html">staticlib</a></td></tr>
 <tr class="memitem:namespacestaticlib_1_1pion"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1pion.html">staticlib::pion</a></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a5d5e0c11fd832716b36dca5997b1e0a9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a5d5e0c11fd832716b36dca5997b1e0a9"><td class="memTemplItemLeft" align="right" valign="top">const http_response_writer_ptr &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1pion.html#a5d5e0c11fd832716b36dca5997b1e0a9">staticlib::pion::operator&lt;&lt;</a> (const http_response_writer_ptr &amp;writer, const T &amp;data)</td></tr>
-<tr class="memdesc:a5d5e0c11fd832716b36dca5997b1e0a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override operator shift for convenience.  <a href="#a5d5e0c11fd832716b36dca5997b1e0a9"></a><br/></td></tr>
-<tr class="memitem:a1bf6444ad730020f1983ead8f035ff40"><td class="memItemLeft" align="right" valign="top">const http_response_writer_ptr &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1pion.html#a1bf6444ad730020f1983ead8f035ff40">staticlib::pion::operator&lt;&lt;</a> (const http_response_writer_ptr &amp;writer, std::ostream &amp;(*iomanip)(std::ostream &amp;))</td></tr>
-<tr class="memdesc:a1bf6444ad730020f1983ead8f035ff40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override operator shift for convenience.  <a href="#a1bf6444ad730020f1983ead8f035ff40"></a><br/></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

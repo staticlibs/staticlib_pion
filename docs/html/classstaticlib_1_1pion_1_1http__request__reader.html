@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">5.0.7-15</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -112,23 +112,21 @@ Inheritance diagram for staticlib::pion::http_request_reader:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a46fea21efecde494779d82e7a6c36fb2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html#a46fea21efecde494779d82e7a6c36fb2">receive</a> ()</td></tr>
-<tr class="memdesc:a46fea21efecde494779d82e7a6c36fb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incrementally reads &amp; parses the HTTP message.  <a href="#a46fea21efecde494779d82e7a6c36fb2"></a><br/></td></tr>
-<tr class="memitem:a521bc7dd3a0b2109a3904bab7a19406b"><td class="memItemLeft" align="right" valign="top">tcp_connection_ptr &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html#a521bc7dd3a0b2109a3904bab7a19406b">get_connection</a> ()</td></tr>
-<tr class="memdesc:a521bc7dd3a0b2109a3904bab7a19406b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a shared pointer to the TCP connection.  <a href="#a521bc7dd3a0b2109a3904bab7a19406b"></a><br/></td></tr>
-<tr class="memitem:ac0e20ecd9b74aa9bab32de8c4e8bf874"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html#ac0e20ecd9b74aa9bab32de8c4e8bf874">set_timeout</a> (std::chrono::milliseconds timeout)</td></tr>
-<tr class="memdesc:ac0e20ecd9b74aa9bab32de8c4e8bf874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum number of seconds for read operations.  <a href="#ac0e20ecd9b74aa9bab32de8c4e8bf874"></a><br/></td></tr>
-<tr class="memitem:a71f825e90977e01bfd4b356bfffea81f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html#a71f825e90977e01bfd4b356bfffea81f">set_headers_parsed_callback</a> (headers_parsing_finished_handler_type h)</td></tr>
-<tr class="memdesc:a71f825e90977e01bfd4b356bfffea81f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a function to be called after HTTP headers have been parsed.  <a href="#a71f825e90977e01bfd4b356bfffea81f"></a><br/></td></tr>
+<tr class="memitem:a173f17fb6a43520d9367eb474328e784"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html#a173f17fb6a43520d9367eb474328e784">http_request_reader</a> (<a class="el" href="classstaticlib_1_1pion_1_1http__server.html">http_server</a> &amp;srv, tcp_connection_ptr &amp;tcp_conn, uint32_t read_timeout)</td></tr>
+<tr class="memdesc:a173f17fb6a43520d9367eb474328e784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor to be used with <code>std::make_unique</code>  <a href="#a173f17fb6a43520d9367eb474328e784"></a><br/></td></tr>
+<tr class="memitem:ab3998ce32790582d3b7da41c03883ebe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html#ab3998ce32790582d3b7da41c03883ebe">http_request_reader</a> (const <a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html">http_request_reader</a> &amp;)</td></tr>
+<tr class="memdesc:ab3998ce32790582d3b7da41c03883ebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy-constructor.  <a href="#ab3998ce32790582d3b7da41c03883ebe"></a><br/></td></tr>
+<tr class="memitem:a53b870368bccfda1f825b2c4a9747258"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html">http_request_reader</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html#a53b870368bccfda1f825b2c4a9747258">operator=</a> (const <a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html">http_request_reader</a> &amp;)</td></tr>
+<tr class="memdesc:a53b870368bccfda1f825b2c4a9747258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy-assignment operator.  <a href="#a53b870368bccfda1f825b2c4a9747258"></a><br/></td></tr>
 <tr class="inherit_header pub_methods_classstaticlib_1_1pion_1_1http__parser"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classstaticlib_1_1pion_1_1http__parser')"><img src="closed.png" alt="-"/>&nbsp;Public Member Functions inherited from <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">staticlib::pion::http_parser</a></td></tr>
-<tr class="memitem:a9094e13f119ed8f06f203d6c216bfbc3 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a9094e13f119ed8f06f203d6c216bfbc3">http_parser</a> (std::size_t max_content_length=<a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a41b4410e502a6d70ed881ac2642fd424">DEFAULT_CONTENT_MAX</a>)</td></tr>
-<tr class="memdesc:a9094e13f119ed8f06f203d6c216bfbc3 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new parser objects.  <a href="#a9094e13f119ed8f06f203d6c216bfbc3"></a><br/></td></tr>
+<tr class="memitem:aa63092b7bc98852510a539ce1f2f574d inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#aa63092b7bc98852510a539ce1f2f574d">http_parser</a> (size_t max_content_length=<a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#aa5c85696314f78560dd2fa247aa2b253">DEFAULT_CONTENT_MAX</a>)</td></tr>
+<tr class="memdesc:aa63092b7bc98852510a539ce1f2f574d inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new parser objects.  <a href="#aa63092b7bc98852510a539ce1f2f574d"></a><br/></td></tr>
 <tr class="memitem:a683d60ac21b510c01fd0dae650e9cd5d inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a683d60ac21b510c01fd0dae650e9cd5d">http_parser</a> (const <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a> &amp;)</td></tr>
 <tr class="memdesc:a683d60ac21b510c01fd0dae650e9cd5d inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy constructor.  <a href="#a683d60ac21b510c01fd0dae650e9cd5d"></a><br/></td></tr>
 <tr class="memitem:ae048ffea04fc9ffdbe4537d397bc4078 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#ae048ffea04fc9ffdbe4537d397bc4078">operator=</a> (const <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a> &amp;)</td></tr>
 <tr class="memdesc:ae048ffea04fc9ffdbe4537d397bc4078 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy assignment operator.  <a href="#ae048ffea04fc9ffdbe4537d397bc4078"></a><br/></td></tr>
-<tr class="memitem:ac4d33aab846c116f733b2e9bf4b1a107 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#ac4d33aab846c116f733b2e9bf4b1a107">~http_parser</a> ()</td></tr>
-<tr class="memdesc:ac4d33aab846c116f733b2e9bf4b1a107 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <a href="#ac4d33aab846c116f733b2e9bf4b1a107"></a><br/></td></tr>
+<tr class="memitem:a8096f72c27c102f44683ad51ad47fba7 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a8096f72c27c102f44683ad51ad47fba7">~http_parser</a> () STATICLIB_NOEXCEPT</td></tr>
+<tr class="memdesc:a8096f72c27c102f44683ad51ad47fba7 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <a href="#a8096f72c27c102f44683ad51ad47fba7"></a><br/></td></tr>
 <tr class="memitem:a6940615011f9a0631ea0e8a4bcc3f9ed inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">sl::support::tribool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a6940615011f9a0631ea0e8a4bcc3f9ed">parse</a> (<a class="el" href="classstaticlib_1_1pion_1_1http__message.html">http_message</a> &amp;http_msg, std::error_code &amp;ec)</td></tr>
 <tr class="memdesc:a6940615011f9a0631ea0e8a4bcc3f9ed inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses an HTTP message including all payload content it might contain.  <a href="#a6940615011f9a0631ea0e8a4bcc3f9ed"></a><br/></td></tr>
 <tr class="memitem:a3534a9ff9095c9fea8b240f4ec0f7b2d inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a3534a9ff9095c9fea8b240f4ec0f7b2d">finish</a> (<a class="el" href="classstaticlib_1_1pion_1_1http__message.html">http_message</a> &amp;http_msg) const </td></tr>
@@ -147,16 +145,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7539151b9dca734027965dc5fa5719d3 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the parser to its initial state.  <a href="#a7539151b9dca734027965dc5fa5719d3"></a><br/></td></tr>
 <tr class="memitem:a3d9e33c32fd96da85893ea53b335a619 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a3d9e33c32fd96da85893ea53b335a619">eof</a> () const </td></tr>
 <tr class="memdesc:a3d9e33c32fd96da85893ea53b335a619 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if there are no more bytes available in the read buffer.  <a href="#a3d9e33c32fd96da85893ea53b335a619"></a><br/></td></tr>
-<tr class="memitem:aded8baca2deeeb2a07b8aa75a49f055a inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#aded8baca2deeeb2a07b8aa75a49f055a">bytes_available</a> () const </td></tr>
-<tr class="memdesc:aded8baca2deeeb2a07b8aa75a49f055a inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of bytes available in the read buffer.  <a href="#aded8baca2deeeb2a07b8aa75a49f055a"></a><br/></td></tr>
-<tr class="memitem:a96af6e81e77acce866ea66bf930290e8 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a96af6e81e77acce866ea66bf930290e8">gcount</a> () const </td></tr>
-<tr class="memdesc:a96af6e81e77acce866ea66bf930290e8 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of bytes read during the last parse operation.  <a href="#a96af6e81e77acce866ea66bf930290e8"></a><br/></td></tr>
-<tr class="memitem:af09a99de86654da393bff3250fa4aab4 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#af09a99de86654da393bff3250fa4aab4">get_total_bytes_read</a> () const </td></tr>
-<tr class="memdesc:af09a99de86654da393bff3250fa4aab4 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of bytes read while parsing the HTTP message.  <a href="#af09a99de86654da393bff3250fa4aab4"></a><br/></td></tr>
-<tr class="memitem:a770e52d674d5cb45279612066ae13cac inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a770e52d674d5cb45279612066ae13cac">get_content_bytes_read</a> () const </td></tr>
-<tr class="memdesc:a770e52d674d5cb45279612066ae13cac inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of bytes read while parsing the payload content.  <a href="#a770e52d674d5cb45279612066ae13cac"></a><br/></td></tr>
-<tr class="memitem:a7f98af60f2bababe41ab1a41d0ed107f inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a7f98af60f2bababe41ab1a41d0ed107f">get_max_content_length</a> () const </td></tr>
-<tr class="memdesc:a7f98af60f2bababe41ab1a41d0ed107f inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum length for HTTP payload content.  <a href="#a7f98af60f2bababe41ab1a41d0ed107f"></a><br/></td></tr>
+<tr class="memitem:a9df4fe93d65e1f2ee9d798c665d13de5 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a9df4fe93d65e1f2ee9d798c665d13de5">bytes_available</a> () const </td></tr>
+<tr class="memdesc:a9df4fe93d65e1f2ee9d798c665d13de5 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of bytes available in the read buffer.  <a href="#a9df4fe93d65e1f2ee9d798c665d13de5"></a><br/></td></tr>
+<tr class="memitem:aa85a2635884441def1e4c16ae110d00c inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#aa85a2635884441def1e4c16ae110d00c">gcount</a> () const </td></tr>
+<tr class="memdesc:aa85a2635884441def1e4c16ae110d00c inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of bytes read during the last parse operation.  <a href="#aa85a2635884441def1e4c16ae110d00c"></a><br/></td></tr>
+<tr class="memitem:a154fd1dc72bb5338015544f70907796f inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a154fd1dc72bb5338015544f70907796f">get_total_bytes_read</a> () const </td></tr>
+<tr class="memdesc:a154fd1dc72bb5338015544f70907796f inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of bytes read while parsing the HTTP message.  <a href="#a154fd1dc72bb5338015544f70907796f"></a><br/></td></tr>
+<tr class="memitem:a8a5803e788f5da96ecac6c4e6722c4ab inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a8a5803e788f5da96ecac6c4e6722c4ab">get_content_bytes_read</a> () const </td></tr>
+<tr class="memdesc:a8a5803e788f5da96ecac6c4e6722c4ab inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of bytes read while parsing the payload content.  <a href="#a8a5803e788f5da96ecac6c4e6722c4ab"></a><br/></td></tr>
+<tr class="memitem:ae042d254ba140783e317fa2e49639ceb inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#ae042d254ba140783e317fa2e49639ceb">get_max_content_length</a> () const </td></tr>
+<tr class="memdesc:ae042d254ba140783e317fa2e49639ceb inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum length for HTTP payload content.  <a href="#ae042d254ba140783e317fa2e49639ceb"></a><br/></td></tr>
 <tr class="memitem:a0d1bc1c759e6d6d2a36f3f6745ce947a inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a0d1bc1c759e6d6d2a36f3f6745ce947a">get_raw_headers</a> () const </td></tr>
 <tr class="memdesc:a0d1bc1c759e6d6d2a36f3f6745ce947a inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the raw HTTP headers saved by the parser.  <a href="#a0d1bc1c759e6d6d2a36f3f6745ce947a"></a><br/></td></tr>
 <tr class="memitem:a11395f766f450b74b77e0f07238eccaa inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a11395f766f450b74b77e0f07238eccaa">get_save_raw_headers</a> () const </td></tr>
@@ -169,41 +167,34 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a345bb01e13b7bf7af4d85063f2909461 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the parser is being used to parse an HTTP response.  <a href="#a345bb01e13b7bf7af4d85063f2909461"></a><br/></td></tr>
 <tr class="memitem:a4c2d7fbcf3890233cf1c989a0d158e86 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a4c2d7fbcf3890233cf1c989a0d158e86">set_payload_handler</a> (payload_handler_type &amp;h)</td></tr>
 <tr class="memdesc:a4c2d7fbcf3890233cf1c989a0d158e86 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a callback function to be used for consuming payload content.  <a href="#a4c2d7fbcf3890233cf1c989a0d158e86"></a><br/></td></tr>
-<tr class="memitem:a45e14f56f4953d9b3770c67f1cadcae1 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a45e14f56f4953d9b3770c67f1cadcae1">set_max_content_length</a> (std::size_t n)</td></tr>
-<tr class="memdesc:a45e14f56f4953d9b3770c67f1cadcae1 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum length for HTTP payload content.  <a href="#a45e14f56f4953d9b3770c67f1cadcae1"></a><br/></td></tr>
+<tr class="memitem:a6edae558a03b2f7a3d86109fedbb7f0d inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a6edae558a03b2f7a3d86109fedbb7f0d">set_max_content_length</a> (size_t n)</td></tr>
+<tr class="memdesc:a6edae558a03b2f7a3d86109fedbb7f0d inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum length for HTTP payload content.  <a href="#a6edae558a03b2f7a3d86109fedbb7f0d"></a><br/></td></tr>
 <tr class="memitem:a8289ff43b237eba81d7f50f277dbcd10 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a8289ff43b237eba81d7f50f277dbcd10">reset_max_content_length</a> ()</td></tr>
 <tr class="memdesc:a8289ff43b237eba81d7f50f277dbcd10 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the maximum length for HTTP payload content to the default value.  <a href="#a8289ff43b237eba81d7f50f277dbcd10"></a><br/></td></tr>
 <tr class="memitem:a442e99a2dd867f9fc3a07468e0a31dd5 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a442e99a2dd867f9fc3a07468e0a31dd5">set_save_raw_headers</a> (bool b)</td></tr>
 <tr class="memdesc:a442e99a2dd867f9fc3a07468e0a31dd5 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets parameter for saving raw HTTP header content.  <a href="#a442e99a2dd867f9fc3a07468e0a31dd5"></a><br/></td></tr>
-<tr class="memitem:ac8ae05e0524fba4ee71e55cd943c55dc inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#ac8ae05e0524fba4ee71e55cd943c55dc">set_logger</a> (<a class="el" href="structstaticlib_1_1pion_1_1logger.html">logger</a> log_ptr)</td></tr>
-<tr class="memdesc:ac8ae05e0524fba4ee71e55cd943c55dc inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the logger to be used.  <a href="#ac8ae05e0524fba4ee71e55cd943c55dc"></a><br/></td></tr>
-<tr class="memitem:a73d66b5987717457f9a9cfa852bf24cb inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaticlib_1_1pion_1_1logger.html">logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a73d66b5987717457f9a9cfa852bf24cb">get_logger</a> ()</td></tr>
-<tr class="memdesc:a73d66b5987717457f9a9cfa852bf24cb inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the logger currently in use.  <a href="#a73d66b5987717457f9a9cfa852bf24cb"></a><br/></td></tr>
 <tr class="memitem:a59a81c532b6093729030060e3daef0f9 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">sl::support::tribool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a59a81c532b6093729030060e3daef0f9">finish_header_parsing</a> (<a class="el" href="classstaticlib_1_1pion_1_1http__message.html">http_message</a> &amp;http_msg, std::error_code &amp;ec)</td></tr>
 <tr class="memdesc:a59a81c532b6093729030060e3daef0f9 inherit pub_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should be called after parsing HTTP headers, to prepare for payload content parsing available in the read buffer.  <a href="#a59a81c532b6093729030060e3daef0f9"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a563f3d0c83ef1f05eac8c288e8d40696"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr<br class="typebreak"/>
-&lt; <a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html">http_request_reader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html#a563f3d0c83ef1f05eac8c288e8d40696">create</a> (tcp_connection_ptr &amp;tcp_conn, finished_handler_type handler)</td></tr>
-<tr class="memdesc:a563f3d0c83ef1f05eac8c288e8d40696"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new request_reader objects.  <a href="#a563f3d0c83ef1f05eac8c288e8d40696"></a><br/></td></tr>
+<tr class="memitem:ad7370ce1b11558c686f898ef7ac73d39"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html#ad7370ce1b11558c686f898ef7ac73d39">receive</a> (std::unique_ptr&lt; <a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html">http_request_reader</a> &gt; self)</td></tr>
+<tr class="memdesc:ad7370ce1b11558c686f898ef7ac73d39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incrementally reads &amp; parses the HTTP message.  <a href="#ad7370ce1b11558c686f898ef7ac73d39"></a><br/></td></tr>
 <tr class="inherit_header pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classstaticlib_1_1pion_1_1http__parser')"><img src="closed.png" alt="-"/>&nbsp;Static Public Member Functions inherited from <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">staticlib::pion::http_parser</a></td></tr>
 <tr class="memitem:ad81b55f42c78219e6ff347964198c53d inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#ad81b55f42c78219e6ff347964198c53d">parse_uri</a> (const std::string &amp;uri, std::string &amp;proto, std::string &amp;host, uint16_t &amp;port, std::string &amp;path, std::string &amp;query)</td></tr>
 <tr class="memdesc:ad81b55f42c78219e6ff347964198c53d inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a URI string.  <a href="#ad81b55f42c78219e6ff347964198c53d"></a><br/></td></tr>
-<tr class="memitem:aeea3e6d418c1c8327ff8ba0665938d53 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#aeea3e6d418c1c8327ff8ba0665938d53">parse_url_encoded</a> (std::unordered_multimap&lt; std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;dict, const char *ptr, const std::size_t len)</td></tr>
-<tr class="memdesc:aeea3e6d418c1c8327ff8ba0665938d53 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse key-value pairs out of a url-encoded string (i.e.  <a href="#aeea3e6d418c1c8327ff8ba0665938d53"></a><br/></td></tr>
-<tr class="memitem:afcee7335b03cdc1cd685334f3d74dd2b inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#afcee7335b03cdc1cd685334f3d74dd2b">parse_multipart_form_data</a> (std::unordered_multimap&lt; std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;dict, const std::string &amp;content_type, const char *ptr, const std::size_t len)</td></tr>
-<tr class="memdesc:afcee7335b03cdc1cd685334f3d74dd2b inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse key-value pairs out of a multipart/form-data payload content (<a href="http://www.ietf.org/rfc/rfc2388.txt">http://www.ietf.org/rfc/rfc2388.txt</a>)  <a href="#afcee7335b03cdc1cd685334f3d74dd2b"></a><br/></td></tr>
-<tr class="memitem:a4222c33c24855fcf094349c859e45a42 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a4222c33c24855fcf094349c859e45a42">parse_cookie_header</a> (std::unordered_multimap&lt; std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;dict, const char *ptr, const std::size_t len, bool set_cookie_header)</td></tr>
-<tr class="memdesc:a4222c33c24855fcf094349c859e45a42 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse key-value pairs out of a "Cookie" request header (i.e.  <a href="#a4222c33c24855fcf094349c859e45a42"></a><br/></td></tr>
+<tr class="memitem:adf90cbd972a11fbd0da8453f8482fbb5 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#adf90cbd972a11fbd0da8453f8482fbb5">parse_url_encoded</a> (std::unordered_multimap&lt; std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;dict, const char *ptr, const size_t len)</td></tr>
+<tr class="memdesc:adf90cbd972a11fbd0da8453f8482fbb5 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse key-value pairs out of a url-encoded string (i.e.  <a href="#adf90cbd972a11fbd0da8453f8482fbb5"></a><br/></td></tr>
+<tr class="memitem:a7eddbbf41a7c17a4afdac3c6583af616 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a7eddbbf41a7c17a4afdac3c6583af616">parse_multipart_form_data</a> (std::unordered_multimap&lt; std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;dict, const std::string &amp;content_type, const char *ptr, const size_t len)</td></tr>
+<tr class="memdesc:a7eddbbf41a7c17a4afdac3c6583af616 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse key-value pairs out of a multipart/form-data payload content (<a href="http://www.ietf.org/rfc/rfc2388.txt">http://www.ietf.org/rfc/rfc2388.txt</a>)  <a href="#a7eddbbf41a7c17a4afdac3c6583af616"></a><br/></td></tr>
+<tr class="memitem:a4bbb5cc064bff021894bf947be24ddf4 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a4bbb5cc064bff021894bf947be24ddf4">parse_cookie_header</a> (std::unordered_multimap&lt; std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;dict, const char *ptr, const size_t len, bool set_cookie_header)</td></tr>
+<tr class="memdesc:a4bbb5cc064bff021894bf947be24ddf4 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse key-value pairs out of a "Cookie" request header (i.e.  <a href="#a4bbb5cc064bff021894bf947be24ddf4"></a><br/></td></tr>
 <tr class="memitem:ab5b3ecde4d80e9b14459f29385ce84b7 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#ab5b3ecde4d80e9b14459f29385ce84b7">parse_cookie_header</a> (std::unordered_multimap&lt; std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;dict, const std::string &amp;cookie_header, bool set_cookie_header)</td></tr>
 <tr class="memdesc:ab5b3ecde4d80e9b14459f29385ce84b7 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse key-value pairs out of a "Cookie" request header (i.e.  <a href="#ab5b3ecde4d80e9b14459f29385ce84b7"></a><br/></td></tr>
 <tr class="memitem:a3551c879cbc2c948e7024e916f76ef60 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a3551c879cbc2c948e7024e916f76ef60">parse_url_encoded</a> (std::unordered_multimap&lt; std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;dict, const std::string &amp;query)</td></tr>
 <tr class="memdesc:a3551c879cbc2c948e7024e916f76ef60 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse key-value pairs out of a url-encoded string (i.e.  <a href="#a3551c879cbc2c948e7024e916f76ef60"></a><br/></td></tr>
 <tr class="memitem:a6970aa66b887eed3b9fd396eb647dfd2 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a6970aa66b887eed3b9fd396eb647dfd2">parse_multipart_form_data</a> (std::unordered_multimap&lt; std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;dict, const std::string &amp;content_type, const std::string &amp;form_data)</td></tr>
 <tr class="memdesc:a6970aa66b887eed3b9fd396eb647dfd2 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse key-value pairs out of a multipart/form-data payload content (<a href="http://www.ietf.org/rfc/rfc2388.txt">http://www.ietf.org/rfc/rfc2388.txt</a>)  <a href="#a6970aa66b887eed3b9fd396eb647dfd2"></a><br/></td></tr>
-<tr class="memitem:ae0f9a53cff06a1262636cce2713f4698 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#ae0f9a53cff06a1262636cce2713f4698">parse_forwarded_for</a> (const std::string &amp;header, std::string &amp;public_ip)</td></tr>
-<tr class="memdesc:ae0f9a53cff06a1262636cce2713f4698 inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses an X-Forwarded-For HTTP header, and extracts from it an IP address that best matches the client's public IP address (if any are found)  <a href="#ae0f9a53cff06a1262636cce2713f4698"></a><br/></td></tr>
 <tr class="memitem:ae731a51ea99ff2fa12909128b465a75d inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classstaticlib_1_1pion_1_1http__parser_1_1error__category__t.html">error_category_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#ae731a51ea99ff2fa12909128b465a75d">get_error_category</a> ()</td></tr>
 <tr class="memdesc:ae731a51ea99ff2fa12909128b465a75d inherit pub_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an instance of parser::error_category_t.  <a href="#ae731a51ea99ff2fa12909128b465a75d"></a><br/></td></tr>
 </table><table class="memberdecls">
@@ -237,8 +228,8 @@ Additional Inherited Members</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:acd3a34de5582da997c05ed00fcb2bcbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class-specific error code values.  <a href="classstaticlib_1_1pion_1_1http__parser.html#acd3a34de5582da997c05ed00fcb2bcbb">More...</a><br/></td></tr>
 <tr class="inherit_header pub_static_attribs_classstaticlib_1_1pion_1_1http__parser"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classstaticlib_1_1pion_1_1http__parser')"><img src="closed.png" alt="-"/>&nbsp;Static Public Attributes inherited from <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">staticlib::pion::http_parser</a></td></tr>
-<tr class="memitem:a41b4410e502a6d70ed881ac2642fd424 inherit pub_static_attribs_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static const std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a41b4410e502a6d70ed881ac2642fd424">DEFAULT_CONTENT_MAX</a></td></tr>
-<tr class="memdesc:a41b4410e502a6d70ed881ac2642fd424 inherit pub_static_attribs_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum length for HTTP payload content (for non-streaming server)  <a href="#a41b4410e502a6d70ed881ac2642fd424"></a><br/></td></tr>
+<tr class="memitem:aa5c85696314f78560dd2fa247aa2b253 inherit pub_static_attribs_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static const size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#aa5c85696314f78560dd2fa247aa2b253">DEFAULT_CONTENT_MAX</a></td></tr>
+<tr class="memdesc:aa5c85696314f78560dd2fa247aa2b253 inherit pub_static_attribs_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum length for HTTP payload content (for non-streaming server)  <a href="#aa5c85696314f78560dd2fa247aa2b253"></a><br/></td></tr>
 <tr class="inherit_header pro_methods_classstaticlib_1_1pion_1_1http__parser"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classstaticlib_1_1pion_1_1http__parser')"><img src="closed.png" alt="-"/>&nbsp;Protected Member Functions inherited from <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">staticlib::pion::http_parser</a></td></tr>
 <tr class="memitem:a15f598d394fbaad020617dfe007f0d9b inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a15f598d394fbaad020617dfe007f0d9b">finished_parsing_headers</a> (const std::error_code &amp;, sl::support::tribool &amp;)</td></tr>
 <tr class="memdesc:a15f598d394fbaad020617dfe007f0d9b inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called after we have finished parsing the HTTP message headers.  <a href="#a15f598d394fbaad020617dfe007f0d9b"></a><br/></td></tr>
@@ -246,12 +237,12 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a1af7ebef865fdf3279341c90cd26af8d inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses an HTTP message up to the end of the headers using bytes available in the read buffer.  <a href="#a1af7ebef865fdf3279341c90cd26af8d"></a><br/></td></tr>
 <tr class="memitem:a64796968ea5f1d5caa486a8df0e4e1dd inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a64796968ea5f1d5caa486a8df0e4e1dd">update_message_with_header_data</a> (<a class="el" href="classstaticlib_1_1pion_1_1http__message.html">http_message</a> &amp;http_msg) const </td></tr>
 <tr class="memdesc:a64796968ea5f1d5caa486a8df0e4e1dd inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates an <a href="http::message">http::message</a> object with data obtained from parsing headers.  <a href="#a64796968ea5f1d5caa486a8df0e4e1dd"></a><br/></td></tr>
-<tr class="memitem:a3494c86f6efef9f3a7793633c0b9f8a7 inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">sl::support::tribool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a3494c86f6efef9f3a7793633c0b9f8a7">parse_chunks</a> (http_message::chunk_cache_type &amp;chunk_buffers, std::error_code &amp;ec)</td></tr>
-<tr class="memdesc:a3494c86f6efef9f3a7793633c0b9f8a7 inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a chunked HTTP message-body using bytes available in the read buffer.  <a href="#a3494c86f6efef9f3a7793633c0b9f8a7"></a><br/></td></tr>
+<tr class="memitem:a144c90683d942232f937f74bf9980f62 inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">sl::support::tribool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a144c90683d942232f937f74bf9980f62">parse_chunks</a> (std::vector&lt; char &gt; &amp;chunk_buffers, std::error_code &amp;ec)</td></tr>
+<tr class="memdesc:a144c90683d942232f937f74bf9980f62 inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a chunked HTTP message-body using bytes available in the read buffer.  <a href="#a144c90683d942232f937f74bf9980f62"></a><br/></td></tr>
 <tr class="memitem:ae812bc86507de6d5fc2c8320e1558fcb inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">sl::support::tribool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#ae812bc86507de6d5fc2c8320e1558fcb">consume_content</a> (<a class="el" href="classstaticlib_1_1pion_1_1http__message.html">http_message</a> &amp;http_msg, std::error_code &amp;ec)</td></tr>
 <tr class="memdesc:ae812bc86507de6d5fc2c8320e1558fcb inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consumes payload content in the parser's read buffer.  <a href="#ae812bc86507de6d5fc2c8320e1558fcb"></a><br/></td></tr>
-<tr class="memitem:adc2cf11694f4fa40b5c302826849b4da inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#adc2cf11694f4fa40b5c302826849b4da">consume_content_as_next_chunk</a> (http_message::chunk_cache_type &amp;chunk_buffers)</td></tr>
-<tr class="memdesc:adc2cf11694f4fa40b5c302826849b4da inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consume the bytes available in the read buffer, converting them into the next chunk for the HTTP message.  <a href="#adc2cf11694f4fa40b5c302826849b4da"></a><br/></td></tr>
+<tr class="memitem:a290c786aa5f98c255dc9a44b5c1d1016 inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a290c786aa5f98c255dc9a44b5c1d1016">consume_content_as_next_chunk</a> (std::vector&lt; char &gt; &amp;chunk_buffers)</td></tr>
+<tr class="memdesc:a290c786aa5f98c255dc9a44b5c1d1016 inherit pro_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consume the bytes available in the read buffer, converting them into the next chunk for the HTTP message.  <a href="#a290c786aa5f98c255dc9a44b5c1d1016"></a><br/></td></tr>
 <tr class="inherit_header pro_static_methods_classstaticlib_1_1pion_1_1http__parser"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_classstaticlib_1_1pion_1_1http__parser')"><img src="closed.png" alt="-"/>&nbsp;Static Protected Member Functions inherited from <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">staticlib::pion::http_parser</a></td></tr>
 <tr class="memitem:ac4c5c70b8413a4de41b9be6b49122cfe inherit pro_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#ac4c5c70b8413a4de41b9be6b49122cfe">compute_msg_status</a> (<a class="el" href="classstaticlib_1_1pion_1_1http__message.html">http_message</a> &amp;http_msg, bool msg_parsed_ok)</td></tr>
 <tr class="memdesc:ac4c5c70b8413a4de41b9be6b49122cfe inherit pro_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute and sets a HTTP Message data integrity status.  <a href="#ac4c5c70b8413a4de41b9be6b49122cfe"></a><br/></td></tr>
@@ -263,8 +254,6 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a3129b5fce2b557f41eb078f5fd4106dc inherit pro_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a3129b5fce2b557f41eb078f5fd4106dc">is_hex_digit</a> (int c)</td></tr>
 <tr class="memitem:a41ab99b657e1cea1e797091bd6db7a8b inherit pro_static_methods_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a41ab99b657e1cea1e797091bd6db7a8b">is_cookie_attribute</a> (const std::string &amp;name, bool set_cookie_header)</td></tr>
 <tr class="inherit_header pro_attribs_classstaticlib_1_1pion_1_1http__parser"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classstaticlib_1_1pion_1_1http__parser')"><img src="closed.png" alt="-"/>&nbsp;Protected Attributes inherited from <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">staticlib::pion::http_parser</a></td></tr>
-<tr class="memitem:a3a101c844fefea4f5ed78a5546b451ae inherit pro_attribs_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaticlib_1_1pion_1_1logger.html">logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a3a101c844fefea4f5ed78a5546b451ae">m_logger</a></td></tr>
-<tr class="memdesc:a3a101c844fefea4f5ed78a5546b451ae inherit pro_attribs_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary logging interface used by this class.  <a href="#a3a101c844fefea4f5ed78a5546b451ae"></a><br/></td></tr>
 <tr class="memitem:a90dc594691e8832a403ef1e1b26106e9 inherit pro_attribs_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#a90dc594691e8832a403ef1e1b26106e9">m_read_ptr</a></td></tr>
 <tr class="memdesc:a90dc594691e8832a403ef1e1b26106e9 inherit pro_attribs_classstaticlib_1_1pion_1_1http__parser"><td class="mdescLeft">&#160;</td><td class="mdescRight">Points to the next character to be consumed in the read_buffer.  <a href="#a90dc594691e8832a403ef1e1b26106e9"></a><br/></td></tr>
 <tr class="memitem:af9a8105931b5df0626f2dd281270eff5 inherit pro_attribs_classstaticlib_1_1pion_1_1http__parser"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html#af9a8105931b5df0626f2dd281270eff5">m_read_end_ptr</a></td></tr>
@@ -293,8 +282,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Asynchronously reads and parses HTTP requests. </p>
-</div><h2>Member Function Documentation</h2>
-<a class="anchor" id="a563f3d0c83ef1f05eac8c288e8d40696"></a>
+</div><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a173f17fb6a43520d9367eb474328e784"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -302,16 +291,22 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::shared_ptr&lt;<a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html">http_request_reader</a>&gt; staticlib::pion::http_request_reader::create </td>
+          <td class="memname">staticlib::pion::http_request_reader::http_request_reader </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="classstaticlib_1_1pion_1_1http__server.html">http_server</a> &amp;&#160;</td>
+          <td class="paramname"><em>srv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">tcp_connection_ptr &amp;&#160;</td>
           <td class="paramname"><em>tcp_conn</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">finished_handler_type&#160;</td>
-          <td class="paramname"><em>handler</em>&#160;</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>read_timeout</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -321,102 +316,95 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor to be used with <code>std::make_unique</code> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">server</td><td>reference to server </td></tr>
+    <tr><td class="paramname">tcp_conn</td><td>TCP connection containing a new message to parse </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ab3998ce32790582d3b7da41c03883ebe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">staticlib::pion::http_request_reader::http_request_reader </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html">http_request_reader</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deleted copy-constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>instance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2>Member Function Documentation</h2>
+<a class="anchor" id="a53b870368bccfda1f825b2c4a9747258"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html">http_request_reader</a>&amp; staticlib::pion::http_request_reader::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html">http_request_reader</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deleted copy-assignment operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>this instance </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad7370ce1b11558c686f898ef7ac73d39"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void staticlib::pion::http_request_reader::receive </td>
+          <td>(</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classstaticlib_1_1pion_1_1http__request__reader.html">http_request_reader</a> &gt;&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates new request_reader objects. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tcp_conn</td><td>TCP connection containing a new message to parse </td></tr>
-    <tr><td class="paramname">handler</td><td>function called after the message has been parsed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a521bc7dd3a0b2109a3904bab7a19406b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tcp_connection_ptr&amp; staticlib::pion::http_request_reader::get_connection </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a shared pointer to the TCP connection. </p>
-<dl class="section return"><dt>Returns</dt><dd>shared pointer to the TCP connection </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a46fea21efecde494779d82e7a6c36fb2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::http_request_reader::receive </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
 <p>Incrementally reads &amp; parses the HTTP message. </p>
-
-</div>
-</div>
-<a class="anchor" id="a71f825e90977e01bfd4b356bfffea81f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::http_request_reader::set_headers_parsed_callback </td>
-          <td>(</td>
-          <td class="paramtype">headers_parsing_finished_handler_type&#160;</td>
-          <td class="paramname"><em>h</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets a function to be called after HTTP headers have been parsed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">h</td><td>function pointer </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ac0e20ecd9b74aa9bab32de8c4e8bf874"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::http_request_reader::set_timeout </td>
-          <td>(</td>
-          <td class="paramtype">std::chrono::milliseconds&#160;</td>
-          <td class="paramname"><em>timeout</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the maximum number of seconds for read operations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">seconds</td><td>maximum number of milliseconds for read operations </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -426,7 +414,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

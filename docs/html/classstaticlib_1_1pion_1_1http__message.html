@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">5.0.7-15</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -121,7 +121,7 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message_1_1content__buffer__t.html">content_buffer_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A simple helper class used to manage a fixed-size payload content buffer.  <a href="classstaticlib_1_1pion_1_1http__message_1_1content__buffer__t.html#details">More...</a><br/></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstaticlib_1_1pion_1_1http__message_1_1receive__error__t.html">receive_error_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for library errors returned during <a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aed5035e7e035d51225c40258c9dd4479" title="Receives a new message from a TCP connection (blocks until finished)">receive()</a> operations.  <a href="structstaticlib_1_1pion_1_1http__message_1_1receive__error__t.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for library errors returned during receive() operations.  <a href="structstaticlib_1_1pion_1_1http__message_1_1receive__error__t.html#details">More...</a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -130,7 +130,7 @@ Public Types</h2></td></tr>
 <a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a8368e9a7908ab3ed4768f5440dc3c4a2a67ea07fa711fbd707aa0a78b55bc7980">STATUS_PARTIAL</a>, 
 <a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a8368e9a7908ab3ed4768f5440dc3c4a2a5ae1fc4653f6895b419ea769846a72c1">STATUS_OK</a>
  }</td></tr>
-<tr class="memdesc:a8368e9a7908ab3ed4768f5440dc3c4a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines message data integrity status codes.  <a href="classstaticlib_1_1pion_1_1http__message.html#a8368e9a7908ab3ed4768f5440dc3c4a2">More...</a><br/></td></tr>
+<tr class="memdesc:a8368e9a7908ab3ed4768f5440dc3c4a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to cache chunked data.  <a href="classstaticlib_1_1pion_1_1http__message.html#a8368e9a7908ab3ed4768f5440dc3c4a2">More...</a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -140,8 +140,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af17780385e4ef0bd1c7d2967d86897e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#af17780385e4ef0bd1c7d2967d86897e7"></a><br/></td></tr>
 <tr class="memitem:aca2bb7b4464c68b0ff5f5d95cea1176b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html">http_message</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aca2bb7b4464c68b0ff5f5d95cea1176b">operator=</a> (const <a class="el" href="classstaticlib_1_1pion_1_1http__message.html">http_message</a> &amp;http_msg)</td></tr>
 <tr class="memdesc:aca2bb7b4464c68b0ff5f5d95cea1176b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator.  <a href="#aca2bb7b4464c68b0ff5f5d95cea1176b"></a><br/></td></tr>
-<tr class="memitem:a7d6941be2b939b1d91583cd24c3b193d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a7d6941be2b939b1d91583cd24c3b193d">~http_message</a> ()</td></tr>
-<tr class="memdesc:a7d6941be2b939b1d91583cd24c3b193d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor.  <a href="#a7d6941be2b939b1d91583cd24c3b193d"></a><br/></td></tr>
+<tr class="memitem:ab5dab3b773da102dd81f42664d921ed5"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ab5dab3b773da102dd81f42664d921ed5">~http_message</a> () STATICLIB_NOEXCEPT</td></tr>
+<tr class="memdesc:ab5dab3b773da102dd81f42664d921ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor.  <a href="#ab5dab3b773da102dd81f42664d921ed5"></a><br/></td></tr>
 <tr class="memitem:ae38f257d7f87199b742b592d3a93ee47"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ae38f257d7f87199b742b592d3a93ee47">clear</a> ()</td></tr>
 <tr class="memdesc:ae38f257d7f87199b742b592d3a93ee47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all message data.  <a href="#ae38f257d7f87199b742b592d3a93ee47"></a><br/></td></tr>
 <tr class="memitem:a3526ecd8fb88d4b85582b72b73f4ef2f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a3526ecd8fb88d4b85582b72b73f4ef2f">is_content_length_implied</a> (void) const =0</td></tr>
@@ -170,8 +170,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a58698052d59d295505c4293c85d031ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the payload content, or empty string if there is none.  <a href="#a58698052d59d295505c4293c85d031ab"></a><br/></td></tr>
 <tr class="memitem:acfb346977dd0ded9a625f9afac84d973"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#acfb346977dd0ded9a625f9afac84d973">get_content</a> () const </td></tr>
 <tr class="memdesc:acfb346977dd0ded9a625f9afac84d973"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const pointer to the payload content, or empty string if there is none.  <a href="#acfb346977dd0ded9a625f9afac84d973"></a><br/></td></tr>
-<tr class="memitem:a1822d43a02a984f1bb4aa085e902e86c"><td class="memItemLeft" align="right" valign="top">chunk_cache_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a1822d43a02a984f1bb4aa085e902e86c">get_chunk_cache</a> ()</td></tr>
-<tr class="memdesc:a1822d43a02a984f1bb4aa085e902e86c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the chunk cache.  <a href="#a1822d43a02a984f1bb4aa085e902e86c"></a><br/></td></tr>
+<tr class="memitem:aa3267a4ebb899921ff84f156bbdfde19"><td class="memItemLeft" align="right" valign="top">std::vector&lt; char &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aa3267a4ebb899921ff84f156bbdfde19">get_chunk_cache</a> ()</td></tr>
+<tr class="memdesc:aa3267a4ebb899921ff84f156bbdfde19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the chunk cache.  <a href="#aa3267a4ebb899921ff84f156bbdfde19"></a><br/></td></tr>
 <tr class="memitem:a5b47f7d59603c2ab346b18b3b6e90c2c"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a5b47f7d59603c2ab346b18b3b6e90c2c">get_header</a> (const std::string &amp;key) const </td></tr>
 <tr class="memdesc:a5b47f7d59603c2ab346b18b3b6e90c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a value for the header if any are defined; otherwise, an empty string.  <a href="#a5b47f7d59603c2ab346b18b3b6e90c2c"></a><br/></td></tr>
 <tr class="memitem:a7f0c0ad03f8eea73364fe40d12076ffc"><td class="memItemLeft" align="right" valign="top">std::unordered_multimap<br class="typebreak"/>
@@ -244,20 +244,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a62f90ae13247735aeb123fb441bee771"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all values for the HTTP header named key.  <a href="#a62f90ae13247735aeb123fb441bee771"></a><br/></td></tr>
 <tr class="memitem:aeea3b8df74b094825e80927a7c22a87b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aeea3b8df74b094825e80927a7c22a87b">check_keep_alive</a> () const </td></tr>
 <tr class="memdesc:aeea3b8df74b094825e80927a7c22a87b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the HTTP connection may be kept alive.  <a href="#aeea3b8df74b094825e80927a7c22a87b"></a><br/></td></tr>
-<tr class="memitem:a9e517e9e61aef40b34b5b0f190c00d34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a9e517e9e61aef40b34b5b0f190c00d34">prepare_buffers_for_send</a> (write_buffers_type &amp;write_buffers, const bool keep_alive, const bool using_chunks)</td></tr>
-<tr class="memdesc:a9e517e9e61aef40b34b5b0f190c00d34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a vector of write buffers with the HTTP message information.  <a href="#a9e517e9e61aef40b34b5b0f190c00d34"></a><br/></td></tr>
-<tr class="memitem:a7682071a349c8677add47ff8467043c3"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a7682071a349c8677add47ff8467043c3">send</a> (<a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;tcp_conn, std::error_code &amp;ec, bool headers_only=false)</td></tr>
-<tr class="memdesc:a7682071a349c8677add47ff8467043c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the message over a TCP connection (blocks until finished)  <a href="#a7682071a349c8677add47ff8467043c3"></a><br/></td></tr>
-<tr class="memitem:aed5035e7e035d51225c40258c9dd4479"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aed5035e7e035d51225c40258c9dd4479">receive</a> (<a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;tcp_conn, std::error_code &amp;ec, <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a> &amp;<a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a>)</td></tr>
-<tr class="memdesc:aed5035e7e035d51225c40258c9dd4479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a new message from a TCP connection (blocks until finished)  <a href="#aed5035e7e035d51225c40258c9dd4479"></a><br/></td></tr>
-<tr class="memitem:add7e947cf579cc9a36680a329bb12ec1"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#add7e947cf579cc9a36680a329bb12ec1">receive</a> (<a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;tcp_conn, std::error_code &amp;ec, bool headers_only=false, std::size_t max_content_length=static_cast&lt; size_t &gt;(-1))</td></tr>
-<tr class="memdesc:add7e947cf579cc9a36680a329bb12ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a new message from a TCP connection (blocks until finished)  <a href="#add7e947cf579cc9a36680a329bb12ec1"></a><br/></td></tr>
-<tr class="memitem:ac800f12c53b4740f6bb52bebb29b098d"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ac800f12c53b4740f6bb52bebb29b098d">write</a> (std::ostream &amp;out, std::error_code &amp;ec, bool headers_only=false)</td></tr>
-<tr class="memdesc:ac800f12c53b4740f6bb52bebb29b098d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the message to a std::ostream (blocks until finished)  <a href="#ac800f12c53b4740f6bb52bebb29b098d"></a><br/></td></tr>
-<tr class="memitem:ab119884d448bddaf7aafbd9655bb14c8"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ab119884d448bddaf7aafbd9655bb14c8">read</a> (std::istream &amp;in, std::error_code &amp;ec, <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a> &amp;<a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a>)</td></tr>
-<tr class="memdesc:ab119884d448bddaf7aafbd9655bb14c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a new message from a std::istream (blocks until finished)  <a href="#ab119884d448bddaf7aafbd9655bb14c8"></a><br/></td></tr>
-<tr class="memitem:a536ca6bc9ef6be0393725ff5d769dc04"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a536ca6bc9ef6be0393725ff5d769dc04">read</a> (std::istream &amp;in, std::error_code &amp;ec, bool headers_only=false, std::size_t max_content_length=static_cast&lt; size_t &gt;(-1))</td></tr>
-<tr class="memdesc:a536ca6bc9ef6be0393725ff5d769dc04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a new message from a std::istream (blocks until finished)  <a href="#a536ca6bc9ef6be0393725ff5d769dc04"></a><br/></td></tr>
+<tr class="memitem:a92067f0a4e58b2ab38bb444a72dfea67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a92067f0a4e58b2ab38bb444a72dfea67">prepare_buffers_for_send</a> (std::vector&lt; asio::const_buffer &gt; &amp;write_buffers, const bool keep_alive, const bool using_chunks)</td></tr>
+<tr class="memdesc:a92067f0a4e58b2ab38bb444a72dfea67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a vector of write buffers with the HTTP message information.  <a href="#a92067f0a4e58b2ab38bb444a72dfea67"></a><br/></td></tr>
 <tr class="memitem:adabdd265c327e9fb5a92aacd9f9033ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#adabdd265c327e9fb5a92aacd9f9033ba">concatenate_chunks</a> ()</td></tr>
 <tr class="memdesc:adabdd265c327e9fb5a92aacd9f9033ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pieces together all the received chunks.  <a href="#adabdd265c327e9fb5a92aacd9f9033ba"></a><br/></td></tr>
 </table><table class="memberdecls">
@@ -329,16 +317,14 @@ Static Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a04522b7532d45feb6c27401500d936c3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a04522b7532d45feb6c27401500d936c3">get_date_string</a> (const time_t t)</td></tr>
-<tr class="memdesc:a04522b7532d45feb6c27401500d936c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts time_t format into an HTTP-date string.  <a href="#a04522b7532d45feb6c27401500d936c3"></a><br/></td></tr>
 <tr class="memitem:a77c14a91d5c7e78168d1b8164ae4cd24"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a77c14a91d5c7e78168d1b8164ae4cd24">make_query_string</a> (const std::unordered_multimap&lt; std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;query_params)</td></tr>
 <tr class="memdesc:a77c14a91d5c7e78168d1b8164ae4cd24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds an HTTP query string from a collection of query parameters.  <a href="#a77c14a91d5c7e78168d1b8164ae4cd24"></a><br/></td></tr>
 <tr class="memitem:af40acf1a79f32a3becff50c386785444"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#af40acf1a79f32a3becff50c386785444">make_set_cookie_header</a> (const std::string &amp;name, const std::string &amp;value, const std::string &amp;path, const bool has_max_age=false, const unsigned long max_age=0)</td></tr>
 <tr class="memdesc:af40acf1a79f32a3becff50c386785444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a "Set-Cookie" header.  <a href="#af40acf1a79f32a3becff50c386785444"></a><br/></td></tr>
 <tr class="memitem:aaa3ca53fe7ff9dfc1d5e7d38d20d5e64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aaa3ca53fe7ff9dfc1d5e7d38d20d5e64">prepare_headers_for_send</a> (const bool keep_alive, const bool using_chunks)</td></tr>
 <tr class="memdesc:aaa3ca53fe7ff9dfc1d5e7d38d20d5e64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares HTTP headers for a send operation.  <a href="#aaa3ca53fe7ff9dfc1d5e7d38d20d5e64"></a><br/></td></tr>
-<tr class="memitem:a84657fd5f1cc3adf7a787c5bed24c515"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a84657fd5f1cc3adf7a787c5bed24c515">append_headers</a> (write_buffers_type &amp;write_buffers)</td></tr>
-<tr class="memdesc:a84657fd5f1cc3adf7a787c5bed24c515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the message's HTTP headers to a vector of write buffers.  <a href="#a84657fd5f1cc3adf7a787c5bed24c515"></a><br/></td></tr>
+<tr class="memitem:aa701d6c535be78ab001db6d66f8e0ffd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aa701d6c535be78ab001db6d66f8e0ffd">append_headers</a> (std::vector&lt; asio::const_buffer &gt; &amp;write_buffers)</td></tr>
+<tr class="memdesc:aa701d6c535be78ab001db6d66f8e0ffd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the message's HTTP headers to a vector of write buffers.  <a href="#aa701d6c535be78ab001db6d66f8e0ffd"></a><br/></td></tr>
 <tr class="memitem:ad00779926f4e109463c3d21289ef62bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ad00779926f4e109463c3d21289ef62bd">append_cookie_headers</a> ()</td></tr>
 <tr class="memdesc:ad00779926f4e109463c3d21289ef62bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends HTTP headers for any cookies defined by the <a href="http::message">http::message</a>.  <a href="#ad00779926f4e109463c3d21289ef62bd"></a><br/></td></tr>
 <tr class="memitem:aa9fbf6d702d66f26511fc52b437b2659"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aa9fbf6d702d66f26511fc52b437b2659">clear_first_line</a> () const </td></tr>
@@ -376,7 +362,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Defines message data integrity status codes. </p>
+<p>Used to cache chunked data. </p>
+<p>Defines message data integrity status codes </p>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" id="a8368e9a7908ab3ed4768f5440dc3c4a2a18155c373649eac8213b84652bf3a4f2"></a>STATUS_NONE</em>&nbsp;</td><td>
 <p>No data received (i.e. </p>
@@ -401,6 +388,9 @@ Protected Attributes</h2></td></tr>
 <a class="anchor" id="a2c9ecdfdbed1bd90ae21503d33793cec"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">staticlib::pion::http_message::http_message </td>
@@ -409,6 +399,11 @@ Protected Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Constructs a new HTTP message object. </p>
@@ -418,6 +413,9 @@ Protected Attributes</h2></td></tr>
 <a class="anchor" id="af17780385e4ef0bd1c7d2967d86897e7"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">staticlib::pion::http_message::http_message </td>
@@ -427,13 +425,18 @@ Protected Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Copy constructor. </p>
 
 </div>
 </div>
-<a class="anchor" id="a7d6941be2b939b1d91583cd24c3b193d"></a>
+<a class="anchor" id="ab5dab3b773da102dd81f42664d921ed5"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -449,7 +452,7 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -462,6 +465,9 @@ Protected Attributes</h2></td></tr>
 <a class="anchor" id="add32eb9b2b5dbd90a0ce9008245b8f95"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::add_cookie </td>
@@ -481,6 +487,11 @@ Protected Attributes</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Adds a value for the cookie since cookie names are insensitive, key should use lowercase alpha chars. </p>
@@ -497,6 +508,9 @@ Protected Attributes</h2></td></tr>
 <a class="anchor" id="a9a4fea5d4f0ea799477e062ddbc3c276"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::add_header </td>
@@ -516,6 +530,11 @@ Protected Attributes</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Adds a value for the HTTP header named key. </p>
@@ -545,7 +564,7 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -556,7 +575,7 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a84657fd5f1cc3adf7a787c5bed24c515"></a>
+<a class="anchor" id="aa701d6c535be78ab001db6d66f8e0ffd"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -566,14 +585,14 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void staticlib::pion::http_message::append_headers </td>
           <td>(</td>
-          <td class="paramtype">write_buffers_type &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; asio::const_buffer &gt; &amp;&#160;</td>
           <td class="paramname"><em>write_buffers</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -591,6 +610,9 @@ Protected Attributes</h2></td></tr>
 <a class="anchor" id="af6d9dd696e642125611da321dae38784"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::change_cookie </td>
@@ -610,6 +632,11 @@ Protected Attributes</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Changes the value of a cookie since cookie names are insensitive, key should use lowercase alpha chars. </p>
@@ -626,6 +653,9 @@ Protected Attributes</h2></td></tr>
 <a class="anchor" id="aeebbeac2d471fbfe88202e063cfd5597"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::change_header </td>
@@ -645,6 +675,11 @@ Protected Attributes</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Changes the value for the HTTP header named key. </p>
@@ -714,6 +749,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="aeea3b8df74b094825e80927a7c22a87b"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::http_message::check_keep_alive </td>
@@ -722,6 +760,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if the HTTP connection may be kept alive. </p>
@@ -745,7 +788,7 @@ template&lt;typename DictionaryType &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -759,6 +802,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a8ef380982d6f1f83bcac3577db314f60"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::clear_content </td>
@@ -767,6 +813,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Clears payload content buffer. </p>
@@ -789,7 +840,7 @@ template&lt;typename DictionaryType &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -801,6 +852,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="adabdd265c327e9fb5a92aacd9f9033ba"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::concatenate_chunks </td>
@@ -809,6 +863,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Pieces together all the received chunks. </p>
@@ -818,6 +877,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="adebd59f00a2aa7fc14f586e59b58260c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">char* staticlib::pion::http_message::create_content_buffer </td>
@@ -826,6 +888,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Creates a payload content buffer of size m_content_length and returns a pointer to the new buffer (memory is managed by message class) </p>
@@ -836,6 +903,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="ab89f53e918531d32421fb70449add34d"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::delete_cookie </td>
@@ -845,6 +915,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Removes all values for a cookie since cookie names are insensitive, key should use lowercase alpha chars. </p>
@@ -862,6 +937,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a62f90ae13247735aeb123fb441bee771"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::delete_header </td>
@@ -871,6 +949,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Removes all values for the HTTP header named key. </p>
@@ -928,17 +1011,25 @@ template&lt;typename DictionaryType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a1822d43a02a984f1bb4aa085e902e86c"></a>
+<a class="anchor" id="aa3267a4ebb899921ff84f156bbdfde19"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">chunk_cache_type&amp; staticlib::pion::http_message::get_chunk_cache </td>
+          <td class="memname">std::vector&lt;char&gt;&amp; staticlib::pion::http_message::get_chunk_cache </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns a reference to the chunk cache. </p>
@@ -948,6 +1039,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a64a62de42efb107159c61eddd5bb36b8"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::http_message::get_chunks_supported </td>
@@ -956,6 +1050,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if chunked transfer encodings are supported. </p>
@@ -965,6 +1064,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a58698052d59d295505c4293c85d031ab"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">char* staticlib::pion::http_message::get_content </td>
@@ -973,6 +1075,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns a pointer to the payload content, or empty string if there is none. </p>
@@ -982,6 +1089,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="acfb346977dd0ded9a625f9afac84d973"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const char* staticlib::pion::http_message::get_content </td>
@@ -990,6 +1100,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns a const pointer to the payload content, or empty string if there is none. </p>
@@ -1000,6 +1115,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="aa1a9686003e05d6f3064516f07cba8df"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::size_t staticlib::pion::http_message::get_content_buffer_size </td>
@@ -1008,6 +1126,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns size of allocated buffer. </p>
@@ -1017,6 +1140,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="ad2354d1f457d18bb1255e4f5539da9f7"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">size_t staticlib::pion::http_message::get_content_length </td>
@@ -1025,6 +1151,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the length of the payload content (in bytes) </p>
@@ -1035,6 +1166,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="addf536149e56f44e4525a70993931ba6"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const std::string&amp; staticlib::pion::http_message::get_cookie </td>
@@ -1044,6 +1178,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns a value for the cookie if any are defined; otherwise, an empty string since cookie names are insensitive, key should use lowercase alpha chars. </p>
@@ -1060,6 +1199,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a2829cded16171d2e370ca3ab9d34356c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::unordered_multimap&lt;std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a>&gt;&amp; staticlib::pion::http_message::get_cookies </td>
@@ -1068,6 +1210,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the cookie parameters. </p>
@@ -1075,42 +1222,12 @@ template&lt;typename DictionaryType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a04522b7532d45feb6c27401500d936c3"></a>
+<a class="anchor" id="a1285137715d05dcbf8a04378fde5f04a"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string staticlib::pion::http_message::get_date_string </td>
-          <td>(</td>
-          <td class="paramtype">const time_t&#160;</td>
-          <td class="paramname"><em>t</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Converts time_t format into an HTTP-date string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">t</td><td>time </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>HTTP-date string </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a1285137715d05dcbf8a04378fde5f04a"></a>
-<div class="memitem">
-<div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">const std::string&amp; staticlib::pion::http_message::get_first_line </td>
@@ -1119,6 +1236,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns a string containing the first line for the HTTP message. </p>
@@ -1129,6 +1251,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a5b47f7d59603c2ab346b18b3b6e90c2c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const std::string&amp; staticlib::pion::http_message::get_header </td>
@@ -1138,6 +1263,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns a value for the header if any are defined; otherwise, an empty string. </p>
@@ -1147,6 +1277,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a7f0c0ad03f8eea73364fe40d12076ffc"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::unordered_multimap&lt;std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a>&gt;&amp; staticlib::pion::http_message::get_headers </td>
@@ -1155,6 +1288,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns a reference to the HTTP headers multimap. </p>
@@ -1165,6 +1303,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a1bf2c2afa1a0af1615045675e64cc0d7"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const asio::ip::address&amp; staticlib::pion::http_message::get_remote_ip </td>
@@ -1173,6 +1314,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns IP address of the remote endpoint. </p>
@@ -1182,6 +1328,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="acc634fb0018db6a0c5de52bf96616605"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a8368e9a7908ab3ed4768f5440dc3c4a2">data_status_type</a> staticlib::pion::http_message::get_status </td>
@@ -1190,6 +1339,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Return the data receival status. </p>
@@ -1246,6 +1400,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a4bfbdf55016d22b04ff40f05a9c93d79"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint16_t staticlib::pion::http_message::get_version_major </td>
@@ -1254,6 +1411,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the major HTTP version number. </p>
@@ -1264,6 +1426,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="ac5e02e86bba9c4f7fbb586f7d279ebf9"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint16_t staticlib::pion::http_message::get_version_minor </td>
@@ -1272,6 +1437,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the minor HTTP version number. </p>
@@ -1281,6 +1451,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a015b05a3ce7dff78c247867b801b55d5"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string staticlib::pion::http_message::get_version_string </td>
@@ -1289,6 +1462,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns a string representation of the HTTP version (i.e. </p>
@@ -1299,6 +1477,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="ad524c293b65c7aee527cf008c90352eb"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::http_message::has_cookie </td>
@@ -1308,6 +1489,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if at least one value for the cookie is defined since cookie names are insensitive, key should use lowercase alpha chars. </p>
@@ -1324,6 +1510,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="ab456e7557f50d18772705c1ef2ffed24"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::http_message::has_data_after_missing_packets </td>
@@ -1332,6 +1521,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if more data seen after the missing packets. </p>
@@ -1342,6 +1536,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a2e372af4a87225f03a8868c172513805"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::http_message::has_header </td>
@@ -1351,6 +1548,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if at least one value for the header is defined. </p>
@@ -1367,6 +1569,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="ab80e3b98fee55d8a126b23f541a7b154"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::http_message::has_missing_packets </td>
@@ -1375,6 +1580,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if there were missing packets. </p>
@@ -1385,6 +1595,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a886f9185a107d9bd3f19116f0f2fbab4"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::http_message::is_chunked </td>
@@ -1394,6 +1607,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if the message content is chunked. </p>
@@ -1404,6 +1622,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a3a14b599f53d6b32411e1354bfba9a5f"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::http_message::is_content_buffer_allocated </td>
@@ -1412,6 +1633,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if buffer for content is allocated. </p>
@@ -1450,6 +1676,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a278cfc9d878e070c5a1bb480acb0ef97"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::http_message::is_valid </td>
@@ -1458,6 +1687,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if the message is valid. </p>
@@ -1481,7 +1715,7 @@ template&lt;typename DictionaryType &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1542,7 +1776,7 @@ template&lt;typename DictionaryType &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1565,6 +1799,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="aca2bb7b4464c68b0ff5f5d95cea1176b"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html">http_message</a>&amp; staticlib::pion::http_message::operator= </td>
@@ -1574,6 +1811,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Assignment operator. </p>
@@ -1587,14 +1829,17 @@ template&lt;typename DictionaryType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a9e517e9e61aef40b34b5b0f190c00d34"></a>
+<a class="anchor" id="a92067f0a4e58b2ab38bb444a72dfea67"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::prepare_buffers_for_send </td>
           <td>(</td>
-          <td class="paramtype">write_buffers_type &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; asio::const_buffer &gt; &amp;&#160;</td>
           <td class="paramname"><em>write_buffers</em>, </td>
         </tr>
         <tr>
@@ -1615,6 +1860,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Initializes a vector of write buffers with the HTTP message information. </p>
@@ -1656,7 +1906,7 @@ template&lt;typename DictionaryType &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1672,238 +1922,12 @@ template&lt;typename DictionaryType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ab119884d448bddaf7aafbd9655bb14c8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t staticlib::pion::http_message::read </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>in</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::error_code &amp;&#160;</td>
-          <td class="paramname"><em>ec</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a> &amp;&#160;</td>
-          <td class="paramname"><em>http_parser</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads a new message from a std::istream (blocks until finished) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">in</td><td>std::istream to use </td></tr>
-    <tr><td class="paramname">ec</td><td>contains error code if the read fails </td></tr>
-    <tr><td class="paramname"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html" title="Parses HTTP messages.">http_parser</a></td><td>http parser object to use</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t number of bytes read from the connection </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a536ca6bc9ef6be0393725ff5d769dc04"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t staticlib::pion::http_message::read </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>in</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::error_code &amp;&#160;</td>
-          <td class="paramname"><em>ec</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>headers_only</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>max_content_length</em> = <code>static_cast&lt;&#160;size_t&#160;&gt;(-1)</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads a new message from a std::istream (blocks until finished) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">in</td><td>std::istream to use </td></tr>
-    <tr><td class="paramname">ec</td><td>contains error code if the read fails </td></tr>
-    <tr><td class="paramname">headers_only</td><td>if true then only HTTP headers are read </td></tr>
-    <tr><td class="paramname">max_content_length</td><td>maximum number of content bytes received</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t number of bytes read from the connection </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aed5035e7e035d51225c40258c9dd4479"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t staticlib::pion::http_message::receive </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;&#160;</td>
-          <td class="paramname"><em>tcp_conn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::error_code &amp;&#160;</td>
-          <td class="paramname"><em>ec</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a> &amp;&#160;</td>
-          <td class="paramname"><em>http_parser</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Receives a new message from a TCP connection (blocks until finished) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tcp_conn</td><td>TCP connection to use </td></tr>
-    <tr><td class="paramname">ec</td><td>contains error code if the receive fails </td></tr>
-    <tr><td class="paramname"><a class="el" href="classstaticlib_1_1pion_1_1http__parser.html" title="Parses HTTP messages.">http_parser</a></td><td>http parser object to use</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t number of bytes read from the connection </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="add7e947cf579cc9a36680a329bb12ec1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t staticlib::pion::http_message::receive </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;&#160;</td>
-          <td class="paramname"><em>tcp_conn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::error_code &amp;&#160;</td>
-          <td class="paramname"><em>ec</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>headers_only</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>max_content_length</em> = <code>static_cast&lt;&#160;size_t&#160;&gt;(-1)</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Receives a new message from a TCP connection (blocks until finished) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tcp_conn</td><td>TCP connection to use </td></tr>
-    <tr><td class="paramname">ec</td><td>contains error code if the receive fails </td></tr>
-    <tr><td class="paramname">headers_only</td><td>if true then only HTTP headers are received </td></tr>
-    <tr><td class="paramname">max_content_length</td><td>maximum number of content bytes received</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t number of bytes read from the connection </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a7682071a349c8677add47ff8467043c3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t staticlib::pion::http_message::send </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;&#160;</td>
-          <td class="paramname"><em>tcp_conn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::error_code &amp;&#160;</td>
-          <td class="paramname"><em>ec</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>headers_only</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sends the message over a TCP connection (blocks until finished) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tcp_conn</td><td>TCP connection to use </td></tr>
-    <tr><td class="paramname">ec</td><td>contains error code if the send fails </td></tr>
-    <tr><td class="paramname">headers_only</td><td>if true then only HTTP headers are sent</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t number of bytes written to the connection </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a2f56cda56930a2efb66d132eb2237715"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_chunks_supported </td>
@@ -1913,6 +1937,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Set to true if chunked transfer encodings are supported. </p>
@@ -1928,6 +1957,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="ae6749db6a090360fc7018e2b09332bfa"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_content </td>
@@ -1937,6 +1969,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Resets payload content to match the value of a string. </p>
@@ -1954,6 +1991,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="af4f60ff8bbaa1b33c57c09592eca3341"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_content_length </td>
@@ -1963,6 +2003,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the length of the payload content (in bytes) </p>
@@ -1978,6 +2023,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a17be1a09f00432eb83f4bdd58c620fd9"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_content_type </td>
@@ -1987,6 +2035,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the content type for the message payload. </p>
@@ -2002,6 +2055,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a71e10cd9991a13b838b08e55882cdce1"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_data_after_missing_packet </td>
@@ -2011,6 +2067,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets data seen after the missing packets flag. </p>
@@ -2026,6 +2087,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a8d09c11afa1b0ceb8bc03484dc63013a"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_do_not_send_content_length </td>
@@ -2034,6 +2098,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>If called, the content-length will not be sent in the HTTP headers. </p>
@@ -2043,6 +2112,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a76a742cf0fa13d2b51e307217f8ae7a4"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_is_valid </td>
@@ -2052,6 +2124,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets whether or not the message is valid. </p>
@@ -2067,6 +2144,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a819a76868e206a041fe843156b598b6e"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_missing_packets </td>
@@ -2076,6 +2156,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Set to true when missing packets detected. </p>
@@ -2091,6 +2176,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a6b03895af480248f85b828327197acbf"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_remote_ip </td>
@@ -2100,6 +2188,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets IP address of the remote endpoint. </p>
@@ -2115,6 +2208,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a822eaa560b73c37483f566276a905567"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_status </td>
@@ -2124,6 +2220,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets data receival status. </p>
@@ -2139,6 +2240,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="abc5724f0a365e747af6c5341980e716e"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_version_major </td>
@@ -2148,6 +2252,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the major HTTP version number. </p>
@@ -2163,6 +2272,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a4ce5e1e36ca565f5346f261475a7fb9d"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::set_version_minor </td>
@@ -2172,6 +2284,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the minor HTTP version number. </p>
@@ -2187,6 +2304,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="ade05e2b7b7b57b8d84cff1ae4c0e675e"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::update_content_length_using_header </td>
@@ -2195,6 +2315,11 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the length of the payload content using the Content-Length header. </p>
@@ -2231,6 +2356,9 @@ template&lt;typename DictionaryType &gt; </div>
 <a class="anchor" id="a3063b144d874c5ae790b66d6fab789e6"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_message::update_transfer_encoding_using_header </td>
@@ -2239,52 +2367,14 @@ template&lt;typename DictionaryType &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the transfer coding using the Transfer-Encoding header. </p>
-
-</div>
-</div>
-<a class="anchor" id="ac800f12c53b4740f6bb52bebb29b098d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t staticlib::pion::http_message::write </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::error_code &amp;&#160;</td>
-          <td class="paramname"><em>ec</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>headers_only</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Writes the message to a std::ostream (blocks until finished) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">out</td><td>std::ostream to use </td></tr>
-    <tr><td class="paramname">ec</td><td>contains error code if the write fails </td></tr>
-    <tr><td class="paramname">headers_only</td><td>if true then only HTTP headers are written</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t number of bytes written to the connection </dd></dl>
 
 </div>
 </div>
@@ -3578,7 +3668,7 @@ template&lt;typename DictionaryType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

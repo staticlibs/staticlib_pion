@@ -1,20 +1,9 @@
 var searchData=
 [
-  ['staticlib_5fpion_5fget_5flogger',['STATICLIB_PION_GET_LOGGER',['../logger_8hpp.html#a744c426c516938a0291f96c191251005',1,'logger.hpp']]],
-  ['staticlib_5fpion_5flog_5fconfig',['STATICLIB_PION_LOG_CONFIG',['../logger_8hpp.html#a9840f5b53eecfda2a72bcba5eede49d6',1,'logger.hpp']]],
-  ['staticlib_5fpion_5flog_5fconfig_5fbasic',['STATICLIB_PION_LOG_CONFIG_BASIC',['../logger_8hpp.html#a97d9aac88516a90463a0099cacaec8a7',1,'logger.hpp']]],
   ['staticlib_5fpion_5flog_5fdebug',['STATICLIB_PION_LOG_DEBUG',['../logger_8hpp.html#a219c7381ede02bb70db767928c83ca59',1,'logger.hpp']]],
   ['staticlib_5fpion_5flog_5ferror',['STATICLIB_PION_LOG_ERROR',['../logger_8hpp.html#a6a62b6698566131454f701cfafe65101',1,'logger.hpp']]],
   ['staticlib_5fpion_5flog_5ffatal',['STATICLIB_PION_LOG_FATAL',['../logger_8hpp.html#ad9e74f5048bc2b10832a39c9145076bc',1,'logger.hpp']]],
   ['staticlib_5fpion_5flog_5finfo',['STATICLIB_PION_LOG_INFO',['../logger_8hpp.html#a51ac93104ad281c3f4b3585bdadb0467',1,'logger.hpp']]],
-  ['staticlib_5fpion_5flog_5fsetlevel_5fdebug',['STATICLIB_PION_LOG_SETLEVEL_DEBUG',['../logger_8hpp.html#af91ca2e2d270e19286fe3902116b219e',1,'logger.hpp']]],
-  ['staticlib_5fpion_5flog_5fsetlevel_5fdown',['STATICLIB_PION_LOG_SETLEVEL_DOWN',['../logger_8hpp.html#a65b4f78342fd678d25e5e186e66a3f9d',1,'logger.hpp']]],
-  ['staticlib_5fpion_5flog_5fsetlevel_5ferror',['STATICLIB_PION_LOG_SETLEVEL_ERROR',['../logger_8hpp.html#adef3cf0a96b1e17270bd560f10a00b6a',1,'logger.hpp']]],
-  ['staticlib_5fpion_5flog_5fsetlevel_5ffatal',['STATICLIB_PION_LOG_SETLEVEL_FATAL',['../logger_8hpp.html#ae0f139809f3af4705b5660ad30c6bc77',1,'logger.hpp']]],
-  ['staticlib_5fpion_5flog_5fsetlevel_5finfo',['STATICLIB_PION_LOG_SETLEVEL_INFO',['../logger_8hpp.html#aadbebfb00bbca20d7e00612985770471',1,'logger.hpp']]],
-  ['staticlib_5fpion_5flog_5fsetlevel_5fup',['STATICLIB_PION_LOG_SETLEVEL_UP',['../logger_8hpp.html#aa41c1328641b71b23470c94fde700812',1,'logger.hpp']]],
-  ['staticlib_5fpion_5flog_5fsetlevel_5fwarn',['STATICLIB_PION_LOG_SETLEVEL_WARN',['../logger_8hpp.html#ad237092ec150c8b874a888b82fc459a9',1,'logger.hpp']]],
-  ['staticlib_5fpion_5flog_5fwarn',['STATICLIB_PION_LOG_WARN',['../logger_8hpp.html#a23abbec81c595272528ae0fa1754cb18',1,'logger.hpp']]],
-  ['staticlib_5fpion_5fshutdown_5flogger',['STATICLIB_PION_SHUTDOWN_LOGGER',['../logger_8hpp.html#aaeab1a4c533f09c4e3ed9d8c21c4ee3e',1,'logger.hpp']]],
-  ['staticlib_5fpion_5fuse_5fostream_5flogging',['STATICLIB_PION_USE_OSTREAM_LOGGING',['../logger_8hpp.html#a3a73426a5faf6d029717801a605bf44e',1,'logger.hpp']]]
+  ['staticlib_5fpion_5flog_5fto_5fostream',['STATICLIB_PION_LOG_TO_OSTREAM',['../logger_8hpp.html#a178b17ff5b7cc64656d12334f7180f91',1,'logger.hpp']]],
+  ['staticlib_5fpion_5flog_5fwarn',['STATICLIB_PION_LOG_WARN',['../logger_8hpp.html#a23abbec81c595272528ae0fa1754cb18',1,'logger.hpp']]]
 ];

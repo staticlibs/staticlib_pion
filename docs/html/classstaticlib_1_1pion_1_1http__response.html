@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">5.0.7-15</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -114,14 +114,10 @@ Inheritance diagram for staticlib::pion::http_response:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad33b51c51379958fe5ccde8db5c46106"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response.html#ad33b51c51379958fe5ccde8db5c46106">http_response</a> (const <a class="el" href="classstaticlib_1_1pion_1_1http__request.html">http_request</a> &amp;http_request_ptr)</td></tr>
 <tr class="memdesc:ad33b51c51379958fe5ccde8db5c46106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new response object for a particular request.  <a href="#ad33b51c51379958fe5ccde8db5c46106"></a><br/></td></tr>
-<tr class="memitem:a9b23c70d223701065e802b46194515c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response.html#a9b23c70d223701065e802b46194515c7">http_response</a> (const std::string &amp;request_method)</td></tr>
-<tr class="memdesc:a9b23c70d223701065e802b46194515c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new response object for a particular request method.  <a href="#a9b23c70d223701065e802b46194515c7"></a><br/></td></tr>
 <tr class="memitem:a06f79a37232c38b74be1d6cd065870b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response.html#a06f79a37232c38b74be1d6cd065870b0">http_response</a> (const <a class="el" href="classstaticlib_1_1pion_1_1http__response.html">http_response</a> &amp;<a class="el" href="classstaticlib_1_1pion_1_1http__response.html">http_response</a>)</td></tr>
 <tr class="memdesc:a06f79a37232c38b74be1d6cd065870b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a06f79a37232c38b74be1d6cd065870b0"></a><br/></td></tr>
-<tr class="memitem:ae94ed9a79fdc998abd62d42ad4c77df8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response.html#ae94ed9a79fdc998abd62d42ad4c77df8">http_response</a> ()</td></tr>
-<tr class="memdesc:ae94ed9a79fdc998abd62d42ad4c77df8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor: you are strongly encouraged to use one of the other constructors, since response parsing is influenced by the request method.  <a href="#ae94ed9a79fdc998abd62d42ad4c77df8"></a><br/></td></tr>
-<tr class="memitem:ac221ce1cefaa080963eb24ff46ffd210"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response.html#ac221ce1cefaa080963eb24ff46ffd210">~http_response</a> ()</td></tr>
-<tr class="memdesc:ac221ce1cefaa080963eb24ff46ffd210"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor.  <a href="#ac221ce1cefaa080963eb24ff46ffd210"></a><br/></td></tr>
+<tr class="memitem:ac87c24f22b684d7fa4d20dd00b94a824"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response.html#ac87c24f22b684d7fa4d20dd00b94a824">~http_response</a> () STATICLIB_NOEXCEPT</td></tr>
+<tr class="memdesc:ac87c24f22b684d7fa4d20dd00b94a824"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor.  <a href="#ac87c24f22b684d7fa4d20dd00b94a824"></a><br/></td></tr>
 <tr class="memitem:a877a0a345aecb0d32c7affbc6d405cd8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response.html#a877a0a345aecb0d32c7affbc6d405cd8">clear</a> ()</td></tr>
 <tr class="memdesc:a877a0a345aecb0d32c7affbc6d405cd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all response data.  <a href="#a877a0a345aecb0d32c7affbc6d405cd8"></a><br/></td></tr>
 <tr class="memitem:acd921080fdd1192d9191af0d8f8ce597"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response.html#acd921080fdd1192d9191af0d8f8ce597">is_content_length_implied</a> () const </td></tr>
@@ -159,8 +155,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af17780385e4ef0bd1c7d2967d86897e7 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#af17780385e4ef0bd1c7d2967d86897e7"></a><br/></td></tr>
 <tr class="memitem:aca2bb7b4464c68b0ff5f5d95cea1176b inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html">http_message</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aca2bb7b4464c68b0ff5f5d95cea1176b">operator=</a> (const <a class="el" href="classstaticlib_1_1pion_1_1http__message.html">http_message</a> &amp;http_msg)</td></tr>
 <tr class="memdesc:aca2bb7b4464c68b0ff5f5d95cea1176b inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator.  <a href="#aca2bb7b4464c68b0ff5f5d95cea1176b"></a><br/></td></tr>
-<tr class="memitem:a7d6941be2b939b1d91583cd24c3b193d inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a7d6941be2b939b1d91583cd24c3b193d">~http_message</a> ()</td></tr>
-<tr class="memdesc:a7d6941be2b939b1d91583cd24c3b193d inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor.  <a href="#a7d6941be2b939b1d91583cd24c3b193d"></a><br/></td></tr>
+<tr class="memitem:ab5dab3b773da102dd81f42664d921ed5 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ab5dab3b773da102dd81f42664d921ed5">~http_message</a> () STATICLIB_NOEXCEPT</td></tr>
+<tr class="memdesc:ab5dab3b773da102dd81f42664d921ed5 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor.  <a href="#ab5dab3b773da102dd81f42664d921ed5"></a><br/></td></tr>
 <tr class="memitem:a278cfc9d878e070c5a1bb480acb0ef97 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a278cfc9d878e070c5a1bb480acb0ef97">is_valid</a> () const </td></tr>
 <tr class="memdesc:a278cfc9d878e070c5a1bb480acb0ef97 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the message is valid.  <a href="#a278cfc9d878e070c5a1bb480acb0ef97"></a><br/></td></tr>
 <tr class="memitem:a64a62de42efb107159c61eddd5bb36b8 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a64a62de42efb107159c61eddd5bb36b8">get_chunks_supported</a> () const </td></tr>
@@ -185,8 +181,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a58698052d59d295505c4293c85d031ab inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the payload content, or empty string if there is none.  <a href="#a58698052d59d295505c4293c85d031ab"></a><br/></td></tr>
 <tr class="memitem:acfb346977dd0ded9a625f9afac84d973 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#acfb346977dd0ded9a625f9afac84d973">get_content</a> () const </td></tr>
 <tr class="memdesc:acfb346977dd0ded9a625f9afac84d973 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const pointer to the payload content, or empty string if there is none.  <a href="#acfb346977dd0ded9a625f9afac84d973"></a><br/></td></tr>
-<tr class="memitem:a1822d43a02a984f1bb4aa085e902e86c inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">chunk_cache_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a1822d43a02a984f1bb4aa085e902e86c">get_chunk_cache</a> ()</td></tr>
-<tr class="memdesc:a1822d43a02a984f1bb4aa085e902e86c inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the chunk cache.  <a href="#a1822d43a02a984f1bb4aa085e902e86c"></a><br/></td></tr>
+<tr class="memitem:aa3267a4ebb899921ff84f156bbdfde19 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">std::vector&lt; char &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aa3267a4ebb899921ff84f156bbdfde19">get_chunk_cache</a> ()</td></tr>
+<tr class="memdesc:aa3267a4ebb899921ff84f156bbdfde19 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the chunk cache.  <a href="#aa3267a4ebb899921ff84f156bbdfde19"></a><br/></td></tr>
 <tr class="memitem:a5b47f7d59603c2ab346b18b3b6e90c2c inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a5b47f7d59603c2ab346b18b3b6e90c2c">get_header</a> (const std::string &amp;key) const </td></tr>
 <tr class="memdesc:a5b47f7d59603c2ab346b18b3b6e90c2c inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a value for the header if any are defined; otherwise, an empty string.  <a href="#a5b47f7d59603c2ab346b18b3b6e90c2c"></a><br/></td></tr>
 <tr class="memitem:a7f0c0ad03f8eea73364fe40d12076ffc inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">std::unordered_multimap<br class="typebreak"/>
@@ -257,20 +253,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a62f90ae13247735aeb123fb441bee771 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all values for the HTTP header named key.  <a href="#a62f90ae13247735aeb123fb441bee771"></a><br/></td></tr>
 <tr class="memitem:aeea3b8df74b094825e80927a7c22a87b inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aeea3b8df74b094825e80927a7c22a87b">check_keep_alive</a> () const </td></tr>
 <tr class="memdesc:aeea3b8df74b094825e80927a7c22a87b inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the HTTP connection may be kept alive.  <a href="#aeea3b8df74b094825e80927a7c22a87b"></a><br/></td></tr>
-<tr class="memitem:a9e517e9e61aef40b34b5b0f190c00d34 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a9e517e9e61aef40b34b5b0f190c00d34">prepare_buffers_for_send</a> (write_buffers_type &amp;write_buffers, const bool keep_alive, const bool using_chunks)</td></tr>
-<tr class="memdesc:a9e517e9e61aef40b34b5b0f190c00d34 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a vector of write buffers with the HTTP message information.  <a href="#a9e517e9e61aef40b34b5b0f190c00d34"></a><br/></td></tr>
-<tr class="memitem:a7682071a349c8677add47ff8467043c3 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a7682071a349c8677add47ff8467043c3">send</a> (<a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;tcp_conn, std::error_code &amp;ec, bool headers_only=false)</td></tr>
-<tr class="memdesc:a7682071a349c8677add47ff8467043c3 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the message over a TCP connection (blocks until finished)  <a href="#a7682071a349c8677add47ff8467043c3"></a><br/></td></tr>
-<tr class="memitem:aed5035e7e035d51225c40258c9dd4479 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aed5035e7e035d51225c40258c9dd4479">receive</a> (<a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;tcp_conn, std::error_code &amp;ec, <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a> &amp;<a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a>)</td></tr>
-<tr class="memdesc:aed5035e7e035d51225c40258c9dd4479 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a new message from a TCP connection (blocks until finished)  <a href="#aed5035e7e035d51225c40258c9dd4479"></a><br/></td></tr>
-<tr class="memitem:add7e947cf579cc9a36680a329bb12ec1 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#add7e947cf579cc9a36680a329bb12ec1">receive</a> (<a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;tcp_conn, std::error_code &amp;ec, bool headers_only=false, std::size_t max_content_length=static_cast&lt; size_t &gt;(-1))</td></tr>
-<tr class="memdesc:add7e947cf579cc9a36680a329bb12ec1 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a new message from a TCP connection (blocks until finished)  <a href="#add7e947cf579cc9a36680a329bb12ec1"></a><br/></td></tr>
-<tr class="memitem:ac800f12c53b4740f6bb52bebb29b098d inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ac800f12c53b4740f6bb52bebb29b098d">write</a> (std::ostream &amp;out, std::error_code &amp;ec, bool headers_only=false)</td></tr>
-<tr class="memdesc:ac800f12c53b4740f6bb52bebb29b098d inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the message to a std::ostream (blocks until finished)  <a href="#ac800f12c53b4740f6bb52bebb29b098d"></a><br/></td></tr>
-<tr class="memitem:ab119884d448bddaf7aafbd9655bb14c8 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ab119884d448bddaf7aafbd9655bb14c8">read</a> (std::istream &amp;in, std::error_code &amp;ec, <a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a> &amp;<a class="el" href="classstaticlib_1_1pion_1_1http__parser.html">http_parser</a>)</td></tr>
-<tr class="memdesc:ab119884d448bddaf7aafbd9655bb14c8 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a new message from a std::istream (blocks until finished)  <a href="#ab119884d448bddaf7aafbd9655bb14c8"></a><br/></td></tr>
-<tr class="memitem:a536ca6bc9ef6be0393725ff5d769dc04 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a536ca6bc9ef6be0393725ff5d769dc04">read</a> (std::istream &amp;in, std::error_code &amp;ec, bool headers_only=false, std::size_t max_content_length=static_cast&lt; size_t &gt;(-1))</td></tr>
-<tr class="memdesc:a536ca6bc9ef6be0393725ff5d769dc04 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a new message from a std::istream (blocks until finished)  <a href="#a536ca6bc9ef6be0393725ff5d769dc04"></a><br/></td></tr>
+<tr class="memitem:a92067f0a4e58b2ab38bb444a72dfea67 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a92067f0a4e58b2ab38bb444a72dfea67">prepare_buffers_for_send</a> (std::vector&lt; asio::const_buffer &gt; &amp;write_buffers, const bool keep_alive, const bool using_chunks)</td></tr>
+<tr class="memdesc:a92067f0a4e58b2ab38bb444a72dfea67 inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a vector of write buffers with the HTTP message information.  <a href="#a92067f0a4e58b2ab38bb444a72dfea67"></a><br/></td></tr>
 <tr class="memitem:adabdd265c327e9fb5a92aacd9f9033ba inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#adabdd265c327e9fb5a92aacd9f9033ba">concatenate_chunks</a> ()</td></tr>
 <tr class="memdesc:adabdd265c327e9fb5a92aacd9f9033ba inherit pub_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pieces together all the received chunks.  <a href="#adabdd265c327e9fb5a92aacd9f9033ba"></a><br/></td></tr>
 </table><table class="memberdecls">
@@ -281,16 +265,14 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a612a17cd887e4087abbcc961b7b4d959"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response.html#a612a17cd887e4087abbcc961b7b4d959">append_cookie_headers</a> ()</td></tr>
 <tr class="memdesc:a612a17cd887e4087abbcc961b7b4d959"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends HTTP headers for any cookies defined by the <a href="http::message">http::message</a>.  <a href="#a612a17cd887e4087abbcc961b7b4d959"></a><br/></td></tr>
 <tr class="inherit_header pro_methods_classstaticlib_1_1pion_1_1http__message"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classstaticlib_1_1pion_1_1http__message')"><img src="closed.png" alt="-"/>&nbsp;Protected Member Functions inherited from <a class="el" href="classstaticlib_1_1pion_1_1http__message.html">staticlib::pion::http_message</a></td></tr>
-<tr class="memitem:a04522b7532d45feb6c27401500d936c3 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a04522b7532d45feb6c27401500d936c3">get_date_string</a> (const time_t t)</td></tr>
-<tr class="memdesc:a04522b7532d45feb6c27401500d936c3 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts time_t format into an HTTP-date string.  <a href="#a04522b7532d45feb6c27401500d936c3"></a><br/></td></tr>
 <tr class="memitem:a77c14a91d5c7e78168d1b8164ae4cd24 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a77c14a91d5c7e78168d1b8164ae4cd24">make_query_string</a> (const std::unordered_multimap&lt; std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;query_params)</td></tr>
 <tr class="memdesc:a77c14a91d5c7e78168d1b8164ae4cd24 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds an HTTP query string from a collection of query parameters.  <a href="#a77c14a91d5c7e78168d1b8164ae4cd24"></a><br/></td></tr>
 <tr class="memitem:af40acf1a79f32a3becff50c386785444 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#af40acf1a79f32a3becff50c386785444">make_set_cookie_header</a> (const std::string &amp;name, const std::string &amp;value, const std::string &amp;path, const bool has_max_age=false, const unsigned long max_age=0)</td></tr>
 <tr class="memdesc:af40acf1a79f32a3becff50c386785444 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a "Set-Cookie" header.  <a href="#af40acf1a79f32a3becff50c386785444"></a><br/></td></tr>
 <tr class="memitem:aaa3ca53fe7ff9dfc1d5e7d38d20d5e64 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aaa3ca53fe7ff9dfc1d5e7d38d20d5e64">prepare_headers_for_send</a> (const bool keep_alive, const bool using_chunks)</td></tr>
 <tr class="memdesc:aaa3ca53fe7ff9dfc1d5e7d38d20d5e64 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares HTTP headers for a send operation.  <a href="#aaa3ca53fe7ff9dfc1d5e7d38d20d5e64"></a><br/></td></tr>
-<tr class="memitem:a84657fd5f1cc3adf7a787c5bed24c515 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a84657fd5f1cc3adf7a787c5bed24c515">append_headers</a> (write_buffers_type &amp;write_buffers)</td></tr>
-<tr class="memdesc:a84657fd5f1cc3adf7a787c5bed24c515 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the message's HTTP headers to a vector of write buffers.  <a href="#a84657fd5f1cc3adf7a787c5bed24c515"></a><br/></td></tr>
+<tr class="memitem:aa701d6c535be78ab001db6d66f8e0ffd inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aa701d6c535be78ab001db6d66f8e0ffd">append_headers</a> (std::vector&lt; asio::const_buffer &gt; &amp;write_buffers)</td></tr>
+<tr class="memdesc:aa701d6c535be78ab001db6d66f8e0ffd inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the message's HTTP headers to a vector of write buffers.  <a href="#aa701d6c535be78ab001db6d66f8e0ffd"></a><br/></td></tr>
 <tr class="memitem:aa9fbf6d702d66f26511fc52b437b2659 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aa9fbf6d702d66f26511fc52b437b2659">clear_first_line</a> () const </td></tr>
 <tr class="memdesc:aa9fbf6d702d66f26511fc52b437b2659 inherit pro_methods_classstaticlib_1_1pion_1_1http__message"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases the string containing the first line for the HTTP message (it will be updated the next time <a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a1285137715d05dcbf8a04378fde5f04a" title="Returns a string containing the first line for the HTTP message.">get_first_line()</a> is called)  <a href="#aa9fbf6d702d66f26511fc52b437b2659"></a><br/></td></tr>
 </table><table class="memberdecls">
@@ -302,7 +284,7 @@ Additional Inherited Members</h2></td></tr>
 <a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a8368e9a7908ab3ed4768f5440dc3c4a2a67ea07fa711fbd707aa0a78b55bc7980">STATUS_PARTIAL</a>, 
 <a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a8368e9a7908ab3ed4768f5440dc3c4a2a5ae1fc4653f6895b419ea769846a72c1">STATUS_OK</a>
  }</td></tr>
-<tr class="memdesc:a8368e9a7908ab3ed4768f5440dc3c4a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines message data integrity status codes.  <a href="classstaticlib_1_1pion_1_1http__message.html#a8368e9a7908ab3ed4768f5440dc3c4a2">More...</a><br/></td></tr>
+<tr class="memdesc:a8368e9a7908ab3ed4768f5440dc3c4a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to cache chunked data.  <a href="classstaticlib_1_1pion_1_1http__message.html#a8368e9a7908ab3ed4768f5440dc3c4a2">More...</a><br/></td></tr>
 <tr class="inherit_header pub_static_attribs_classstaticlib_1_1pion_1_1http__message"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classstaticlib_1_1pion_1_1http__message')"><img src="closed.png" alt="-"/>&nbsp;Static Public Attributes inherited from <a class="el" href="classstaticlib_1_1pion_1_1http__message.html">staticlib::pion::http_message</a></td></tr>
 <tr class="memitem:aec8de17e43233168bee30dc3e55afd98 inherit pub_static_attribs_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">static const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#aec8de17e43233168bee30dc3e55afd98">STRING_EMPTY</a></td></tr>
 <tr class="memitem:ae459c94c0d00cf912e17abccf9635d57 inherit pub_static_attribs_classstaticlib_1_1pion_1_1http__message"><td class="memItemLeft" align="right" valign="top">static const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ae459c94c0d00cf912e17abccf9635d57">STRING_CRLF</a></td></tr>
@@ -387,6 +369,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="ad33b51c51379958fe5ccde8db5c46106"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">staticlib::pion::http_response::http_response </td>
@@ -396,6 +381,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Constructs a new response object for a particular request. </p>
@@ -408,33 +398,12 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9b23c70d223701065e802b46194515c7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">staticlib::pion::http_response::http_response </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>request_method</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructs a new response object for a particular request method. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">request_method</td><td>the method used by the HTTP request we are responding to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="a06f79a37232c38b74be1d6cd065870b0"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">staticlib::pion::http_response::http_response </td>
@@ -444,6 +413,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Copy constructor. </p>
@@ -456,24 +430,7 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae94ed9a79fdc998abd62d42ad4c77df8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">staticlib::pion::http_response::http_response </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Default constructor: you are strongly encouraged to use one of the other constructors, since response parsing is influenced by the request method. </p>
-
-</div>
-</div>
-<a class="anchor" id="ac221ce1cefaa080963eb24ff46ffd210"></a>
+<a class="anchor" id="ac87c24f22b684d7fa4d20dd00b94a824"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -489,7 +446,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -515,7 +472,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -542,7 +499,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -556,6 +513,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a0fe836cb777d5be1deae03ae8b0106ff"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_response::delete_cookie </td>
@@ -565,6 +525,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Deletes cookie called name by adding a Set-Cookie header (cookie has no path) </p>
@@ -582,6 +547,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a08b129dd5d6a963d74d467470715cbc5"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_response::delete_cookie </td>
@@ -601,6 +569,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Deletes cookie called name by adding a Set-Cookie header (cookie has a path) </p>
@@ -617,6 +590,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a6c8758dbd81eda646e7dd09c40bc8c95"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">unsigned int staticlib::pion::http_response::get_status_code </td>
@@ -625,6 +601,11 @@ Additional Inherited Members</h2></td></tr>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the HTTP response status code. </p>
@@ -635,6 +616,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="aaf17bcd1753266d1a4d3a304b3cc4393"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">const std::string&amp; staticlib::pion::http_response::get_status_message </td>
@@ -643,6 +627,11 @@ Additional Inherited Members</h2></td></tr>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the HTTP response status message. </p>
@@ -653,6 +642,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a5d1c1e7119308691485bfcb5efc9a7bd"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::http_response::is_body_allowed </td>
@@ -661,6 +653,11 @@ Additional Inherited Members</h2></td></tr>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if this response can have a body. </p>
@@ -678,13 +675,14 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">virtual bool staticlib::pion::http_response::is_content_length_implied </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -699,6 +697,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a9e538c889784bcd5ea29ba1d022f5f1c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_response::set_cookie </td>
@@ -718,6 +719,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets a cookie by adding a Set-Cookie header (see RFC 2109) the cookie will be discarded by the user-agent when it closes. </p>
@@ -734,6 +740,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a3524ddcca0bbbb943c20b8c0ade20464"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_response::set_cookie </td>
@@ -759,6 +768,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets a cookie by adding a Set-Cookie header (see RFC 2109) the cookie will be discarded by the user-agent when it closes. </p>
@@ -776,6 +790,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a842d8d295029bf7038e04e8c452f981d"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_response::set_cookie </td>
@@ -807,6 +824,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets a cookie by adding a Set-Cookie header (see RFC 2109) </p>
@@ -825,6 +847,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a266f081d055f878f847c530d134a3d34"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_response::set_cookie </td>
@@ -850,6 +875,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets a cookie by adding a Set-Cookie header (see RFC 2109) </p>
@@ -891,6 +921,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="ace549784427d69d5dde0af31a2d6557c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_response::set_status_code </td>
@@ -900,6 +933,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the HTTP response status code. </p>
@@ -915,6 +953,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a287c125b2fb26546d4ee72c5cdbd3688"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_response::set_status_message </td>
@@ -924,6 +965,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the HTTP response status message. </p>
@@ -952,7 +998,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -966,6 +1012,9 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="adc5d8de283891a42810a5a63431ffc16"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_response::update_request_info </td>
@@ -975,6 +1024,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Updates HTTP request information for the response object (use this if the response cannot be constructed using the request) </p>
@@ -993,7 +1047,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

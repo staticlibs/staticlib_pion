@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">5.0.7-15</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -88,7 +88,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classstaticlib_1_1pion_1_1http__response__writer-members.html">List of all members</a>  </div>
@@ -102,13 +101,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="http__response__writer_8hpp_source.html">staticlib/pion/http_response_writer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><b>binary_cache_t</b></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to cache binary data included within the payload content. <br/></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:acad4f5802a294a7e7423a2e1e51bd238"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#acad4f5802a294a7e7423a2e1e51bd238">http_response_writer</a> (tcp_connection_ptr &amp;tcp_conn, const <a class="el" href="classstaticlib_1_1pion_1_1http__request.html">http_request</a> &amp;<a class="el" href="classstaticlib_1_1pion_1_1http__request.html">http_request</a>)</td></tr>
+<tr class="memdesc:acad4f5802a294a7e7423a2e1e51bd238"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor to be used with <code>std::make_unique</code>  <a href="#acad4f5802a294a7e7423a2e1e51bd238"></a><br/></td></tr>
 <tr class="memitem:a766053f4e281ba534b5864c178ea9765"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a766053f4e281ba534b5864c178ea9765">http_response_writer</a> (const <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">http_response_writer</a> &amp;)</td></tr>
 <tr class="memdesc:a766053f4e281ba534b5864c178ea9765"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy constructor.  <a href="#a766053f4e281ba534b5864c178ea9765"></a><br/></td></tr>
 <tr class="memitem:ac94f630122987b6d7426ca65d35d6d1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">http_response_writer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#ac94f630122987b6d7426ca65d35d6d1a">operator=</a> (const <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">http_response_writer</a> &amp;)</td></tr>
@@ -117,32 +113,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa579f015396c2bd6e95a3b7a9959bf49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a non-const reference to the response that will be sent.  <a href="#aa579f015396c2bd6e95a3b7a9959bf49"></a><br/></td></tr>
 <tr class="memitem:a083087aa4fd244c29091a30c69953646"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a083087aa4fd244c29091a30c69953646">clear</a> ()</td></tr>
 <tr class="memdesc:a083087aa4fd244c29091a30c69953646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears out all of the memory buffers used to cache payload content data.  <a href="#a083087aa4fd244c29091a30c69953646"></a><br/></td></tr>
-<tr class="memitem:a0199644bed4c923c9e69e6e05df94628"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a0199644bed4c923c9e69e6e05df94628"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a0199644bed4c923c9e69e6e05df94628">write</a> (const T &amp;data)</td></tr>
-<tr class="memdesc:a0199644bed4c923c9e69e6e05df94628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write text (non-binary) payload content.  <a href="#a0199644bed4c923c9e69e6e05df94628"></a><br/></td></tr>
-<tr class="memitem:ab909cba29487628a4585393516ac4962"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#ab909cba29487628a4585393516ac4962">write</a> (std::ostream &amp;(*iomanip)(std::ostream &amp;))</td></tr>
-<tr class="memdesc:ab909cba29487628a4585393516ac4962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write using manipulator.  <a href="#ab909cba29487628a4585393516ac4962"></a><br/></td></tr>
-<tr class="memitem:a7e9c77009a56dae00f9f2dcaaca9b5a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a7e9c77009a56dae00f9f2dcaaca9b5a5">write</a> (const void *data, size_t length)</td></tr>
-<tr class="memdesc:a7e9c77009a56dae00f9f2dcaaca9b5a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write binary payload content.  <a href="#a7e9c77009a56dae00f9f2dcaaca9b5a5"></a><br/></td></tr>
-<tr class="memitem:a640eb64758761b245f587148e6542f8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a640eb64758761b245f587148e6542f8d">write_no_copy</a> (const std::string &amp;data)</td></tr>
-<tr class="memdesc:a640eb64758761b245f587148e6542f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write text (non-binary) payload content; the data written is not copied, and therefore must persist until the message has finished sending.  <a href="#a640eb64758761b245f587148e6542f8d"></a><br/></td></tr>
-<tr class="memitem:a646af158dfc4ed4b612f75f3267a7e9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a646af158dfc4ed4b612f75f3267a7e9c">write_no_copy</a> (void *data, size_t length)</td></tr>
-<tr class="memdesc:a646af158dfc4ed4b612f75f3267a7e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write binary payload content; the data written is not copied, and therefore must persist until the message has finished sending.  <a href="#a646af158dfc4ed4b612f75f3267a7e9c"></a><br/></td></tr>
-<tr class="memitem:acd4becbb0b8bac982b13dea3e3db6627"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#acd4becbb0b8bac982b13dea3e3db6627">write_move</a> (std::string &amp;&amp;data)</td></tr>
-<tr class="memdesc:acd4becbb0b8bac982b13dea3e3db6627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write binary payload content using r-value string.  <a href="#acd4becbb0b8bac982b13dea3e3db6627"></a><br/></td></tr>
-<tr class="memitem:a7c2b63672d6ae2508a484049d57b4c5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a7c2b63672d6ae2508a484049d57b4c5a">send</a> ()</td></tr>
-<tr class="memdesc:a7c2b63672d6ae2508a484049d57b4c5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered as a single HTTP message (without chunking).  <a href="#a7c2b63672d6ae2508a484049d57b4c5a"></a><br/></td></tr>
-<tr class="memitem:a6d96104245699b6f6018a0baa2cd7d09"><td class="memTemplParams" colspan="2">template&lt;typename SendHandler &gt; </td></tr>
-<tr class="memitem:a6d96104245699b6f6018a0baa2cd7d09"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a6d96104245699b6f6018a0baa2cd7d09">send</a> (SendHandler send_handler)</td></tr>
-<tr class="memdesc:a6d96104245699b6f6018a0baa2cd7d09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered as a single HTTP message (without chunking).  <a href="#a6d96104245699b6f6018a0baa2cd7d09"></a><br/></td></tr>
+<tr class="memitem:a52c54e328a88ad9d16291a0331f1c767"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a52c54e328a88ad9d16291a0331f1c767">write</a> (sl::io::span&lt; const char &gt; data)</td></tr>
+<tr class="memdesc:a52c54e328a88ad9d16291a0331f1c767"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write payload content.  <a href="#a52c54e328a88ad9d16291a0331f1c767"></a><br/></td></tr>
+<tr class="memitem:a5af31ea683a4a02cc36d9218d985b010"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a5af31ea683a4a02cc36d9218d985b010">write_nocopy</a> (sl::io::span&lt; const char &gt; data)</td></tr>
+<tr class="memdesc:a5af31ea683a4a02cc36d9218d985b010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write payload content; the data written is not copied, and therefore must persist until the message has finished sending.  <a href="#a5af31ea683a4a02cc36d9218d985b010"></a><br/></td></tr>
 <tr class="memitem:a1a40b3c1a5125000efc85d9b1253a79b"><td class="memTemplParams" colspan="2">template&lt;typename SendHandler &gt; </td></tr>
 <tr class="memitem:a1a40b3c1a5125000efc85d9b1253a79b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a1a40b3c1a5125000efc85d9b1253a79b">send_chunk</a> (SendHandler send_handler)</td></tr>
 <tr class="memdesc:a1a40b3c1a5125000efc85d9b1253a79b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered as a single HTTP chunk.  <a href="#a1a40b3c1a5125000efc85d9b1253a79b"></a><br/></td></tr>
-<tr class="memitem:a55ddde908a592d481ac5f07e081da10a"><td class="memTemplParams" colspan="2">template&lt;typename SendHandler &gt; </td></tr>
-<tr class="memitem:a55ddde908a592d481ac5f07e081da10a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a55ddde908a592d481ac5f07e081da10a">send_final_chunk</a> (SendHandler send_handler)</td></tr>
-<tr class="memdesc:a55ddde908a592d481ac5f07e081da10a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered (if any) and also sends the final HTTP chunk.  <a href="#a55ddde908a592d481ac5f07e081da10a"></a><br/></td></tr>
-<tr class="memitem:a1c3c1cbe49d1bd7d08a983ed0e732178"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a1c3c1cbe49d1bd7d08a983ed0e732178">send_final_chunk</a> ()</td></tr>
-<tr class="memdesc:a1c3c1cbe49d1bd7d08a983ed0e732178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered (if any) and also sends the final HTTP chunk.  <a href="#a1c3c1cbe49d1bd7d08a983ed0e732178"></a><br/></td></tr>
 <tr class="memitem:ac0ee7be41b94d31840d838e6d1d4eccc"><td class="memItemLeft" align="right" valign="top">tcp_connection_ptr &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#ac0ee7be41b94d31840d838e6d1d4eccc">get_connection</a> ()</td></tr>
 <tr class="memdesc:ac0ee7be41b94d31840d838e6d1d4eccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a shared pointer to the TCP connection.  <a href="#ac0ee7be41b94d31840d838e6d1d4eccc"></a><br/></td></tr>
 <tr class="memitem:a313a55f5282f8425b65f93b18eeb463e"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a313a55f5282f8425b65f93b18eeb463e">get_content_length</a> () const </td></tr>
@@ -153,23 +130,60 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abf0748e61b6e7a69b3d5932d1a840307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the client supports chunked messages.  <a href="#abf0748e61b6e7a69b3d5932d1a840307"></a><br/></td></tr>
 <tr class="memitem:af29dc14a71386a6881806b6f1a6de722"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#af29dc14a71386a6881806b6f1a6de722">sending_chunked_message</a> () const </td></tr>
 <tr class="memdesc:af29dc14a71386a6881806b6f1a6de722"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if we are sending a chunked message to the client.  <a href="#af29dc14a71386a6881806b6f1a6de722"></a><br/></td></tr>
-<tr class="memitem:a2030af4ba3ed327977b9b6bbf6d8739a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a2030af4ba3ed327977b9b6bbf6d8739a">set_logger</a> (<a class="el" href="structstaticlib_1_1pion_1_1logger.html">logger</a> log_ptr)</td></tr>
-<tr class="memdesc:a2030af4ba3ed327977b9b6bbf6d8739a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the logger to be used.  <a href="#a2030af4ba3ed327977b9b6bbf6d8739a"></a><br/></td></tr>
-<tr class="memitem:a1c9c64c683ca7c14675ed01d3a9e244a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaticlib_1_1pion_1_1logger.html">logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a1c9c64c683ca7c14675ed01d3a9e244a">get_logger</a> ()</td></tr>
-<tr class="memdesc:a1c9c64c683ca7c14675ed01d3a9e244a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the logger currently in use.  <a href="#a1c9c64c683ca7c14675ed01d3a9e244a"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aee28c37d342fb2129caddae2d5e47e5a"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr<br class="typebreak"/>
-&lt; <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">http_response_writer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#aee28c37d342fb2129caddae2d5e47e5a">create</a> (tcp_connection_ptr &amp;tcp_conn, const http_request_ptr &amp;<a class="el" href="classstaticlib_1_1pion_1_1http__request.html">http_request</a>)</td></tr>
-<tr class="memdesc:aee28c37d342fb2129caddae2d5e47e5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new response_writer objects.  <a href="#aee28c37d342fb2129caddae2d5e47e5a"></a><br/></td></tr>
-<tr class="memitem:a702dc58c18d2318aeb78a97d4a5ca532"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr<br class="typebreak"/>
-&lt; <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">http_response_writer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a702dc58c18d2318aeb78a97d4a5ca532">create</a> (tcp_connection_ptr &amp;tcp_conn, const http_request_ptr &amp;<a class="el" href="classstaticlib_1_1pion_1_1http__request.html">http_request</a>, finished_handler_type handler)</td></tr>
-<tr class="memdesc:a702dc58c18d2318aeb78a97d4a5ca532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new response_writer objects.  <a href="#a702dc58c18d2318aeb78a97d4a5ca532"></a><br/></td></tr>
+<tr class="memitem:ae347b1a4e1662cbacfa087297431ea91"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#ae347b1a4e1662cbacfa087297431ea91">send</a> (std::unique_ptr&lt; <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">http_response_writer</a> &gt; self)</td></tr>
+<tr class="memdesc:ae347b1a4e1662cbacfa087297431ea91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered as a single HTTP message (without chunking).  <a href="#ae347b1a4e1662cbacfa087297431ea91"></a><br/></td></tr>
+<tr class="memitem:a276c23ff017d2d561ed1b2b095c999fe"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a276c23ff017d2d561ed1b2b095c999fe">send_final_chunk</a> (std::unique_ptr&lt; <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">http_response_writer</a> &gt; self)</td></tr>
+<tr class="memdesc:a276c23ff017d2d561ed1b2b095c999fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends all data buffered (if any) and also sends the final HTTP chunk.  <a href="#a276c23ff017d2d561ed1b2b095c999fe"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Sends HTTP data asynchronously. </p>
 </div><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="acad4f5802a294a7e7423a2e1e51bd238"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">staticlib::pion::http_response_writer::http_response_writer </td>
+          <td>(</td>
+          <td class="paramtype">tcp_connection_ptr &amp;&#160;</td>
+          <td class="paramname"><em>tcp_conn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classstaticlib_1_1pion_1_1http__request.html">http_request</a> &amp;&#160;</td>
+          <td class="paramname"><em>http_request</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor to be used with <code>std::make_unique</code> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tcp_conn</td><td>TCP connection used to send the response </td></tr>
+    <tr><td class="paramname"><a class="el" href="classstaticlib_1_1pion_1_1http__request.html" title="Container for HTTP request information.">http_request</a></td><td>the request we are responding to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a766053f4e281ba534b5864c178ea9765"></a>
 <div class="memitem">
 <div class="memproto">
@@ -192,6 +206,9 @@ Static Public Member Functions</h2></td></tr>
 <a class="anchor" id="a083087aa4fd244c29091a30c69953646"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_response_writer::clear </td>
@@ -200,110 +217,23 @@ Static Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Clears out all of the memory buffers used to cache payload content data. </p>
 
 </div>
 </div>
-<a class="anchor" id="aee28c37d342fb2129caddae2d5e47e5a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::shared_ptr&lt;<a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">http_response_writer</a>&gt; staticlib::pion::http_response_writer::create </td>
-          <td>(</td>
-          <td class="paramtype">tcp_connection_ptr &amp;&#160;</td>
-          <td class="paramname"><em>tcp_conn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const http_request_ptr &amp;&#160;</td>
-          <td class="paramname"><em>http_request</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates new response_writer objects. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tcp_conn</td><td>TCP connection used to send the response </td></tr>
-    <tr><td class="paramname"><a class="el" href="classstaticlib_1_1pion_1_1http__request.html" title="Container for HTTP request information.">http_request</a></td><td>the request we are responding to</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;response_writer&gt; shared pointer to the new writer object that was created </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a702dc58c18d2318aeb78a97d4a5ca532"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::shared_ptr&lt;<a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">http_response_writer</a>&gt; staticlib::pion::http_response_writer::create </td>
-          <td>(</td>
-          <td class="paramtype">tcp_connection_ptr &amp;&#160;</td>
-          <td class="paramname"><em>tcp_conn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const http_request_ptr &amp;&#160;</td>
-          <td class="paramname"><em>http_request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">finished_handler_type&#160;</td>
-          <td class="paramname"><em>handler</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates new response_writer objects. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tcp_conn</td><td>TCP connection used to send the response </td></tr>
-    <tr><td class="paramname"><a class="el" href="classstaticlib_1_1pion_1_1http__request.html" title="Container for HTTP request information.">http_request</a></td><td>the request we are responding to </td></tr>
-    <tr><td class="paramname">handler</td><td>function called after the request has been sent</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;response_writer&gt; shared pointer to the new writer object that was created </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="ac0ee7be41b94d31840d838e6d1d4eccc"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">tcp_connection_ptr&amp; staticlib::pion::http_response_writer::get_connection </td>
@@ -312,6 +242,11 @@ Static Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns a shared pointer to the TCP connection. </p>
@@ -322,6 +257,9 @@ Static Public Member Functions</h2></td></tr>
 <a class="anchor" id="a313a55f5282f8425b65f93b18eeb463e"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">size_t staticlib::pion::http_response_writer::get_content_length </td>
@@ -330,6 +268,11 @@ Static Public Member Functions</h2></td></tr>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the length of the payload content (in bytes) </p>
@@ -337,27 +280,12 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1c9c64c683ca7c14675ed01d3a9e244a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structstaticlib_1_1pion_1_1logger.html">logger</a> staticlib::pion::http_response_writer::get_logger </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the logger currently in use. </p>
-<dl class="section return"><dt>Returns</dt><dd>logger currently in use </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="aa579f015396c2bd6e95a3b7a9959bf49"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classstaticlib_1_1pion_1_1http__response.html">http_response</a>&amp; staticlib::pion::http_response_writer::get_response </td>
@@ -366,6 +294,11 @@ Static Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns a non-const reference to the response that will be sent. </p>
@@ -391,53 +324,33 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7c2b63672d6ae2508a484049d57b4c5a"></a>
+<a class="anchor" id="ae347b1a4e1662cbacfa087297431ea91"></a>
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::http_response_writer::send </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sends all data buffered as a single HTTP message (without chunking). </p>
-<p>Following a call to this function, it is not thread safe to use your reference to the writer object. </p>
-
-</div>
-</div>
-<a class="anchor" id="a6d96104245699b6f6018a0baa2cd7d09"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename SendHandler &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void staticlib::pion::http_response_writer::send </td>
+          <td class="memname">static void staticlib::pion::http_response_writer::send </td>
           <td>(</td>
-          <td class="paramtype">SendHandler&#160;</td>
-          <td class="paramname"><em>send_handler</em></td><td>)</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">http_response_writer</a> &gt;&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Sends all data buffered as a single HTTP message (without chunking). </p>
-<p>Following a call to this function, it is not thread safe to use your reference to the writer object until the send_handler has been called.</p>
+<p>Following a call to this function, it is not thread safe to use your reference to the writer object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">send_handler</td><td>function that is called after the message has been sent to the client. Your callback function must end the connection by calling connection::finish(). </td></tr>
+    <tr><td class="paramname">self-owning</td><td>instance </td></tr>
   </table>
   </dd>
 </dl>
@@ -472,28 +385,58 @@ template&lt;typename SendHandler &gt; </div>
 <p>Following a call to this function, it is not thread safe to use your reference to the writer object until the send_handler has been called.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">send_handler</td><td>function that is called after the chunk has been sent to the client. Your callback function must end by calling one of <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a1a40b3c1a5125000efc85d9b1253a79b" title="Sends all data buffered as a single HTTP chunk.">send_chunk()</a> or <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a1c3c1cbe49d1bd7d08a983ed0e732178" title="Sends all data buffered (if any) and also sends the final HTTP chunk.">send_final_chunk()</a>. Also, be sure to <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a083087aa4fd244c29091a30c69953646" title="Clears out all of the memory buffers used to cache payload content data.">clear()</a> the writer before writing data to it. </td></tr>
+    <tr><td class="paramname">send_handler</td><td>function that is called after the chunk has been sent to the client. Your callback function must end by calling one of <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a1a40b3c1a5125000efc85d9b1253a79b" title="Sends all data buffered as a single HTTP chunk.">send_chunk()</a> or <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a276c23ff017d2d561ed1b2b095c999fe" title="Sends all data buffered (if any) and also sends the final HTTP chunk.">send_final_chunk()</a>. Also, be sure to <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a083087aa4fd244c29091a30c69953646" title="Clears out all of the memory buffers used to cache payload content data.">clear()</a> the writer before writing data to it. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a55ddde908a592d481ac5f07e081da10a"></a>
+<a class="anchor" id="a276c23ff017d2d561ed1b2b095c999fe"></a>
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename SendHandler &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void staticlib::pion::http_response_writer::send_final_chunk </td>
+          <td class="memname">static void staticlib::pion::http_response_writer::send_final_chunk </td>
           <td>(</td>
-          <td class="paramtype">SendHandler&#160;</td>
-          <td class="paramname"><em>send_handler</em></td><td>)</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html">http_response_writer</a> &gt;&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sends all data buffered (if any) and also sends the final HTTP chunk. </p>
+<p>This function (either overloaded version) must be called following any calls to <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a1a40b3c1a5125000efc85d9b1253a79b" title="Sends all data buffered as a single HTTP chunk.">send_chunk()</a>. Following a call to this function, it is not thread safe to use your reference to the writer object.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self-owning</td><td>instance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="af29dc14a71386a6881806b6f1a6de722"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool staticlib::pion::http_response_writer::sending_chunked_message </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -503,80 +446,17 @@ template&lt;typename SendHandler &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Sends all data buffered (if any) and also sends the final HTTP chunk. </p>
-<p>This function (either overloaded version) must be called following any calls to <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a1a40b3c1a5125000efc85d9b1253a79b" title="Sends all data buffered as a single HTTP chunk.">send_chunk()</a>. Following a call to this function, it is not thread safe to use your reference to the writer object until the send_handler has been called.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">send_handler</td><td>function that is called after the message has been sent to the client. Your callback function must end the connection by calling connection::finish(). </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a1c3c1cbe49d1bd7d08a983ed0e732178"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::http_response_writer::send_final_chunk </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sends all data buffered (if any) and also sends the final HTTP chunk. </p>
-<p>This function (either overloaded version) must be called following any calls to <a class="el" href="classstaticlib_1_1pion_1_1http__response__writer.html#a1a40b3c1a5125000efc85d9b1253a79b" title="Sends all data buffered as a single HTTP chunk.">send_chunk()</a>. Following a call to this function, it is not thread safe to use your reference to the writer object. </p>
-
-</div>
-</div>
-<a class="anchor" id="af29dc14a71386a6881806b6f1a6de722"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool staticlib::pion::http_response_writer::sending_chunked_message </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
 <p>Returns true if we are sending a chunked message to the client. </p>
 <dl class="section return"><dt>Returns</dt><dd>true if we are sending a chunked message to the client </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a2030af4ba3ed327977b9b6bbf6d8739a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::http_response_writer::set_logger </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structstaticlib_1_1pion_1_1logger.html">logger</a>&#160;</td>
-          <td class="paramname"><em>log_ptr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the logger to be used. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">log_ptr</td><td>logger to be used </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
 <a class="anchor" id="a9114de7e7018c3ce58f340b20d818d82"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::http_response_writer::supports_chunked_messages </td>
@@ -586,6 +466,11 @@ template&lt;typename SendHandler &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets whether or not the client supports chunked messages. </p>
@@ -601,6 +486,9 @@ template&lt;typename SendHandler &gt; </div>
 <a class="anchor" id="abf0748e61b6e7a69b3d5932d1a840307"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::http_response_writer::supports_chunked_messages </td>
@@ -609,6 +497,11 @@ template&lt;typename SendHandler &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if the client supports chunked messages. </p>
@@ -616,11 +509,9 @@ template&lt;typename SendHandler &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a0199644bed4c923c9e69e6e05df94628"></a>
+<a class="anchor" id="a52c54e328a88ad9d16291a0331f1c767"></a>
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -628,7 +519,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">void staticlib::pion::http_response_writer::write </td>
           <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramtype">sl::io::span&lt; const char &gt;&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
@@ -640,153 +531,42 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Write text (non-binary) payload content. </p>
+<p>Write payload content. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>the data to append to the payload content </td></tr>
+    <tr><td class="paramname">data</td><td>to append to the payload content </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="ab909cba29487628a4585393516ac4962"></a>
+<a class="anchor" id="a5af31ea683a4a02cc36d9218d985b010"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void staticlib::pion::http_response_writer::write </td>
+          <td class="memname">void staticlib::pion::http_response_writer::write_nocopy </td>
           <td>(</td>
-          <td class="paramtype">std::ostream &amp;(*)(std::ostream &amp;)&#160;</td>
-          <td class="paramname"><em>iomanip</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Write using manipulator. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iomanip</td><td>manipulator </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a7e9c77009a56dae00f9f2dcaaca9b5a5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::http_response_writer::write </td>
-          <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>length</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Write binary payload content. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>points to the binary data to append to the payload content </td></tr>
-    <tr><td class="paramname">length</td><td>the length, in bytes, of the binary data </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="acd4becbb0b8bac982b13dea3e3db6627"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::http_response_writer::write_move </td>
-          <td>(</td>
-          <td class="paramtype">std::string &amp;&amp;&#160;</td>
+          <td class="paramtype">sl::io::span&lt; const char &gt;&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Write binary payload content using r-value string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>points to the binary data to append to the payload content </td></tr>
-    <tr><td class="paramname">length</td><td>the length, in bytes, of the binary data </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a640eb64758761b245f587148e6542f8d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::http_response_writer::write_no_copy </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Write text (non-binary) payload content; the data written is not copied, and therefore must persist until the message has finished sending. </p>
+<p>Write payload content; the data written is not copied, and therefore must persist until the message has finished sending. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>the data to append to the payload content </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a646af158dfc4ed4b612f75f3267a7e9c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::http_response_writer::write_no_copy </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>length</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Write binary payload content; the data written is not copied, and therefore must persist until the message has finished sending. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>points to the binary data to append to the payload content </td></tr>
-    <tr><td class="paramname">length</td><td>the length, in bytes, of the binary data </td></tr>
   </table>
   </dd>
 </dl>
@@ -799,7 +579,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

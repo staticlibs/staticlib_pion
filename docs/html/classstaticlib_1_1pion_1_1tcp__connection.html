@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">5.0.7-15</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -88,11 +88,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classstaticlib_1_1pion_1_1tcp__connection-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">staticlib::pion::tcp_connection Class Reference</div>  </div>
@@ -104,24 +101,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="tcp__connection_8hpp_source.html">staticlib/pion/tcp_connection.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection_1_1ssl__socket__type.html">ssl_socket_type</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proxy data type for an SSL-like socket connection in non-SSL environment.  <a href="classstaticlib_1_1pion_1_1tcp__connection_1_1ssl__socket__type.html#details">More...</a><br/></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:af7739a76fa0ebcd726b216a02d3905d2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#af7739a76fa0ebcd726b216a02d3905d2">lifecycle_type</a> { <a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#af7739a76fa0ebcd726b216a02d3905d2a332410340ccbf38c84577953e6cd5e3d">LIFECYCLE_CLOSE</a>, 
-<a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#af7739a76fa0ebcd726b216a02d3905d2a8d28aff983d92863db399f4c6d925eea">LIFECYCLE_KEEPALIVE</a>, 
-<a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#af7739a76fa0ebcd726b216a02d3905d2a13bede81a0795f5e0c752925a24f8ba5">LIFECYCLE_PIPELINED</a>
- }</td></tr>
-<tr class="memdesc:af7739a76fa0ebcd726b216a02d3905d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for the connection's lifecycle state.  <a href="classstaticlib_1_1pion_1_1tcp__connection.html#af7739a76fa0ebcd726b216a02d3905d2">More...</a><br/></td></tr>
-<tr class="memitem:ae5075699acd8e07b6d242f3cf70690eb"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#ae5075699acd8e07b6d242f3cf70690eba5a53cbdf95cf6402baca981c3ac1edf5">READ_BUFFER_SIZE</a> =  8192
- }</td></tr>
-<tr class="memdesc:ae5075699acd8e07b6d242f3cf70690eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the read buffer.  <a href="classstaticlib_1_1pion_1_1tcp__connection.html#ae5075699acd8e07b6d242f3cf70690eb">More...</a><br/></td></tr>
+<tr class="memitem:ac978d4e1fd6c923908cd083813870d13"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#ac978d4e1fd6c923908cd083813870d13">lifecycle</a> </td></tr>
+<tr class="memdesc:ac978d4e1fd6c923908cd083813870d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type for the connection's current_lifecycle state.  <a href="classstaticlib_1_1pion_1_1tcp__connection.html#ac978d4e1fd6c923908cd083813870d13">More...</a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a9684b07fb22d2c3cb9c2e59d82691b20"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a9684b07fb22d2c3cb9c2e59d82691b20">tcp_connection</a> (asio::io_service &amp;io_service, ssl_context_type &amp;ssl_context, const bool ssl_flag_in, connection_handler finished_handler_in)</td></tr>
+<tr class="memdesc:a9684b07fb22d2c3cb9c2e59d82691b20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor to be used with <code>std::make_shared</code>  <a href="#a9684b07fb22d2c3cb9c2e59d82691b20"></a><br/></td></tr>
 <tr class="memitem:a46fbdd6543ae39d83c1ba13e06407187"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a46fbdd6543ae39d83c1ba13e06407187">tcp_connection</a> (const <a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;)</td></tr>
 <tr class="memdesc:a46fbdd6543ae39d83c1ba13e06407187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy constructor.  <a href="#a46fbdd6543ae39d83c1ba13e06407187"></a><br/></td></tr>
 <tr class="memitem:a28a61b43aa04174d7ee5fa46f9ee6d24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a28a61b43aa04174d7ee5fa46f9ee6d24">operator=</a> (const <a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &amp;)</td></tr>
@@ -134,6 +122,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aea40b6af13e5d03da75c8c87fd000dec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the tcp socket and cancels any pending asynchronous operations.  <a href="#aea40b6af13e5d03da75c8c87fd000dec"></a><br/></td></tr>
 <tr class="memitem:ab543525ac858c658ab6ff4d29876402e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#ab543525ac858c658ab6ff4d29876402e">cancel</a> ()</td></tr>
 <tr class="memdesc:ab543525ac858c658ab6ff4d29876402e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancels any asynchronous operations pending on the socket.  <a href="#ab543525ac858c658ab6ff4d29876402e"></a><br/></td></tr>
+<tr class="memitem:a912a1f53b2df47883449eecf4399c703"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a912a1f53b2df47883449eecf4399c703">cancel_timer</a> ()</td></tr>
+<tr class="memdesc:a912a1f53b2df47883449eecf4399c703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancels timer.  <a href="#a912a1f53b2df47883449eecf4399c703"></a><br/></td></tr>
 <tr class="memitem:a40d92a984e127cbfeed5256c88c0aefb"><td class="memTemplParams" colspan="2">template&lt;typename AcceptHandler &gt; </td></tr>
 <tr class="memitem:a40d92a984e127cbfeed5256c88c0aefb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a40d92a984e127cbfeed5256c88c0aefb">async_accept</a> (asio::ip::tcp::acceptor &amp;tcp_acceptor, AcceptHandler handler)</td></tr>
 <tr class="memdesc:a40d92a984e127cbfeed5256c88c0aefb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously accepts a new tcp connection.  <a href="#a40d92a984e127cbfeed5256c88c0aefb"></a><br/></td></tr>
@@ -143,44 +133,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4923a9f45475729adf513f759277ac1e"><td class="memTemplParams" colspan="2">template&lt;typename ReadHandler &gt; </td></tr>
 <tr class="memitem:a4923a9f45475729adf513f759277ac1e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a4923a9f45475729adf513f759277ac1e">async_read_some</a> (ReadHandler handler)</td></tr>
 <tr class="memdesc:a4923a9f45475729adf513f759277ac1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously reads some data into the connection's read buffer.  <a href="#a4923a9f45475729adf513f759277ac1e"></a><br/></td></tr>
-<tr class="memitem:a409bd7aa4e217aa44c93808195bc3ceb"><td class="memTemplParams" colspan="2">template&lt;typename ReadBufferType , typename ReadHandler &gt; </td></tr>
-<tr class="memitem:a409bd7aa4e217aa44c93808195bc3ceb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a409bd7aa4e217aa44c93808195bc3ceb">async_read_some</a> (ReadBufferType read_buffer, ReadHandler handler)</td></tr>
-<tr class="memdesc:a409bd7aa4e217aa44c93808195bc3ceb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously reads some data into the connection's read buffer.  <a href="#a409bd7aa4e217aa44c93808195bc3ceb"></a><br/></td></tr>
-<tr class="memitem:a4ec827d9efd92fd0f9e559ff18675bf0"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a4ec827d9efd92fd0f9e559ff18675bf0">read_some</a> (std::error_code &amp;ec)</td></tr>
-<tr class="memdesc:a4ec827d9efd92fd0f9e559ff18675bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads some data into the connection's read buffer (blocks until finished)  <a href="#a4ec827d9efd92fd0f9e559ff18675bf0"></a><br/></td></tr>
-<tr class="memitem:a4dea910f609f794b9b49d045c7941ea8"><td class="memTemplParams" colspan="2">template&lt;typename ReadBufferType &gt; </td></tr>
-<tr class="memitem:a4dea910f609f794b9b49d045c7941ea8"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a4dea910f609f794b9b49d045c7941ea8">read_some</a> (ReadBufferType read_buffer, std::error_code &amp;ec)</td></tr>
-<tr class="memdesc:a4dea910f609f794b9b49d045c7941ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">reads some data into the connection's read buffer (blocks until finished)  <a href="#a4dea910f609f794b9b49d045c7941ea8"></a><br/></td></tr>
-<tr class="memitem:ae8e9e3f821c8e283db153780e1c58c67"><td class="memTemplParams" colspan="2">template&lt;typename CompletionCondition , typename ReadHandler &gt; </td></tr>
-<tr class="memitem:ae8e9e3f821c8e283db153780e1c58c67"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#ae8e9e3f821c8e283db153780e1c58c67">async_read</a> (CompletionCondition completion_condition, ReadHandler handler)</td></tr>
-<tr class="memdesc:ae8e9e3f821c8e283db153780e1c58c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously reads data into the connection's read buffer until completion_condition is met.  <a href="#ae8e9e3f821c8e283db153780e1c58c67"></a><br/></td></tr>
-<tr class="memitem:add5c20d2263b87338ad21791aab139bc"><td class="memTemplParams" colspan="2">template&lt;typename MutableBufferSequence , typename CompletionCondition , typename ReadHandler &gt; </td></tr>
-<tr class="memitem:add5c20d2263b87338ad21791aab139bc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#add5c20d2263b87338ad21791aab139bc">async_read</a> (const MutableBufferSequence &amp;buffers, CompletionCondition completion_condition, ReadHandler handler)</td></tr>
-<tr class="memdesc:add5c20d2263b87338ad21791aab139bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously reads data from the connection until completion_condition is met.  <a href="#add5c20d2263b87338ad21791aab139bc"></a><br/></td></tr>
-<tr class="memitem:a49ff1778a2e20be8567407923d549ba3"><td class="memTemplParams" colspan="2">template&lt;typename CompletionCondition &gt; </td></tr>
-<tr class="memitem:a49ff1778a2e20be8567407923d549ba3"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a49ff1778a2e20be8567407923d549ba3">read</a> (CompletionCondition completion_condition, std::error_code &amp;ec)</td></tr>
-<tr class="memdesc:a49ff1778a2e20be8567407923d549ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data into the connection's read buffer until completion_condition is met (blocks until finished)  <a href="#a49ff1778a2e20be8567407923d549ba3"></a><br/></td></tr>
-<tr class="memitem:a191460097d9a98013f65d0c96720060e"><td class="memTemplParams" colspan="2">template&lt;typename MutableBufferSequence , typename CompletionCondition &gt; </td></tr>
-<tr class="memitem:a191460097d9a98013f65d0c96720060e"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a191460097d9a98013f65d0c96720060e">read</a> (const MutableBufferSequence &amp;buffers, CompletionCondition completion_condition, std::error_code &amp;ec)</td></tr>
-<tr class="memdesc:a191460097d9a98013f65d0c96720060e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data from the connection until completion_condition is met (blocks until finished)  <a href="#a191460097d9a98013f65d0c96720060e"></a><br/></td></tr>
 <tr class="memitem:a5db24f8061bf474f8016f28350f4e6dd"><td class="memTemplParams" colspan="2">template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </td></tr>
 <tr class="memitem:a5db24f8061bf474f8016f28350f4e6dd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a5db24f8061bf474f8016f28350f4e6dd">async_write</a> (const ConstBufferSequence &amp;buffers, write_handler_t handler)</td></tr>
 <tr class="memdesc:a5db24f8061bf474f8016f28350f4e6dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronously writes data to the connection.  <a href="#a5db24f8061bf474f8016f28350f4e6dd"></a><br/></td></tr>
-<tr class="memitem:aba716e2b4c3c817fc33d54ba5ae32448"><td class="memTemplParams" colspan="2">template&lt;typename ConstBufferSequence &gt; </td></tr>
-<tr class="memitem:aba716e2b4c3c817fc33d54ba5ae32448"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#aba716e2b4c3c817fc33d54ba5ae32448">write</a> (const ConstBufferSequence &amp;buffers, std::error_code &amp;ec)</td></tr>
-<tr class="memdesc:aba716e2b4c3c817fc33d54ba5ae32448"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes data to the connection (blocks until finished)  <a href="#aba716e2b4c3c817fc33d54ba5ae32448"></a><br/></td></tr>
 <tr class="memitem:a76c2df67070743bebd109f343eab8aec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a76c2df67070743bebd109f343eab8aec">finish</a> ()</td></tr>
 <tr class="memdesc:a76c2df67070743bebd109f343eab8aec"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function should be called when a server has finished handling the connection.  <a href="#a76c2df67070743bebd109f343eab8aec"></a><br/></td></tr>
 <tr class="memitem:a960711882583673805a4c46a62f70375"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a960711882583673805a4c46a62f70375">get_ssl_flag</a> () const </td></tr>
 <tr class="memdesc:a960711882583673805a4c46a62f70375"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the connection is encrypted using SSL.  <a href="#a960711882583673805a4c46a62f70375"></a><br/></td></tr>
-<tr class="memitem:a985322bd233478e3c2d287d6bf5f7948"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a985322bd233478e3c2d287d6bf5f7948">set_lifecycle</a> (<a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#af7739a76fa0ebcd726b216a02d3905d2">lifecycle_type</a> t)</td></tr>
-<tr class="memdesc:a985322bd233478e3c2d287d6bf5f7948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the lifecycle type for the connection.  <a href="#a985322bd233478e3c2d287d6bf5f7948"></a><br/></td></tr>
-<tr class="memitem:aa7367cd6719fb4991363c3cb7ac57bba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#af7739a76fa0ebcd726b216a02d3905d2">lifecycle_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#aa7367cd6719fb4991363c3cb7ac57bba">get_lifecycle</a> () const </td></tr>
-<tr class="memdesc:aa7367cd6719fb4991363c3cb7ac57bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the lifecycle type for the connection.  <a href="#aa7367cd6719fb4991363c3cb7ac57bba"></a><br/></td></tr>
+<tr class="memitem:acb65ac459f82b374d104a96676f427c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#acb65ac459f82b374d104a96676f427c1">set_lifecycle</a> (<a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#ac978d4e1fd6c923908cd083813870d13">lifecycle</a> lcycle)</td></tr>
+<tr class="memdesc:acb65ac459f82b374d104a96676f427c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the lifecycle for the connection.  <a href="#acb65ac459f82b374d104a96676f427c1"></a><br/></td></tr>
 <tr class="memitem:aa416d5f72becbf7309d7b7307d22e509"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#aa416d5f72becbf7309d7b7307d22e509">get_keep_alive</a> () const </td></tr>
 <tr class="memdesc:aa416d5f72becbf7309d7b7307d22e509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the connection should be kept alive.  <a href="#aa416d5f72becbf7309d7b7307d22e509"></a><br/></td></tr>
-<tr class="memitem:a2bd7773f72241403044e92d8ecf7c92d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a2bd7773f72241403044e92d8ecf7c92d">get_pipelined</a> () const </td></tr>
-<tr class="memdesc:a2bd7773f72241403044e92d8ecf7c92d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the HTTP requests are pipelined.  <a href="#a2bd7773f72241403044e92d8ecf7c92d"></a><br/></td></tr>
+<tr class="memitem:a266feb5fb16bb7ca1d1734a97fc13591"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a266feb5fb16bb7ca1d1734a97fc13591">is_pipelined</a> () const </td></tr>
+<tr class="memdesc:a266feb5fb16bb7ca1d1734a97fc13591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the HTTP requests are pipelined.  <a href="#a266feb5fb16bb7ca1d1734a97fc13591"></a><br/></td></tr>
 <tr class="memitem:ac39803f0fa5095117922f805cad26f55"><td class="memItemLeft" align="right" valign="top">read_buffer_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#ac39803f0fa5095117922f805cad26f55">get_read_buffer</a> ()</td></tr>
 <tr class="memdesc:ac39803f0fa5095117922f805cad26f55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the buffer used for reading data from the TCP connection.  <a href="#ac39803f0fa5095117922f805cad26f55"></a><br/></td></tr>
 <tr class="memitem:a0ca46c85796054a510b839025e1c174c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a0ca46c85796054a510b839025e1c174c">save_read_pos</a> (const char *read_ptr, const char *read_end_ptr)</td></tr>
@@ -197,72 +162,88 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7ca989bbe7f21459e63387f768ab6416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns reference to the io_service used for async operations.  <a href="#a7ca989bbe7f21459e63387f768ab6416"></a><br/></td></tr>
 <tr class="memitem:aad8bf4f48ff83e2bf9984228fa1ead3c"><td class="memItemLeft" align="right" valign="top">socket_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#aad8bf4f48ff83e2bf9984228fa1ead3c">get_socket</a> ()</td></tr>
 <tr class="memdesc:aad8bf4f48ff83e2bf9984228fa1ead3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns non-const reference to underlying TCP socket object.  <a href="#aad8bf4f48ff83e2bf9984228fa1ead3c"></a><br/></td></tr>
-<tr class="memitem:ae2df0c40ebd16c2d12c066f43e2485e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection_1_1ssl__socket__type.html">ssl_socket_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#ae2df0c40ebd16c2d12c066f43e2485e8">get_ssl_socket</a> ()</td></tr>
+<tr class="memitem:ae2df0c40ebd16c2d12c066f43e2485e8"><td class="memItemLeft" align="right" valign="top">ssl_socket_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#ae2df0c40ebd16c2d12c066f43e2485e8">get_ssl_socket</a> ()</td></tr>
 <tr class="memdesc:ae2df0c40ebd16c2d12c066f43e2485e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns non-const reference to underlying SSL socket object.  <a href="#ae2df0c40ebd16c2d12c066f43e2485e8"></a><br/></td></tr>
-<tr class="memitem:ac80fa64c43b009839e12dc135bb0e4ad"><td class="memItemLeft" align="right" valign="top">const socket_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#ac80fa64c43b009839e12dc135bb0e4ad">get_socket</a> () const </td></tr>
-<tr class="memdesc:ac80fa64c43b009839e12dc135bb0e4ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns const reference to underlying TCP socket object.  <a href="#ac80fa64c43b009839e12dc135bb0e4ad"></a><br/></td></tr>
-<tr class="memitem:a606f1d7d69b305b70aad7d67146fe1a2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classstaticlib_1_1pion_1_1tcp__connection_1_1ssl__socket__type.html">ssl_socket_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a606f1d7d69b305b70aad7d67146fe1a2">get_ssl_socket</a> () const </td></tr>
-<tr class="memdesc:a606f1d7d69b305b70aad7d67146fe1a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns const reference to underlying SSL socket object.  <a href="#a606f1d7d69b305b70aad7d67146fe1a2"></a><br/></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a721a2ef7e9947906d1400612ea82d7e7"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr<br class="typebreak"/>
-&lt; <a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a721a2ef7e9947906d1400612ea82d7e7">create</a> (asio::io_service &amp;io_service, ssl_context_type &amp;ssl_context, const bool ssl_flag, connection_handler finished_handler)</td></tr>
-<tr class="memdesc:a721a2ef7e9947906d1400612ea82d7e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates new shared connection objects  <a href="#a721a2ef7e9947906d1400612ea82d7e7"></a><br/></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a91ba8a05af749231faaadf38192ad119"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a91ba8a05af749231faaadf38192ad119">tcp_connection</a> (asio::io_service &amp;io_service, ssl_context_type &amp;ssl_context, const bool ssl_flag, connection_handler finished_handler)</td></tr>
-<tr class="memdesc:a91ba8a05af749231faaadf38192ad119"><td class="mdescLeft">&#160;</td><td class="mdescRight">protected constructor restricts creation of objects (use <a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a721a2ef7e9947906d1400612ea82d7e7" title="creates new shared connection objects">create()</a>)  <a href="#a91ba8a05af749231faaadf38192ad119"></a><br/></td></tr>
+<tr class="memitem:a4011060f3cf97e6f574a8065f8878a40"><td class="memItemLeft" align="right" valign="top">asio::io_service::strand &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a4011060f3cf97e6f574a8065f8878a40">get_strand</a> ()</td></tr>
+<tr class="memdesc:a4011060f3cf97e6f574a8065f8878a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the strand that can be used with this connection.  <a href="#a4011060f3cf97e6f574a8065f8878a40"></a><br/></td></tr>
+<tr class="memitem:a0f5c751409fababbd72c373495668633"><td class="memItemLeft" align="right" valign="top">asio::steady_timer &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a0f5c751409fababbd72c373495668633">get_timer</a> ()</td></tr>
+<tr class="memdesc:a0f5c751409fababbd72c373495668633"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the timer that can be used with this connection.  <a href="#a0f5c751409fababbd72c373495668633"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Represents a single tcp connection. </p>
 </div><h2>Member Enumeration Documentation</h2>
-<a class="anchor" id="ae5075699acd8e07b6d242f3cf70690eb"></a>
+<a class="anchor" id="ac978d4e1fd6c923908cd083813870d13"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">anonymous enum</td>
+          <td class="memname">enum <a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#ac978d4e1fd6c923908cd083813870d13">staticlib::pion::tcp_connection::lifecycle</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Size of the read buffer. </p>
-<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="ae5075699acd8e07b6d242f3cf70690eba5a53cbdf95cf6402baca981c3ac1edf5"></a>READ_BUFFER_SIZE</em>&nbsp;</td><td>
-</td></tr>
-</table>
-</dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="af7739a76fa0ebcd726b216a02d3905d2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#af7739a76fa0ebcd726b216a02d3905d2">staticlib::pion::tcp_connection::lifecycle_type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Data type for the connection's lifecycle state. </p>
-<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="af7739a76fa0ebcd726b216a02d3905d2a332410340ccbf38c84577953e6cd5e3d"></a>LIFECYCLE_CLOSE</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="af7739a76fa0ebcd726b216a02d3905d2a8d28aff983d92863db399f4c6d925eea"></a>LIFECYCLE_KEEPALIVE</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="af7739a76fa0ebcd726b216a02d3905d2a13bede81a0795f5e0c752925a24f8ba5"></a>LIFECYCLE_PIPELINED</em>&nbsp;</td><td>
-</td></tr>
-</table>
-</dd>
-</dl>
+<p>Data type for the connection's current_lifecycle state. </p>
 
 </div>
 </div>
 <h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a9684b07fb22d2c3cb9c2e59d82691b20"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">staticlib::pion::tcp_connection::tcp_connection </td>
+          <td>(</td>
+          <td class="paramtype">asio::io_service &amp;&#160;</td>
+          <td class="paramname"><em>io_service</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ssl_context_type &amp;&#160;</td>
+          <td class="paramname"><em>ssl_context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>ssl_flag_in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">connection_handler&#160;</td>
+          <td class="paramname"><em>finished_handler_in</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor to be used with <code>std::make_shared</code> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">io_service</td><td>asio service associated with the connection </td></tr>
+    <tr><td class="paramname">ssl_context</td><td>asio ssl context associated with the connection </td></tr>
+    <tr><td class="paramname">ssl_flag</td><td>if true then the connection will be encrypted using SSL </td></tr>
+    <tr><td class="paramname">finished_handler</td><td>function called when a server has finished handling the connection </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a46fbdd6543ae39d83c1ba13e06407187"></a>
 <div class="memitem">
 <div class="memproto">
@@ -297,69 +278,12 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Virtual destructor. </p>
-
-</div>
-</div>
-<a class="anchor" id="a91ba8a05af749231faaadf38192ad119"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">staticlib::pion::tcp_connection::tcp_connection </td>
-          <td>(</td>
-          <td class="paramtype">asio::io_service &amp;&#160;</td>
-          <td class="paramname"><em>io_service</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ssl_context_type &amp;&#160;</td>
-          <td class="paramname"><em>ssl_context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bool&#160;</td>
-          <td class="paramname"><em>ssl_flag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">connection_handler&#160;</td>
-          <td class="paramname"><em>finished_handler</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>protected constructor restricts creation of objects (use <a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#a721a2ef7e9947906d1400612ea82d7e7" title="creates new shared connection objects">create()</a>) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">io_service</td><td>asio service associated with the connection </td></tr>
-    <tr><td class="paramname">ssl_context</td><td>asio ssl context associated with the connection </td></tr>
-    <tr><td class="paramname">ssl_flag</td><td>if true then the connection will be encrypted using SSL </td></tr>
-    <tr><td class="paramname">finished_handler</td><td>function called when a server has finished handling the connection </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -445,105 +369,6 @@ template&lt;typename SSLHandshakeHandler &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ae8e9e3f821c8e283db153780e1c58c67"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename CompletionCondition , typename ReadHandler &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::tcp_connection::async_read </td>
-          <td>(</td>
-          <td class="paramtype">CompletionCondition&#160;</td>
-          <td class="paramname"><em>completion_condition</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ReadHandler&#160;</td>
-          <td class="paramname"><em>handler</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Asynchronously reads data into the connection's read buffer until completion_condition is met. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">completion_condition</td><td>determines if the read operation is complete </td></tr>
-    <tr><td class="paramname">handler</td><td>called after the read operation has completed</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd>asio::async_read() </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="add5c20d2263b87338ad21791aab139bc"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MutableBufferSequence , typename CompletionCondition , typename ReadHandler &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::tcp_connection::async_read </td>
-          <td>(</td>
-          <td class="paramtype">const MutableBufferSequence &amp;&#160;</td>
-          <td class="paramname"><em>buffers</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">CompletionCondition&#160;</td>
-          <td class="paramname"><em>completion_condition</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ReadHandler&#160;</td>
-          <td class="paramname"><em>handler</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Asynchronously reads data from the connection until completion_condition is met. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">buffers</td><td>one or more buffers into which the data will be read </td></tr>
-    <tr><td class="paramname">completion_condition</td><td>determines if the read operation is complete </td></tr>
-    <tr><td class="paramname">handler</td><td>called after the read operation has completed</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd>asio::async_read() </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a4923a9f45475729adf513f759277ac1e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -571,52 +396,6 @@ template&lt;typename ReadHandler &gt; </div>
 <p>Asynchronously reads some data into the connection's read buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">handler</td><td>called after the read operation has completed</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd>asio::basic_stream_socket::async_read_some() </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a409bd7aa4e217aa44c93808195bc3ceb"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReadBufferType , typename ReadHandler &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::tcp_connection::async_read_some </td>
-          <td>(</td>
-          <td class="paramtype">ReadBufferType&#160;</td>
-          <td class="paramname"><em>read_buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ReadHandler&#160;</td>
-          <td class="paramname"><em>handler</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Asynchronously reads some data into the connection's read buffer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">read_buffer</td><td>the buffer to read data into </td></tr>
     <tr><td class="paramname">handler</td><td>called after the read operation has completed</td></tr>
   </table>
   </dd>
@@ -674,6 +453,9 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 <a class="anchor" id="ab543525ac858c658ab6ff4d29876402e"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::tcp_connection::cancel </td>
@@ -682,15 +464,48 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Cancels any asynchronous operations pending on the socket. </p>
 
 </div>
 </div>
+<a class="anchor" id="a912a1f53b2df47883449eecf4399c703"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void staticlib::pion::tcp_connection::cancel_timer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cancels timer. </p>
+
+</div>
+</div>
 <a class="anchor" id="aea40b6af13e5d03da75c8c87fd000dec"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::tcp_connection::close </td>
@@ -699,72 +514,23 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Closes the tcp socket and cancels any pending asynchronous operations. </p>
 
 </div>
 </div>
-<a class="anchor" id="a721a2ef7e9947906d1400612ea82d7e7"></a>
+<a class="anchor" id="a76c2df67070743bebd109f343eab8aec"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::shared_ptr&lt;<a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html">tcp_connection</a>&gt; staticlib::pion::tcp_connection::create </td>
-          <td>(</td>
-          <td class="paramtype">asio::io_service &amp;&#160;</td>
-          <td class="paramname"><em>io_service</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ssl_context_type &amp;&#160;</td>
-          <td class="paramname"><em>ssl_context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bool&#160;</td>
-          <td class="paramname"><em>ssl_flag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">connection_handler&#160;</td>
-          <td class="paramname"><em>finished_handler</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>creates new shared connection objects </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">io_service</td><td>asio service associated with the connection </td></tr>
-    <tr><td class="paramname">ssl_context</td><td>asio ssl context associated with the connection </td></tr>
-    <tr><td class="paramname">ssl_flag</td><td>if true then the connection will be encrypted using SSL </td></tr>
-    <tr><td class="paramname">finished_handler</td><td>function called when a server has finished handling the connection </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a76c2df67070743bebd109f343eab8aec"></a>
-<div class="memitem">
-<div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::tcp_connection::finish </td>
@@ -773,6 +539,11 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>This function should be called when a server has finished handling the connection. </p>
@@ -782,6 +553,9 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 <a class="anchor" id="a7ca989bbe7f21459e63387f768ab6416"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">asio::io_service&amp; staticlib::pion::tcp_connection::get_io_service </td>
@@ -790,6 +564,11 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns reference to the io_service used for async operations. </p>
@@ -800,6 +579,9 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 <a class="anchor" id="aa416d5f72becbf7309d7b7307d22e509"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::tcp_connection::get_keep_alive </td>
@@ -808,6 +590,11 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if the connection should be kept alive. </p>
@@ -815,45 +602,12 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="aa7367cd6719fb4991363c3cb7ac57bba"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#af7739a76fa0ebcd726b216a02d3905d2">lifecycle_type</a> staticlib::pion::tcp_connection::get_lifecycle </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the lifecycle type for the connection. </p>
-<dl class="section return"><dt>Returns</dt><dd>lifecycle type name </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a2bd7773f72241403044e92d8ecf7c92d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool staticlib::pion::tcp_connection::get_pipelined </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns true if the HTTP requests are pipelined. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if the HTTP requests are pipelined </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="ac39803f0fa5095117922f805cad26f55"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">read_buffer_type&amp; staticlib::pion::tcp_connection::get_read_buffer </td>
@@ -862,6 +616,11 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the buffer used for reading data from the TCP connection. </p>
@@ -872,6 +631,9 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 <a class="anchor" id="a74b6f4bd62685e98afa94d3f26e20680"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">asio::ip::tcp::endpoint staticlib::pion::tcp_connection::get_remote_endpoint </td>
@@ -880,6 +642,11 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns an ASIO endpoint for the client connection. </p>
@@ -890,6 +657,9 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 <a class="anchor" id="a5ebab681f028c2e9db8aec28f41c5941"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">asio::ip::address staticlib::pion::tcp_connection::get_remote_ip </td>
@@ -898,6 +668,11 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the client's IP address. </p>
@@ -908,6 +683,9 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 <a class="anchor" id="a66c34623eadf25c30a21f9a83ad99f6a"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">unsigned short staticlib::pion::tcp_connection::get_remote_port </td>
@@ -916,6 +694,11 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the client's port number. </p>
@@ -926,6 +709,9 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 <a class="anchor" id="aad8bf4f48ff83e2bf9984228fa1ead3c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">socket_type&amp; staticlib::pion::tcp_connection::get_socket </td>
@@ -934,6 +720,11 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns non-const reference to underlying TCP socket object. </p>
@@ -941,27 +732,12 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ac80fa64c43b009839e12dc135bb0e4ad"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const socket_type&amp; staticlib::pion::tcp_connection::get_socket </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns const reference to underlying TCP socket object. </p>
-<dl class="section return"><dt>Returns</dt><dd>underlying TCP socket object </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a960711882583673805a4c46a62f70375"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::tcp_connection::get_ssl_flag </td>
@@ -970,6 +746,11 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if the connection is encrypted using SSL. </p>
@@ -980,14 +761,22 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 <a class="anchor" id="ae2df0c40ebd16c2d12c066f43e2485e8"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection_1_1ssl__socket__type.html">ssl_socket_type</a>&amp; staticlib::pion::tcp_connection::get_ssl_socket </td>
+          <td class="memname">ssl_socket_type&amp; staticlib::pion::tcp_connection::get_ssl_socket </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns non-const reference to underlying SSL socket object. </p>
@@ -995,27 +784,64 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a606f1d7d69b305b70aad7d67146fe1a2"></a>
+<a class="anchor" id="a4011060f3cf97e6f574a8065f8878a40"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classstaticlib_1_1pion_1_1tcp__connection_1_1ssl__socket__type.html">ssl_socket_type</a>&amp; staticlib::pion::tcp_connection::get_ssl_socket </td>
+          <td class="memname">asio::io_service::strand&amp; staticlib::pion::tcp_connection::get_strand </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Returns const reference to underlying SSL socket object. </p>
-<dl class="section return"><dt>Returns</dt><dd>underlying SSL socket object </dd></dl>
+<p>Returns the strand that can be used with this connection. </p>
+<dl class="section return"><dt>Returns</dt><dd>the strand that can be used with this connection </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0f5c751409fababbd72c373495668633"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">asio::steady_timer&amp; staticlib::pion::tcp_connection::get_timer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the timer that can be used with this connection. </p>
+<dl class="section return"><dt>Returns</dt><dd>the timer that can be used with this connection </dd></dl>
 
 </div>
 </div>
 <a class="anchor" id="ac8680cd33e5dc496a5e3e089721467d3"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::tcp_connection::is_open </td>
@@ -1024,6 +850,11 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if the connection is currently open. </p>
@@ -1031,9 +862,38 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="a266feb5fb16bb7ca1d1734a97fc13591"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool staticlib::pion::tcp_connection::is_pipelined </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if the HTTP requests are pipelined. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the HTTP requests are pipelined </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="af32bc0c4c9e1a9192a21e467161631ca"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::tcp_connection::load_read_pos </td>
@@ -1053,6 +913,11 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
           <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Loads a read position bookmark. </p>
@@ -1084,183 +949,12 @@ template&lt;typename ConstBufferSequence , typename write_handler_t &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a49ff1778a2e20be8567407923d549ba3"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename CompletionCondition &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t staticlib::pion::tcp_connection::read </td>
-          <td>(</td>
-          <td class="paramtype">CompletionCondition&#160;</td>
-          <td class="paramname"><em>completion_condition</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::error_code &amp;&#160;</td>
-          <td class="paramname"><em>ec</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reads data into the connection's read buffer until completion_condition is met (blocks until finished) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">completion_condition</td><td>determines if the read operation is complete </td></tr>
-    <tr><td class="paramname">ec</td><td>contains error code if the read fails </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t number of bytes read</dd></dl>
-<dl class="section see"><dt>See Also</dt><dd>asio::read() </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a191460097d9a98013f65d0c96720060e"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MutableBufferSequence , typename CompletionCondition &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t staticlib::pion::tcp_connection::read </td>
-          <td>(</td>
-          <td class="paramtype">const MutableBufferSequence &amp;&#160;</td>
-          <td class="paramname"><em>buffers</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">CompletionCondition&#160;</td>
-          <td class="paramname"><em>completion_condition</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::error_code &amp;&#160;</td>
-          <td class="paramname"><em>ec</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reads data from the connection until completion_condition is met (blocks until finished) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">buffers</td><td>one or more buffers into which the data will be read </td></tr>
-    <tr><td class="paramname">completion_condition</td><td>determines if the read operation is complete </td></tr>
-    <tr><td class="paramname">ec</td><td>contains error code if the read fails </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t number of bytes read</dd></dl>
-<dl class="section see"><dt>See Also</dt><dd>asio::read() </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a4ec827d9efd92fd0f9e559ff18675bf0"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t staticlib::pion::tcp_connection::read_some </td>
-          <td>(</td>
-          <td class="paramtype">std::error_code &amp;&#160;</td>
-          <td class="paramname"><em>ec</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads some data into the connection's read buffer (blocks until finished) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ec</td><td>contains error code if the read fails </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t number of bytes read</dd></dl>
-<dl class="section see"><dt>See Also</dt><dd>asio::basic_stream_socket::read_some() </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a4dea910f609f794b9b49d045c7941ea8"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ReadBufferType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t staticlib::pion::tcp_connection::read_some </td>
-          <td>(</td>
-          <td class="paramtype">ReadBufferType&#160;</td>
-          <td class="paramname"><em>read_buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::error_code &amp;&#160;</td>
-          <td class="paramname"><em>ec</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>reads some data into the connection's read buffer (blocks until finished) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">read_buffer</td><td>the buffer to read data into </td></tr>
-    <tr><td class="paramname">ec</td><td>contains error code if the read fails </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t number of bytes read</dd></dl>
-<dl class="section see"><dt>See Also</dt><dd>asio::basic_stream_socket::read_some() </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a0ca46c85796054a510b839025e1c174c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::tcp_connection::save_read_pos </td>
@@ -1280,6 +974,11 @@ template&lt;typename ReadBufferType &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Saves a read position bookmark. </p>
@@ -1293,55 +992,19 @@ template&lt;typename ReadBufferType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a985322bd233478e3c2d287d6bf5f7948"></a>
+<a class="anchor" id="acb65ac459f82b374d104a96676f427c1"></a>
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::tcp_connection::set_lifecycle </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#af7739a76fa0ebcd726b216a02d3905d2">lifecycle_type</a>&#160;</td>
-          <td class="paramname"><em>t</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the lifecycle type for the connection. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">t</td><td>lifecycle type name </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="aba716e2b4c3c817fc33d54ba5ae32448"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ConstBufferSequence &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t staticlib::pion::tcp_connection::write </td>
+          <td class="memname">void staticlib::pion::tcp_connection::set_lifecycle </td>
           <td>(</td>
-          <td class="paramtype">const ConstBufferSequence &amp;&#160;</td>
-          <td class="paramname"><em>buffers</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="classstaticlib_1_1pion_1_1tcp__connection.html#ac978d4e1fd6c923908cd083813870d13">lifecycle</a>&#160;</td>
+          <td class="paramname"><em>lcycle</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::error_code &amp;&#160;</td>
-          <td class="paramname"><em>ec</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -1351,16 +1014,13 @@ template&lt;typename ConstBufferSequence &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Writes data to the connection (blocks until finished) </p>
+<p>Sets the lifecycle for the connection. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buffers</td><td>one or more buffers containing the data to be written </td></tr>
-    <tr><td class="paramname">ec</td><td>contains error code if the write fails </td></tr>
+    <tr><td class="paramname">lcycle</td><td>lifecycle type name </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t number of bytes written</dd></dl>
-<dl class="section see"><dt>See Also</dt><dd>asio::write() </dd></dl>
 
 </div>
 </div>
@@ -1370,7 +1030,7 @@ template&lt;typename ConstBufferSequence &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

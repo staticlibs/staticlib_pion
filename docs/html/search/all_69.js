@@ -16,7 +16,9 @@ var searchData=
   ['is_5fopen',['is_open',['../classstaticlib_1_1pion_1_1tcp__connection.html#ac8680cd33e5dc496a5e3e089721467d3',1,'staticlib::pion::tcp_connection']]],
   ['is_5fparsing_5frequest',['is_parsing_request',['../classstaticlib_1_1pion_1_1http__parser.html#a871bdf89eeb9bbd04639dd814ab24995',1,'staticlib::pion::http_parser']]],
   ['is_5fparsing_5fresponse',['is_parsing_response',['../classstaticlib_1_1pion_1_1http__parser.html#a345bb01e13b7bf7af4d85063f2909461',1,'staticlib::pion::http_parser']]],
+  ['is_5fpipelined',['is_pipelined',['../classstaticlib_1_1pion_1_1tcp__connection.html#a266feb5fb16bb7ca1d1734a97fc13591',1,'staticlib::pion::tcp_connection']]],
   ['is_5frunning',['is_running',['../classstaticlib_1_1pion_1_1scheduler.html#a2f31e6255297581eb31c6399ed828150',1,'staticlib::pion::scheduler']]],
   ['is_5fspecial',['is_special',['../namespacestaticlib_1_1pion_1_1algorithm.html#a151b5812703e9bb01edb0ddd35d93286',1,'staticlib::pion::algorithm']]],
-  ['is_5fvalid',['is_valid',['../classstaticlib_1_1pion_1_1http__message.html#a278cfc9d878e070c5a1bb480acb0ef97',1,'staticlib::pion::http_message']]]
+  ['is_5fvalid',['is_valid',['../classstaticlib_1_1pion_1_1http__message.html#a278cfc9d878e070c5a1bb480acb0ef97',1,'staticlib::pion::http_message']]],
+  ['is_5fwebsocket_5fupgrade',['is_websocket_upgrade',['../classstaticlib_1_1pion_1_1websocket.html#a8ffb13b61cfce722f90bfdd1f753cef6',1,'staticlib::pion::websocket']]]
 ];

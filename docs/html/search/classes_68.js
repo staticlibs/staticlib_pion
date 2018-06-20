@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['http_5ffilter_5fchain',['http_filter_chain',['../classstaticlib_1_1pion_1_1http__filter__chain.html',1,'staticlib::pion']]],
   ['http_5fmessage',['http_message',['../classstaticlib_1_1pion_1_1http__message.html',1,'staticlib::pion']]],
   ['http_5fparser',['http_parser',['../classstaticlib_1_1pion_1_1http__parser.html',1,'staticlib::pion']]],
   ['http_5frequest',['http_request',['../classstaticlib_1_1pion_1_1http__request.html',1,'staticlib::pion']]],

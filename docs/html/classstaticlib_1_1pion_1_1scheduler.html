@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">5.0.7-15</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -89,7 +89,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classstaticlib_1_1pion_1_1scheduler-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">staticlib::pion::scheduler Class Reference</div>  </div>
@@ -105,8 +104,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a60834c532062478b7e973e7da984771c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html#a60834c532062478b7e973e7da984771c">scheduler</a> (uint32_t number_of_threads)</td></tr>
 <tr class="memdesc:a60834c532062478b7e973e7da984771c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a60834c532062478b7e973e7da984771c"></a><br/></td></tr>
-<tr class="memitem:a8246d6a16c6111775829324a9e76f20c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html#a8246d6a16c6111775829324a9e76f20c">scheduler</a> (const <a class="el" href="classstaticlib_1_1pion_1_1scheduler.html">scheduler</a> &amp;)</td></tr>
-<tr class="memdesc:a8246d6a16c6111775829324a9e76f20c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy constructor.  <a href="#a8246d6a16c6111775829324a9e76f20c"></a><br/></td></tr>
 <tr class="memitem:a5c8cd7268a454d6ef2ecd8edfc6bb5a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html">scheduler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html#a5c8cd7268a454d6ef2ecd8edfc6bb5a8">operator=</a> (const <a class="el" href="classstaticlib_1_1pion_1_1scheduler.html">scheduler</a> &amp;)</td></tr>
 <tr class="memdesc:a5c8cd7268a454d6ef2ecd8edfc6bb5a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy assignment operator.  <a href="#a5c8cd7268a454d6ef2ecd8edfc6bb5a8"></a><br/></td></tr>
 <tr class="memitem:a84fad2713c8c27c747d73915885970af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html#a84fad2713c8c27c747d73915885970af">~scheduler</a> ()</td></tr>
@@ -131,16 +128,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af12377bc5bf25f33d3c3c18a15f1fe04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread function used to keep the io_service running.  <a href="#af12377bc5bf25f33d3c3c18a15f1fe04"></a><br/></td></tr>
 <tr class="memitem:af9a96c23fabb9c99ed1da1de8df19596"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html#af9a96c23fabb9c99ed1da1de8df19596">process_service_work</a> (asio::io_service &amp;service)</td></tr>
 <tr class="memdesc:af9a96c23fabb9c99ed1da1de8df19596"><td class="mdescLeft">&#160;</td><td class="mdescRight">processes work passed to the asio service &amp; handles uncaught exceptions  <a href="#af9a96c23fabb9c99ed1da1de8df19596"></a><br/></td></tr>
-<tr class="memitem:af70762ccc710c1e570a556f1bcf4d7a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html#af70762ccc710c1e570a556f1bcf4d7a8">set_thread_stop_hook</a> (std::function&lt; void(const std::thread::id &amp;) &gt; hook)</td></tr>
-<tr class="memdesc:af70762ccc710c1e570a556f1bcf4d7a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for hook function, that is called after each thread exit.  <a href="#af70762ccc710c1e570a556f1bcf4d7a8"></a><br/></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a31e8250f907f57af7750b57394bee939"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html#a31e8250f907f57af7750b57394bee939">sleep</a> (uint32_t sleep_sec, uint32_t sleep_nsec)</td></tr>
-<tr class="memdesc:a31e8250f907f57af7750b57394bee939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Puts the current thread to sleep for a specific period of time.  <a href="#a31e8250f907f57af7750b57394bee939"></a><br/></td></tr>
-<tr class="memitem:af64c6e2b56f999451c8b3ed2e1c8b9a8"><td class="memTemplParams" colspan="2">template&lt;typename ConditionType , typename LockType &gt; </td></tr>
-<tr class="memitem:af64c6e2b56f999451c8b3ed2e1c8b9a8"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html#af64c6e2b56f999451c8b3ed2e1c8b9a8">sleep</a> (ConditionType &amp;wakeup_condition, LockType &amp;wakeup_lock, uint32_t sleep_sec, uint32_t sleep_nsec)</td></tr>
-<tr class="memdesc:af64c6e2b56f999451c8b3ed2e1c8b9a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">puts the current thread to sleep for a specific period of time, or until a wakeup condition is signaled  <a href="#af64c6e2b56f999451c8b3ed2e1c8b9a8"></a><br/></td></tr>
+<tr class="memitem:a1593973c8e0b8c3adf58081a6616f6d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html#a1593973c8e0b8c3adf58081a6616f6d1">set_thread_stop_hook</a> (std::function&lt; void() &gt; hook)</td></tr>
+<tr class="memdesc:a1593973c8e0b8c3adf58081a6616f6d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for hook function, that is called from each worker thread just before that worker thread is going to exit.  <a href="#a1593973c8e0b8c3adf58081a6616f6d1"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Scheduler, combines Boost.ASIO with a managed thread pool for scheduling server threads. </p>
@@ -148,6 +137,9 @@ Static Public Member Functions</h2></td></tr>
 <a class="anchor" id="a60834c532062478b7e973e7da984771c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">staticlib::pion::scheduler::scheduler </td>
@@ -157,33 +149,23 @@ Static Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Constructor. </p>
 
 </div>
 </div>
-<a class="anchor" id="a8246d6a16c6111775829324a9e76f20c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">staticlib::pion::scheduler::scheduler </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classstaticlib_1_1pion_1_1scheduler.html">scheduler</a> &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Deleted copy constructor. </p>
-
-</div>
-</div>
 <a class="anchor" id="a84fad2713c8c27c747d73915885970af"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">staticlib::pion::scheduler::~scheduler </td>
@@ -192,6 +174,11 @@ Static Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Destructor. </p>
@@ -220,6 +207,9 @@ Static Public Member Functions</h2></td></tr>
 <a class="anchor" id="a842fca0ca076a93f6f294a4928aebb0a"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">asio::io_service&amp; staticlib::pion::scheduler::get_io_service </td>
@@ -228,6 +218,11 @@ Static Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns an async I/O service used to schedule work. </p>
@@ -238,6 +233,9 @@ Static Public Member Functions</h2></td></tr>
 <a class="anchor" id="a2f31e6255297581eb31c6399ed828150"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::scheduler::is_running </td>
@@ -246,6 +244,11 @@ Static Public Member Functions</h2></td></tr>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if the scheduler is running. </p>
@@ -326,6 +329,9 @@ Static Public Member Functions</h2></td></tr>
 <a class="anchor" id="af611ac53b5cbf9a6a7f985bd15f05511"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::scheduler::post </td>
@@ -335,6 +341,11 @@ Static Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Schedules work to be performed by one of the pooled threads. </p>
@@ -388,21 +399,29 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af70762ccc710c1e570a556f1bcf4d7a8"></a>
+<a class="anchor" id="a1593973c8e0b8c3adf58081a6616f6d1"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void staticlib::pion::scheduler::set_thread_stop_hook </td>
           <td>(</td>
-          <td class="paramtype">std::function&lt; void(const std::thread::id &amp;) &gt;&#160;</td>
+          <td class="paramtype">std::function&lt; void() &gt;&#160;</td>
           <td class="paramname"><em>hook</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Setter for hook function, that is called after each thread exit. </p>
+<p>Setter for hook function, that is called from each worker thread just before that worker thread is going to exit. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hook</td><td>hook function </td></tr>
@@ -429,108 +448,6 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a31e8250f907f57af7750b57394bee939"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void staticlib::pion::scheduler::sleep </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>sleep_sec</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>sleep_nsec</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Puts the current thread to sleep for a specific period of time. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sleep_sec</td><td>number of entire seconds to sleep for </td></tr>
-    <tr><td class="paramname">sleep_nsec</td><td>number of nanoseconds to sleep for (10^-9 in 1 second) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="af64c6e2b56f999451c8b3ed2e1c8b9a8"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ConditionType , typename LockType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void staticlib::pion::scheduler::sleep </td>
-          <td>(</td>
-          <td class="paramtype">ConditionType &amp;&#160;</td>
-          <td class="paramname"><em>wakeup_condition</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">LockType &amp;&#160;</td>
-          <td class="paramname"><em>wakeup_lock</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>sleep_sec</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>sleep_nsec</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>puts the current thread to sleep for a specific period of time, or until a wakeup condition is signaled </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">wakeup_condition</td><td>if signaled, the condition will wakeup the thread early </td></tr>
-    <tr><td class="paramname">wakeup_lock</td><td>scoped lock protecting the wakeup condition </td></tr>
-    <tr><td class="paramname">sleep_sec</td><td>number of entire seconds to sleep for </td></tr>
-    <tr><td class="paramname">sleep_nsec</td><td>number of nanoseconds to sleep for (10^-9 in 1 second) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="a6ea8f83ecacd7a3c8f76f9c62184dee5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -554,7 +471,7 @@ template&lt;typename ConditionType , typename LockType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

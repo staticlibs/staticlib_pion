@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">5.0.7-15</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -112,6 +112,8 @@ Inheritance diagram for staticlib::pion::tcp_server:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a4b79ca0cad9d07f6571295c832fc5b37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#a4b79ca0cad9d07f6571295c832fc5b37">tcp_server</a> (const asio::ip::tcp::endpoint &amp;endpoint, uint32_t number_of_threads)</td></tr>
+<tr class="memdesc:a4b79ca0cad9d07f6571295c832fc5b37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor so that only derived objects may be created.  <a href="#a4b79ca0cad9d07f6571295c832fc5b37"></a><br/></td></tr>
 <tr class="memitem:af2c5281fa6d9f7f80bb39ca977773454"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#af2c5281fa6d9f7f80bb39ca977773454">tcp_server</a> (const <a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html">tcp_server</a> &amp;)</td></tr>
 <tr class="memdesc:af2c5281fa6d9f7f80bb39ca977773454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy constructor.  <a href="#af2c5281fa6d9f7f80bb39ca977773454"></a><br/></td></tr>
 <tr class="memitem:a7aa50dff68f3f5a23045bcfeb2d87bb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html">tcp_server</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#a7aa50dff68f3f5a23045bcfeb2d87bb0">operator=</a> (const <a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html">tcp_server</a> &amp;)</td></tr>
@@ -122,16 +124,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a04212d5e41645b3ddae9d7a2dae22b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts listening for new connections.  <a href="#a04212d5e41645b3ddae9d7a2dae22b18"></a><br/></td></tr>
 <tr class="memitem:a712536735f07e006e9e2b2efbedaa08b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#a712536735f07e006e9e2b2efbedaa08b">stop</a> (bool wait_until_finished=false)</td></tr>
 <tr class="memdesc:a712536735f07e006e9e2b2efbedaa08b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops listening for new connections.  <a href="#a712536735f07e006e9e2b2efbedaa08b"></a><br/></td></tr>
-<tr class="memitem:a732d72b4909dcc6c84a067db251cd211"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#a732d72b4909dcc6c84a067db251cd211">join</a> ()</td></tr>
-<tr class="memdesc:a732d72b4909dcc6c84a067db251cd211"><td class="mdescLeft">&#160;</td><td class="mdescRight">The calling thread will sleep until the server has stopped listening for connections.  <a href="#a732d72b4909dcc6c84a067db251cd211"></a><br/></td></tr>
-<tr class="memitem:a7c2da76c710f922e14d970424b8ea809"><td class="memItemLeft" align="right" valign="top">const asio::ip::tcp::endpoint &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#a7c2da76c710f922e14d970424b8ea809">get_endpoint</a> () const </td></tr>
-<tr class="memdesc:a7c2da76c710f922e14d970424b8ea809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns tcp endpoint that the server listens for connections on.  <a href="#a7c2da76c710f922e14d970424b8ea809"></a><br/></td></tr>
-<tr class="memitem:a3c58619a41f85db12e2c64320fb02759"><td class="memItemLeft" align="right" valign="top">tcp_connection::ssl_context_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#a3c58619a41f85db12e2c64320fb02759">get_ssl_context_type</a> ()</td></tr>
-<tr class="memdesc:a3c58619a41f85db12e2c64320fb02759"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SSL context for configuration.  <a href="#a3c58619a41f85db12e2c64320fb02759"></a><br/></td></tr>
 <tr class="memitem:a6a0d66e4df5413d7eb201afe7ca08b6b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#a6a0d66e4df5413d7eb201afe7ca08b6b">is_listening</a> () const </td></tr>
 <tr class="memdesc:a6a0d66e4df5413d7eb201afe7ca08b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the server is listening for connections.  <a href="#a6a0d66e4df5413d7eb201afe7ca08b6b"></a><br/></td></tr>
-<tr class="memitem:a4b79ca0cad9d07f6571295c832fc5b37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#a4b79ca0cad9d07f6571295c832fc5b37">tcp_server</a> (const asio::ip::tcp::endpoint &amp;endpoint, uint32_t number_of_threads)</td></tr>
-<tr class="memdesc:a4b79ca0cad9d07f6571295c832fc5b37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor so that only derived objects may be created.  <a href="#a4b79ca0cad9d07f6571295c832fc5b37"></a><br/></td></tr>
 <tr class="memitem:ae86d12c55f001f7e2e92dbd41a6f3db7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#ae86d12c55f001f7e2e92dbd41a6f3db7">handle_connection</a> (tcp_connection_ptr &amp;tcp_conn)</td></tr>
 <tr class="memdesc:ae86d12c55f001f7e2e92dbd41a6f3db7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a new TCP connection; derived classes SHOULD override this since the default behavior does nothing.  <a href="#ae86d12c55f001f7e2e92dbd41a6f3db7"></a><br/></td></tr>
 <tr class="memitem:aa0d8d7c03560fce9f7390831a4b79240"><td class="memItemLeft" align="right" valign="top">asio::io_service &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#aa0d8d7c03560fce9f7390831a4b79240">get_io_service</a> ()</td></tr>
@@ -141,8 +135,6 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a872f4ccadace4de2a8da6b0b7cf3a885"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstaticlib_1_1pion_1_1logger.html">logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#a872f4ccadace4de2a8da6b0b7cf3a885">log</a></td></tr>
-<tr class="memdesc:a872f4ccadace4de2a8da6b0b7cf3a885"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary logging interface used by this class.  <a href="#a872f4ccadace4de2a8da6b0b7cf3a885"></a><br/></td></tr>
 <tr class="memitem:a63bb09480872f71a29830925e7ac0452"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html">scheduler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#a63bb09480872f71a29830925e7ac0452">active_scheduler</a></td></tr>
 <tr class="memdesc:a63bb09480872f71a29830925e7ac0452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the active scheduler object used to manage worker threads.  <a href="#a63bb09480872f71a29830925e7ac0452"></a><br/></td></tr>
 <tr class="memitem:a1fc82932ed3f7144af89053f8029b889"><td class="memItemLeft" align="right" valign="top">asio::ip::tcp::acceptor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1tcp__server.html#a1fc82932ed3f7144af89053f8029b889">tcp_acceptor</a></td></tr>
@@ -167,6 +159,48 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Multi-threaded, asynchronous TCP server. </p>
 </div><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a4b79ca0cad9d07f6571295c832fc5b37"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">staticlib::pion::tcp_server::tcp_server </td>
+          <td>(</td>
+          <td class="paramtype">const asio::ip::tcp::endpoint &amp;&#160;</td>
+          <td class="paramname"><em>endpoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>number_of_threads</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Protected constructor so that only derived objects may be created. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">endpoint</td><td>TCP endpoint used to listen for new connections (see ASIO docs) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="af2c5281fa6d9f7f80bb39ca977773454"></a>
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +235,7 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -210,62 +244,13 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4b79ca0cad9d07f6571295c832fc5b37"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">staticlib::pion::tcp_server::tcp_server </td>
-          <td>(</td>
-          <td class="paramtype">const asio::ip::tcp::endpoint &amp;&#160;</td>
-          <td class="paramname"><em>endpoint</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>number_of_threads</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Protected constructor so that only derived objects may be created. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">endpoint</td><td>TCP endpoint used to listen for new connections (see ASIO docs) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <h2>Member Function Documentation</h2>
-<a class="anchor" id="a7c2da76c710f922e14d970424b8ea809"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const asio::ip::tcp::endpoint&amp; staticlib::pion::tcp_server::get_endpoint </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns tcp endpoint that the server listens for connections on. </p>
-<dl class="section return"><dt>Returns</dt><dd>tcp endpoint </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="aa0d8d7c03560fce9f7390831a4b79240"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">asio::io_service&amp; staticlib::pion::tcp_server::get_io_service </td>
@@ -274,6 +259,11 @@ Protected Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns an async I/O service used to schedule work. </p>
@@ -284,6 +274,9 @@ Protected Attributes</h2></td></tr>
 <a class="anchor" id="ab91636f7e16a6df474ddf7e98b0fb90e"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classstaticlib_1_1pion_1_1scheduler.html">scheduler</a>&amp; staticlib::pion::tcp_server::get_scheduler </td>
@@ -292,28 +285,15 @@ Protected Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Return active scheduler. </p>
 <dl class="section return"><dt>Returns</dt><dd>scheduler </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a3c58619a41f85db12e2c64320fb02759"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tcp_connection::ssl_context_type&amp; staticlib::pion::tcp_server::get_ssl_context_type </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the SSL context for configuration. </p>
-<dl class="section return"><dt>Returns</dt><dd>SSL context </dd></dl>
 
 </div>
 </div>
@@ -334,7 +314,7 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -347,13 +327,14 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classstaticlib_1_1pion_1_1http__server.html#a18f438e5077f393e6a38e1ddb8245003">staticlib::pion::http_server</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a6a0d66e4df5413d7eb201afe7ca08b6b"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::pion::tcp_server::is_listening </td>
@@ -362,27 +343,15 @@ Protected Attributes</h2></td></tr>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns true if the server is listening for connections. </p>
 <dl class="section return"><dt>Returns</dt><dd>true if the server is listening for connections </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a732d72b4909dcc6c84a067db251cd211"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::pion::tcp_server::join </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The calling thread will sleep until the server has stopped listening for connections. </p>
 
 </div>
 </div>
@@ -509,28 +478,6 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set to true when the server is listening for new connections. </p>
-
-</div>
-</div>
-<a class="anchor" id="a872f4ccadace4de2a8da6b0b7cf3a885"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structstaticlib_1_1pion_1_1logger.html">logger</a> staticlib::pion::tcp_server::log</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Primary logging interface used by this class. </p>
 
 </div>
 </div>
@@ -694,7 +641,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

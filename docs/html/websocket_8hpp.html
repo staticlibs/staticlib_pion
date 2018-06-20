@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_pion: Member List</title>
+<title>staticlib_pion: staticlib/pion/websocket.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">5.0.7-15</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -39,8 +39,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -61,10 +61,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -83,25 +81,49 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacestaticlib.html">staticlib</a></li><li class="navelem"><a class="el" href="namespacestaticlib_1_1pion.html">pion</a></li><li class="navelem"><a class="el" href="classstaticlib_1_1pion_1_1http__filter__chain.html">http_filter_chain</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_c33d3ca81783b96de1fd366e75cb14d0.html">staticlib</a></li><li class="navelem"><a class="el" href="dir_0df7d4f99d96a5817bd3df1bc5ceb3dd.html">pion</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">staticlib::pion::http_filter_chain Member List</div>  </div>
+<div class="title">websocket.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>This is the complete list of members for <a class="el" href="classstaticlib_1_1pion_1_1http__filter__chain.html">staticlib::pion::http_filter_chain</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classstaticlib_1_1pion_1_1http__filter__chain.html#a1f8cc4c03b5b0c8f00784c0aeb72e566">do_filter</a>(http_request_ptr &amp;request, tcp_connection_ptr &amp;conn)</td><td class="entry"><a class="el" href="classstaticlib_1_1pion_1_1http__filter__chain.html">staticlib::pion::http_filter_chain</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classstaticlib_1_1pion_1_1http__filter__chain.html#a465393aa86b35c6cd744f94b30352c4b">http_filter_chain</a>(std::vector&lt; std::reference_wrapper&lt; http_server::request_filter_type &gt;&gt; filters, http_server::request_handler_type request_handler)</td><td class="entry"><a class="el" href="classstaticlib_1_1pion_1_1http__filter__chain.html">staticlib::pion::http_filter_chain</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classstaticlib_1_1pion_1_1http__filter__chain.html#accc1d477f1d342106c28447c098579b4">http_filter_chain</a>(const http_filter_chain &amp;)</td><td class="entry"><a class="el" href="classstaticlib_1_1pion_1_1http__filter__chain.html">staticlib::pion::http_filter_chain</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classstaticlib_1_1pion_1_1http__filter__chain.html#a5d5e4180781da3cca04d58c2c3ad8a8b">operator=</a>(const http_filter_chain &amp;)</td><td class="entry"><a class="el" href="classstaticlib_1_1pion_1_1http__filter__chain.html">staticlib::pion::http_filter_chain</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<div class="textblock"><code>#include &lt;cstring&gt;</code><br/>
+<code>#include &lt;memory&gt;</code><br/>
+<code>#include &lt;string&gt;</code><br/>
+<code>#include &lt;unordered_map&gt;</code><br/>
+<code>#include &lt;vector&gt;</code><br/>
+<code>#include &quot;asio.hpp&quot;</code><br/>
+<code>#include &quot;staticlib/support.hpp&quot;</code><br/>
+<code>#include &quot;staticlib/utils.hpp&quot;</code><br/>
+<code>#include &quot;staticlib/websocket.hpp&quot;</code><br/>
+<code>#include &quot;<a class="el" href="logger_8hpp_source.html">staticlib/pion/logger.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="http__request_8hpp_source.html">staticlib/pion/http_request.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="tcp__connection_8hpp_source.html">staticlib/pion/tcp_connection.hpp</a>&quot;</code><br/>
+</div>
+<p><a href="websocket_8hpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1websocket__detail_1_1msg__data__src.html">staticlib::pion::websocket_detail::msg_data_src</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>Source</code> implementation that allows to unmask the payload from one or more (for continuation) frames in streaming mode  <a href="classstaticlib_1_1pion_1_1websocket__detail_1_1msg__data__src.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1websocket.html">staticlib::pion::websocket</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class represents a WebSocket RFC 6455 connection.  <a href="classstaticlib_1_1pion_1_1websocket.html#details">More...</a><br/></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespacestaticlib"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib.html">staticlib</a></td></tr>
+<tr class="memitem:namespacestaticlib_1_1pion"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1pion.html">staticlib::pion</a></td></tr>
+<tr class="memitem:namespacestaticlib_1_1pion_1_1websocket__detail"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1pion_1_1websocket__detail.html">staticlib::pion::websocket_detail</a></td></tr>
+</table>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 31 2017 15:31:24 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
