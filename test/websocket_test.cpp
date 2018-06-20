@@ -193,7 +193,6 @@ void test_websocket() {
     // ws handshake
     auto buf = std::string();
     buf.resize(1024);
-    size_t buf_len = 0;
     auto handshake = make_handshake();
     socket.send(asio::buffer(handshake));
     socket.receive(asio::buffer(std::addressof(buf.front()), buf.length()));
