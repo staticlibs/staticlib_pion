@@ -45,12 +45,30 @@ namespace pion {
 
 namespace websocket_detail {
 
+/**
+ * `Source` implementation that allows to unmask the payload from
+ * one or more (for continuation) frames in streaming mode
+ */
 class msg_data_src {
+    /**
+     * List of received frames
+     */
     std::vector<sl::websocket::frame>& frames_ref;
+    /**
+     * Single source, used in normal case
+     */
     sl::websocket::masked_payload_source src_single;
+    /**
+     * Source that points to multiple (continuation) frames
+     */
     sl::io::multi_source<std::vector<sl::websocket::masked_payload_source>> src_multi;
 
 public:
+    /**
+     * Constructor
+     * 
+     * @param frames list of received frames
+     */
     msg_data_src(std::vector<sl::websocket::frame>& frames):
     frames_ref(frames),
     src_single(
@@ -72,17 +90,38 @@ public:
             return sl::io::make_multi_source(std::move(vec));
         } ()) { }
 
+    /**
+     * Deleted copy constructor
+     */
     msg_data_src(const msg_data_src&) = delete;
 
+    /**
+     * Deleted copy-assignment operator
+     */
     msg_data_src& operator=(const msg_data_src&) = delete;
 
+    /**
+     * Move constructor
+     * 
+     * @param other other instance
+     */
     msg_data_src(msg_data_src&& other):
     frames_ref(other.frames_ref),
     src_single(std::move(other.src_single)),
     src_multi(std::move(other.src_multi)) { }
 
+    /**
+     * Deleted move-assignment operator
+     */
     msg_data_src& operator=(msg_data_src&&) = delete;
 
+    /**
+     * Read implementation, that reads from single or multi source
+     * depending on the presence of continuation frames
+     * 
+     * @param span dest buffer
+     * @return number of bytes read
+     */
     std::streamsize read(sl::io::span<char> span) {
         if (1 == frames_ref.size()) {
             return src_single.read(span);
@@ -96,9 +135,14 @@ public:
 
 } // namespace
 
-
+/**
+ * This class represents a WebSocket RFC 6455 connection.
+ */
 class websocket {
 
+    /**
+     * Connection close status to include into `close` message
+     */
     enum class close_status : uint32_t {
         normal = 0xe8030288,
         going_away = 0xe9030288,
@@ -126,12 +170,22 @@ class websocket {
     size_t payload_length = 0;
 
     // input state
-    // todo: use array sink
     std::vector<char> receive_buffer;
     std::vector<std::unique_ptr<char[]>> frames_cache;
     std::vector<sl::websocket::frame> frames;
 
 public:
+    /**
+     * Constructor
+     * 
+     * @param req HTTP request with handshake
+     * @param conn TCP connection used for handshake
+     * @param open_handler handler for `open` events
+     * @param message_handler handler for `message` events
+     * @param close_handler handler for `close`events, MUST NOT be used to send or receive messages
+     * @param max_receive_cache_size_bytes max allowed size of the receive buffer, 1MB by default
+     * @param max_cached_frames_count max allowed number of continuation frames, 1024 by default
+     */
     websocket(std::unique_ptr<http_request> req, std::shared_ptr<tcp_connection> conn,
             std::function<void(std::unique_ptr<websocket>)> open_handler,
             std::function<void(std::unique_ptr<websocket>)> message_handler,
@@ -148,6 +202,9 @@ public:
         connection->set_lifecycle(tcp_connection::lifecycle::close);
     }
 
+    /**
+     * Destructor, closes the TCP connection
+     */
     ~websocket() STATICLIB_NOEXCEPT {
         try {
             connection->finish();
@@ -156,22 +213,49 @@ public:
         }
     }
 
+    /**
+     * Deleted copy constructor
+     */
     websocket(const websocket&) = delete;
 
+    /**
+     * Deleted copy-assignment operator
+     */
     websocket& operator=(const websocket&) = delete;
 
+    /**
+     * ID for this WebSocket connection
+     * 
+     * @return value of `Sec-WebSocket-Key` request handshake header
+     */
     const std::string& get_id() {
         return request->get_header("Sec-WebSocket-Key");
     }
 
+    /**
+     * Reference to handshake request
+     * 
+     * @return handshake request
+     */
     http_request& get_request() {
         return *request;
     }
 
+    /**
+     * Reference to TCP connection
+     * 
+     * @return connection
+     */
     tcp_connection& get_connection() {
         return *connection;
     }
 
+    /**
+     * Type (opcode) of the currently cached frame
+     * 
+     * @return opcode of the last cached frame, `invalid` type
+     *         if no frames are cached
+     */
     sl::websocket::frame_type message_type() {
         if(frames.size() > 0) {
             return frames[0].type();
@@ -179,6 +263,14 @@ public:
         return sl::websocket::frame_type::invalid;
     }
 
+    /**
+     * Source that can be used to read unmasked payload data
+     * from one or more (for continuation) received frames.
+     * 
+     * Invalidated on `send` or `receive` operation over this instance
+     * 
+     * @return unmasked payload data
+     */
     websocket_detail::msg_data_src message_data() {
         return websocket_detail::msg_data_src(frames);
     }
@@ -209,6 +301,9 @@ public:
         }
     }
 
+    /**
+     * Checks whether specified request is a WebSocket handshake
+     */
     static bool is_websocket_upgrade(const http_request& req) {
         return sl::utils::iequals(req.get_header("Upgrade"), "websocket") &&
                 sl::utils::iequals(req.get_header("Sec-WebSocket-Version"), "13") &&
@@ -217,6 +312,12 @@ public:
                 !req.get_header("Sec-WebSocket-Key").empty();
     }
 
+    /**
+     * Starts the processing of WebSocker connection:
+     * asynchronously send handshake response and reads incoming messages
+     * 
+     * @param self websocket instance
+     */
     static void start(std::unique_ptr<websocket> self) {
         self->prepare_handshake();
         send_internal(std::move(self),
@@ -225,16 +326,36 @@ public:
             });
     }
 
+    /**
+     * Asynchronously receives the incoming messages
+     * 
+     * @param self websocket instance
+     */
     static void receive(std::unique_ptr<websocket> self) {
         self->clear_frames_cache();
         process_receive_buffer(std::move(self));
     }
 
+    /**
+     * Asynchronously sends the buffered payload using the specified
+     * frame type
+     * 
+     * @param self websocket instance
+     * @param msg_type frame opcode to use
+     */
     static void send(std::unique_ptr<websocket> self,
             sl::websocket::frame_type msg_type = sl::websocket::frame_type::text) {
         send_message(std::move(self), msg_type, websocket::receive);
     }
 
+    /**
+     * Asynchronously sends the buffered payload using the specified
+     * frame type. Handler is invoked after send is completed successfully.
+     * 
+     * @param self websocket instance
+     * @param msg_type frame opcode to use
+     * @param handler handler function to invoke on successful send
+     */
     template<typename Handler>
     static void send_message(std::unique_ptr<websocket> self, sl::websocket::frame_type msg_type,
             Handler handler) {
@@ -246,6 +367,20 @@ public:
             });
     }
 
+    /**
+     * Broadcasts the specified message as a WebSocket frame to every specified connection.
+     * 
+     * Thread-safe: may be called concurrently from any thread.
+     * 
+     * May cause the broadcast message
+     * to interleave with other frames (put in the middle of continuation sequence, or
+     * in the middle to TCP fragmented sequence), if target connection is used for
+     * outbound traffic at the the time of broadcast.
+     * 
+     * @param connections list of connections to broadcast
+     * @param msg message to broadcast
+     * @param msg_type frame type (opcode) to use
+     */
     static void broadcast(std::vector<std::shared_ptr<tcp_connection>>& connections,
             sl::io::span<const char> msg,
             sl::websocket::frame_type msg_type = sl::websocket::frame_type::text) {
@@ -263,6 +398,12 @@ public:
         }
     }
 
+    /**
+     * Sends `close` frame to client and closes the underlying TCP connection
+     * 
+     * @param self websocket instance
+     * @param status close status to include with `close` frame
+     */
     static void close(std::unique_ptr<websocket> self, const close_status& status = close_status::normal) {
         on_close(std::move(self), status);
     }

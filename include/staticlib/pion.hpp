@@ -30,6 +30,7 @@
 #include "staticlib/pion/http_response.hpp"
 #include "staticlib/pion/http_response_writer.hpp"
 #include "staticlib/pion/http_server.hpp"
+#include "staticlib/pion/websocket.hpp"
 
 #endif /* STATICLIB_PION_HPP */
 
