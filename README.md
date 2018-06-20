@@ -7,15 +7,8 @@ Pion HTTP Server build for Staticlibs
 This project is a part of [Staticlibs](http://staticlibs.net/).
 
 Embedded asynchronous HTTP 1.1 server implementation based on a source code from [Pion HTTP server](https://github.com/splunk/pion)
-project ([description](http://sourceforge.net/p/pion/mailman/message/32075645/)) with the following changes:
-
- - all Boost dependencies removed in favour of C++11 with [standalone Asio](https://think-async.com/Asio/AsioStandalone)
- - some optional non-HTTP functionality removed (dynamic-load plugins, SPDY support)
- - added support for streaming requests of arbitrary size (file upload)
- - support for `HEAD` and `OPTIONS` (to allow [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)) methods
- - warnings cleanup to compile with `/W4 /WX` on MSVC and with `-Wall -Werror -Wextra` on GCC and Clang
- - namespaces and classes renamed
- - Doxygen comments reformatted
+project ([description](http://sourceforge.net/p/pion/mailman/message/32075645/)) that was heavily modified
+to support WebSocket and CORS.
 
 Link to the [API documentation](http://staticlibs.github.io/staticlib_pion/docs/html/namespacestaticlib_1_1pion.html).
 
@@ -26,15 +19,17 @@ How to build
 
 [CMake](http://cmake.org/) is required for building.
 
+[pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config/) utility is used for dependency management.
+For Windows users ready-to-use binary version of `pkg-config` can be obtained from [tools_windows_pkgconfig](https://github.com/staticlibs/tools_windows_pkgconfig) repository.
+See [StaticlibsPkgConfig](https://github.com/staticlibs/wiki/wiki/StaticlibsPkgConfig) for Staticlibs-specific details about `pkg-config` usage.
+
 To build the library on Windows using Visual Studio 2013 Express run the following commands using
 Visual Studio development command prompt 
 (`C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\Shortcuts\VS2013 x86 Native Tools Command Prompt`):
 
     git clone https://github.com/staticlibs/external_asio.git
     git clone https://github.com/staticlibs/staticlib_config.git
-    git clone https://github.com/staticlibs/staticlib_support.git
-    git clone https://github.com/staticlibs/staticlib_concurrent.git
-    git clone https://github.com/staticlibs/staticlib_utils.git
+    ...
     git clone https://github.com/staticlibs/staticlib_pion.git
     cd staticlib_pion
     mkdir build
@@ -52,26 +47,6 @@ Cloning of `external_asio` is not required on Linux - system libraries will be u
 See [StaticlibsToolchains](https://github.com/staticlibs/wiki/wiki/StaticlibsToolchains) for 
 more information about the toolchain setup and cross-compilation.
 
-Build with HTTPS and logging support
-------------------------------------
-
-This project has optional support for `OpenSSL` library to enable HTTPS and for `log4cplus` library
-for logging. On Linux development versions of these libraries must be installed. 
-For other platforms - see notes about `pkg-config` below. To configure build with these dependencies run:
-
-    cmake .. -Dstaticlib_pion_USE_LOG4CPLUS=ON -Dstaticlib_pion_USE_OPENSSL=ON
-
-[pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config/) utility is used for dependency management.
-For Windows users ready-to-use binary version of `pkg-config` can be obtained from [tools_windows_pkgconfig](https://github.com/staticlibs/tools_windows_pkgconfig) repository.
-
-See [StaticlibsPkgConfig](https://github.com/staticlibs/wiki/wiki/StaticlibsPkgConfig) for Staticlibs-specific details about `pkg-config` usage.
-
-To build this project with `OpenSSL` and `log4cplus` support manually on
-platforms without corresponding system libraries you can use 
-[external_openssl](https://github.com/staticlibs/external_openssl) and 
-[external_log4cplus](https://github.com/staticlibs/external_log4cplus) projects - checkout
-these projects (using `--recursive` flag) next to staticlib_pion sources before running CMake command above.
-
 License information
 -------------------
 
@@ -79,6 +54,12 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2018-06-20**
+
+ * version 2.0.0
+ * core networking rework, version reset to untie from upstream pion versions
+ * WebSocket support
 
 **2018-05-21**
 
