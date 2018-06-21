@@ -23,13 +23,34 @@ How to build
 For Windows users ready-to-use binary version of `pkg-config` can be obtained from [tools_windows_pkgconfig](https://github.com/staticlibs/tools_windows_pkgconfig) repository.
 See [StaticlibsPkgConfig](https://github.com/staticlibs/wiki/wiki/StaticlibsPkgConfig) for Staticlibs-specific details about `pkg-config` usage.
 
+[Perl](https://www.perl.org/) is also required for building, Windows users can obtain ready-to-use
+Perl distribution from [tools_windows_perl](https://github.com/staticlibs/tools_windows_perl) repository.
+
+[NASM](http://nasm.us/) is also required for building on Windows x86 
+(optional on Windows x86_64 - will be used if present in `PATH`).
+You can obtain ready-to-use NASM distribution from 
+[tools_windows_nasm](https://github.com/staticlibs/tools_windows_nasm) repository.
+
 To build the library on Windows using Visual Studio 2013 Express run the following commands using
 Visual Studio development command prompt 
 (`C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\Shortcuts\VS2013 x86 Native Tools Command Prompt`):
 
+    git clone https://github.com/staticlibs/tools_windows_pkgconfig.git
+    git clone https://github.com/staticlibs/tools_windows_perl520.git
+    git clone https://github.com/staticlibs/tools_windows_nasm.git
+    set PATH=%PATH%;c:\projects\tools_windows_pkgconfig\bin;c:\projects\tools_windows_perl520\perl\bin;c:\projects\tools_windows_nasm
+    git clone https://github.com/staticlibs/cmake.git
     git clone https://github.com/staticlibs/external_asio.git
+    git clone https://github.com/staticlibs/lookaside_asio.git
+    git clone https://github.com/staticlibs/external_openssl.git
+    git clone https://github.com/staticlibs/lookaside_openssl.git
     git clone https://github.com/staticlibs/staticlib_config.git
-    ...
+    git clone https://github.com/staticlibs/staticlib_support.git
+    git clone https://github.com/staticlibs/staticlib_io.git
+    git clone https://github.com/staticlibs/staticlib_endian.git
+    git clone https://github.com/staticlibs/staticlib_crypto.git
+    git clone https://github.com/staticlibs/staticlib_websocket.git
+    git clone https://github.com/staticlibs/staticlib_utils.git
     git clone https://github.com/staticlibs/staticlib_pion.git
     cd staticlib_pion
     mkdir build
@@ -42,7 +63,7 @@ To build on other platforms using GCC or Clang with GNU Make:
     cmake .. -DCMAKE_CXX_FLAGS="--std=c++11"
     make
 
-Cloning of `external_asio` is not required on Linux - system libraries will be used instead.
+Cloning of `external_asio` and tools is not required on Linux - system libraries will be used instead.
 
 See [StaticlibsToolchains](https://github.com/staticlibs/wiki/wiki/StaticlibsToolchains) for 
 more information about the toolchain setup and cross-compilation.
