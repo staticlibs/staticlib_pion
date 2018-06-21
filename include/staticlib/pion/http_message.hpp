@@ -37,6 +37,7 @@
 #include "asio.hpp"
 
 #include "staticlib/config.hpp"
+#include "staticlib/utils.hpp"
 
 #include "staticlib/pion/algorithm.hpp"
 
@@ -309,6 +310,12 @@ protected:
     };
     
 private:
+    
+    /**
+     * Type alias for headers map
+     */
+    using headers_type = std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>;
+    
     /**
      * True if the HTTP message is valid
      */
@@ -362,12 +369,12 @@ private:
     /**
      * HTTP message headers
      */
-    std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to> m_headers;
+    headers_type m_headers;
 
     /**
      * HTTP cookie parameters parsed from the headers
      */
-    std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to> m_cookie_params;
+    headers_type m_cookie_params;
 
     /**
      * Message data integrity status
@@ -588,12 +595,32 @@ public:
         return get_value(m_headers, key);
     }
 
+    bool has_header_value(const std::string& key, const std::string& value) const {
+        auto range = m_headers.equal_range(key);
+        for (auto it = range.first; it != range.second; ++it) {
+            if (std::string::npos == it->second.find(',')) {
+                if (sl::utils::iequals(value, it->second)) {
+                    return true;
+                }
+            } else {
+                auto vec = sl::utils::split(it->second, ',');
+                for (auto& el : vec) {
+                    auto trimmed = sl::utils::trim(el);
+                    if (sl::utils::iequals(value, trimmed)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * Returns a reference to the HTTP headers multimap
      * 
      * @return reference to the HTTP headers multimap
      */
-    std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& get_headers() {
+    headers_type& get_headers() {
         return m_headers;
     }
 
@@ -623,7 +650,7 @@ public:
      * 
      * @return cookie parameters multimap
      */
-    std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>& get_cookies() {
+    headers_type& get_cookies() {
         return m_cookie_params;
     }
 
@@ -803,8 +830,7 @@ public:
      * Sets the length of the payload content using the Content-Length header
      */
     void update_content_length_using_header() {
-        std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>
-                ::const_iterator i = m_headers.find(HEADER_CONTENT_LENGTH);
+        auto i = m_headers.find(HEADER_CONTENT_LENGTH);
         if (i == m_headers.end()) {
             m_content_length = 0;
         } else {
@@ -819,8 +845,7 @@ public:
      */
     void update_transfer_encoding_using_header() {
         m_is_chunked = false;
-        std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>
-                ::const_iterator i = m_headers.find(HEADER_TRANSFER_ENCODING);
+        auto i = m_headers.find(HEADER_TRANSFER_ENCODING);
         if (i != m_headers.end()) {
             // From RFC 2616, sec 3.6: All transfer-coding values are case-insensitive.
             // comparing only lower and camel variants for simplicity
@@ -956,8 +981,7 @@ protected:
     std::string make_query_string(const std::unordered_multimap<std::string, std::string,
             algorithm::ihash, algorithm::iequal_to>& query_params) {
         std::string query_string;
-        for (std::unordered_multimap<std::string, std::string,
-                algorithm::ihash, algorithm::iequal_to>::const_iterator i = query_params.begin();
+        for (headers_type::const_iterator i = query_params.begin();
                 i != query_params.end(); ++i) {
             if (i != query_params.begin()) {
                 query_string += '&';
@@ -1022,8 +1046,7 @@ protected:
      */
     void append_headers(std::vector<asio::const_buffer>& write_buffers) {
         // add HTTP headers
-        for (std::unordered_multimap<std::string, std::string, algorithm::ihash, algorithm::iequal_to>
-                ::const_iterator i = m_headers.begin(); i != m_headers.end(); ++i) {
+        for (headers_type::const_iterator i = m_headers.begin(); i != m_headers.end(); ++i) {
             write_buffers.push_back(asio::buffer(i->first));
             write_buffers.push_back(asio::buffer(HEADER_NAME_VALUE_DELIMITER));
             write_buffers.push_back(asio::buffer(i->second));
@@ -1046,9 +1069,8 @@ protected:
      * @param key the key to search for
      * @return value if found; empty string if not
      */
-    template <typename DictionaryType>
-    static const std::string& get_value(const DictionaryType& dict, const std::string& key) {
-        typename DictionaryType::const_iterator i = dict.find(key);
+    static const std::string& get_value(const headers_type& dict, const std::string& key) {
+        auto i = dict.find(key);
         return ( (i==dict.end()) ? STRING_EMPTY : i->second );
     }
 
@@ -1061,12 +1083,10 @@ protected:
      * @param key the key to change the value for
      * @param value the value to assign to the key
      */
-    template <typename DictionaryType>
-    inline static void change_value(DictionaryType& dict, const std::string& key, 
+    inline static void change_value(headers_type& dict, const std::string& key, 
             const std::string& value) {
         // retrieve all current values for key
-        std::pair<typename DictionaryType::iterator, typename DictionaryType::iterator>
-            result_pair = dict.equal_range(key);
+        auto result_pair = dict.equal_range(key);
         if (result_pair.first == dict.end()) {
             // no values exist -> add a new key
             dict.insert(std::make_pair(key, value));
@@ -1074,7 +1094,7 @@ protected:
             // set the first value found for the key to the new one
             result_pair.first->second = value;
             // remove any remaining values
-            typename DictionaryType::iterator i;
+            headers_type::iterator i;
             ++(result_pair.first);
             while (result_pair.first != result_pair.second) {
                 i = result_pair.first;
@@ -1090,10 +1110,8 @@ protected:
      * @param dict the dictionary object to update
      * @param key the key to delete
      */
-    template <typename DictionaryType>
-    inline static void delete_value(DictionaryType& dict, const std::string& key) {
-        std::pair<typename DictionaryType::iterator, typename DictionaryType::iterator>
-            result_pair = dict.equal_range(key);
+    inline static void delete_value(headers_type& dict, const std::string& key) {
+        auto result_pair = dict.equal_range(key);
         if (result_pair.first != dict.end()) {
             dict.erase(result_pair.first, result_pair.second);
         }

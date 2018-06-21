@@ -46,22 +46,29 @@ std::string page = R"(
 <html>
     <head>
         <script>
-            var ws = new WebSocket('ws://127.0.0.1:8080/hello');
+            var ws = null;
+            function openConn() {
+                var url = "ws://127.0.0.1:8080/hello";
+                if (null === ws) {
+                    console.log("Opening: [" + url + "]");
+                    ws = new WebSocket(url);
+                    ws.addEventListener('message', function (event) {
+                        console.log("Receiving: [" + event.data + "]");
+                        var area = document.getElementById("resp");
+                        area.value = event.data;
+                    });
+                }
+            }
             function sendRequest() {
                 var input = document.getElementById("req").value;
+                console.log("Sending: [" + input + "]");
                 ws.send(input);
             }
             function closeConn() {
                 console.log("Closing");
                 ws.close();
+                ws = null;
             }
-            ws.addEventListener('message', function (event) {
-                var area = document.getElementById("resp");
-                area.value = event.data + "_";
-//                area.value += ("_" + event.data);
-                // send back
-                ws.send(area.value);
-            });
         </script>
     </head>
     <body>
@@ -73,6 +80,7 @@ std::string page = R"(
                   rows="7" cols="50"></textarea>
         <br>
         <br>
+        <button onclick="openConn();">Connect</button>
         <button onclick="sendRequest();">Send</button>
         <button onclick="closeConn();">Close</button>
     </body>
@@ -104,9 +112,7 @@ void wsmsg(sl::pion::websocket_ptr ws) {
     auto src = ws->message_data();
     auto sink = sl::io::string_sink();
     sl::io::copy_all(src, sink);
-//    std::cout << "[" << sink.get_string() << "]" << std::endl;
     ws->write(sink.get_string());
-    ws->write(sl::support::to_string(sink.get_string().length()));
     ws->send(std::move(ws));
 }
 

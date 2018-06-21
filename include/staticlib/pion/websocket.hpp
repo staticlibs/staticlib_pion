@@ -305,11 +305,11 @@ public:
      * Checks whether specified request is a WebSocket handshake
      */
     static bool is_websocket_upgrade(const http_request& req) {
-        return sl::utils::iequals(req.get_header("Upgrade"), "websocket") &&
-                sl::utils::iequals(req.get_header("Sec-WebSocket-Version"), "13") &&
-                sl::utils::iequals(req.get_header("Connection"), "Upgrade") &&
+        return req.has_header_value("Upgrade", "websocket") &&
+                req.has_header_value("Sec-WebSocket-Version", "13") &&
+                req.has_header_value("Connection", "Upgrade") &&
                 !req.get_header("Host").empty() &&
-                !req.get_header("Sec-WebSocket-Key").empty();
+                24 == req.get_header("Sec-WebSocket-Key").length();
     }
 
     /**
