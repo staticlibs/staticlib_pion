@@ -76,6 +76,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2018-06-21**
+
+ * version 2.0.1
+ * less strict checking for WebSocket handshake
+
 **2018-06-20**
 
  * version 2.0.0
