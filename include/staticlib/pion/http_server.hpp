@@ -61,11 +61,6 @@ public:
     using request_handler_type = std::function<void(http_request_ptr, response_writer_ptr)>;
 
     /**
-     * Handler for requests that result in "500 Server Error"
-     */
-    using error_handler_type = std::function<void(response_writer_ptr, const std::string&)> ;
-
-    /**
      * Type of function that is used to create payload handlers
      */
     using payload_handler_creator_type = std::function<http_parser::payload_handler_type(http_request_ptr&)>;
@@ -128,11 +123,6 @@ private:
      * Points to a function that handles requests which match no web services
      */
     request_handler_type not_found_handler;
-
-    /**
-     * Points to the function that handles server errors
-     */
-    error_handler_type server_error_handler;
 
     /**
      * Collection of payload handlers GET resources that are recognized by this HTTP server
@@ -237,15 +227,6 @@ public:
         not_found_handler = std::move(handler);
     }
 
-    /**
-     * Sets the function that handles requests which match no other web services
-     * 
-     * @param h the function that handles requests which match no other web services
-     */
-    void set_error_handler(error_handler_type handler) {
-        server_error_handler = std::move(handler);
-    }
-    
     /**
      * Adds a new payload_handler to the HTTP server
      *

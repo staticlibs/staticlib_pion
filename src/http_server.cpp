@@ -113,24 +113,6 @@ void handle_not_found_request(http_request_ptr request, response_writer_ptr resp
     resp->send(std::move(resp));
 }
 
-void handle_server_error(response_writer_ptr resp,
-        const std::string& error_msg) {
-    static const std::string SERVER_ERROR_MSG_START = R"({
-    "code": 500,
-    "message": "Internal Server Error",
-    "description": ")";
-    static const std::string SERVER_ERROR_MSG_FINISH = R"("
-})";
-    resp->get_response().set_status_code(http_message::RESPONSE_CODE_SERVER_ERROR);
-    resp->get_response().set_status_message(http_message::RESPONSE_MESSAGE_SERVER_ERROR);
-    resp->write_nocopy(SERVER_ERROR_MSG_START);
-    auto err = std::string(error_msg.data(), error_msg.length());
-    std::replace(err.begin(), err.end(), '"', '\'');
-    resp->write(err);
-    resp->write_nocopy(SERVER_ERROR_MSG_FINISH);
-    resp->send(std::move(resp));
-}
-
 void handle_root_options(http_request_ptr, response_writer_ptr resp) {
     resp->get_response().change_header("Allow", "HEAD, GET, POST, PUT, DELETE, OPTIONS");
     resp->send(std::move(resp));
@@ -221,8 +203,7 @@ http_server::http_server(uint32_t number_of_threads, uint16_t port,
 tcp_server(asio::ip::tcp::endpoint(ip_address, port), number_of_threads),
 read_timeout(read_timeout_millis),
 bad_request_handler(handle_bad_request),
-not_found_handler(handle_not_found_request),
-server_error_handler(handle_server_error) {
+not_found_handler(handle_not_found_request) {
     if (!ssl_key_file.empty()) {
         this->ssl_flag = true;
         this->ssl_context.set_options(asio::ssl::context::default_workarounds
@@ -386,9 +367,9 @@ void http_server::handle_request(http_request_ptr request, tcp_connection_ptr& c
             // propagate memory errors (FATAL)
             throw;
         } catch (std::exception& e) {
-            // recover gracefully from other exceptions thrown by request handlers
+            // log exception from handler, but do not try to notify client
+            // because response is consumed by handler (and its state is indeterminate)
             STATICLIB_PION_LOG_ERROR(log, "HTTP request handler: " << e.what());
-            server_error_handler(std::move(writer), e.what());
         }
     } else {
         STATICLIB_PION_LOG_INFO(log, "No HTTP request handlers found for resource: " << path);
