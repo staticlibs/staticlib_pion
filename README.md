@@ -76,6 +76,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2018-10-27**
+
+ * version 2.0.2
+ * do not send `500` response on handler exception
+
 **2018-06-21**
 
  * version 2.0.1
