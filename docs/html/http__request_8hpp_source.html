@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">2.0.0</span>
+   &#160;<span id="projectnumber">2.0.2</span>
    </div>
   </td>
  </tr>
@@ -185,7 +185,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    }</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
 <div class="line"><a name="l00166"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a93bc78422fbb5a833cfeb463b6473256">  166</a></span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a93bc78422fbb5a833cfeb463b6473256" title="Returns a value for the query key if any are defined; otherwise, an empty string.">get_query</a>(<span class="keyword">const</span> std::string&amp; key)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classstaticlib_1_1pion_1_1http__message.html#ae813c06afb0ff3dd746c116ac5185ca0" title="Returns the first value in a dictionary if key is found; or an empty string if no values are found...">get_value</a>(m_query_params, key);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a9ed6c6376d462b7392cef22587aa40b4" title="Returns the first value in a dictionary if key is found; or an empty string if no values are found...">get_value</a>(m_query_params, key);</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    }</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
 <div class="line"><a name="l00175"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1http__request.html#ab8babd4f192ff43fed5e64bf604d906d">  175</a></span>&#160;    std::unordered_multimap&lt;std::string, std::string, algorithm::ihash, algorithm::iequal_to&gt;&amp; <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#ab8babd4f192ff43fed5e64bf604d906d" title="Returns the query parameters.">get_queries</a>() {</div>
@@ -220,11 +220,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    }</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;</div>
 <div class="line"><a name="l00242"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1http__request.html#aeb39a70a4ded86b3b516ea81e36d93b6">  242</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#aeb39a70a4ded86b3b516ea81e36d93b6" title="Changes the value of a query key.">change_query</a>(<span class="keyword">const</span> std::string&amp; key, <span class="keyword">const</span> std::string&amp; value) {</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a23c1ef96742063f3bc93e496966b6f9d" title="Changes the value for a dictionary key.">change_value</a>(m_query_params, key, value);</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a78abd81aa405caf40e8e9593563752c8" title="Changes the value for a dictionary key.">change_value</a>(m_query_params, key, value);</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    }</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;</div>
 <div class="line"><a name="l00251"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a34fafdcd13579cee7ef156fe8f4da187">  251</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a34fafdcd13579cee7ef156fe8f4da187" title="Removes all values for a query key.">delete_query</a>(<span class="keyword">const</span> std::string&amp; key) {</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a4b2d6f16d7712f189e249f7b457ebe51" title="Deletes all values for a key.">delete_value</a>(m_query_params, key);</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <a class="code" href="classstaticlib_1_1pion_1_1http__message.html#af0ef26c396f184149fe0274574124cf1" title="Deletes all values for a key.">delete_value</a>(m_query_params, key);</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    }</div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;</div>
 <div class="line"><a name="l00258"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a7bc5ca9a6e50c09ac9f616bdc86efc0e">  258</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a7bc5ca9a6e50c09ac9f616bdc86efc0e" title="Use the query parameters to build a query string for the request.">use_query_params_for_query_string</a>() {</div>
@@ -301,7 +301,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    }</div>
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;</div>
 <div class="line"><a name="l00368"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a378ee7b78a6b310d5e9e2e4f35f7f56e">  368</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html#a378ee7b78a6b310d5e9e2e4f35f7f56e" title="Appends HTTP headers for any cookies defined by the http::message.">append_cookie_headers</a>() {</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        <span class="keywordflow">for</span> (std::unordered_multimap&lt;std::string, std::string, algorithm::ihash, algorithm::iequal_to&gt;::const_iterator i = <a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a2829cded16171d2e370ca3ab9d34356c" title="Returns the cookie parameters.">get_cookies</a>().begin(); i != <a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a2829cded16171d2e370ca3ab9d34356c" title="Returns the cookie parameters.">get_cookies</a>().end(); ++i) {</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        <span class="keywordflow">for</span> (std::unordered_multimap&lt;std::string, std::string, algorithm::ihash, algorithm::iequal_to&gt;::const_iterator i = <a class="code" href="classstaticlib_1_1pion_1_1http__message.html#ac1a198dbb209257c56fa5c66a83b920e" title="Returns the cookie parameters.">get_cookies</a>().begin(); i != <a class="code" href="classstaticlib_1_1pion_1_1http__message.html#ac1a198dbb209257c56fa5c66a83b920e" title="Returns the cookie parameters.">get_cookies</a>().end(); ++i) {</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;            std::string cookie_header;</div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            cookie_header = i-&gt;first;</div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            cookie_header += <a class="code" href="classstaticlib_1_1pion_1_1http__message.html#ab3e50652a335ce989dd759bad72aca5a">COOKIE_NAME_VALUE_DELIMITER</a>;</div>
@@ -322,7 +322,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 27 2018 16:03:00 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

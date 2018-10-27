@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">2.0.0</span>
+   &#160;<span id="projectnumber">2.0.2</span>
    </div>
   </td>
  </tr>
@@ -174,20 +174,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa3267a4ebb899921ff84f156bbdfde19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the chunk cache.  <a href="#aa3267a4ebb899921ff84f156bbdfde19"></a><br/></td></tr>
 <tr class="memitem:a5b47f7d59603c2ab346b18b3b6e90c2c"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a5b47f7d59603c2ab346b18b3b6e90c2c">get_header</a> (const std::string &amp;key) const </td></tr>
 <tr class="memdesc:a5b47f7d59603c2ab346b18b3b6e90c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a value for the header if any are defined; otherwise, an empty string.  <a href="#a5b47f7d59603c2ab346b18b3b6e90c2c"></a><br/></td></tr>
-<tr class="memitem:a7f0c0ad03f8eea73364fe40d12076ffc"><td class="memItemLeft" align="right" valign="top">std::unordered_multimap<br class="typebreak"/>
-&lt; std::string, std::string, <br class="typebreak"/>
-<a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <br class="typebreak"/>
-<a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a7f0c0ad03f8eea73364fe40d12076ffc">get_headers</a> ()</td></tr>
-<tr class="memdesc:a7f0c0ad03f8eea73364fe40d12076ffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the HTTP headers multimap.  <a href="#a7f0c0ad03f8eea73364fe40d12076ffc"></a><br/></td></tr>
+<tr class="memitem:a4984ac1f949405107f05f0ef0e13e77b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a4984ac1f949405107f05f0ef0e13e77b">has_header_value</a> (const std::string &amp;key, const std::string &amp;value) const </td></tr>
+<tr class="memitem:a0474a5489b9e0cb5164de1d80400573d"><td class="memItemLeft" align="right" valign="top">headers_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a0474a5489b9e0cb5164de1d80400573d">get_headers</a> ()</td></tr>
+<tr class="memdesc:a0474a5489b9e0cb5164de1d80400573d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the HTTP headers multimap.  <a href="#a0474a5489b9e0cb5164de1d80400573d"></a><br/></td></tr>
 <tr class="memitem:a2e372af4a87225f03a8868c172513805"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a2e372af4a87225f03a8868c172513805">has_header</a> (const std::string &amp;key) const </td></tr>
 <tr class="memdesc:a2e372af4a87225f03a8868c172513805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if at least one value for the header is defined.  <a href="#a2e372af4a87225f03a8868c172513805"></a><br/></td></tr>
 <tr class="memitem:addf536149e56f44e4525a70993931ba6"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#addf536149e56f44e4525a70993931ba6">get_cookie</a> (const std::string &amp;key) const </td></tr>
 <tr class="memdesc:addf536149e56f44e4525a70993931ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a value for the cookie if any are defined; otherwise, an empty string since cookie names are insensitive, key should use lowercase alpha chars.  <a href="#addf536149e56f44e4525a70993931ba6"></a><br/></td></tr>
-<tr class="memitem:a2829cded16171d2e370ca3ab9d34356c"><td class="memItemLeft" align="right" valign="top">std::unordered_multimap<br class="typebreak"/>
-&lt; std::string, std::string, <br class="typebreak"/>
-<a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <br class="typebreak"/>
-<a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a2829cded16171d2e370ca3ab9d34356c">get_cookies</a> ()</td></tr>
-<tr class="memdesc:a2829cded16171d2e370ca3ab9d34356c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the cookie parameters.  <a href="#a2829cded16171d2e370ca3ab9d34356c"></a><br/></td></tr>
+<tr class="memitem:ac1a198dbb209257c56fa5c66a83b920e"><td class="memItemLeft" align="right" valign="top">headers_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ac1a198dbb209257c56fa5c66a83b920e">get_cookies</a> ()</td></tr>
+<tr class="memdesc:ac1a198dbb209257c56fa5c66a83b920e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the cookie parameters.  <a href="#ac1a198dbb209257c56fa5c66a83b920e"></a><br/></td></tr>
 <tr class="memitem:ad524c293b65c7aee527cf008c90352eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ad524c293b65c7aee527cf008c90352eb">has_cookie</a> (const std::string &amp;key) const </td></tr>
 <tr class="memdesc:ad524c293b65c7aee527cf008c90352eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if at least one value for the cookie is defined since cookie names are insensitive, key should use lowercase alpha chars.  <a href="#ad524c293b65c7aee527cf008c90352eb"></a><br/></td></tr>
 <tr class="memitem:add32eb9b2b5dbd90a0ce9008245b8f95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#add32eb9b2b5dbd90a0ce9008245b8f95">add_cookie</a> (const std::string &amp;key, const std::string &amp;value)</td></tr>
@@ -334,15 +329,12 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:ae813c06afb0ff3dd746c116ac5185ca0"><td class="memTemplParams" colspan="2">template&lt;typename DictionaryType &gt; </td></tr>
-<tr class="memitem:ae813c06afb0ff3dd746c116ac5185ca0"><td class="memTemplItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#ae813c06afb0ff3dd746c116ac5185ca0">get_value</a> (const DictionaryType &amp;dict, const std::string &amp;key)</td></tr>
-<tr class="memdesc:ae813c06afb0ff3dd746c116ac5185ca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first value in a dictionary if key is found; or an empty string if no values are found.  <a href="#ae813c06afb0ff3dd746c116ac5185ca0"></a><br/></td></tr>
-<tr class="memitem:a23c1ef96742063f3bc93e496966b6f9d"><td class="memTemplParams" colspan="2">template&lt;typename DictionaryType &gt; </td></tr>
-<tr class="memitem:a23c1ef96742063f3bc93e496966b6f9d"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a23c1ef96742063f3bc93e496966b6f9d">change_value</a> (DictionaryType &amp;dict, const std::string &amp;key, const std::string &amp;value)</td></tr>
-<tr class="memdesc:a23c1ef96742063f3bc93e496966b6f9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the value for a dictionary key.  <a href="#a23c1ef96742063f3bc93e496966b6f9d"></a><br/></td></tr>
-<tr class="memitem:a4b2d6f16d7712f189e249f7b457ebe51"><td class="memTemplParams" colspan="2">template&lt;typename DictionaryType &gt; </td></tr>
-<tr class="memitem:a4b2d6f16d7712f189e249f7b457ebe51"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a4b2d6f16d7712f189e249f7b457ebe51">delete_value</a> (DictionaryType &amp;dict, const std::string &amp;key)</td></tr>
-<tr class="memdesc:a4b2d6f16d7712f189e249f7b457ebe51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes all values for a key.  <a href="#a4b2d6f16d7712f189e249f7b457ebe51"></a><br/></td></tr>
+<tr class="memitem:a9ed6c6376d462b7392cef22587aa40b4"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a9ed6c6376d462b7392cef22587aa40b4">get_value</a> (const headers_type &amp;dict, const std::string &amp;key)</td></tr>
+<tr class="memdesc:a9ed6c6376d462b7392cef22587aa40b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first value in a dictionary if key is found; or an empty string if no values are found.  <a href="#a9ed6c6376d462b7392cef22587aa40b4"></a><br/></td></tr>
+<tr class="memitem:a78abd81aa405caf40e8e9593563752c8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#a78abd81aa405caf40e8e9593563752c8">change_value</a> (headers_type &amp;dict, const std::string &amp;key, const std::string &amp;value)</td></tr>
+<tr class="memdesc:a78abd81aa405caf40e8e9593563752c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the value for a dictionary key.  <a href="#a78abd81aa405caf40e8e9593563752c8"></a><br/></td></tr>
+<tr class="memitem:af0ef26c396f184149fe0274574124cf1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1pion_1_1http__message.html#af0ef26c396f184149fe0274574124cf1">delete_value</a> (headers_type &amp;dict, const std::string &amp;key)</td></tr>
+<tr class="memdesc:af0ef26c396f184149fe0274574124cf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes all values for a key.  <a href="#af0ef26c396f184149fe0274574124cf1"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -693,11 +685,9 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a23c1ef96742063f3bc93e496966b6f9d"></a>
+<a class="anchor" id="a78abd81aa405caf40e8e9593563752c8"></a>
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename DictionaryType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -705,7 +695,7 @@ template&lt;typename DictionaryType &gt; </div>
         <tr>
           <td class="memname">static void staticlib::pion::http_message::change_value </td>
           <td>(</td>
-          <td class="paramtype">DictionaryType &amp;&#160;</td>
+          <td class="paramtype">headers_type &amp;&#160;</td>
           <td class="paramname"><em>dict</em>, </td>
         </tr>
         <tr>
@@ -966,11 +956,9 @@ template&lt;typename DictionaryType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a4b2d6f16d7712f189e249f7b457ebe51"></a>
+<a class="anchor" id="af0ef26c396f184149fe0274574124cf1"></a>
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename DictionaryType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -978,7 +966,7 @@ template&lt;typename DictionaryType &gt; </div>
         <tr>
           <td class="memname">static void staticlib::pion::http_message::delete_value </td>
           <td>(</td>
-          <td class="paramtype">DictionaryType &amp;&#160;</td>
+          <td class="paramtype">headers_type &amp;&#160;</td>
           <td class="paramname"><em>dict</em>, </td>
         </tr>
         <tr>
@@ -1196,7 +1184,7 @@ template&lt;typename DictionaryType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a2829cded16171d2e370ca3ab9d34356c"></a>
+<a class="anchor" id="ac1a198dbb209257c56fa5c66a83b920e"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1204,7 +1192,7 @@ template&lt;typename DictionaryType &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_multimap&lt;std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a>&gt;&amp; staticlib::pion::http_message::get_cookies </td>
+          <td class="memname">headers_type&amp; staticlib::pion::http_message::get_cookies </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1274,7 +1262,7 @@ template&lt;typename DictionaryType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a7f0c0ad03f8eea73364fe40d12076ffc"></a>
+<a class="anchor" id="a0474a5489b9e0cb5164de1d80400573d"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1282,7 +1270,7 @@ template&lt;typename DictionaryType &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_multimap&lt;std::string, std::string, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1ihash.html">algorithm::ihash</a>, <a class="el" href="structstaticlib_1_1pion_1_1algorithm_1_1iequal__to.html">algorithm::iequal_to</a>&gt;&amp; staticlib::pion::http_message::get_headers </td>
+          <td class="memname">headers_type&amp; staticlib::pion::http_message::get_headers </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1351,11 +1339,9 @@ template&lt;typename DictionaryType &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ae813c06afb0ff3dd746c116ac5185ca0"></a>
+<a class="anchor" id="a9ed6c6376d462b7392cef22587aa40b4"></a>
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename DictionaryType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1363,7 +1349,7 @@ template&lt;typename DictionaryType &gt; </div>
         <tr>
           <td class="memname">static const std::string&amp; staticlib::pion::http_message::get_value </td>
           <td>(</td>
-          <td class="paramtype">const DictionaryType &amp;&#160;</td>
+          <td class="paramtype">const headers_type &amp;&#160;</td>
           <td class="paramname"><em>dict</em>, </td>
         </tr>
         <tr>
@@ -1563,6 +1549,40 @@ template&lt;typename DictionaryType &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if at least one value for the header is defined </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4984ac1f949405107f05f0ef0e13e77b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool staticlib::pion::http_message::has_header_value </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -3668,7 +3688,7 @@ template&lt;typename DictionaryType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 27 2018 16:03:00 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

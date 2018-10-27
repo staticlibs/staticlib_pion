@@ -4,6 +4,7 @@ var searchData=
   ['has_5fcookie',['has_cookie',['../classstaticlib_1_1pion_1_1http__message.html#ad524c293b65c7aee527cf008c90352eb',1,'staticlib::pion::http_message']]],
   ['has_5fdata_5fafter_5fmissing_5fpackets',['has_data_after_missing_packets',['../classstaticlib_1_1pion_1_1http__message.html#ab456e7557f50d18772705c1ef2ffed24',1,'staticlib::pion::http_message']]],
   ['has_5fheader',['has_header',['../classstaticlib_1_1pion_1_1http__message.html#a2e372af4a87225f03a8868c172513805',1,'staticlib::pion::http_message']]],
+  ['has_5fheader_5fvalue',['has_header_value',['../classstaticlib_1_1pion_1_1http__message.html#a4984ac1f949405107f05f0ef0e13e77b',1,'staticlib::pion::http_message']]],
   ['has_5fmissing_5fpackets',['has_missing_packets',['../classstaticlib_1_1pion_1_1http__message.html#ab80e3b98fee55d8a126b23f541a7b154',1,'staticlib::pion::http_message']]],
   ['has_5fquery',['has_query',['../classstaticlib_1_1pion_1_1http__request.html#a50eb8f47a3aa5194b34208fc4abf33f1',1,'staticlib::pion::http_request']]],
   ['hash_5fcombine',['hash_combine',['../namespacestaticlib_1_1pion_1_1algorithm.html#aa7f894fb3c4dcda75eeb601a9c9caa85',1,'staticlib::pion::algorithm']]],
@@ -46,7 +47,7 @@ var searchData=
   ['http_5fresponse_5fwriter',['http_response_writer',['../classstaticlib_1_1pion_1_1http__response__writer.html',1,'staticlib::pion']]],
   ['http_5fresponse_5fwriter',['http_response_writer',['../classstaticlib_1_1pion_1_1http__response__writer.html#acad4f5802a294a7e7423a2e1e51bd238',1,'staticlib::pion::http_response_writer::http_response_writer(tcp_connection_ptr &amp;tcp_conn, const http_request &amp;http_request)'],['../classstaticlib_1_1pion_1_1http__response__writer.html#a766053f4e281ba534b5864c178ea9765',1,'staticlib::pion::http_response_writer::http_response_writer(const http_response_writer &amp;)']]],
   ['http_5fresponse_5fwriter_2ehpp',['http_response_writer.hpp',['../http__response__writer_8hpp.html',1,'']]],
-  ['http_5fserver',['http_server',['../classstaticlib_1_1pion_1_1http__server.html#ac3b3f4f3b6c6dd23f290bc0e7e2051af',1,'staticlib::pion::http_server']]],
   ['http_5fserver',['http_server',['../classstaticlib_1_1pion_1_1http__server.html',1,'staticlib::pion']]],
+  ['http_5fserver',['http_server',['../classstaticlib_1_1pion_1_1http__server.html#ac3b3f4f3b6c6dd23f290bc0e7e2051af',1,'staticlib::pion::http_server']]],
   ['http_5fserver_2ehpp',['http_server.hpp',['../http__server_8hpp.html',1,'']]]
 ];

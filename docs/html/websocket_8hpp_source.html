@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_pion
-   &#160;<span id="projectnumber">2.0.0</span>
+   &#160;<span id="projectnumber">2.0.2</span>
    </div>
   </td>
  </tr>
@@ -287,11 +287,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    }</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
 <div class="line"><a name="l00307"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1websocket.html#a8ffb13b61cfce722f90bfdd1f753cef6">  307</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1pion_1_1websocket.html#a8ffb13b61cfce722f90bfdd1f753cef6" title="Checks whether specified request is a WebSocket handshake.">is_websocket_upgrade</a>(<span class="keyword">const</span> <a class="code" href="classstaticlib_1_1pion_1_1http__request.html" title="Container for HTTP request information.">http_request</a>&amp; req) {</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        <span class="keywordflow">return</span> sl::utils::iequals(req.<a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a5b47f7d59603c2ab346b18b3b6e90c2c" title="Returns a value for the header if any are defined; otherwise, an empty string.">get_header</a>(<span class="stringliteral">&quot;Upgrade&quot;</span>), <span class="stringliteral">&quot;websocket&quot;</span>) &amp;&amp;</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;                sl::utils::iequals(req.<a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a5b47f7d59603c2ab346b18b3b6e90c2c" title="Returns a value for the header if any are defined; otherwise, an empty string.">get_header</a>(<span class="stringliteral">&quot;Sec-WebSocket-Version&quot;</span>), <span class="stringliteral">&quot;13&quot;</span>) &amp;&amp;</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;                sl::utils::iequals(req.<a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a5b47f7d59603c2ab346b18b3b6e90c2c" title="Returns a value for the header if any are defined; otherwise, an empty string.">get_header</a>(<span class="stringliteral">&quot;Connection&quot;</span>), <span class="stringliteral">&quot;Upgrade&quot;</span>) &amp;&amp;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        <span class="keywordflow">return</span> req.<a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a4984ac1f949405107f05f0ef0e13e77b">has_header_value</a>(<span class="stringliteral">&quot;Upgrade&quot;</span>, <span class="stringliteral">&quot;websocket&quot;</span>) &amp;&amp;</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;                req.<a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a4984ac1f949405107f05f0ef0e13e77b">has_header_value</a>(<span class="stringliteral">&quot;Sec-WebSocket-Version&quot;</span>, <span class="stringliteral">&quot;13&quot;</span>) &amp;&amp;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;                req.<a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a4984ac1f949405107f05f0ef0e13e77b">has_header_value</a>(<span class="stringliteral">&quot;Connection&quot;</span>, <span class="stringliteral">&quot;Upgrade&quot;</span>) &amp;&amp;</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;                !req.<a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a5b47f7d59603c2ab346b18b3b6e90c2c" title="Returns a value for the header if any are defined; otherwise, an empty string.">get_header</a>(<span class="stringliteral">&quot;Host&quot;</span>).empty() &amp;&amp;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;                !req.<a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a5b47f7d59603c2ab346b18b3b6e90c2c" title="Returns a value for the header if any are defined; otherwise, an empty string.">get_header</a>(<span class="stringliteral">&quot;Sec-WebSocket-Key&quot;</span>).empty();</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;                24 == req.<a class="code" href="classstaticlib_1_1pion_1_1http__message.html#a5b47f7d59603c2ab346b18b3b6e90c2c" title="Returns a value for the header if any are defined; otherwise, an empty string.">get_header</a>(<span class="stringliteral">&quot;Sec-WebSocket-Key&quot;</span>).length();</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    }</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;</div>
 <div class="line"><a name="l00321"></a><span class="lineno"><a class="code" href="classstaticlib_1_1pion_1_1websocket.html#a05a15fd211d84fa4e4d95f83b877d57e">  321</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classstaticlib_1_1pion_1_1websocket.html#a05a15fd211d84fa4e4d95f83b877d57e" title="Starts the processing of WebSocker connection: asynchronously send handshake response and reads incom...">start</a>(std::unique_ptr&lt;websocket&gt; <span class="keyword">self</span>) {</div>
@@ -646,7 +646,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 20 2018 12:45:11 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 27 2018 16:03:00 for staticlib_pion by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
