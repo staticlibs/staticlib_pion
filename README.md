@@ -76,6 +76,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2020-02-04**
+
+ * version 2.0.3
+ * allow to access TCP endpoint
+
 **2018-10-27**
 
  * version 2.0.2

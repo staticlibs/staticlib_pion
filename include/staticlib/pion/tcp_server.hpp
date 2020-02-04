@@ -185,6 +185,15 @@ public:
         return active_scheduler;
     }
 
+    /**
+     * Return active endpoint
+     * 
+     * @return endpoint
+     */
+    asio::ip::tcp::endpoint& get_tcp_endpoint() {
+        return tcp_endpoint;
+    }
+
 private:
         
     /**
