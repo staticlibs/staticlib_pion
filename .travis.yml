@@ -123,8 +123,9 @@ script:
     make all test ;
     popd ;
 
-    `# Fedora` ;
+    `# Fedora, pkg-config vars broken in F31` ;
     $D cat /etc/fedora-release ;
+    $D cp /src/external_asio/resources/pkgconfig_system/asio.pc /usr/lib64/pkgconfig/asio.pc ;
     $D cmake /src/staticlib_pion -DCMAKE_CXX_FLAGS="--std=c++17" ;
     $D make ;
     $D sh -c "rm -rf /root && mkdir /root" ;
