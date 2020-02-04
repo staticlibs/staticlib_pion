@@ -55,7 +55,8 @@ install:
         valgrind
         asio-devel
         openssl-devel
-        log4cplus-devel ;
+        log4cplus-devel
+        zlib-devel ;
 
     `# Android` ;
     git clone https://github.com/staticlibs/android-ndk-r9d-arm-linux-androideabi-4.8.git ../android-ndk ;
