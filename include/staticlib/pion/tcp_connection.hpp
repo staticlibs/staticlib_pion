@@ -394,7 +394,11 @@ public:
      * @return io_service used for async operations
      */
     asio::io_service& get_io_service() {
+#if ASIO_VERSION >= 101400
+        return static_cast<asio::io_service&>(ssl_socket.lowest_layer().get_executor().context());
+#else
         return ssl_socket.lowest_layer().get_io_service();
+#endif
     }
 
     /**
