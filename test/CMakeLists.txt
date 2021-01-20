@@ -32,6 +32,10 @@ endif ( )
 if ( NOT STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_[^_]+" )
     staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_asio )
     staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_openssl )
+else ( )
+    configure_file ( ${CMAKE_CURRENT_LIST_DIR}/asio.pc
+            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkgconfig/asio.pc
+            COPYONLY )
 endif ( )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_config )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_support )

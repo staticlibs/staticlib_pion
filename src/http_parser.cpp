@@ -603,8 +603,9 @@ void http_parser::update_message_with_header_data(http_message& http_msg) const
     if (! m_query_string.empty()) {
         if (! parse_url_encoded(req.get_queries(),
                               m_query_string.c_str(),
-                              m_query_string.size())) 
+                              m_query_string.size())) {
             STATICLIB_PION_LOG_WARN(log, "Request query string parsing failed (URI)");
+        }
     }
 
     // parse "Cookie" headers in request
@@ -615,8 +616,9 @@ void http_parser::update_message_with_header_data(http_message& http_msg) const
          && cookie_iterator != cookie_pair.second; ++cookie_iterator)
     {
         if (! parse_cookie_header(req.get_cookies(),
-                                cookie_iterator->second, false) )
+                                cookie_iterator->second, false) ) {
             STATICLIB_PION_LOG_WARN(log, "Cookie header parsing failed");
+        }
     }
 }
 
@@ -1418,16 +1420,18 @@ void http_parser::finish(http_message& http_msg) const
         {
             if (! parse_url_encoded(req.get_queries(),
                                   req.get_content(),
-                                  req.get_content_length()))
+                                  req.get_content_length())) {
                 STATICLIB_PION_LOG_WARN(log, "Request form data parsing failed (POST urlencoded)");
+            }
         } else if (content_type_header.compare(0, http_message::CONTENT_TYPE_MULTIPART_FORM_DATA.length(),
                                                http_message::CONTENT_TYPE_MULTIPART_FORM_DATA) == 0)
         {
             if (! parse_multipart_form_data(req.get_queries(),
                                             content_type_header,
                                             req.get_content(),
-                                            req.get_content_length()))
+                                            req.get_content_length())) {
                 STATICLIB_PION_LOG_WARN(log, "Request form data parsing failed (POST multipart)");
+            }
         }
     }
 }

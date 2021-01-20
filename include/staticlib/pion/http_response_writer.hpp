@@ -309,6 +309,7 @@ private:
      */
     static void handle_write(std::unique_ptr<http_response_writer> self,
             const std::error_code& ec, std::size_t bytes_written) {
+        (void) bytes_written;
         if (!ec) {
             // response sent OK
             if (self->sending_chunked_message()) {
